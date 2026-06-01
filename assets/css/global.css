@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600&display=swap');
+
+/* Global Root Configuration Array variables */
+:root {
+    --primary: #232A42;
+    --secondary: #F4B223;
+    --dark: #0A0F1C;
+    --background: #000000;
+    --background-alt: #0A0F1C;
+    --text-light: #F3F4F6;
+    --accent-teal: #0F766E;
+}
+
+/* Base Framework Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Alexandria', sans-serif;
+    background-color: var(--background);
+    color: var(--text-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-alexandria {
+    font-family: 'Alexandria', sans-serif;
+}
+
+/* RTL / Arabic Layout Directional Adjustments */
+.margin-start { margin-left: 2rem; }
+html[dir="rtl"] .margin-start { margin-left: 0; margin-right: 2rem; }
+
+.padding-start { padding-left: 1.5rem; }
+html[dir="rtl"] .padding-start { padding-left: 0; padding-right: 1.5rem; }
+
+html[dir="rtl"] .font-alexandria { line-height: 1.9; }
+
+/* Reusable Cinematic Reveal Animation Systems */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* Responsive Scrollbar Configuration Rules */
+@media (min-width: 768px) {
+    .responsive-scroll-behavior { scrollbar-width: none; -ms-overflow-style: none; }
+    .responsive-scroll-behavior::-webkit-scrollbar { display: none; }
+}
+@media (max-width: 767px) {
+    .responsive-scroll-behavior { scrollbar-width: auto; -ms-overflow-style: auto; }
+    .responsive-scroll-behavior::-webkit-scrollbar { height: 5px; display: block; }
+    .responsive-scroll-behavior::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 99px; }
+    .responsive-scroll-behavior::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 99px; }
+}
+
+.sponsor-logo-render, .thumbnail-target {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* ==========================================================================
+   ADVANCED ARCHITECTURAL DESIGN CORE BLUEPRINT ENGINE
+   ========================================================================== */
+
+/* High-Definition Engineering Blueprint Grid Background Blueprint Pattern */
+.blueprint-grid-matrix {
+    background-size: 20px 20px, 100px 100px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+    -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+}
+
+/* Axis Styling Defaults */
+.blueprint-axis-line {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-dasharray: 4 3;
+}
+
+/* High-Performance SVG Self-Drawing Path System Tracing Engine */
+.blueprint-draw-trace {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    transition: stroke-dashoffset 2.5s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+    will-change: stroke-dashoffset;
+}
+
+/* Executes drawing automation once the observer class registers visible states */
+.is-visible .blueprint-draw-trace {
+    stroke-dashoffset: 0;
+}
+
+/* Fine-Tuning Multi-Stagger Arrays For Vector Lines Sequential Execution */
+.blueprint-draw-trace.delay-100 { transition-delay: 150ms; }
+.blueprint-draw-trace.delay-200 { transition-delay: 300ms; }
+.blueprint-draw-trace.delay-300 { transition-delay: 450ms; }
+.blueprint-draw-trace.delay-400 { transition-delay: 600ms; }
+
+/* Micro-Interaction Scale Physics */
+.blueprint-metric-card svg {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+.blueprint-metric-card:hover svg {
+    transform: scale(1.05);
+}
+
+/* Precision 90-Degree Rotated Custom Typography Mechanical Framework */
+.vertical-arabic-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    line-height: 1 !important;
+}
+
+/* Safe Mode Layout Flip Adjustment rules when main direction shifts to native RTL */
+html[dir="rtl"] .vertical-arabic-label {
+    transform: rotate(0deg);
+}

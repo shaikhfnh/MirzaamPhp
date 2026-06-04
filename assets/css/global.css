@@ -17,6 +17,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
 
 html {
     scroll-behavior: smooth;
@@ -141,4 +148,78 @@ html[dir="rtl"] .font-alexandria { line-height: 1.9; }
 /* Safe Mode Layout Flip Adjustment rules when main direction shifts to native RTL */
 html[dir="rtl"] .vertical-arabic-label {
     transform: rotate(0deg);
+}
+
+/* ==========================================================================
+   PRODUCTION ENGINE FOR DYNAMIC EDITORIAL SLIDER
+   ========================================================================== */
+
+/* Slide Base Structural Default Layers */
+.editorial-slider-container .editorial-slide {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Crystal-Clear Sharp Image Configuration Rules */
+.editorial-slider-container .editorial-slide img {
+    transform: scale(1.01);
+    filter: blur(0px);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Active Visibility Layout Rules */
+.editorial-slider-container .editorial-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 15;
+}
+
+.editorial-slider-container .editorial-slide.is-active img {
+    transform: scale(1.00);
+}
+
+/* Text Element Subtle Fade Entrance Transitions */
+.editorial-slider-container .editorial-slide .flex {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.editorial-slider-container .editorial-slide.is-active .flex {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Standard Static Flat Pill Indicators (No Growth or Resize Animations) */
+.editorial-slider-container .editorial-pill-indicator {
+    width: 32px;
+    height: 3px;
+    border-radius: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    display: block;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover Interaction Style */
+.editorial-slider-container .editorial-pill-indicator:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Clean Active State Indicator Visibility Rule */
+.editorial-slider-container .editorial-pill-indicator.is-active {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* Mobile Component Responsive Adjustment Rules */
+@media (max-width: 640px) {
+    .editorial-slider-container .editorial-pill-indicator {
+        width: 24px;
+        height: 3px;
+    }
 }

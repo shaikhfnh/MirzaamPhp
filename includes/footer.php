@@ -1,320 +1,122 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Mirzaam | Premium Design Exhibition</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css">
-    <!-- Alexandria Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #232A42;
-            --secondary: #F4B223;
-            --background: #000000;
-            --background-alt: #0A0F1C;
-            --text-light: #F3F4F6;
-        }
+<footer class="w-full  border-t-[1px] border-gray-700">
+   <div class="bg-black text-white px-6 md:px-12 py-6">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        * {
-            font-family: 'Alexandria', sans-serif;
-        }
-        
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('https://picsum.photos/id/1015/2000/1200');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        
-        .luxury-heading {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-        }
-        
-        .section-glow {
-            box-shadow: 0 0 60px -15px rgb(244 178 35 / 0.15);
-        }
-        
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        
-        .reveal-up.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .cinematic-text {
-            background: linear-gradient(90deg, #F3F4F6, #F4B223, #F3F4F6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-</head>
-<body class="bg-black text-[#F3F4F6] overflow-x-hidden">
-    <!-- HEADER will be included via JS -->
+        <!-- Column 1: Logo & Info -->
+        <div class="flex flex-col">
+            <img src="./assets/images/logo/WHITE LOGO.png" alt="Mirzaam Logo" class="h-16 w-auto mb-8 object-contain self-center md:self-start">
+            <h4 class="font-bold uppercase tracking-[0.2em] text-[11px] opacity-50 mb-2">Show Days</h4>
+            <p class="text-[14px] leading-relaxed opacity-90">8 - 12 December 2026 &nbsp; 10:00 – 10:00 Daily <br>KIF HALL 5-6</p>
+        </div>
 
-    <!-- ABOUT HERO -->
-    <section class="hero-bg h-screen flex items-center relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-3 px-6 py-3 glass-panel rounded-full border border-white/10 mb-8">
-                    <div class="w-3 h-3 bg-[#F4B223] rounded-full animate-pulse"></div>
-                    <span class="uppercase tracking-[3px] text-sm font-medium">Since 2019</span>
-                </div>
-                
-                <h1 class="luxury-heading text-6xl md:text-7xl leading-none font-medium mb-8">
-                    One Platform.<br>
-                    <span class="cinematic-text">Infinite Design Possibilities.</span>
-                </h1>
-                
-                <p class="text-xl md:text-2xl text-white/80 max-w-2xl leading-relaxed">
-                    Mirzaam has redefined the exhibition landscape in the GCC, becoming the ultimate multi-category destination for spaces and living solutions.
-                </p>
-                
-                <div class="flex items-center gap-8 mt-12">
-                    <a href="#" onclick="document.getElementById('story-section').scrollIntoView({ behavior: 'smooth' })" 
-                       class="magnetic-btn group px-10 py-6 bg-white text-black font-medium rounded-2xl flex items-center gap-3 hover:bg-[#F4B223] transition-all duration-500">
-                        Discover Our Story
-                        <i class="ri-arrow-down-line text-2xl group-hover:translate-y-1 transition-transform"></i>
-                    </a>
-                    
-                    <div class="flex items-center gap-6 text-sm">
-                        <div>
-                            <div class="text-[#F4B223] text-4xl font-light">300+</div>
-                            <div class="text-white/60">Premium Brands</div>
-                        </div>
-                        <div class="h-12 w-px bg-white/10"></div>
-                        <div>
-                            <div class="text-[#F4B223] text-4xl font-light">400K+</div>
-                            <div class="text-white/60">Discerning Visitors</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Column 2: Explore -->
+        <div>
+            <h4 class="font-bold uppercase tracking-[0.2em] text-[16px]  mb-3">Explore</h4>
+            <ul class="space-y-3 text-[14px] opacity-80">
+                <li><a href="#" class="hover:text-white transition-all">About Us</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Exhibit</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Visit</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Mirzaamiyat</a></li>
+            </ul>
         </div>
-        
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-12 left-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
-            <span class="opacity-60">SCROLL TO EXPLORE</span>
-            <i class="ri-arrow-down-s-line text-3xl animate-bounce"></i>
-        </div>
-    </section>
 
-    <!-- STORY SECTION -->
-    <section id="story-section" class="py-24 md:py-32 bg-[#0A0F1C]">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid md:grid-cols-12 gap-16 items-center">
-                <!-- Left Content -->
-                <div class="md:col-span-5 space-y-8">
-                    <div class="reveal-up">
-                        <span class="px-5 py-2.5 text-xs uppercase tracking-[2px] border border-white/20 rounded-full">OUR JOURNEY</span>
-                    </div>
-                    
-                    <h2 class="text-5xl md:text-6xl font-medium leading-tight reveal-up">
-                        Bridging raw construction<br>with timeless luxury.
-                    </h2>
-                    
-                    <div class="prose prose-lg text-white/70 max-w-md reveal-up">
-                        <p class="text-lg">
-                            Launched in 2019, Mirzaam has grown into Kuwait's premier design destination, spanning over 25,000 square meters at the Kuwait International Fairgrounds.
-                        </p>
-                        <p>
-                            We bring together over 300 carefully curated premium brands, connecting visionary creators with more than 400,000 architects, interior designers, real estate developers, and discerning homeowners under one roof.
-                        </p>
-                    </div>
-                    
-                    <div class="flex items-center gap-4 pt-6 reveal-up">
-                        <div class="h-px w-12 bg-gradient-to-r from-transparent via-[#F4B223] to-transparent"></div>
-                        <span class="uppercase text-xs tracking-widest text-[#F4B223]">Kuwait • GCC</span>
-                    </div>
-                </div>
-                
-                <!-- Right Image Grid -->
-                <div class="md:col-span-7">
-                    <div class="grid grid-cols-2 gap-4 md:gap-6">
-                        <div class="space-y-4 md:space-y-6">
-                            <img src="https://picsum.photos/id/1015/800/600" 
-                                 alt="Mirzaam Exhibition Hall" 
-                                 class="w-full aspect-video object-cover rounded-3xl reveal-up">
-                            <img src="https://picsum.photos/id/106/800/520" 
-                                 alt="Premium Booth Design" 
-                                 class="w-full aspect-[4/3] object-cover rounded-3xl reveal-up">
-                        </div>
-                        <div class="space-y-4 md:space-y-6 pt-8 md:pt-16">
-                            <img src="https://picsum.photos/id/201/800/520" 
-                                 alt="Industry Leaders Networking" 
-                                 class="w-full aspect-[4/3] object-cover rounded-3xl reveal-up">
-                            <img src="https://picsum.photos/id/870/800/600" 
-                                 alt="Luxury Interior Showcase" 
-                                 class="w-full aspect-video object-cover rounded-3xl reveal-up">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Column 3: Contact Us -->
+        <div>
+            <h4 class="font-bold uppercase tracking-[0.2em] text-[16px]  mb-3">Contact Us</h4>
+            <ul class="space-y-3 text-[14px] opacity-80">
+                <li><a href="#" class="hover:text-white transition-all">Exhibiting Enquiries</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Visiting Enquiries</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Media</a></li>
+                <li><a href="#" class="hover:text-white transition-all">Privacy Policies</a></li>
+            </ul>
         </div>
-    </section>
 
-    <!-- VALUES / HIGHLIGHTS -->
-    <section class="py-20 md:py-28 bg-black border-t border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-                <div class="glass-panel p-8 md:p-10 rounded-3xl section-glow reveal-up">
-                    <div class="text-[#F4B223] mb-6">
-                        <i class="ri-community-line text-5xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-medium mb-4">Curated Excellence</h3>
-                    <p class="text-white/70">
-                        Over 300 premium international and regional brands hand-selected to represent the pinnacle of design and innovation.
-                    </p>
-                </div>
-                
-                <div class="glass-panel p-8 md:p-10 rounded-3xl section-glow reveal-up" style="transition-delay: 150ms">
-                    <div class="text-[#F4B223] mb-6">
-                        <i class="ri-lightbulb-flash-line text-5xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-medium mb-4">Infinite Inspiration</h3>
-                    <p class="text-white/70">
-                        From raw construction materials to the most luxurious finishes — Mirzaam is the complete ecosystem of spatial design.
-                    </p>
-                </div>
-                
-                <div class="glass-panel p-8 md:p-10 rounded-3xl section-glow reveal-up" style="transition-delay: 300ms">
-                    <div class="text-[#F4B223] mb-6">
-                        <i class="ri-handshake-line text-5xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-medium mb-4">Meaningful Connections</h3>
-                    <p class="text-white/70">
-                        Connecting 400,000+ professionals and enthusiasts with the creators shaping tomorrow’s living environments.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LEGACY SECTION -->
-    <section class="py-24 bg-[#0A0F1C]">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                <div class="md:w-5/12">
-                    <div class="sticky top-24">
-                        <h2 class="text-5xl md:text-6xl font-medium leading-none mb-8 reveal-up">
-                            Where heritage meets future living.
-                        </h2>
-                        <div class="h-px w-20 bg-[#F4B223] mb-8"></div>
-                        <p class="text-lg text-white/70 max-w-md">
-                            Every edition of Mirzaam tells a story — of evolving tastes, groundbreaking materials, and the timeless pursuit of beauty in the spaces we inhabit.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="md:w-7/12">
-                    <div class="aspect-video bg-zinc-900 rounded-3xl overflow-hidden relative group">
-                        <img src="https://picsum.photos/id/1016/1200/630" 
-                             alt="Mirzaam Exhibition Atmosphere" 
-                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-8 left-8 right-8">
-                            <div class="inline-flex items-center gap-2 px-5 py-2 bg-black/60 backdrop-blur-md rounded-2xl text-sm">
-                                <span class="text-[#F4B223]">●</span>
-                                <span>Kuwait International Fairgrounds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS BAR -->
-    <div class="bg-black py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-12 text-center">
-                <div class="reveal-up">
-                    <div class="text-5xl font-light text-[#F4B223]">25,000+</div>
-                    <div class="text-sm uppercase tracking-widest mt-2 text-white/60">Square Meters</div>
-                </div>
-                <div class="reveal-up">
-                    <div class="text-5xl font-light text-[#F4B223]">300+</div>
-                    <div class="text-sm uppercase tracking-widest mt-2 text-white/60">Premium Brands</div>
-                </div>
-                <div class="reveal-up">
-                    <div class="text-5xl font-light text-[#F4B223]">400,000+</div>
-                    <div class="text-sm uppercase tracking-widest mt-2 text-white/60">Visitors</div>
-                </div>
-                <div class="reveal-up">
-                    <div class="text-5xl font-light text-[#F4B223]">5</div>
-                    <div class="text-sm uppercase tracking-widest mt-2 text-white/60">Days of Excellence</div>
-                </div>
-            </div>
-        </div>
+     <!-- Column 4: Map & Socials -->
+<div class="flex flex-col gap-6">
+    <!-- Fixed Map: Styled for Dark Theme -->
+    <div class="w-full h-32 border border-white/20 rounded-sm overflow-hidden">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.4312!2d47.96!3d29.27!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDE2JzEyLjAiTiA0N8KwNTcnMzYuMCJF!5e0!3m2!1sen!2skw!4v1!5m2!1sen!2skw" 
+                class="w-full h-full grayscale-[50%]   brightness-[0.8] hover:grayscale-0  hover:brightness-100 transition-all duration-700" 
+                allowfullscreen="" loading="lazy">
+        </iframe>
     </div>
 
-    <!-- FINAL CTA -->
-    <section class="py-28 bg-black">
-        <div class="max-w-4xl mx-auto text-center px-6">
-            <h2 class="text-5xl md:text-6xl font-medium mb-8">Be part of the future of design.</h2>
-            <p class="text-xl text-white/70 mb-12 max-w-lg mx-auto">
-                Whether you're an exhibitor, architect, designer, or visionary homeowner — Mirzaam is your platform.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="#" class="px-12 py-6 bg-white text-black rounded-2xl font-medium text-lg hover:bg-[#F4B223] transition-colors">
-                    Join as Exhibitor
-                </a>
-                <a href="#" class="px-12 py-6 border border-white/30 hover:border-white/60 rounded-2xl font-medium text-lg transition-colors">
-                    Visit as Guest
-                </a>
-            </div>
+    <!-- Follow Us Section -->
+    <div class="text-center">
+        <h4 class="font-bold uppercase tracking-[0.2em] text-[10px] opacity-50 mb-4">Follow Us</h4>
+        <div class="flex justify-center gap-6">
+            <!-- Instagram Icon -->
+            <a href="#" class="opacity-60 hover:opacity-100 transition-opacity">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+</svg>            </a>
+            <!-- Email Icon -->
+            <a href="mailto:info@mirzaam.com" class="opacity-60 hover:opacity-100 transition-opacity">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+</svg>            </a>
+            <!-- Call Icon -->
+            <a href="tel:+96500000000" class="opacity-60 hover:opacity-100 transition-opacity">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+</svg>            </a>
         </div>
-    </section>
+    </div>
+</div>
+    </div>
+</div>
 
-    <!-- FOOTER will be included via JS -->
-
-    <script>
-        // Tailwind script already included via CDN
-        function initializeReveal() {
-            const reveals = document.querySelectorAll('.reveal-up');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.15 });
-            
-            reveals.forEach(el => observer.observe(el));
-        }
+ <!-- Compact Fouz Expo Section -->
+<section class="w-full bg-[#0a0a0a] px-6 py-5 text-center border-t border-white/5">
+    <div class="max-w-2xl mx-auto flex flex-col items-center gap-4">
+        <!-- Label & Logo -->
+        <p class="text-[8px] uppercase tracking-[0.3em] text-white/20 font-bold">
+            Creating Experiences, Building Trust
+        </p>
         
-        // Magnetic button effect
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeReveal();
-            
-            const magneticBtns = document.querySelectorAll('.magnetic-btn');
-            magneticBtns.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width - 0.5;
-                    const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    btn.style.transform = `translate(${x * 12}px, ${y * 12}px)`;
-                });
-                
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = 'translate(0, 0)';
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+        <img src="./assets/images/Home/fouzlogo.png" alt="Fouz Expo" class="h-10 opacity-70">
+        
+        <!-- Mission Statement -->
+        <p class="text-[12px] leading-relaxed font-light text-white/50">
+            Fouz Expo Company (FEC) stands as a beacon of excellence in the realm of event organization.
+        </p>
+    </div>
+</section>
+
+<!-- Final Refined Brand Gallery -->
+<div class="bg-white px-6 md:px-12 py-5 border-t border-black/5">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h5 class="text-[9px] uppercase tracking-[0.4em] text-black/40 font-bold">Experience Our Leading Expos</h5>
+    </div>
+
+    <!-- Responsive Layout: 1 Column Mobile, 4 Columns Desktop -->
+    <div class="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-2">
+        
+        <!-- Logo Card: Added shadow for mobile depth -->
+        <div class="flex items-center justify-center p-2 border border-black/5 shadow-md md:shadow-none bg-white">
+            <img src="./assets/images/logo/NO BG.png" alt="Mirzaam" class="h-8 w-auto object-contain ">
+        </div>
+
+        <div class="flex items-center justify-center p-2 border border-black/5 shadow-md md:shadow-none bg-white">
+            <img src="./assets/images/Home/mirzaamiyatlogo.png" alt="Mirzaamiyat" class="h-8 w-auto object-contain ">
+        </div>
+
+        <div class="flex items-center justify-center p-2 border border-black/5 shadow-md md:shadow-none bg-white">
+            <img src="./assets/images/Home/ixirlogo.png" alt="Ixir" class="h-8 w-auto object-contain ">
+        </div>
+
+        <div class="flex items-center justify-center p-2 border border-black/5 shadow-md md:shadow-none bg-white">
+            <img src="./assets/images/Home/mamababylogo.png" alt="Mama Baby" class="h-8 w-auto object-contain ">
+        </div>
+        
+    </div>
+</div>
+
+    <div class="bg-[#12161f] text-white/30 text-center py-6 text-[10px] uppercase tracking-widest">
+        &copy; 2026 MIRZAAM EXPO Powered by FEC. All Rights Reserved
+    </div>
+</footer>

@@ -12,7 +12,7 @@ class="fixed top-0 left-0 w-full bg-black border-b border-white/10 z-50">
             <!-- LEFT -->
             <div class="flex">
 
-                <img src="assets/images/logo/WHITE LOGO.png"
+                <img src="./assets/images/logo/WHITE LOGO.png"
                      class="w-[80px] h-full grid self-center">
 
                 <div class="ms-8 hidden sm:block my-2 w-1 bg-white"></div>

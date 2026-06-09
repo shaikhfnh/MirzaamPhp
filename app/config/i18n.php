@@ -1,7 +1,7 @@
 <?php
 // 1. SETTINGS
 // Define your subfolder. If your site moves to the root later, set this to empty: ''
-$base_path = '/mirzaam'; 
+$base_path = ''; 
 
 // 2. DETECT LANGUAGE
 // Detect if '/ar/' is in the current URI

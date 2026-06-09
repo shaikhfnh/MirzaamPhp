@@ -47,6 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+    
+   const isRTL = document.documentElement.dir === 'rtl';
+
+    // Helper: Logic to scroll in the correct direction based on language
+    const scrollTrackHandler = (track, direction) => {
+        const scrollAmount = 400; // Default scroll distance
+        const cardWidth = track.querySelector('.category-slider-card')?.clientWidth || 320;
+        const distance = (track.id === 'categories-scroll-track') ? (cardWidth + 12) : scrollAmount;
+        
+        // If RTL: Next (right arrow) should scroll negative, Prev (left arrow) should scroll positive
+        // If LTR: Next should scroll positive, Prev should scroll negative
+        const multiplier = (direction === 'next') ? (isRTL ? -1 : 1) : (isRTL ? 1 : -1);
+        
+        track.scrollBy({ 
+            left: distance * multiplier, 
+            behavior: 'smooth' 
+        });
+    };
+
     // 1. Lightbox System Selectors
     const modal = document.getElementById('video-modal-lightbox');
     const modalFrame = modal?.querySelector('.modal-window-frame');
@@ -54,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButtons = modal?.querySelectorAll('.modal-close-btn, .container-close-overlay');
     const videoTriggers = document.querySelectorAll('.video-trigger-wrapper');
 
-    // 2. GLOBAL INSIGHTS SLIDER ENGINE
+    // 2. INSIGHTS SLIDER
     const scrollTrack = document.getElementById('insights-scroll-track');
     const navControls = document.getElementById('insights-nav-controls');
     const prevBtn = document.getElementById('insights-prev-btn');
@@ -76,22 +95,66 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(checkHorizontalOverflow, 300);
     window.addEventListener('resize', checkHorizontalOverflow);
 
-    if (nextBtn && prevBtn && scrollTrack) {
-        nextBtn.addEventListener('click', () => {
-            scrollTrack.scrollBy({ left: 400, behavior: 'smooth' });
-        });
-        prevBtn.addEventListener('click', () => {
-            scrollTrack.scrollBy({ left: -400, behavior: 'smooth' });
-        });
+   if (nextBtn && prevBtn && scrollTrack) {
+        nextBtn.addEventListener('click', () => scrollTrackHandler(scrollTrack, 'next'));
+        prevBtn.addEventListener('click', () => scrollTrackHandler(scrollTrack, 'prev'));
     }
 
-    // 3. SECURE HYBRID BREAK-TO-GRID & RE-COLLAPSE REPAINT ENGINE
+    // 3. CATEGORIES SLIDER & RTL-COMPATIBLE SMOOTH AUTO-SLIDE
     const catTrack = document.getElementById('categories-scroll-track');
     const catControls = document.getElementById('categories-nav-controls');
     const catPrevBtn = document.getElementById('categories-prev-btn');
     const catNextBtn = document.getElementById('categories-next-btn');
     const catToggleBtn = document.getElementById('toggle-categories-grid-btn');
     const catCards = document.querySelectorAll('.category-slider-card');
+
+    let animationFrameId = null;
+    let isPaused = false;
+    const speed = 0.8; // Change this value to adjust smoothness/speed (lower = slower & smoother)
+
+    const smoothScrollLoop = () => {
+        if (!catTrack || catTrack.classList.contains('grid') || isPaused) {
+            animationFrameId = requestAnimationFrame(smoothScrollLoop);
+            return;
+        }
+
+        const maxScroll = catTrack.scrollWidth - catTrack.clientWidth;
+        
+        // Normalize scroll position to handle variation across different browser RTL implementations
+        let currentScroll = catTrack.scrollLeft;
+
+        if (isRTL) {
+            // In standard RTL, scrollLeft moves from 0 down to negative maxScroll
+            // Or in some older engines, maxScroll down to 0. We handle both cleanly:
+            if (currentScroll > 0) { 
+                // Engine style where RTL starts at maxScroll and goes to 0
+                currentScroll -= speed;
+                if (currentScroll <= 5) currentScroll = maxScroll;
+            } else {
+                // Standard engine style where RTL starts at 0 and goes negative
+                currentScroll -= speed;
+                if (Math.abs(currentScroll) >= maxScroll - 5) currentScroll = 0;
+            }
+        } else {
+            // Standard LTR scroll logic
+            currentScroll += speed;
+            if (currentScroll >= maxScroll - 5) currentScroll = 0;
+        }
+
+        catTrack.scrollLeft = currentScroll;
+        animationFrameId = requestAnimationFrame(smoothScrollLoop);
+    };
+
+    const startAutoSlide = () => {
+        isPaused = false;
+        if (!animationFrameId) {
+            animationFrameId = requestAnimationFrame(smoothScrollLoop);
+        }
+    };
+
+    const stopAutoSlide = () => {
+        isPaused = true;
+    };
 
     const checkCategoriesOverflow = () => {
         if (!catTrack || !catControls || catTrack.classList.contains('layout-broken-to-grid')) return;
@@ -107,28 +170,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    if (catPrevBtn && catNextBtn && catTrack) {
+        catNextBtn.onclick = null;
+        catPrevBtn.onclick = null;
+
+        catNextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            scrollTrackHandler(catTrack, 'next');
+            // Give the user 2 seconds of stillness after clicking before resuming auto-slide
+            setTimeout(startAutoSlide, 2000);
+        });
+        catPrevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            scrollTrackHandler(catTrack, 'prev');
+            setTimeout(startAutoSlide, 2000);
+        });
+        console.log("Navigation buttons attached successfully.");
+    } else {
+        console.error("Navigation buttons or track NOT found in DOM. Check IDs!");
+    }
+
     setTimeout(checkCategoriesOverflow, 400);
     window.addEventListener('resize', checkCategoriesOverflow);
 
-    if (catNextBtn && catPrevBtn && catTrack) {
-        catNextBtn.addEventListener('click', () => {
-            const cardWidth = catCards[0]?.clientWidth || 320;
-            catTrack.scrollBy({ left: cardWidth + 12, behavior: 'smooth' });
-        });
-        catPrevBtn.addEventListener('click', () => {
-            const cardWidth = catCards[0]?.clientWidth || 320;
-            catTrack.scrollBy({ left: -(cardWidth + 12), behavior: 'smooth' });
-        });
-    }
-
 if (catToggleBtn && catTrack) {
     let itemsAreExpandedAsGrid = false;
+
+    // Grab the localized translations safely from the HTML data-attributes
+    const textAll = catToggleBtn.getAttribute('data-text-all') || "View All Categories";
+    const textCollapse = catToggleBtn.getAttribute('data-text-collapse') || "Collapse to Track";
 
     catToggleBtn.addEventListener('click', () => {
         itemsAreExpandedAsGrid = !itemsAreExpandedAsGrid;
 
         if (itemsAreExpandedAsGrid) {
-            // ONLY hide the arrow controls, not the button
+            stopAutoSlide();
+
             if (catControls) {
                 catControls.style.visibility = 'hidden'; 
                 catControls.style.opacity = '0';
@@ -140,9 +217,11 @@ if (catToggleBtn && catTrack) {
             catTrack.style.display = 'grid';
 
             catCards.forEach(card => card.classList.add('w-full'));
-            catToggleBtn.textContent = "Collapse to Track";
+            
+            // --- FIXED LINE: Dynamically sets Arabic or English based on active translation file ---
+            catToggleBtn.textContent = textCollapse; 
+            
         } else {
-            // Restore arrow controls visibility
             if (catControls) {
                 catControls.style.visibility = 'visible';
                 catControls.style.opacity = '1';
@@ -154,15 +233,29 @@ if (catToggleBtn && catTrack) {
             catTrack.style.display = 'flex';
 
             catCards.forEach(card => card.classList.remove('w-full'));
-            catToggleBtn.textContent = "View All Categories";
+            
+            // --- FIXED LINE: Dynamically sets Arabic or English based on active translation file ---
+            catToggleBtn.textContent = textAll;
+
+            startAutoSlide();
         }
 
-        // Always trigger resize, button will remain untouched because it's not in catControls
         if (typeof lenis !== 'undefined') {
             setTimeout(() => lenis.resize(), 100);
         }
     });
 }
+
+    // Initialize Auto-slide lifecycle events with Hover Pausing
+    if (catTrack) {
+        startAutoSlide();
+        catTrack.addEventListener('mouseenter', stopAutoSlide);
+        catTrack.addEventListener('mouseleave', startAutoSlide);
+        
+        // Touch support for mobile devices
+        catTrack.addEventListener('touchstart', stopAutoSlide);
+        catTrack.addEventListener('touchend', startAutoSlide);
+    }
 
     // --- Lightbox Dynamic Initialization Lifecycle Hooks ---
     if (modal && iframeTarget) {
@@ -322,3 +415,30 @@ if (document.readyState === 'loading') {
 } else {
     initializeAllSliders();
 }
+
+//About image popup on hover
+const follower = document.getElementById('image-follower');
+    const img = document.getElementById('follower-img');
+    const pillars = document.querySelectorAll('.pillar');
+
+    document.addEventListener('mousemove', (e) => {
+        // Only move if not on mobile/tablet (using window innerWidth check)
+        if (window.innerWidth > 1024) {
+            follower.style.left = e.clientX + 'px';
+            follower.style.top = e.clientY + 'px';
+        }
+    });
+
+    pillars.forEach(pillar => {
+        pillar.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 1024) {
+                img.src = pillar.getAttribute('data-img');
+                follower.style.opacity = '1';
+            }
+        });
+        pillar.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 1024) {
+                follower.style.opacity = '0';
+            }
+        });
+    });

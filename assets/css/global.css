@@ -29,6 +29,18 @@ html {
     scroll-behavior: smooth;
 }
 
+.lang-en, .lang-ar {
+    display: none;
+}
+
+[dir="ltr"] .lang-en {
+    display: inline-block;
+}
+
+[dir="rtl"] .lang-ar {
+    display: inline-block;
+}
+
 body {
     font-family: 'Alexandria', sans-serif;
     background-color: var(--background);
@@ -48,7 +60,10 @@ html[dir="rtl"] .margin-start { margin-left: 0; margin-right: 2rem; }
 .padding-start { padding-left: 1.5rem; }
 html[dir="rtl"] .padding-start { padding-left: 0; padding-right: 1.5rem; }
 
-html[dir="rtl"] .font-alexandria { line-height: 1.9; }
+/* html[dir="rtl"] .font-alexandria { line-height: 1.9; } */
+
+ .stroke-text { -webkit-text-stroke: 1px white; }
+
 
 /* Reusable Cinematic Reveal Animation Systems */
 .reveal-up {
@@ -85,6 +100,21 @@ html[dir="rtl"] .font-alexandria { line-height: 1.9; }
     will-change: transform;
 }
 
+#categories-scroll-track {
+    /* Prevents the scrollbar from appearing while the JS is moving it */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#categories-scroll-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure cards don't wrap and are tightly aligned */
+#categories-scroll-track.flex {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 /* ==========================================================================
    ADVANCED ARCHITECTURAL DESIGN CORE BLUEPRINT ENGINE
    ========================================================================== */
@@ -100,6 +130,17 @@ html[dir="rtl"] .font-alexandria { line-height: 1.9; }
     mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
     -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
 }
+/* Target the SVG paths directly */
+.blueprint-svg {
+    /* Default stroke width */
+    stroke-width: 2.5; 
+    transition: stroke-width 0.5s ease, color 0.5s ease;
+}
+
+/* When the parent card is hovered, increase the boldness */
+.blueprint-metric-card:hover .blueprint-svg {
+    stroke-width: 2.2; /* Adjust this value to make it as bold as you like */
+}
 
 /* Axis Styling Defaults */
 .blueprint-axis-line {
@@ -107,24 +148,32 @@ html[dir="rtl"] .font-alexandria { line-height: 1.9; }
     stroke-dasharray: 4 3;
 }
 
-/* High-Performance SVG Self-Drawing Path System Tracing Engine */
+/* High-Performance SVG Self-Drawing Path System */
 .blueprint-draw-trace {
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-    transition: stroke-dashoffset 2.5s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+    /* 1500 is safer for longer, complex paths */
+    stroke-dasharray: 1500; 
+    stroke-dashoffset: 1500;
+    
+    /* 10s duration for a slow, premium feel */
+    transition: stroke-dashoffset 10s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.6s ease;
     will-change: stroke-dashoffset;
 }
 
-/* Executes drawing automation once the observer class registers visible states */
-.is-visible .blueprint-draw-trace {
+/* Triggered once the section is in view */
+#expo-metrics-blueprint.is-visible .blueprint-draw-trace {
     stroke-dashoffset: 0;
 }
 
-/* Fine-Tuning Multi-Stagger Arrays For Vector Lines Sequential Execution */
-.blueprint-draw-trace.delay-100 { transition-delay: 150ms; }
-.blueprint-draw-trace.delay-200 { transition-delay: 300ms; }
-.blueprint-draw-trace.delay-300 { transition-delay: 450ms; }
-.blueprint-draw-trace.delay-400 { transition-delay: 600ms; }
+/* Staggered Execution - Using 1.5s steps for a clean, sequential reveal */
+.draw-stagger-1 { transition-delay: 0.2s; }
+.draw-stagger-2 { transition-delay: 1.7s; }
+.draw-stagger-3 { transition-delay: 3.2s; }
+.draw-stagger-4 { transition-delay: 4.7s; }
+
+/* Optional: Subtle pulse on hover for UX feedback */
+.blueprint-metric-card:hover .blueprint-draw-trace {
+    stroke: rgba(255, 255, 255, 0.8);
+}
 
 /* Micro-Interaction Scale Physics */
 .blueprint-metric-card svg {
@@ -223,3 +272,4 @@ html[dir="rtl"] .vertical-arabic-label {
         height: 3px;
     }
 }
+

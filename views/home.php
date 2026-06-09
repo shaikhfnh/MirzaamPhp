@@ -300,7 +300,7 @@ if (isset($hero_media) && is_array($hero_media)): ?>
 </section>
 
 
-<section id="fair-moments-slider" class="editorial-slider-container relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between py-6 md:py-12" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
+<div id="fair-moments-slider" class="editorial-slider-container relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between py-6 md:py-12" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
     
     <div class="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
     <div class="absolute inset-0 z-20 pointer-events-none bg-white/[0.01]"></div>
@@ -339,7 +339,7 @@ if (isset($hero_media) && is_array($hero_media)): ?>
             <?php endforeach; ?>
         </div>
     </div>
-</section>
+</div>
 
 
 

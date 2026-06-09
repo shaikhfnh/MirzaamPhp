@@ -3,7 +3,7 @@
 $hero_media = [
     [
         'type'   => 'video',
-        'src'    => '/mirzaam/assets/media/Mirzaam-2024.mp4',
+        'src'    => 'https://cdn.shopify.com/videos/c/o/v/25ba264a952748a8846b2fd271387d52.mp4',
         'poster' => '/mirzaam/assets/images/Home/fallback-poster.png'
     ]
     // Later, you can easily add another array here to make it a slider!

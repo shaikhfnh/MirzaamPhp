@@ -39,20 +39,18 @@ require_once 'app/data/home_data.php';
 </html>
 
 <?php
-// 3. FETCH THE FULLY RENDERED HTML PAGE FROM MEMORY
+// FETCH THE FULLY RENDERED HTML PAGE FROM MEMORY
 $html_output = ob_get_clean();
 
-// 4. EXECUTE GLOBAL REPLACEMENT RULES BASED ON ENVIRONMENT
 global $base_path;
 
 if ($base_path === '') {
-    // ON RAILWAY: Strip out the local subfolder prefix entirely from all links and assets
+    // ON PRODUCTION (RAILWAY): Clean up assets AND folder route strings from links globally
     $html_output = str_replace('/mirzaam/assets/', '/assets/', $html_output);
-} else {
-    // ON LOCAL: Ensure any loose or un-prefixed asset references point back to your local subfolder
-    $html_output = str_replace('="/assets/', '="/mirzaam/assets/', $html_output);
+    $html_output = str_replace('href="/mirzaam/', 'href="/', $html_output);
+    $html_output = str_replace('href="/mirzaam"', 'href="/"', $html_output);
 }
 
-// 5. OUTPUT THE PERFECTLY CLEANED HTML TO THE VISITOR'S BROWSER
+// OUTPUT THE CLEANED HTML TO THE VISITOR'S BROWSER
 echo $html_output;
 ?>

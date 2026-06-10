@@ -1,13 +1,20 @@
 <?php
 // 1. SETTINGS
-// Define your subfolder. If your site moves to the root later, set this to empty: ''
-// $base_path = '/mirzaam'; 
+// Leave as '' on Railway, or '/mirzaam' on Local
 $base_path = ''; 
 
 // 2. DETECT LANGUAGE
-// Detect if '/ar/' is in the current URI
 $request_uri = $_SERVER['REQUEST_URI'];
-$lang = (strpos($request_uri, "{$base_path}/ar/") !== false) ? 'ar' : 'en';
+
+// Clean up trailing slashes or index.php to make detection accurate
+$clean_uri = rtrim($request_uri, '/');
+if (strpos($clean_uri, '/index.php') !== false) {
+    $clean_uri = str_replace('/index.php', '', $clean_uri);
+}
+
+// Check if the URI ends with /ar or contains /ar/
+$is_arabic = (preg_match('#/ar($|/)#', $clean_uri) === 1);
+$lang = $is_arabic ? 'ar' : 'en';
 
 // 3. LOAD TRANSLATIONS
 $translations = [];
@@ -29,35 +36,48 @@ function __($key) {
     return $translations[$key] ?? $key;
 }
 
-// 5. URL HELPER (Fixed for /mirzaam/ structure)
+// 5. URL HELPER
 function get_url($path) {
     global $lang, $base_path;
-    
-    // Clean input
     $path = ltrim($path, '/');
     
-    // If path is empty (root), treat as index.php
-    $file = ($path === '' || $path === '#') ? '' : $path;
+    // Normalize the base to avoid double slashes
+    $normalized_base = ($base_path === '') ? '' : $base_path;
 
     if ($lang === 'en') {
-        return "{$base_path}/{$file}";
+        return $normalized_base . '/' . $path;
     } else {
-        // Build AR URL: /mirzaam/ar/filename.php
-        return "{$base_path}/ar/{$file}";
+        return $normalized_base . '/ar/' . $path;
     }
 }
 
-// 6. HELPER FOR THE LANGUAGE SWITCHER
+// 6. HELPER FOR THE LANGUAGE SWITCHER (Bulletproof Routing)
 function get_switch_url() {
-    global $lang, $base_path; // Make sure $base_path is defined as '/mirzaam'
-    $current_uri = $_SERVER['REQUEST_URI'];
-    
-    if ($lang === 'en') {
-        // If currently on /mirzaam/index.php, switch to /mirzaam/ar/index.php
-        return str_replace($base_path, "{$base_path}/ar", $current_uri);
-    } else {
-        // If currently on /mirzaam/ar/index.php, switch back to /mirzaam/index.php
-        return str_replace("{$base_path}/ar", $base_path, $current_uri);
+    global $lang, $base_path;
+    $request_uri = $_SERVER['REQUEST_URI'];
+
+    // Strip out base path to get the raw local file track
+    $relative_path = $request_uri;
+    if ($base_path !== '' && strpos($request_uri, $base_path) === 0) {
+        $relative_path = substr($request_uri, strlen($base_path));
     }
+    $relative_path = '/' . ltrim($relative_path, '/');
+
+    if ($lang === 'en') {
+        // Switching to Arabic: Inject /ar/ into the path correctly
+        if (strpos($relative_path, '/ar/') !== 0 && $relative_path !== '/ar') {
+            $relative_path = '/ar' . $relative_path;
+        }
+    } else {
+        // Switching to English: Cleanly remove /ar/ or /ar from the path
+        if (strpos($relative_path, '/ar/') === 0) {
+            $relative_path = substr($relative_path, 3);
+        } elseif ($relative_path === '/ar') {
+            $relative_path = '/';
+        }
+    }
+
+    // Return reconstructed path wrapped in environment base path
+    return $base_path . '/' . ltrim($relative_path, '/');
 }
 ?>

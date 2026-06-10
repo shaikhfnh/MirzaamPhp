@@ -1,9 +1,11 @@
 <?php
-// 1. Load the "Brains" - Global Configs and Data
+// 1. START CAPTURING ALL OUTPUT INTO SERVER MEMORY
+ob_start();
+
+// 2. Load the "Brains" - Global Configs and Data
 require_once 'app/config/i18n.php'; 
 require_once 'app/data/home_data.php'; 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="<?= $lang ?>" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
@@ -17,7 +19,7 @@ require_once 'app/data/home_data.php';
     <link rel="icon" href="/mirzaam/assets/images/favicon.ico">
 
     <script src="https://cdn.tailwindcss.com"></script>
-        <script type="module" src="/mirzaam/assets/js/main.js"></script>
+    <script type="module" src="/mirzaam/assets/js/main.js"></script>
     <link rel="stylesheet" href="/mirzaam/assets/css/global.css">
     <link rel="stylesheet" href="/mirzaam/assets/css/header.css">
 
@@ -35,3 +37,22 @@ require_once 'app/data/home_data.php';
     
 </body>
 </html>
+
+<?php
+// 3. FETCH THE FULLY RENDERED HTML PAGE FROM MEMORY
+$html_output = ob_get_clean();
+
+// 4. EXECUTE GLOBAL REPLACEMENT RULES BASED ON ENVIRONMENT
+global $base_path;
+
+if ($base_path === '') {
+    // ON RAILWAY: Strip out the local subfolder prefix entirely from all links and assets
+    $html_output = str_replace('/mirzaam/assets/', '/assets/', $html_output);
+} else {
+    // ON LOCAL: Ensure any loose or un-prefixed asset references point back to your local subfolder
+    $html_output = str_replace('="/assets/', '="/mirzaam/assets/', $html_output);
+}
+
+// 5. OUTPUT THE PERFECTLY CLEANED HTML TO THE VISITOR'S BROWSER
+echo $html_output;
+?>

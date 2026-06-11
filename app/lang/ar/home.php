@@ -51,6 +51,7 @@ return [
     'banking_sponsor'   => 'راعي مالي',
     'strategic_sponsor' => 'راعي استراتيجي',
     'media_sponsor'     => 'راعي إعلامي',
+    'view_all_participants'       => 'عرض جميع المشاركين',
 
 // Moments Section
     'moment_1_title' => 'لحظات',

@@ -34,10 +34,12 @@ $about_pillars = [
 ];
 
 $app_connect_data = [
-    'map_image'   => '/mirzaam/assets/images/Home/mirzaam-map.png',
-    'chat_image'  => '/mirzaam/assets/images/Home/mirzai-chat.png',
-    'app_store'   => '/mirzaam/assets/images/Home/app-store.png',
-    'google_play' => '/mirzaam/assets/images/Home/google-play.png',
+    'frame_image' => '/mirzaam/assets/images/home/iPhone17.png',
+    'home_image'  => '/mirzaam/assets/images/home/app_home.png',
+    'map_image'   => '/mirzaam/assets/images/home/app_map.png',
+    'chat_image'  => '/mirzaam/assets/images/home/app_chat.jpeg',
+    'app_store'   => '/mirzaam/assets/images/home/app-store.png',
+    'google_play' => '/mirzaam/assets/images/home/google-play.png',
     'apple_link'  => '#',
     'google_link' => '#'
 ];

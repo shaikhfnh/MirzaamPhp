@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             navControls.classList.add('flex', 'opacity-100', 'pointer-events-auto', 'translate-x-0');
         } else {
             navControls.classList.remove('opacity-100', 'pointer-events-auto', 'translate-x-0');
-            navControls.classList.add('opacity-0', 'pointer-events-none', 'translate-x-4');
+            navControls.classList.add('opacity-100', 'pointer-events-auto', 'translate-x-4');
         }
     };
 
@@ -442,3 +442,45 @@ const follower = document.getElementById('image-follower');
             }
         });
     });
+
+
+    //mobile app view switching
+    document.addEventListener('DOMContentLoaded', () => {
+    
+    // Global function attached to window so your HTML can find it
+    window.switchAppView = function(target) {
+        const screens = { home: 'mockup-home', map: 'mockup-map', chat: 'mockup-chat' };
+        const backBtn = document.getElementById('mockup-back-btn');
+        
+        Object.keys(screens).forEach(key => {
+            const el = document.getElementById(screens[key]);
+            if (!el) return; // Safety check
+            
+            if (key === target) {
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+                el.style.zIndex = '20';
+                el.scrollTop = 0;
+            } else {
+                el.style.opacity = '0';
+                el.style.pointerEvents = 'none';
+                el.style.zIndex = '10';
+            }
+        });
+
+        if (backBtn) {
+            backBtn.style.opacity = (target === 'home') ? '0' : '1';
+            backBtn.style.pointerEvents = (target === 'home') ? 'none' : 'auto';
+        }
+    };
+
+    // Smooth isolated scroll
+    const scrollContainers = document.querySelectorAll('.scroll-container');
+    scrollContainers.forEach(el => {
+        el.addEventListener('wheel', (e) => {
+            e.stopPropagation();
+            el.scrollTop += e.deltaY;
+        }, { passive: false });
+    });
+
+});

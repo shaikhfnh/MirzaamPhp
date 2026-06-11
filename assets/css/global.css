@@ -273,3 +273,18 @@ html[dir="rtl"] .vertical-arabic-label {
     }
 }
 
+/* Mobile Component Responsive Adjustment Rules */
+    /* Force hide scrollbars everywhere */
+    .scroll-container::-webkit-scrollbar { display: none; }
+    .scroll-container { scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: contain; }
+
+@keyframes sharp-pulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px var(--glow-color); }
+    50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px var(--glow-color); }
+}
+
+.sharp-glow {
+    animation: sharp-pulse 2s infinite ease-in-out;
+}
+
+

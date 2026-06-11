@@ -53,6 +53,7 @@ return [
     'banking_sponsor'   => 'Banking Sponsor',
     'strategic_sponsor' => 'Strategic Sponsor',
     'media_sponsor'     => 'Media Sponsor',
+    'view_all_participants'       => 'View All Participants',
 
 // Moments Section
     'moment_1_title' => 'Moments',

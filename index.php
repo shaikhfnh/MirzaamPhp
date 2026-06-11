@@ -4,6 +4,7 @@ ob_start();
 
 // 2. Load the "Brains" - Global Configs and Data
 require_once 'app/config/i18n.php'; 
+require_once 'app/data/participantsdata-2025.php';
 require_once 'app/data/home_data.php'; 
 ?>
 
@@ -29,9 +30,31 @@ require_once 'app/data/home_data.php';
     
     <?php include 'includes/header.php'; ?>
     
-    <main>
-        <?php include 'views/home.php'; ?>
-    </main>
+  <main>
+    <?php
+    // Get the request path and remove the base path
+    $request_uri = $_SERVER['REQUEST_URI'];
+    // Remove /mirzaam/ if it exists
+    $path = str_replace($base_path, '', $request_uri);
+    $path = trim($path, '/');
+    
+    // Handle the language prefix (remove /ar if present to get the actual page name)
+    if (strpos($path, 'ar/') === 0) {
+        $path = substr($path, 3);
+    }
+
+    // ROUTING SWITCH
+    switch ($path) {
+        case 'about':
+        case 'about.php':
+            include 'views/about.php'; // Ensure your file name matches exactly
+            break;
+        default:
+            include 'views/home.php';
+            break;
+    }
+    ?>
+</main>
     
     <?php include 'includes/footer.php'; ?>
     

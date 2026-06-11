@@ -12,7 +12,6 @@
  * @var array $mirzaam_years_blueprint 
  */
 ?>
-
 <?php
 // Safety check: Only proceed if the data is available
 if (isset($hero_media) && is_array($hero_media)): ?>
@@ -30,14 +29,14 @@ if (isset($hero_media) && is_array($hero_media)): ?>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
 
     <div class="relative z-10 flex-grow flex items-center justify-center">
-        <h1 class="text-[clamp(4rem,12vw,14rem)] font-bold font-alexandria leading-[1] tracking-tighter uppercase text-center">
+        <!-- <h1 class="text-[clamp(4rem,12vw,14rem)] font-bold font-alexandria leading-[1] tracking-tighter uppercase text-center">
             <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;"> 
                 <?= __('hero_title') ?> <br/>
             </span>
             <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;">
                 <?= __('hero_year') ?>
             </span>
-        </h1>
+        </h1> -->
     </div>
 
     <div class="relative z-10 w-full px-6 md:px-20 pb-12 flex flex-col md:flex-row justify-between items-end gap-8">
@@ -60,9 +59,8 @@ if (isset($hero_media) && is_array($hero_media)): ?>
 <?php endif; ?>
 
 
-
 <section id="about" class="relative w-full py-12 bg-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div id="image-follower" class="fixed top-0 left-0 w-80 h-80 pointer-events-none z-50 opacity-0 transition-opacity duration-300 translate-x-[-100%] translate-y-[-100%] hidden lg:block">
+    <div id="image-follower" class="fixed top-0 left-0 w-80 h-80 pointer-events-none z-50 opacity-0 transition-opacity duration-300 translate-x-[-100%] translate-y-[-110%] hidden lg:block">
         <img id="follower-img" src="" class="w-full h-full object-cover rounded-2xl shadow-2xl border border-white/10" />
     </div>
 
@@ -71,7 +69,7 @@ if (isset($hero_media) && is_array($hero_media)): ?>
             <div class="lg:col-span-7">
                 <h2 class="text-[clamp(2.5rem,7vw,6rem)] font-bold font-alexandria leading-[0.95] tracking-tighter uppercase">
                     <?= __('about_headline_part1') ?> <br/>
-                    <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;"><?= __('about_headline_stroke') ?></span> <br/>
+                    <span class="text-gray-500 italic"><?= __('about_headline_stroke') ?></span> <br/>
                     <?= __('about_headline_part2') ?>
                 </h2>
             </div>
@@ -81,14 +79,13 @@ if (isset($hero_media) && is_array($hero_media)): ?>
                 </p>
             </div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <?php foreach ($about_pillars as $item): ?>
                 <div class="pillar group border-t border-white/20 pt-8 cursor-pointer transition-all duration-500 hover:border-[var(--primary)]" 
                      data-img="<?= $item['image'] ?>">
                     
                     <div class="text-gray-300 text-xs font-bold font-mono mb-4 uppercase tracking-widest">
-                        <?= $item['id'] ?> // <?= __($item['title']) ?>
+                     <?= __($item['title']) ?>
                     </div>
                     
                     <h3 class="text-2xl font-bold font-alexandria mb-4"><?= __($item['heading']) ?></h3>
@@ -104,31 +101,93 @@ if (isset($hero_media) && is_array($hero_media)): ?>
     </div>
 </section>
 
+<section id="expo-metrics-blueprint" class="relative w-full py-12 bg-black overflow-hidden" dir="ltr">
+    
+    <div class="absolute inset-0 pointer-events-none opacity-[0.15]" style="background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 0); background-size: 20px 20px;"></div>
 
-<section id="app-connect" class="relative w-full py-12 bg-black text-[var(--text-light)] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
+    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-12 gap-y-12 items-start">
+            
+            <?php foreach ($metrics as $metric): ?>
+            <div class="blueprint-metric-card flex items-start justify-center gap-4 sm:gap-6 group relative p-5 sm:p-6 rounded-2xl border border-white/[0.04] bg-white/[0.02] lg:bg-transparent lg:border-transparent transition-all duration-500 lg:hover:bg-white/[0.01]" data-target-value="<?= $metric['value'] ?>">
+                <div class="absolute inset-0 bg-indigo-500/0 lg:group-hover:bg-indigo-500/[0.03] rounded-2xl blur-xl transition-all duration-500 pointer-events-none"></div>
+                
+                <div class="flex flex-col items-center flex-1 relative z-10">
+                    <div class="w-full max-w-[180px] aspect-[1.4/1] mb-6 relative flex items-center justify-center">
+                        <svg viewBox="0 0 160 110" class="blueprint-svg w-full h-full stroke-current text-[var(--secondary)] lg:text-[var(--secondary)] lg:group-hover:text-white transition-colors duration-500 fill-none stroke-linecap-round stroke-linejoin-round">
+    <?= $metric['svg'] ?>
+</svg>
+                    </div>
+                    <div class="reveal-up text-center w-full">
+                        <span class="metric-odometer block text-3xl sm:text-4xl md:text-5xl font-sans font-medium text-white tracking-tight mb-2">0</span>
+<span class="block text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-white/80  font-sans">
+    <?= ($lang === 'ar') ? $metric['ar'] : $metric['en'] ?>
+</span>                    </div>
+                </div>
+<div class="vertical-arabic-label text-gray-300 font-alexandria text-[10px] sm:text-xs font-light select-none lg:group-hover:text-white/60 transition-colors duration-300 self-end mb-2 sm:mb-4 relative z-10" dir="rtl">
+    <?= ($lang === 'ar') ? $metric['en'] : $metric['ar'] ?>
+</div>            </div>
+            <?php endforeach; ?>
+
+        </div>
+    </div>
+</section>
+
+
+
+<section id="app-connect" class="relative w-full py-16 bg-black text-[var(--text-light)] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
     <div class="section-glow absolute bottom-0 right-1/4 w-[35rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[130px] opacity-15 pointer-events-none"></div>
 
     <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             
-            <div class="lg:col-span-6 relative flex items-center justify-center max-h-[500px] md:max-h-[650px] reveal-up">
-                <div class="relative z-20 w-[260px] md:w-[320px] transition-transform duration-700 hover:scale-[1.02]">
-                    <img src="<?= $app_connect_data['map_image'] ?>" alt="<?= __('alt_map') ?>" class="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]" />
-                </div>
+            <div class="lg:col-span-6 relative flex items-center justify-center reveal-up">
+                <div class="relative w-[280px] sm:w-[320px] h-[36rem] sm:h-[40rem] drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]">
+                    
+                    <img src="<?= $app_connect_data['frame_image'] ?>" alt="iPhone Frame" class="absolute inset-0 w-full h-full z-40 pointer-events-none object-contain" />
 
-<div class="absolute z-30 bottom-24 <?= ($lang === 'ar' ? '-right-4 md:-right-16' : '-left-4 md:-left-16') ?> w-[240px] md:w-[290px] p-0.5 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2 reveal-up delay-200">                    <img src="<?= $app_connect_data['chat_image'] ?>" alt="<?= __('alt_chat') ?>" class="w-full h-auto rounded-2xl" />
-                </div>
+                    <div class="absolute top-[2%] bottom-[2%] left-[5%] right-[5%] bg-white rounded-[2.2rem] z-20 overflow-hidden">
 
-                <div class="absolute z-10 top-12 right-0 md:-right-6 hidden sm:block opacity-60 pointer-events-none reveal-up delay-300">
-                    <div class="flex flex-col items-start gap-2 font-alexandria text-xs text-gray-400 max-w-[150px]">
-                        <span><?= __('app_hint') ?></span>
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="text-gray-500 mt-1 transform -scale-x-100 rotate-45">
-                            <path d="M4 4C4 21.12 17.88 35 35 35M35 35H19M35 35V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <div id="view-container" class="relative w-full h-full">
+                            
+                           <div id="mockup-home" class="absolute inset-0 w-full h-full z-20 bg-white overflow-y-auto scroll-container transition-opacity duration-300 opacity-100">
+    <div class="relative w-full block">
+        <img src="<?= $app_connect_data['home_image'] ?>" alt="App Home" class="w-full h-auto block" />
+        
+<button 
+    onclick="switchAppView('map')" 
+    style="--glow-color: var(--primary);" 
+    class="absolute top-[40%] right-[2%] z-40 w-[7.3rem] md:w-[8.3rem] h-[3.2rem] md:h-[3.7rem] rounded-[1.5rem] bg-[var(--primary)]/20 border-2 border-white sharp-glow transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" 
+    aria-label="Open Map">
+</button>
+
+       <button 
+    onclick="switchAppView('chat')" 
+    style="--glow-color: #3b82f6;" 
+    class="absolute top-[12%] left-[12%] z-40 w-[12rem] md:w-[13.7rem] h-[2.6rem] md:h-[3rem] rounded-[1.5rem] bg-blue-500/20 border-2 border-white sharp-glow transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" 
+    aria-label="Open Chat">
+</button>
+    </div>
+</div>
+
+                            <div id="mockup-map" class="absolute inset-0 w-full h-full z-10 bg-white overflow-y-auto scroll-container transition-opacity duration-300 opacity-0 pointer-events-none">
+                                <img src="<?= $app_connect_data['map_image'] ?>" alt="App Map" class="w-full h-auto block" />
+                            </div>
+
+                            <div id="mockup-chat" class="absolute inset-0 w-full h-full z-10 bg-[#f0f2f5] overflow-y-auto scroll-container transition-opacity duration-300 opacity-0 pointer-events-none">
+                                <img src="<?= $app_connect_data['chat_image'] ?>" alt="App Chat" class="w-full h-auto block" />
+                            </div>
+                        </div>
+
+                        <button id="mockup-back-btn" onclick="switchAppView('home')" class="absolute top-8 text-[10px] left-4 z-50 bg-black/70 backdrop-blur-xl border border-white/10 text-white px-1.5 py-1 rounded-full text-xs font-medium shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                            Back
+                        </button>
                     </div>
                 </div>
             </div>
 
+           
             <div class="lg:col-span-6 flex flex-col justify-center">
                 <span class="font-alexandria text-xs md:text-sm tracking-[0.3em] uppercase text-[var(--secondary)] mb-6 block font-medium reveal-up">
                     <?= __('app_subhead') ?>
@@ -155,11 +214,12 @@ if (isset($hero_media) && is_array($hero_media)): ?>
     </div>
 </section>
 
+
 <section id="insights-reviews" class="relative w-full py-12 bg-black text-[var(--text-light)] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
     
     <div class="section-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[180px] opacity-10 pointer-events-none"></div>
 
-    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 flex align-end md:items-end md:justify-between gap-6 mb-12 md:mb-16">
         <div class="reveal-up">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria text-white tracking-tight leading-tight">
                 <?= __('insight_main_title') ?>
@@ -169,20 +229,17 @@ if (isset($hero_media) && is_array($hero_media)): ?>
             </p>
         </div>
 
-      <div id="insights-nav-controls" class="hidden md:flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-500 ease-out translate-x-4">
+      <div id="insights-nav-controls" class="flex items-center gap-3 align-end  pointer-events-none transition-all duration-500 ease-out translate-x-4">
     
-    <button id="insights-prev-btn" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Previous">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 rtl:scale-x-[-1]">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
+    <button id="insights-prev-btn" class="w-12 h-12  bg-white/5 border border-white/60 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Previous">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
     </button>
 
-    <button id="insights-next-btn" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Next">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 rtl:scale-x-[-1]">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
+    <button id="insights-next-btn" class="w-12 h-12  bg-white/5 border border-white/60 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Next">
+       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
     </button>
 </div>
+   
     </div>
 
     <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10">
@@ -219,85 +276,78 @@ if (isset($hero_media) && is_array($hero_media)): ?>
     </div>
 </section>
 
-<section id="sponsors-portfolio" class="relative w-full py-12 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
+<?php
+// Sort items dynamically from global dataset matrix
+$platinum_items = $sponsors_data_2025['platinum']['items'] ?? [];
+$tier_1_row = array_filter($platinum_items, fn($item) => $item['sub_tier'] === 'tier_1');
+$tier_2_row = array_filter($platinum_items, fn($item) => $item['sub_tier'] === 'tier_2');
+?>
+
+<section id="sponsors-portfolio" class="relative w-full py-16 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[180px] opacity-15 pointer-events-none"></div>
 
-    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-14">
+    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
         <div class="reveal-up">
-       <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-white font-sans">
-    <?php echo __('sponsors_heading'); ?> <br />
-    <span class="text-white/40 font-light text-lg md:text-2xl block mt-1">
-        <?php echo __('sponsors_subheading'); ?>
-    </span>
-</h2>
-        </div>
-
-        <div id="sponsors-nav-controls" class="hidden md:flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-500 ease-out translate-x-4">
-            <button id="sponsors-prev-btn" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 text-white/70 flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300 shadow-xl" aria-label="Scroll left">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-            </button>
-            <button id="sponsors-next-btn" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 text-white/70 flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300 shadow-xl" aria-label="Scroll right">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-            </button>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-white font-sans">
+                <?= __('sponsors_heading'); ?> <br />
+                <span class="text-white/40 font-light text-base md:text-xl block mt-1">
+                    <?= __('sponsors_subheading'); ?>
+                </span>
+            </h2>
         </div>
     </div>
 
-    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10">
-        <div id="sponsors-scroll-track" class="flex overflow-x-auto gap-3 sm:gap-5 pb-6 snap-x snap-mandatory responsive-scroll-behavior" style="-webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
-            <?php foreach ($sponsors as $sponsor): ?>
-            <div class="min-w-[155px] sm:min-w-[200px] md:min-w-[240px] aspect-[1.25/1] sm:aspect-[1.35/1] snap-start group relative rounded-xl bg-white border border-slate-100 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out p-3 sm:p-4 flex flex-col justify-between overflow-hidden hover:-translate-y-0.5">
-                <div class="w-full flex items-center justify-center relative pt-0.5 pb-2 sm:pb-3">
-                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-widest uppercase text-slate-500 bg-slate-100/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-slate-200/40 backdrop-blur-sm text-center truncate max-w-[85%]">
+    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col gap-6 md:gap-8">
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
+            <?php foreach ($tier_1_row as $sponsor): ?>
+            <div class="group relative rounded-xl bg-white p-3 sm:p-4 flex flex-col justify-between aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px] shadow-lg hover:shadow-xl transition-all duration-400 border border-zinc-200/50 hover:-translate-y-1">
+                <div class="w-full flex items-center justify-between relative mb-1">
+                    <span class="text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-zinc-400 bg-zinc-50 px-2 py-0.5 rounded-full border border-zinc-100 truncate max-w-[80%]">
                         <?= __($sponsor['tier_tag']) ?>
                     </span>
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-block absolute right-0 text-slate-400 hover:text-black opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-1 group-hover:translate-x-0 p-1" aria-label="Link to website">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5" aria-label="Link to website">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
                     </a>
                 </div>
-                <div class="w-full border-t border-slate-100/80"></div>
-                <div class="flex-1 flex items-center justify-center p-1.5 sm:p-3">
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="block w-full text-center overflow-hidden">
-                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>" alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo" class="max-h-11 sm:max-h-16 max-w-[90%] sm:max-w-[85%] mx-auto object-contain transition-transform duration-500 ease-[cubic-bezier(0.215,0.610,0.355,1)] group-hover:scale-106" loading="lazy" />
+                <div class="flex-1 flex items-center justify-center p-1">
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="block w-full text-center">
+                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>" alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo" class="max-w-full w-auto mx-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                     </a>
                 </div>
-                <div class="w-full h-0.5"></div>
             </div>
             <?php endforeach; ?>
         </div>
-    </div>
-</section>
 
-<section id="expo-metrics-blueprint" class="relative w-full py-12 bg-black overflow-hidden" dir="ltr">
-    
-    <div class="absolute inset-0 pointer-events-none opacity-[0.15]" style="background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 0); background-size: 20px 20px;"></div>
-
-    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-12 gap-y-12 items-start">
-            
-            <?php foreach ($metrics as $metric): ?>
-            <div class="blueprint-metric-card flex items-start justify-center gap-4 sm:gap-6 group relative p-5 sm:p-6 rounded-2xl border border-white/[0.04] bg-white/[0.02] lg:bg-transparent lg:border-transparent transition-all duration-500 lg:hover:bg-white/[0.01]" data-target-value="<?= $metric['value'] ?>">
-                <div class="absolute inset-0 bg-indigo-500/0 lg:group-hover:bg-indigo-500/[0.03] rounded-2xl blur-xl transition-all duration-500 pointer-events-none"></div>
-                
-                <div class="flex flex-col items-center flex-1 relative z-10">
-                    <div class="w-full max-w-[180px] aspect-[1.4/1] mb-6 relative flex items-center justify-center">
-                        <svg viewBox="0 0 160 110" class="blueprint-svg w-full h-full stroke-current text-white/40 lg:text-white/20 lg:group-hover:text-[var(--secondary)] transition-colors duration-500 fill-none stroke-linecap-round stroke-linejoin-round">
-    <?= $metric['svg'] ?>
-</svg>
-                    </div>
-                    <div class="reveal-up text-center w-full">
-                        <span class="metric-odometer block text-3xl sm:text-4xl md:text-5xl font-sans font-medium text-white tracking-tight mb-2">0</span>
-<span class="block text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-white/80  font-sans">
-    <?= ($lang === 'ar') ? $metric['ar'] : $metric['en'] ?>
-</span>                    </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
+            <?php foreach ($tier_2_row as $sponsor): ?>
+            <div class="group relative rounded-xl bg-white p-3 sm:p-4 flex flex-col justify-between aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px] shadow-lg hover:shadow-xl transition-all duration-400 border border-zinc-200/50 hover:-translate-y-1">
+                <div class="w-full flex items-center justify-between relative mb-1">
+                    <span class="text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-zinc-400 bg-zinc-50 px-2 py-0.5 rounded-full border border-zinc-100 truncate max-w-[80%]">
+                        <?= __($sponsor['tier_tag']) ?>
+                    </span>
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5" aria-label="Link to website">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                    </a>
                 </div>
-<div class="vertical-arabic-label text-gray-300 font-alexandria text-[10px] sm:text-xs font-light select-none lg:group-hover:text-white/60 transition-colors duration-300 self-end mb-2 sm:mb-4 relative z-10" dir="rtl">
-    <?= ($lang === 'ar') ? $metric['en'] : $metric['ar'] ?>
-</div>            </div>
+                <div class="flex-1 flex items-center justify-center p-1">
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="block w-full text-center">
+                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>" alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo" class="max-w-full w-auto mx-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                    </a>
+                </div>
+            </div>
             <?php endforeach; ?>
+        </div>
 
+        <div class="w-full flex justify-center mt-10">
+            <a href="javascript:void(0);" class="inline-flex items-center justify-center px-10 py-4 border border-white text-white font-medium tracking-wide rounded-full text-xs uppercase bg-transparent hover:bg-white hover:text-black transition-all duration-300 transform active:scale-95 shadow-md">
+                <?= __('view_all_participants') ?? 'View All Participants' ?>
+            </a>
         </div>
     </div>
 </section>
+
+
 
 
 <div id="fair-moments-slider" class="editorial-slider-container relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between py-6 md:py-12" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
@@ -357,10 +407,10 @@ if (isset($hero_media) && is_array($hero_media)): ?>
         </div>
 
         <div id="categories-nav-controls" class="hidden items-center gap-1 opacity-0 transition-all duration-300 ease-out">
-            <button id="categories-prev-btn" class="w-12 h-12 bg-white/5 border border-white/10 text-white/70 flex items-center justify-center hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300" aria-label="Scroll left">
+            <button id="categories-prev-btn" class="w-12 h-12 bg-white/5 border border-white/60 text-white/90 flex items-center justify-center hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300" aria-label="Scroll left">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
             </button>
-            <button id="categories-next-btn" class="w-12 h-12 bg-white/5 border border-white/10 text-white/70 flex items-center justify-center hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300" aria-label="Scroll right">
+            <button id="categories-next-btn" class="w-12 h-12 bg-white/5 border border-white/60 text-white/90 flex items-center justify-center hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-300" aria-label="Scroll right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
             </button>
         </div>

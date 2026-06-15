@@ -1,7 +1,9 @@
 RewriteEngine On
-RewriteBase /mirzaam/
 
-# If the request is not a real file or directory, send it to index.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^app/data/get_exhibitors\.php/([0-9]{4})/?$ app/data/get_exhibitors.php?year=$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^(.*)$ index.php [L,QSA]

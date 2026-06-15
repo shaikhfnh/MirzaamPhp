@@ -13,11 +13,11 @@ require_once __DIR__ . '/../app/data/menu.php';
                 <div class="ms-8 hidden sm:block my-2 w-1 bg-white"></div>
                 <div class="ms-8">
                     <div class="hidden lg:block border-l border-white/10 ">
-                       <p class="text-sm">
-    <span class="text-[var(--secondary)]"><?= __('header_date') ?></span> 
-    &nbsp;<?= __('header_time') ?>&nbsp; 
-    <?= __('header_location') ?>
-</p>
+                        <p class="text-sm">
+                            <span class="text-[var(--secondary)]"><?= __('header_date') ?></span>
+                            &nbsp;<?= __('header_time') ?>&nbsp;
+                            <?= __('header_location') ?>
+                        </p>
                     </div>
                     <nav class="hidden lg:flex gap-8 h-[50px] items-end">
                         <div class="flex gap-8">
@@ -31,8 +31,22 @@ require_once __DIR__ . '/../app/data/menu.php';
                                     </button>
                                     <div class="dropdown absolute bg-black border border-white/10 rounded-lg p-3 hidden group-hover:block z-50">
                                         <?php foreach($menu['items'] as $item): ?>
-                                            <a href="<?= get_url($item['link']); ?>" class="block py-2 hover:text-yellow-400">
+                                            <?php
+                                                // ─────────────────────────────────────────────
+                                                // Resolve the URL based on whether the link
+                                                // points off-site or to an internal route.
+                                                // ─────────────────────────────────────────────
+                                                $isExternal = !empty($item['external']);
+                                                $href       = $isExternal ? $item['link'] : get_url($item['link']);
+                                                $target     = $isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+                                            ?>
+                                            <a href="<?= htmlspecialchars($href) ?>"<?= $target ?> class="block py-2 hover:text-yellow-400">
                                                 <?= __($item['label']); ?>
+                                                <?php if ($isExternal): ?>
+                                                    <svg class="inline-block w-3 h-3 ms-1 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                                    </svg>
+                                                <?php endif; ?>
                                             </a>
                                         <?php endforeach; ?>
                                     </div>
@@ -44,8 +58,8 @@ require_once __DIR__ . '/../app/data/menu.php';
             </div>
 
             <div class="hidden lg:flex gap-4 items-center">
-             <a href="<?= get_switch_url() ?>" class="border rounded-lg px-3 py-1">
-                        <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
+                <a href="<?= get_switch_url() ?>" class="border rounded-lg px-3 py-1">
+                    <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
                 </a>
                 <button class="bg-white text-black px-5 rounded-lg h-[40px]">
                     <?= __('book_booth') ?>
@@ -62,7 +76,7 @@ require_once __DIR__ . '/../app/data/menu.php';
             <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[70px]">
             <button id="closeMenu" class="text-2xl text-white">✕</button>
         </div>
-        
+
         <div class="space-y-4 flex-grow">
             <?php foreach($MENU as $menu): ?>
                 <div class="border-b border-white/10 pb-3">
@@ -72,7 +86,12 @@ require_once __DIR__ . '/../app/data/menu.php';
                     </button>
                     <div class="mobile-dropdown max-h-0 overflow-hidden transition-all duration-300 pl-3">
                         <?php foreach($menu['items'] as $item): ?>
-                            <a href="<?= get_url($item['link']); ?>" class="block py-2 text-gray-400">
+                            <?php
+                                $isExternal = !empty($item['external']);
+                                $href       = $isExternal ? $item['link'] : get_url($item['link']);
+                                $target     = $isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+                            ?>
+                            <a href="<?= htmlspecialchars($href) ?>"<?= $target ?> class="block py-2 text-gray-400">
                                 <?= __($item['label']); ?>
                             </a>
                         <?php endforeach; ?>

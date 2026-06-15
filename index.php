@@ -1,79 +1,137 @@
 <?php
-// 1. START CAPTURING ALL OUTPUT INTO SERVER MEMORY
 ob_start();
 
-// 2. Load the "Brains" - Global Configs and Data
-require_once 'app/config/i18n.php'; 
+require_once 'app/config/i18n.php';
 require_once 'app/data/participantsdata-2025.php';
-require_once 'app/data/home_data.php'; 
+require_once 'app/data/home_data.php';
+require_once 'app/data/global_data.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="<?= $lang ?>" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Mirzaam Expo 2026</title>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
     <link rel="icon" href="/mirzaam/assets/images/favicon.ico">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="/mirzaam/assets/js/main.js"></script>
+
     <link rel="stylesheet" href="/mirzaam/assets/css/global.css">
     <link rel="stylesheet" href="/mirzaam/assets/css/header.css">
 
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+
+    <script type="module" src="/mirzaam/assets/js/main.js"></script>
 </head>
-
 <body class="bg-black text-white">
-    
-    <?php include 'includes/header.php'; ?>
-    
-  <main>
-    <?php
-    // Get the request path and remove the base path
-    $request_uri = $_SERVER['REQUEST_URI'];
-    // Remove /mirzaam/ if it exists
-    $path = str_replace($base_path, '', $request_uri);
-    $path = trim($path, '/');
-    
-    // Handle the language prefix (remove /ar if present to get the actual page name)
-    if (strpos($path, 'ar/') === 0) {
-        $path = substr($path, 3);
-    }
 
-    // ROUTING SWITCH
-    switch ($path) {
-        case 'about':
-        case 'about.php':
-            include 'views/about.php'; // Ensure your file name matches exactly
-            break;
-        default:
-            include 'views/home.php';
-            break;
-    }
-    ?>
-</main>
-    
+    <?php include 'includes/header.php'; ?>
+
+    <main>
+        <?php
+        // ────────────────────────────────────────────────────────
+        // ROUTER
+        // ────────────────────────────────────────────────────────
+        // Every request comes through here (via .htaccess catch-all).
+        // We strip the base path and language prefix, then pattern-
+        // match the remaining path to choose which view to include.
+        // ────────────────────────────────────────────────────────
+        $request_uri = $_SERVER['REQUEST_URI'];
+
+        // Strip query string if any (?foo=bar)
+        $path = strtok($request_uri, '?');
+
+        // Strip base path (/mirzaam on local, '' on prod)
+        $path = str_replace($base_path, '', $path);
+        $path = trim($path, '/');
+
+        // Strip Arabic language prefix
+        if (strpos($path, 'ar/') === 0) {
+            $path = substr($path, 3);
+        } elseif ($path === 'ar') {
+            $path = '';
+        }
+
+        // Normalize: drop .php extension so /about and /about.php both match
+        $path = preg_replace('/\.php$/', '', $path);
+
+        // Defaults
+        $year      = '2026';
+        $view_file = 'views/home.php';
+
+        // ──────── ROUTE TABLE ────────
+        // Static pages: path => view file
+        $routes = [
+            ''             => 'views/home.php',
+            'about'        => 'views/about.php',
+            'contact'      => 'views/contact.php',
+
+            // VISIT submenu
+            'why-visit'    => 'views/why-visit.php',
+            'trip'         => 'views/trip.php',
+            'plan-your-trip' => 'views/plan-your-trip.php',          // alt path
+
+            // EXHIBIT submenu
+            'why-exhibit'  => 'views/why-exhibit.php',
+
+            // EXPLORE EXPO submenu
+            'booth'        => 'views/bootsssh.php',
+            'best-booth'   => 'views/boothssd.php',         // alt path
+            'wayfinding'   => 'views/wayfinding.php',
+
+            // MIRZAAMIYAT 2026 submenu
+            'mirzaamiyat'             => 'views/mirzaamiyat-about.php',
+            'mirzaamiyat/about'       => 'views/mirzaamiyat-about.php',
+            'mirzaamiyat/plan'        => 'views/mirzaamiyat-plan.php',
+            'mirzaamiyat/exhibitors'  => 'views/mirzaamiyat-exhibitors.php',
+        ];
+
+        // 1. Try static route table
+        if (array_key_exists($path, $routes)) {
+            $view_file = $routes[$path];
+        }
+        // 2. Dynamic: /participants/{year}
+        elseif (preg_match('#^participants/(\d{4})$#', $path, $matches)) {
+            $year      = $matches[1];
+            $view_file = 'views/participants.php';
+        }
+        // 3. /participants by itself (defaults to current edition)
+        elseif ($path === 'participants') {
+            $year      = '2026';
+            $view_file = 'views/participants.php';
+        }
+        // 4. External VR experience — handled by JS redirect in the view
+        elseif ($path === 'vr-2023' || $path === 'mirzaam-vr') {
+            $view_file = 'views/vr-redirect.php';
+        }
+
+        // Fallback: if the resolved view doesn't exist, go home
+        if (!file_exists($view_file)) {
+            $view_file = 'views/home.php';
+        }
+
+        include $view_file;
+        ?>
+    </main>
+
     <?php include 'includes/footer.php'; ?>
-    
+
 </body>
 </html>
-
 <?php
-// FETCH THE FULLY RENDERED HTML PAGE FROM MEMORY
 $html_output = ob_get_clean();
 
 global $base_path;
 
 if ($base_path === '') {
-    // ON PRODUCTION (RAILWAY): Clean up assets AND folder route strings from links globally
+    // PRODUCTION: rewrite asset/link paths to be domain-root relative
     $html_output = str_replace('/mirzaam/assets/', '/assets/', $html_output);
     $html_output = str_replace('href="/mirzaam/', 'href="/', $html_output);
     $html_output = str_replace('href="/mirzaam"', 'href="/"', $html_output);
 }
 
-// OUTPUT THE CLEANED HTML TO THE VISITOR'S BROWSER
 echo $html_output;
 ?>

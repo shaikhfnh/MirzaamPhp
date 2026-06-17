@@ -532,5 +532,5 @@ document.addEventListener('DOMContentLoaded', initScrollReveal);
 // Re-run after any dynamic content swap, if your site does
 // client-side navigation/partial reloads anywhere. Safe to call
 // multiple times — IntersectionObserver.unobserve() after each
-// reveal prevents duplicate firing on the same element.
+// reveal prevents duplicate firing on the same element. new
 window.initScrollReveal = initScrollReveal;

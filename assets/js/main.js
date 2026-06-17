@@ -186,9 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(startAutoSlide, 2000);
         });
         console.log("Navigation buttons attached successfully.");
-    } else {
-        console.error("Navigation buttons or track NOT found in DOM. Check IDs!");
     }
+    // NOTE: removed the noisy console.error() that fired here on
+    // every page without the homepage's category slider (Why Visit,
+    // Plan Trip, Exhibitor Directory, etc). Missing elements on
+    // those pages is expected, not an actual error.
 
     setTimeout(checkCategoriesOverflow, 400);
     window.addEventListener('resize', checkCategoriesOverflow);
@@ -416,13 +418,25 @@ if (document.readyState === 'loading') {
     initializeAllSliders();
 }
 
-//About image popup on hover
-const follower = document.getElementById('image-follower');
-    const img = document.getElementById('follower-img');
-    const pillars = document.querySelectorAll('.pillar');
+// ============================================================
+// FIX APPLIED HERE — see main-js-patch-instructions.js for the
+// full explanation. Root cause of the console errors / visual
+// glitch on the exhibitor directory page: this block assumed it
+// only ever runs on the homepage (where #image-follower and
+// #follower-img exist for the "About" section's mouse-follower
+// hover effect). On any other page, those elements are null, and
+// the unguarded mousemove listener below threw on every single
+// mouse movement. Wrapped in `if (follower && img)` so it simply
+// does nothing on pages that don't have this feature.
+// ============================================================
 
+//About image popup on hover — homepage-only feature, now guarded.
+const follower = document.getElementById('image-follower');
+const img = document.getElementById('follower-img');
+const pillars = document.querySelectorAll('.pillar');
+
+if (follower && img) {
     document.addEventListener('mousemove', (e) => {
-        // Only move if not on mobile/tablet (using window innerWidth check)
         if (window.innerWidth > 1024) {
             follower.style.left = e.clientX + 'px';
             follower.style.top = e.clientY + 'px';
@@ -442,11 +456,12 @@ const follower = document.getElementById('image-follower');
             }
         });
     });
+}
 
 
-    //mobile app view switching
-    document.addEventListener('DOMContentLoaded', () => {
-    
+//mobile app view switching
+document.addEventListener('DOMContentLoaded', () => {
+
     // Global function attached to window so your HTML can find it
     window.switchAppView = function(target) {
         const screens = { home: 'mockup-home', map: 'mockup-map', chat: 'mockup-chat' };
@@ -484,3 +499,38 @@ const follower = document.getElementById('image-follower');
     });
 
 });
+
+// ============================================================
+// Reusable scroll-reveal system. Works on ANY page that uses
+// the .wv-reveal class + data-reveal attribute + optional
+// data-delay attribute (milliseconds).
+//
+// Usage on any element, any page:
+//   <div class="wv-reveal" data-reveal data-delay="80">...</div>
+// ============================================================
+
+function initScrollReveal() {
+    const els = document.querySelectorAll('.wv-reveal[data-reveal]');
+    if (!els.length) return;
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const delay = el.dataset.delay || 0;
+            setTimeout(() => el.classList.add('is-in'), Number(delay));
+            io.unobserve(el);
+        });
+    }, { threshold: 0.12 });
+
+    els.forEach((el) => io.observe(el));
+}
+
+// Run on initial page load
+document.addEventListener('DOMContentLoaded', initScrollReveal);
+
+// Re-run after any dynamic content swap, if your site does
+// client-side navigation/partial reloads anywhere. Safe to call
+// multiple times — IntersectionObserver.unobserve() after each
+// reveal prevents duplicate firing on the same element.
+window.initScrollReveal = initScrollReveal;

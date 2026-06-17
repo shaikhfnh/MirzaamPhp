@@ -129,8 +129,12 @@ $site_blueprint['why_visit'] = [
 ];
 
 
+
 $site_blueprint['plan_trip'] = [
- 
+
+    // ── Hero image (full-bleed photo behind the page title) ──
+    'hero_image' => 'https://images.unsplash.com/photo-1663000857411-b339585c938b?auto=format&fit=crop&q=80&w=2400',
+
     // ── Hero stat tiles (top of page, under title) ──
     'stats' => [
         [
@@ -154,7 +158,7 @@ $site_blueprint['plan_trip'] = [
             'label_key'  => 'plantrip_stat4_label',     // "Exhibitors"
         ],
     ],
- 
+
     // ── Logistics cards (By Air + By Road) ──
     'logistics' => [
         [
@@ -180,11 +184,7 @@ $site_blueprint['plan_trip'] = [
             ],
         ],
     ],
- 
-    // ── Map embed ──
-    // Google Maps embed URL for KIF Mishref.
-    'map_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3479.832!2d48.0623!3d29.2727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDE2JzIxLjciTiA0OMKwMDMnNDQuMyJF!5e0!3m2!1sen!2skw!4v1700000000000',
- 
+
     // ── Quick Tips strip ──
     'tips' => [
         ['icon' => 'parking',  'title_key' => 'plantrip_tip1_title', 'desc_key' => 'plantrip_tip1_desc'],

@@ -234,7 +234,11 @@ function registerExhibitorApp() {
             this.$watch('showFavorites', () => this.syncUrl());
             this.$watch('view',          () => this.syncUrl());
 
-            const fetchUrl = `/mirzaam/app/data/get_exhibitors.php/${this.year}`;
+            // Detect base path automatically:
+            // Local: /mirzaam/participants/2025 → basePath = '/mirzaam'
+            // Prod:  /participants/2025         → basePath = ''
+            const basePath = window.location.pathname.split('/participants')[0] || '';
+            const fetchUrl = `${basePath}/api/exhibitors/${this.year}`;
             console.log(`🚀 [FETCH] ${fetchUrl}`);
             try {
                 const response = await fetch(fetchUrl);

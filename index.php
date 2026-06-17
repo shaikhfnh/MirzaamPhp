@@ -5,6 +5,28 @@ require_once 'app/config/i18n.php';
 require_once 'app/data/participantsdata-2025.php';
 require_once 'app/data/home_data.php';
 require_once 'app/data/global_data.php';
+
+// ── API EARLY EXIT ──────────────────────────────────────────
+// Intercept JSON data requests BEFORE the HTML layout renders.
+// This lets the exhibitor directory's JS fetch live data from
+// the same router without getting the full HTML page back.
+//
+// Route: /api/exhibitors/{year}  (or /mirzaam/api/exhibitors/{year} locally)
+// Returns: JSON from get_exhibitors.php
+// ────────────────────────────────────────────────────────────
+$_api_path = trim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+if (isset($base_path) && $base_path !== '') {
+    $_api_path = preg_replace('#^' . preg_quote(trim($base_path, '/'), '#') . '/?#', '', $_api_path);
+}
+if (strpos($_api_path, 'ar/') === 0) $_api_path = substr($_api_path, 3);
+
+if (preg_match('#^api/exhibitors/(\d{4})$#', $_api_path, $_api_m)) {
+    if (ob_get_level()) ob_end_clean();
+    $_GET['year'] = $_api_m[1];
+    require 'app/data/get_exhibitors.php';
+    exit;
+}
+unset($_api_path, $_api_m);
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
@@ -72,14 +94,14 @@ require_once 'app/data/global_data.php';
             // VISIT submenu
             'why-visit'    => 'views/why-visit.php',
             'trip'         => 'views/trip.php',
-            'plan-your-trip' => 'views/plan-your-trip.php',          // alt path
+            'plan-trip'    => 'views/trip.php',          // alt path
 
             // EXHIBIT submenu
             'why-exhibit'  => 'views/why-exhibit.php',
 
             // EXPLORE EXPO submenu
-            'booth'        => 'views/bootsssh.php',
-            'best-booth'   => 'views/boothssd.php',         // alt path
+            'booth'        => 'views/booth.php',
+            'best-booth'   => 'views/booth.php',         // alt path
             'wayfinding'   => 'views/wayfinding.php',
 
             // MIRZAAMIYAT 2026 submenu

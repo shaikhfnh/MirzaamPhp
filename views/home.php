@@ -393,54 +393,11 @@ $tier_2_row = array_filter($platinum_items, fn($item) => $item['sub_tier'] === '
 
 
 
-
-<?php 
-// 1. Prepare the data specific to Home
-$categories_list = $home_categories_blueprint; 
-
-// 2. Include the section
-include 'includes/categories-section.php'; 
+<?php
+$cat_slider_title    = __('section_title');
+$cat_slider_subtitle = __('section_subtitle');
+include 'includes/category-slider/template.php';
 ?>
-
-
-
-<section class="w-full bg-black py-0" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="flex flex-col lg:flex-row w-full min-h-[600px]">
-        
-        <div class="w-full lg:w-1/2 p-12 md:p-20 flex flex-col justify-center items-start relative bg-white">
-            <div class="absolute inset-0 opacity-40" style="background-image: url('/mirzaam/assets/images/Home/MIRZAAMDARKPATTERN 4.png'); background-size: cover; background-position: center;"></div>
-            
-            <div class="relative z-10 w-full">
-                <h2 class="text-black text-4xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.9]">
-                    <?= __('history_headline_1') ?>
-                </h2>
-                <h2 class="text-black text-4xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.9] <?= ($lang === 'ar' ? 'mr-12 md:mr-32' : 'ml-12 md:ml-32') ?>">
-                    <?= __('history_headline_2') ?>
-                </h2>
-                <div class="w-60 h-1 bg-black mt-4 md:mt-8"></div>
-            </div>
-        </div>
-
-        <div class="w-full lg:w-1/2 grid grid-cols-2 grid-rows-3 gap-0 border-l border-white/10">
-            <?php foreach ($mirzaam_years_blueprint as $item): ?>
-                <?php 
-                    // Grab flattened value cleanly
-                    $localizedYear = __('year_' . $item['key']); 
-                ?>
-                <a href="#" class="relative overflow-hidden group border-b border-r border-white/10 last:border-r-0">
-                    <img src="<?= $item['image'] ?>" alt="Mirzaam <?= strip_tags($localizedYear) ?>" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                    
-                    <div class="absolute bottom-4 <?= ($lang === 'ar' ? 'right-4' : 'left-4') ?> z-10">
-                        <span class="text-white text-[10px] font-bold tracking-[0.2em] uppercase bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-md border border-white/10 group-hover:opacity-0 transition-all duration-300">
-                            <?= $localizedYear ?>
-                        </span>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
 
 
 <section class="w-full py-16 bg-black text-white border-y border-white/5" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">

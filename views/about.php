@@ -205,8 +205,8 @@ $highlights_data = $site_blueprint['about']['highlights'];
     </div>
 </section>
 
-<?php 
-// Include categories
-$categories_list = $home_categories_blueprint; 
-include 'includes/categories-section.php'; 
+<?php
+$cat_slider_title    = "Categories";
+$cat_slider_subtitle = "";
+include 'includes/category-slider/template.php';
 ?>

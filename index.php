@@ -5,6 +5,7 @@ require_once 'app/config/i18n.php';
 require_once 'app/data/participantsdata-2025.php';
 require_once 'app/data/home_data.php';
 require_once 'app/data/global_data.php';
+require_once 'app/data/categories_data.php';
 
 // ── API EARLY EXIT ──────────────────────────────────────────
 // Intercept JSON data requests BEFORE the HTML layout renders.
@@ -93,8 +94,7 @@ unset($_api_path, $_api_m);
 
             // VISIT submenu
             'why-visit'    => 'views/why-visit.php',
-            'trip'         => 'views/trip.php',
-            'plan-trip'    => 'views/trip.php',          // alt path
+            'plan-your-trip'    => 'views/plan-your-trip.php',       
 
             // EXHIBIT submenu
             'why-exhibit'  => 'views/why-exhibit.php',

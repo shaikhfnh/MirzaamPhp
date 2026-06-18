@@ -100,13 +100,12 @@ unset($_api_path, $_api_m);
             'why-exhibit'  => 'views/why-exhibit.php',
 
             // EXPLORE EXPO submenu
-            'booth'        => 'views/booth.php',
-            'best-booth'   => 'views/booth.php',         // alt path
+            'best-booth'   => 'views/best-booth.php',         // alt path
             'wayfinding'   => 'views/wayfinding.php',
 
             // MIRZAAMIYAT 2026 submenu
-            'mirzaamiyat'             => 'views/mirzaamiyat-about.php',
-            'mirzaamiyat/about'       => 'views/mirzaamiyat-about.php',
+            'mirzaamiyat/about'       => 'views/mirzaamiyaat.php',
+            'mirzaamiyat'             => 'views/mirzaamiyaat.php',
             'mirzaamiyat/plan'        => 'views/mirzaamiyat-plan.php',
             'mirzaamiyat/exhibitors'  => 'views/mirzaamiyat-exhibitors.php',
         ];

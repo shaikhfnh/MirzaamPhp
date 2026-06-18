@@ -333,6 +333,9 @@ function registerExhibitorApp() {
         },
 
         hasCompany(char) {
+            if (this.lang === 'ar') {
+                return this.exhibitors.some(e => e.name_ar?.startsWith(char));
+            }
             return this.exhibitors.some(e => e.name_en?.toUpperCase().startsWith(char));
         },
 
@@ -376,7 +379,9 @@ function registerExhibitorApp() {
                     this.categoriesOf(e).some(c => activeCatsLow.includes(c.toLowerCase()));
 
                 const matchAlpha = this.alphabet === '' ||
-                    e.name_en?.toUpperCase().startsWith(this.alphabet);
+                    (this.lang === 'ar'
+                        ? e.name_ar?.startsWith(this.alphabet)
+                        : e.name_en?.toUpperCase().startsWith(this.alphabet));
 
                 const matchFav = !this.showFavorites || this.favorites.includes(e.name_en);
 

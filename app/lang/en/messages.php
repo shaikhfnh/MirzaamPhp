@@ -1,89 +1,83 @@
 <?php
 // lang/en/messages.php
 return [
-    // --- SECTION 1: The Visionary ---
-    'about_vis_subtitle' => 'The Visionary',
-    'about_vis_title' => 'Farah Al <br class="hidden lg:block"/> Humaidhi',
-    'about_vis_p1' => '<strong class="text-white font-semibold">Farah Al Humaidhi</strong>, the innovative mind behind Mirzaam expo, is the winner of the Forbes Kuwait Most Powerful Entrepreneurship Award for 2023. Since 2004, she has founded several companies and initiatives in the field of interior design, such as Interior Art, and later founded Farah Home in 2012 – her first brand.',
-    'about_vis_p2' => 'She then launched <span class="text-white italic">“Courses by Farah”</span>, a section of training courses in interior design, which later developed into online courses, and finally Dawrat Academy, which achieved widespread success.',
-    'about_vis_p3' => 'Specialists in interior design in the Middle East, led by Farah Al Humaidhi, aim to support and elevate the industry both regionally and globally. She reflects her commitment to transforming spaces into unique experiences, aligning with Mirzaam’s mission of providing aesthetic and practical ideas for the dream home.',
-    'about_vis_badge_sub' => 'Forbes Kuwait',
-    'about_vis_badge_title' => 'Most Powerful<br/>Entrepreneur 2023',
-
-    // --- SECTION 2: Exhibitions Hub ---
-    'about_exh_subtitle' => 'Exhibitions Hub',
-    'about_exh_title' => 'Upcoming Events & <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/40">The Fouz Expos Legacy</span>',
-    'about_exh_desc' => 'Mirzaam Exhibition is proudly organized by <strong class="text-white font-medium font-alexandria text-xs">Fouz Expos Company</strong>. We bring structural specialties, premium furniture brands, and interior studios directly into unified display tracks.',
+    // --- About Page ---
+    'about_vis_subtitle'   => 'The Visionary',
+    'about_vis_title'      => 'Farah Al Humaidhi',
+    'about_vis_credential' => 'Founder & Visionary Behind Mirzaam Expo',
+    'about_vis_p1'         => 'Farah Al Humaidhi, the innovative mind behind Mirzaam Expo, is the winner of the Forbes Kuwait Most Powerful Entrepreneurship Award for 2023. Since 2004, she has founded several companies and initiatives in the field of interior design, including Interior Art, and later Farah Home in 2012 — her first brand — before launching "Courses by Farah," a section of training courses in interior design that later developed into online courses, and finally Dawrat Academy, which achieved widespread success.',
+    'about_vis_p2'         => 'In addition to all these successes, Kuwait TV covered the whole three parts of the Designs Program, featuring topics such as before-and-after transformations and distinctive designs for homes and various spaces. She then established Mirzaam Exhibition in 2018, to be the largest exhibition in Kuwait within the interior design industry, with specialists across the Middle East aiming to support and elevate the industry both regionally and globally.',
+    'about_vis_p3'         => "Through her successful companies and initiatives, the vision behind Mirzaam Exhibition is to promote and raise the standard of the interior design industry. Alongside ventures like Farah Home and Courses by Farah, she reflects a commitment to transforming spaces into unique experiences — aligned with Mirzaam's mission of providing aesthetic and practical ideas for the dream home.",
+    'about_vis_badge_sub'   => 'Award Winner',
+    'about_vis_badge_title' => 'Forbes Kuwait Most Powerful Entrepreneur, 2023',
     
-    // Exhibition Array Data
-    'about_exh_mirzaam_expo_title' => 'Mirzaam Exhibition',
-    'about_exh_mirzaam_expo_tag' => 'Flagship',
-    'about_exh_mirzaam_expo_meta' => 'MENA Expansion',
-    'about_exh_mirzaam_expo_desc' => 'The ultimate platform bridging all interior design disciplines under one roof. Unifying materials suppliers, furniture brands, design studios, and academics.',
+    'about_vis_milestone_m1_label' => 'Founded Interior Art, her first venture into the design world.',
+    'about_vis_milestone_m2_label' => 'Launched Farah Home, her debut design brand.',
+    'about_vis_milestone_m3_label' => "Established Mirzaam, now Kuwait's largest design exhibition.",
+    'about_vis_milestone_m4_label' => "Named Forbes Kuwait's Most Powerful Entrepreneur.",
     
+    // ── UPCOMING EVENTS ──────────────────────────────────────
+    'about_exh_subtitle'         => "What's Next",
+    'about_exh_title'            => 'Upcoming Events',
+    'about_exh_desc'             => 'Mirzaam Exhibition is organized by Fouz Expos Company, a leading organizer of several successful exhibitions in Kuwait, including Mirzaamiyat, the exhibition for everything modern and unique in home supplies, and IXIR, the expo dedicated to health, wellness, and quality of life.',
+    'about_exh_desc2'            => 'Through Mirzaam, we aim to gather all relevant specialties, including furniture and finishing companies, material suppliers, service offices, academics, and interior design students, under one roof. Mirzaam strives to unify efforts and provide a unique and distinguished experience in the field of interior design, showcasing the latest and most innovative trends to help you design your dream home.',
+    'about_exh_siblings_label'   => 'Part of the Fouz Expos Family',
+    
+    'about_exh_mirzaam_tag'   => 'Flagship Event',
+    'about_exh_mirzaam_title' => 'Mirzaam Expo',
+    'about_exh_mirzaam_desc'  => "The region's largest interior design exhibition, bringing together the full design ecosystem of the Middle East under one roof.",
+    'about_exh_mirzaam_meta'  => 'KIF Hall 5-6',
+    
+    'about_exh_mirzaamiyat_tag'   => 'Sister Exhibition',
     'about_exh_mirzaamiyat_title' => 'Mirzaamiyat',
-    'about_exh_mirzaamiyat_tag' => 'Upcoming',
-    'about_exh_mirzaamiyat_meta' => 'Home Supplies',
-    'about_exh_mirzaamiyat_desc' => 'An exclusive showcase curated to bring modern, premium, and entirely unique home supplies directly to modern spaces and elite properties.',
+    'about_exh_mirzaamiyat_desc'  => 'A series of specialised exhibitions focused on the services and products that beautify every part of the home, from Ramadan styling to year-round home essentials.',
+    'about_exh_mirzaamiyat_meta'  => 'The Arena, 360 Mall',
     
-    'about_exh_ixir_title' => 'IXIR Exhibition',
-    'about_exh_ixir_tag' => 'Wellness',
-    'about_exh_ixir_meta' => 'Quality of Life',
-    'about_exh_ixir_desc' => 'A dedicated platform specializing entirely in health, lifestyle wellness, and architectural innovations designed to increase human quality of life.',
+    'about_exh_ixir_tag'   => 'Sister Exhibition',
+    'about_exh_ixir_title' => 'IXIR Expo',
+    'about_exh_ixir_desc'  => "Kuwait's expo for health and wellness, bringing together fitness, mental wellbeing, and nutrition for the whole family under one roof.",
+    'about_exh_ixir_meta'  => 'KIF Hall 8',
     
-    'about_exh_mamababy_title' => 'MamaBaby Expo',
-    'about_exh_mamababy_tag' => 'Kids & Family',
-    'about_exh_mamababy_meta' => 'Family & Spaces',
-    'about_exh_mamababy_desc' => 'A premium, highly anticipated lifestyle showcase focusing comprehensively on modern motherhood, baby essentials, and innovative kids interiors.',
-
-    // --- SECTION 3: Strategy & Mission ---
-    'about_strat_subtitle' => 'Strategy',
-    'about_strat_title' => 'An integrated platform for <span class="text-white/40">commercial and educational excellence.</span>',
-    'about_strat_desc' => 'Mirzaam Exhibition serves as a central filter for the interior design industry. By integrating specialized companies, academics, and industry experts, we provide an environment that fosters direct interaction and meaningful knowledge transfer. Our platform is engineered to turn high-quality engagement into lasting commercial success for brands while offering an educational sanctuary for students and professionals alike.',
-    'about_miss_subtitle' => 'Our Mission',
-    'about_miss_title' => 'Transforming spaces into vibrant havens.',
-    'about_miss_p1' => 'We believe every space is a reflection of its owner\'s identity. Our mission is to bridge the gap between structural innovation and personal expression. Drawing inspiration from the traditional "Mirzaam"—which once filtered rainwater to a single point—we modernize this legacy by unifying the design industry to create unique, exceptional experiences for every visitor.',
-    'about_miss_p2' => 'Our ultimate goal is to expand this ecosystem across the MENA region, fostering a culture of discipline, inspiration, and high-standard interior architecture for all.',
-    'about_miss_quote' => '"Just as the traditional Mirzaam filtered rainwater to a single point, our exhibition filters and unifies the design industry."',
-    'about_miss_box_title' => 'Modernizing Design',
-    'about_miss_box_desc' => 'From the evolution of materials in Kuwait to the modern digital era, Mirzaam remains the first visible point of modernization in the home, setting the industry standard for the future.',
-
-    // --- SECTION 4: Legacy & Highlights ---
-    'about_leg_subtitle' => 'Legacy',
-    'about_leg_title' => 'Why <span class="text-white/40">Mirzaam?</span>',
-    'about_leg_p1' => 'Born from the architectural evolution of Kuwait—where the original wooden \'Mirzaam\' transitioned to metal—our identity is built on modernization.',
-    'about_leg_quote' => '"Just as the traditional Mirzaam filtered rainwater to one place, our exhibition filters and unifies the regional design industry."',
-    'about_leg_p2' => 'Our vision is to scale this ecosystem across the MENA region, creating a seamless link for the interior design discipline to craft personalized, beautiful spaces for our society.',
-    'about_high_subtitle' => 'Highlights',
+    'about_exh_mamababy_tag'   => 'Sister Exhibition',
+    'about_exh_mamababy_title' => 'Mama + Baby Expo',
+    'about_exh_mamababy_desc'  => "Kuwait's family expo for pregnancy, newborn essentials, and parenting, with 19+ categories covering every stage of the journey.",
+    'about_exh_mamababy_meta'  => 'The Arena, 360 Mall',
     
-    // Highlights Array Data
-    'about_high_unified_design_title' => 'Unified Design Ecosystem',
-    'about_high_unified_design_desc' => 'We provide a diverse, all-in-one environment that bridges the gap between homeowners and design specialists, ensuring every home requirement is met under one roof.',
-    'about_high_direct_exposure_title' => 'Direct Commercial Exposure',
-    'about_high_direct_exposure_desc' => 'Participants can forge lasting relationships with high-intent visitors by showcasing services, presenting exclusive offers, and interacting directly with their target market.',
-    'about_high_knowledge_mentorship_title' => 'Knowledge & Mentorship',
-    'about_high_knowledge_mentorship_desc' => 'A unique platform for open dialogue between students and icons like Farah Al Humaidhi, fostering an exchange of ideas that elevates the industry standards.',
-    'about_high_future_lectures_title' => 'Future-Forward Lectures',
-    'about_high_future_lectures_desc' => 'Our curated series of workshops and lectures ensures that attendees stay at the forefront of the latest global design trends and professional innovations.',
-
-    //Exhibitors Page
-    'exhibitors_eyebrow'  => 'Mirzaam Expo',
-    'exhibitors_title'    => 'Exhibitors',
-    'exhibitors_subtitle' => 'Discover every brand, designer, and partner participating this year.',
-    'search_placeholder'  => 'Search exhibitors, brands, or categories...',
-    'all_categories'      => 'All Categories',
-    'favorites'           => 'Favorites',
-    'all'                 => 'All',
-    'loading'             => 'Loading exhibitors',
-    'of'                  => 'of',
-    'exhibitors'          => 'exhibitors',
-    'clear_filters'       => 'Clear filters',
-    'clear_all_filters'   => 'Clear all filters',
-    'no_results'          => 'No exhibitors match your filters',
-
-
-
-
+    // ── STRATEGY ─────────────────────────────────────────────
+    'about_strat_subtitle' => 'Our Approach',
+    'about_strat_title'    => 'Strategy',
+    'about_strat_desc'     => 'Mirzaam Exhibition seeks to create an integrated environment that brings together companies specialized in supplying materials and products related to interior design, academics, and specialists in this field. Mirzaam provides an ideal platform for businesses to directly interact with customers, giving them the opportunity to effectively present their products and services. Mirzaam also aims to enhance the transfer of knowledge and expertise from academics and specialists to students and all those interested in the field of interior design, through several lectures and workshops presented by a group of experts, including interior designers, architects, and contractors.',
+    
+    // ── MISSION ──────────────────────────────────────────────
+    'about_miss_subtitle'  => 'Our Mission',
+    'about_miss_title'     => 'Mission',
+    'about_miss_p1'        => 'Transforming homes into vibrant havens that reflect the identity of their owners, and transforming projects into inspiring spaces that combine beauty and comfort.',
+    'about_miss_p2'        => 'Providing an educational place for students and specialists who love the world of interior design and design art, to create a unique and exceptional experience for every Mirzaam visitor.',
+    'about_miss_quote'     => 'We believe that every space reflects the personality of its owner.',
+    'about_miss_box_title' => 'Our Philosophy',
+    'about_miss_box_desc'  => 'Striving to enable individuals to achieve the perfect fit between space and their personal identity.',
+    
+    // ── WHY "MIRZAAM"? (Legacy) ──────────────────────────────
+    'about_leg_subtitle' => 'Our Story',
+    'about_leg_title'    => 'Why "Mirzaam"?',
+    'about_leg_p1'       => 'As Kuwait\'s housing materials shifted from clay to concrete, the "mirzaam" — the traditional rain spout that channeled water away from the home — had to be redesigned too, moving from wood to metal. It became one of the first visible modernizations of the home, launching interior design forward across the region.',
+    'about_leg_quote'    => 'Like the "mirzaam," which channels rain water to one place, so does Mirzaam the exhibition.',
+    'about_leg_p2'       => 'Our ultimate goal is to expand Mirzaam across as many countries in the MENA region as possible, channeling and connecting everyone under the interior design discipline to create the most beautiful, personalized spaces for our society.',
+    
+    // ── HIGHLIGHTS ───────────────────────────────────────────
+    'about_high_subtitle'           => 'What Sets Us Apart',
+    'about_high_connect_title'      => 'Specialist Connections',
+    'about_high_connect_desc'       => 'Mirzaam links visitors directly with specialists and experts in design and furniture, gathered in one large, diverse environment covering every home need.',
+    'about_high_relationships_title' => 'Direct Business Relationships',
+    'about_high_relationships_desc'  => 'Exhibitors build strong relationships with visitors by presenting their services and offers directly throughout the exhibition period.',
+    'about_high_knowledge_title'    => 'Knowledge Exchange',
+    'about_high_knowledge_desc'     => 'A platform for sharing ideas between academics and experienced professionals — including founder Farah Al Humaidhi — and everyone interested in interior design.',
+    'about_high_lectures_title'     => 'Expert-Led Lectures',
+    'about_high_lectures_desc'      => 'Specialists across every field of interior design host lectures, giving students and visitors a valuable window into the latest trends and creative ideas.',
+    
+    // ── CATEGORY SLIDER (footer of page) ─────────────────────
+    'about_categories_title'    => 'Exhibitor Categories',
+    'about_categories_subtitle' => 'Every sector represented at Mirzaam Expo',
 
 
 
@@ -198,5 +192,301 @@ return [
     'plantrip_cta_desc'        => '8–12 December 2026 · 10:00 – 22:00 Daily · Kuwait International Fair Hall 5–6.',
     'plantrip_cta_button'      => 'Explore the Expo',
 
-];
+
+
+
+
+
+    //Why-Exhibit Page
+    'whyexhibit_eyebrow'        => 'Mirzaam Expo',
+    'whyexhibit_title'          => 'Why',
+    'whyexhibit_title_accent'   => 'Exhibit?',
+    
+    // ── INTRO ────────────────────────────────────────────────
+    'whyexhibit_overview_label' => 'Overview',
+    'whyexhibit_intro'          => 'Mirzaam Expo, first organized in 2019, has grown into a leading exhibition across the region. With excellent networking activities, business opportunities, curated galleries, and empowering lectures, Mirzaam Expo creates a total aesthetic experience.',
+    
+    // ── VALUE PILLARS ────────────────────────────────────────
+    'whyexhibit_pillars_label'  => 'Why It Matters',
+    
+    'we_pillar1_tag'   => '// STRATEGIC_ACCESS',
+    'we_pillar1_title' => 'Direct Access to High-Value Buyers',
+    'we_pillar1_desc'  => 'Connect with decision-makers from the real estate, hospitality, and interior design sectors. Meet serious buyers looking for luxury furniture, smart home solutions, high-end finishes, and design innovations.',
+    
+    'we_pillar2_tag'   => '// MARKET_DOMINANCE',
+    'we_pillar2_title' => 'Unparalleled Brand Visibility',
+    'we_pillar2_desc'  => 'Showcase your brand to over 400,000+ visitors, including VIP clients and business owners. Gain exposure through our multi-channel media campaigns, influencer collaborations, and industry partnerships.',
+    
+    'we_pillar3_tag'   => '// REVENUE_SCALING',
+    'we_pillar3_title' => 'Exclusive Business Growth',
+    'we_pillar3_desc'  => 'Secure bulk orders and long-term contracts with retail and wholesale buyers. Join industry panels, networking sessions, and closed-door VIP presentations.',
+    
+    // ── KEY BENEFITS ─────────────────────────────────────────
+    'whyexhibit_benefits_label' => 'Key Benefits',
+    
+    'we_benefit1_tag'   => '// LEADING_INDICATORS',
+    'we_benefit1_title' => 'Meet Industry Leaders',
+    'we_benefit1_item1' => 'Meet top industry <strong class="font-semibold text-zinc-900">LEADERS</strong> and decision-makers from across the GCC.',
+    'we_benefit1_item2' => 'Establish strong international and regional <strong class="font-semibold text-zinc-900">COOPERATION</strong> between vendors across the Middle East.',
+    'we_benefit1_item3' => 'Gain from high profile <strong class="font-semibold text-zinc-900">MARKETING CAMPAIGNS</strong> with extensive professional coverage and wide exposure.',
+    
+    'we_benefit2_tag'   => '// INNOVATION_HUB',
+    'we_benefit2_title' => 'Showcase Innovation',
+    'we_benefit2_item1' => 'Showcase your latest <strong class="font-semibold text-zinc-900">INNOVATION</strong> and debut products to a captive audience.',
+    'we_benefit2_item2' => 'Exhibitors consistently report strong <strong class="font-semibold text-zinc-900">ROI</strong> at the exhibition.',
+    'we_benefit2_item3' => 'Access <strong class="font-semibold text-zinc-900">EXTENSIVE</strong> professional coverage and wide exposure across the GCC region.',
+    
+    // ── STATISTICS ───────────────────────────────────────────
+    'whyexhibit_stats_label'  => 'Facts & Statistics',
+    
+    'we_stat_outdoor_ads'   => 'Outdoor Ads',
+    'we_stat_outdoor_views' => 'Views on Outdoor',
+    'we_stat_digital'       => 'Digital Ads Impressions',
+    'we_stat_press'         => 'Press Coverages',
+    'we_stat_app'           => 'App Downloads',
+    'we_stat_shopping'      => 'Estimated Shopping Value',
+    'we_stat_visitors'      => 'Visitors',
+    'we_stat_area'          => 'Total Area',
+    
+    // ── AUDIENCE ─────────────────────────────────────────────
+    'whyexhibit_audience_label' => 'Audience Breakdown',
+    'whyexhibit_audience_title' => 'Who Attends Mirzaam Expo?',
+    'whyexhibit_audience_desc'  => 'Mirzaam Expo attracts a high-caliber audience of industry professionals, buyers, and design enthusiasts looking for cutting-edge interior solutions.',
+    
+    'we_aud_homeowners'  => 'Home Owners & Luxury Property Owners',
+    'we_aud_designers'   => 'Interior Designers & Architects',
+    'we_aud_developers'  => 'Real Estate Developers & Contractors',
+    'we_aud_retailers'   => 'Retailers & Distributors in Home & Living',
+    'we_aud_hospitality' => 'Hospitality & Commercial Project Managers',
+    'we_aud_furniture'   => 'High-End Custom Furniture & Décor Buyers',
+    'we_aud_students'    => 'Students',
+    'we_aud_others'      => 'Others',
+    
+    // ── CATEGORY SLIDER ──────────────────────────────────────
+    'whyexhibit_categories_title'    => 'Who Should Exhibit?',
+    'whyexhibit_categories_subtitle' => 'Explore the sectors represented at Mirzaam Expo',
+    
+    // ── CTA ──────────────────────────────────────────────────
+    'whyexhibit_cta_eyebrow' => 'Reserve Your Spot',
+    'whyexhibit_cta_title'   => 'Ready to Exhibit?',
+    'whyexhibit_cta_desc'    => 'Secure your booth at Mirzaam Expo and connect with thousands of buyers, designers, and industry leaders.',
+    'whyexhibit_cta_button'  => 'Book Your Booth',
+    'whyexhibit_cta_link'    => '/contact',
+    
+    'whyexhibit_cta_stat1_value' => '5',
+    'whyexhibit_cta_stat1_label' => 'Days',
+    'whyexhibit_cta_stat2_value' => '200+',
+    'whyexhibit_cta_stat2_label' => 'Exhibitors',
+    'whyexhibit_cta_stat3_value' => 'Free',
+    'whyexhibit_cta_stat3_label' => 'Entry',
+
+
+ 
+    
+    //Best booth Page
+
+    'bb_eyebrow'        => 'Mirzaam Expo 2025',
+    'bb_title'          => 'Best Booth',
+    'bb_title_accent'   => 'Competition',
+    'bb_hero_subtitle'  => 'Vote for the best booth across three categories — Innovation, Aesthetics, and Sustainability.',
+    
+    // ── INTRO ────────────────────────────────────────────────
+    'bb_overview_label' => '2025 Edition',
+    'bb_intro'           => "The Best Booth Competition at Mirzaam Expo is one of the most anticipated events of the year. It's a moment where we celebrate the incredible designs and innovations that make Mirzaam a unique platform for elegance and creativity.",
+    'bb_honoring_title' => 'Honoring Participants',
+    'bb_honoring_desc'  => 'All Mirzaam participants deserve acknowledgment for their outstanding booth designs, exceptional executions, and significant investments. Each booth is a testament to the creativity and dedication that defines Mirzaam year after year.',
+    
+    // ── COMPETITION MECHANICS ────────────────────────────────
+    'bb_mechanics_label' => 'Competition Mechanics',
+    'bb_mechanics_title' => 'Three winners are selected across three distinct categories.',
+    
+    'bb_mech1_title' => 'Innovation',
+    'bb_mech1_desc'  => 'Evaluate originality, innovative elements, interactive experience, storytelling, and bold design choices.',
+    
+    'bb_mech2_title' => 'Aesthetics',
+    'bb_mech2_desc'  => 'Assess the booth for visual harmony, design unity, quality of finishes, effective branding, and impactful presence.',
+    
+    'bb_mech3_title' => 'Sustainability',
+    'bb_mech3_desc'  => 'Consider material usage, energy efficiency, waste minimization, life cycle planning, and eco-friendly practices.',
+    
+    // ── JURY PANEL ────────────────────────────────────────────
+    'bb_jury_label'    => 'The Judges',
+    'bb_jury_title'    => 'Meet Our Qualified Panel of Judges',
+    'bb_jury_subtitle' => 'Our panel shortlists the top booths across every category, evaluating design, craft, and innovation in person.',
+    'bb_jury_tag'      => 'JURY MEMBER',
+    
+    'bb_judge1_name' => 'Architect Hussein Ali Qassem',
+    'bb_judge1_role' => 'Architect, partner, and founder of KAF Design, KAF Construction, and the Construction Materials Chamber',
+    'bb_judge1_bio'  => 'Striving to transform spaces into architectural experiences that pulse with emotion and beauty, he holds a degree in Architecture from Kuwait University and has participated in the design and supervision of distinguished commercial and residential projects across the Gulf region. He is a partner and co-founder of KAF Design, KAF Construction, and Ghurfa Building Materials, where he seamlessly merges art with construction and vision with execution. He has also taken part in university lectures, international and Gulf exhibitions, and in the development of architectural codes in Kuwait.',
+    
+    'bb_judge2_name' => 'Abdulaziz Nasser Al-Nasser',
+    'bb_judge2_role' => 'General Manager of Al Bayt Al Khushabi Furniture and Decor Company',
+    'bb_judge2_bio'  => 'He is the General Manager of Wooden House for Furniture and Decor Company, and he owns several companies specializing in general contracting, interior design, home cleaning services, as well as gifts and packaging businesses.',
+    
+    'bb_judge3_name' => 'Sura AlSabah',
+    'bb_judge3_role' => 'Architect and Founder of Home Genius Company',
+    'bb_judge3_bio'  => "Sura Saud AlSabah is a Kuwaiti architect, researcher, and designer with a Master's degree in Architecture. Her academic work explores future visions for multi-use homes in Kuwait, blending research with innovative design thinking. She is the founder of Home Genius and @homegeniusarc, leading community workshops that promote architectural awareness, creativity, and problem-solving among youth and adults. As a writer and motivational storyteller, she inspires others through imaginative narratives and messages of personal growth.",
+    
+    'bb_judge4_name' => 'Dr. Ahmad Ebrahim Alansari',
+    'bb_judge4_role' => 'Associate Professor, Interior Design Department, College of Basic Education — Public Authority for Applied Education and Training, Kuwait',
+    'bb_judge4_bio'  => 'Dr. Ahmad Ebrahim Al-Ansari is a faculty member in the Department of Interior Design at the College of Basic Education. He holds a Ph.D. in Interior Design from Texas Tech University in the United States. He is also the General Manager and founder of Fine Design, a firm specializing in interior design and the execution of residential and commercial projects. His combined academic and professional experience has provided him with extensive expertise in the Kuwaiti market.',
+    
+    'bb_judge5_name' => 'Sameer Al Dahan',
+    'bb_judge5_role' => 'Founder and Managing Partner at Dahan W.L.L.',
+    'bb_judge5_bio'  => 'The founder of Dahan W.L.L, a company based in Kuwait that specializes in high-end interior finish for local and international retail brands and spaces, with offices in both KSA and the UAE.',
+    
+    'bb_judge6_name' => 'Jasmine Karimi',
+    'bb_judge6_role' => 'Interior Designer and Creative Director, LOOK BOOK LIVING',
+    'bb_judge6_bio'  => 'A Kuwaiti multidisciplinary creative: interior designer, fashion illustrator, and artist. Through the studio and editorial platform LOOK BOOK LIVING, design theory is weaved together with a focus on emotion, material psychology, narrative details, and the rituals of daily living.',
+    
+    'bb_judge7_name' => 'Noor Mohammed Bin Eidan',
+    'bb_judge7_role' => 'Interior Designer, CEO and Founder of Noorbinaidan Design Firm',
+    'bb_judge7_bio'  => 'Noor Bin Eidan is a renowned Kuwaiti interior designer who transforms spaces into works of art. Founder of Done Interiors, she blends modern luxury with Middle Eastern elegance, inspiring with over 20 years of award-winning design.',
+    
+    'bb_judge8_name' => 'Seba Orabi',
+    'bb_judge8_role' => 'Interior Architect Consultant and Founder of Seba Spaces',
+    'bb_judge8_bio'  => 'Seba Orabi stands out as a skilled Interior Architect Consultant, known for her significant contributions to some of the largest and most innovative projects in Kuwait, as well as other impressive ventures throughout the region. Her ability to create enduring and beautiful designs showcases her exceptional creativity, distinctive taste, and commitment to meeting international standards. Having gained valuable experience working with various regional and international architecture firms, Seba has now chosen to steer her career in a new direction — leaving the realm of large corporations to focus more intently on her passion for sustainability and crafting more authentic designs.',
+    
+    // ── HOW VISITORS VOTE ─────────────────────────────────────
+    'bb_voting_label' => 'How To Vote',
+    'bb_voting_title' => 'How Do Visitors Participate in Voting?',
+    
+    'bb_step1_title' => 'Explore the Booths',
+    'bb_step1_desc'  => 'Walk the show floor and experience the stunning booth designs in person.',
+    
+    'bb_step2_title' => 'Vote via the App',
+    'bb_step2_desc'  => 'Cast your vote for your favorite booth directly through the Mirzaam App. You must be at the expo location in order to vote.',
+    
+    'bb_closing_statement' => "The Best Booth Competition is more than just a celebration of design, it's a platform for appreciation and inspiration. Be part of this exceptional experience, and let's celebrate innovation, beauty, and sustainability together!",
+    
+    // ── NOMINEES ──────────────────────────────────────────────
+    'bb_nominees_label' => '2025 Winners',
+    'bb_nominees_title' => 'Nominees of Mirzaam 2025 Best Booth Design',
+    
+    'bb_nominee1_category' => 'Best in Aesthetic',
+    'bb_nominee1_company'  => 'Design Details',
+    
+    'bb_nominee2_category' => 'Best in Innovation',
+    'bb_nominee2_company'  => 'ProPainters',
+    
+    'bb_nominee3_category' => 'Best in Sustainability',
+    'bb_nominee3_company'  => 'AlRefaei International',
+    
+    // ── CTA ──────────────────────────────────────────────────
+    'bb_cta_eyebrow' => 'Cast Your Vote',
+    'bb_cta_title'   => 'Vote for Your Favorite Booth',
+    'bb_cta_desc'    => 'Explore the booths during the expo and cast your vote via the Mirzaam App. You must be at the expo location to vote.',
+    'bb_cta_button'  => 'Download the App',
+    'bb_cta_link'    => '#',
+    
+    'bb_cta_stat1_value' => '3',
+    'bb_cta_stat1_label' => 'Categories',
+    'bb_cta_stat2_value' => '8',
+    'bb_cta_stat2_label' => 'Judges',
+    'bb_cta_stat3_value' => 'App',
+    'bb_cta_stat3_label' => 'Vote Method',
+
+    
+
+    //Mirzaamiyat Page
+    'mz_hero_eyebrow'      => 'Part of the Fouz Expos Family',
+    'mz_hero_title'        => 'Mirzaamiyat',
+    'mz_hero_subtitle'     => 'Ramadan Edition',
+    'mz_hero_tagline'      => 'Where elegance meets functionality in transforming your living spaces.',
+    'mz_hero_date_label'   => 'Show Dates',
+    'mz_hero_date_value'   => '8 – 10 January 2026',
+    'mz_hero_venue_label'  => 'Venue',
+    'mz_hero_venue_value'  => 'The Arena, 360 Mall, Kuwait',
+    'mz_hero_cta_primary'   => 'Exhibitor List 2026',
+    'mz_hero_cta_secondary' => 'View Expo Plan',
+    
+    // ── INTRO — "What is Mirzaamiyat" ────────────────────────
+    'mz_intro_eyebrow' => 'What Is Mirzaamiyat',
+    'mz_intro_title'   => 'Beautiful spaces, beautifully sourced',
+    'mz_intro_p1'      => 'Mirzaamiyat is a series of specialised exhibitions that focus on the services and products that beautify certain parts of our homes and spaces.',
+    'mz_intro_p2'      => "Mirzaamiyat Ramadan brings elegance and functionality together in transforming your living spaces — a world of curated beauty for everything exquisite and essential in the home, presented each year in the lead-up to the holy month.",
+    'mz_intro_quote'   => 'Where elegance meets functionality in transforming your living spaces.',
+    
+    // ── CATEGORIES ────────────────────────────────────────────
+    'mz_cat_eyebrow'  => 'Discover & Indulge',
+    'mz_cat_title'    => 'Nine categories, one home',
+    'mz_cat_subtitle' => 'Every detail of Ramadan home styling, under one roof.',
+    
+    'mz_cat_accessories_title' => 'Home Accessories',
+    'mz_cat_accessories_desc'  => 'Elevate your living space with stylish, functional additions.',
+    
+    'mz_cat_gifting_title' => 'Ramadan Gifting',
+    'mz_cat_gifting_desc'  => 'Find the perfect gifts to share the joy of the season.',
+    
+    'mz_cat_mothersday_title' => "Mother's Day Gifting",
+    'mz_cat_mothersday_desc'  => 'Show appreciation with thoughtful, meaningful presents.',
+    
+    'mz_cat_carpets_title' => 'Carpets',
+    'mz_cat_carpets_desc'  => 'A variety of carpets to add warmth and charm to any room.',
+    
+    'mz_cat_outdoor_title' => 'Outdoor & Garden Decor',
+    'mz_cat_outdoor_desc'  => 'Transform outdoor spaces into havens of tranquility.',
+    
+    'mz_cat_fragrance_title' => 'Mubkhar, Bakhour & Home Fragrance',
+    'mz_cat_fragrance_desc'  => 'Fill your home with captivating, signature scents.',
+    
+    'mz_cat_tableware_title' => 'Tableware',
+    'mz_cat_tableware_desc'  => 'Set the perfect table with exquisite tableware selections.',
+    
+    'mz_cat_serveware_title' => 'Serveware',
+    'mz_cat_serveware_desc'  => 'Serve your guests in style with elegant serveware.',
+    
+    'mz_cat_rentals_title' => 'Furniture & Tableware Rentals',
+    'mz_cat_rentals_desc'  => 'Access furniture and tableware for any occasion.',
+    
+    // ── SPONSORS ──────────────────────────────────────────────
+    'mz_sponsors_eyebrow'  => 'With Thanks To',
+    'mz_sponsors_title'    => 'Partners & sponsors',
+    'mz_sponsors_subtitle' => 'The names supporting Mirzaamiyat Ramadan 2026.',
+    
+    'mz_tier_main'        => 'Main Sponsor',
+    'mz_tier_supporting'  => 'Supporting Partner',
+    'mz_tier_media'       => 'Media Partner',
+    'mz_tier_landscaping' => 'Landscaping Partner',
+    
+    'mz_sponsor_asfour_title' => 'Asfour Crystal',
+    'mz_sponsor_asfour_desc'  => 'A globally recognised name in crystal craftsmanship, bringing brilliance and artistry to every space.',
+    
+    'mz_sponsor_asnan_title' => 'Asnan Tower',
+    'mz_sponsor_asnan_desc'  => "The world's largest dental clinic, with American-board consultants across every specialty.",
+    
+    'mz_sponsor_safat_title' => 'Safat Home',
+    'mz_sponsor_safat_desc'  => 'Thoughtfully curated home accessories that blend functionality with refined design.',
+    
+    'mz_sponsor_deema_title' => 'Deema Financing',
+    'mz_sponsor_deema_desc'  => 'Flexible financing — live now, pay later — with zero fees across 2–4 instalments.',
+    
+    'mz_sponsor_alrai_title' => 'Al Rai Media Group',
+    'mz_sponsor_alrai_desc'  => "One of Kuwait's leading media institutions, covering the expo across TV and print.",
+    
+    'mz_sponsor_m2r_title' => 'M2R',
+    'mz_sponsor_m2r_desc'  => "A leader in outdoor screens, carrying Mirzaamiyat across Kuwait's busiest locations.",
+    
+    'mz_sponsor_alfares_title' => 'Al Fares Gardens',
+    'mz_sponsor_alfares_desc'  => 'Indoor and outdoor planting that brings natural beauty throughout the venue.',
+    
+    'mz_sponsor_booth_label' => 'Booth',
+    
+    // ── GALLERY ───────────────────────────────────────────────
+    'mz_gallery_eyebrow' => 'Previous Edition',
+    'mz_gallery_title'   => 'A glimpse into the magic',
+    'mz_gallery_desc'    => 'Browse captivating moments from the last Mirzaamiyat Ramadan.',
+    
+    // ── FOLLOW BANNER (Instagram handled by app — no static feed) ─
+    'mz_follow_title'  => 'Follow along',
+    'mz_follow_desc'   => 'Real-time updates, sneak peeks, and behind-the-scenes moments from Mirzaamiyat Ramadan.',
+    'mz_follow_handle' => '@mirzaamiyat',
+    'mz_follow_cta'    => 'Follow on Instagram',
+    
+    // ── FINAL CTA ─────────────────────────────────────────────
+    'mz_final_title'         => 'Your dream home awaits',
+    'mz_final_desc'          => 'Join us at Mirzaamiyat Ramadan and witness the convergence of luxury, style, and practicality — an experience that goes beyond the ordinary.',
+    'mz_final_cta_primary'   => 'Exhibitor List 2026',
+    'mz_final_cta_secondary' => 'View Expo Plan',
+    ];
 ?>

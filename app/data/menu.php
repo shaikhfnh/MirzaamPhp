@@ -34,7 +34,7 @@ $MENU = [
     [
         "title" => "menu_explore",
         "items" => [
-            ["label" => "explore_booth", "link" => "jury"],
+            ["label" => "explore_booth", "link" => "best-booth"],
             ["label" => "explore_way",   "link" => "wayfinding"],
         ]
     ],

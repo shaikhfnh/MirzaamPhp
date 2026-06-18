@@ -235,14 +235,14 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 </div>
             </div>
 
-            <!-- ALPHABET STRIP — original position, under search, LTR only -->
-            <?php if (!$isRtl): ?>
+            <!-- ALPHABET STRIP — English (A-Z) for LTR, Arabic (ا-ي) for RTL -->
             <div class="flex flex-wrap gap-1.5 mb-6">
                 <button @click="alphabet = ''" type="button"
                     class="px-3 h-8 sm:h-9 rounded-lg text-xs font-semibold transition border"
                     :class="alphabet === '' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'">
                     <?= __('all') ?: 'All' ?>
                 </button>
+                <?php if (!$isRtl): ?>
                 <template x-for="char in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" :key="char">
                     <button @click="hasCompany(char) && (alphabet = (alphabet === char ? '' : char))" type="button"
                         :disabled="!hasCompany(char)"
@@ -254,8 +254,20 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         }"
                         x-text="char"></button>
                 </template>
+                <?php else: ?>
+                <template x-for="char in 'ا,ب,ت,ث,ج,ح,خ,د,ذ,ر,ز,س,ش,ص,ض,ط,ظ,ع,غ,ف,ق,ك,ل,م,ن,ه,و,ي'.split(',')" :key="char">
+                    <button @click="hasCompany(char) && (alphabet = (alphabet === char ? '' : char))" type="button"
+                        :disabled="!hasCompany(char)"
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg text-sm font-semibold transition border"
+                        :class="{
+                            'bg-zinc-900 text-white border-zinc-900': alphabet === char,
+                            'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400': alphabet !== char && hasCompany(char),
+                            'bg-zinc-50 text-zinc-300 border-zinc-100 cursor-not-allowed': !hasCompany(char)
+                        }"
+                        x-text="char"></button>
+                </template>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
 
             <!-- ACTIVE FILTER CHIPS -->
             <div x-show="hasActiveFilters" class="flex flex-wrap items-center gap-2 mb-6">

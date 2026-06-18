@@ -2,211 +2,335 @@
 /**
  * These variables are injected from index.php/init
  * @var string $lang
- * @var array $site_blueprint 
+ * @var array $site_blueprint
  */
 
 // Grab the specific data for this page
 $exhibitions_data = $site_blueprint['about']['exhibitions'];
-$highlights_data = $site_blueprint['about']['highlights'];
+$highlights_data  = $site_blueprint['about']['highlights'];
+$events_image     = $site_blueprint['about']['events_image'];
+$highlights_image = $site_blueprint['about']['highlights_image'];
+$vis_milestones   = $site_blueprint['about']['vis_milestones'];
+
+$isRtl = ($lang === 'ar');
 ?>
 
-<section class="relative w-full bg-[#0a0a0a] text-white overflow-hidden min-h-screen flex items-center border-b border-white/10" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--primary)]/10 blur-[130px] rounded-full"></div>
-    </div>
+<!-- ============================================================
+     SECTION 1 — THE VISIONARY
+     Split layout: photo on the left (larger than the original
+     split version), text on the right, floating credential badge
+     on the photo. Career timeline spans full width underneath —
+     horizontal with a joining line on larger screens, vertical
+     on mobile.
+============================================================ -->
+<section class="relative w-full bg-white overflow-hidden border-b border-zinc-100" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
+    <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-24">
 
-    <div class="relative z-10 w-full flex flex-col lg:flex-row items-stretch min-h-screen">
-        <div class="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-16 lg:pl-[8%] lg:pr-24 py-12 order-2 lg:order-1">
-            <div class="animate-slide-up" style="animation-delay: 0.1s;">
-                <div class="inline-flex items-center gap-5 mb-6">
-                    <span class="w-16 h-[3px] bg-white shadow-[0_0_10px_var(--primary)]"></span>
-                    <span class="text-base md:text-lg lg:text-xl tracking-[0.3em] uppercase text-white font-bold font-alexandria">
-                        <?= __('about_vis_subtitle') ?>
-                    </span>
-                </div>
-                <h1 class="text-5xl md:text-[4rem] font-bold mb-10 font-alexandria leading-[1.1] text-white tracking-tight">
-                    <?= __('about_vis_title') ?>
-                </h1>
-            </div>
-            
-            <div class="space-y-6 text-[#A1A1AA] text-lg md:text-xl leading-[1.8] font-light animate-slide-up" style="animation-delay: 0.3s;">
-                <p><?= __('about_vis_p1') ?></p>
-                <p><?= __('about_vis_p2') ?></p>
-                <p><?= __('about_vis_p3') ?></p>
-            </div>
-        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-stretch mb-14 md:mb-16">
 
-        <div class="w-full lg:w-1/2 relative min-h-[60vh] lg:min-h-screen order-1 lg:order-2 group overflow-hidden bg-black flex items-center">
-            <img src="/mirzaam/assets/images/about/fnhbw.webp" alt="<?= strip_tags(__('about_vis_title')) ?>" class="absolute inset-0 w-full h-full object-cover object-top grayscale-[50%] opacity-80 transition-all duration-[1.5s] ease-out group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100">
-            
-            <div class="absolute hidden md:block inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent opacity-100 lg:w-1/3"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-100 lg:hidden h-1/2 mt-auto"></div>
+            <!-- Photo — left, full-bleed within its column, no
+                 fixed ratio on desktop (fills the row's natural
+                 height instead), subtle angled bottom edge for a
+                 more editorial, premium silhouette. -->
+            <div class="lg:col-span-6 h-full wv-reveal" data-reveal>
+                <div class="relative h-full lg:min-h-[600px]">
+                    <div class="relative w-full h-full aspect-[3/4] lg:aspect-auto overflow-hidden bg-zinc-50"
+                         style="clip-path: <?= $isRtl
+                             ? 'polygon(0 0, 100% 0, 100% 100%, 0 96%)'
+                             : 'polygon(0 0, 100% 0, 100% 96%, 0 100%)' ?>;">
+                        <img src="/mirzaam/assets/images/about/fnhbw.webp" alt="<?= strip_tags(__('about_vis_title')) ?>"
+                             class="absolute inset-0 w-full h-full object-cover object-top">
+                    </div>
 
-            <div class="absolute md:bottom-12 bottom-4 left-6 bg-[#111111]/90 backdrop-blur-2xl border border-white/10 p-5 md:p-6 rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.9)] flex items-center gap-5 transition-all duration-700 ease-out group-hover:-translate-y-4 group-hover:border-[var(--secondary)]/50 z-20">
-                <div class="md:w-14 w-10 h-10 md:h-14 rounded-full bg-[var(--secondary)] flex items-center justify-center text-black shrink-0 shadow-[0_0_25px_var(--secondary)] transition-transform duration-500 group-hover:scale-110">
-                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </div>
-                <div>
-                    <div class="text-[10px] md:text-[11px] text-[var(--secondary)] uppercase tracking-[0.2em] font-bold mb-1"><?= __('about_vis_badge_sub') ?></div>
-                    <div class="text-[10px] md:text-sm md:text-base font-medium font-alexandria text-white leading-tight"><?= __('about_vis_badge_title') ?></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="relative w-full bg-[#050506] text-white py-12 border-b border-white/[0.05] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="absolute inset-0 bg-[radial-gradient(#ffffff02_1px,transparent_1px)] [background-size:20px_20px] opacity-60 pointer-events-none"></div>
-    <div class="absolute top-0 right-10 w-[500px] h-[500px] bg-[var(--primary)]/5 blur-[160px] rounded-full pointer-events-none transform -translate-y-1/3"></div>
-    <div class="absolute bottom-[-5%] left-5 w-[400px] h-[400px] bg-[var(--secondary)]/5 blur-[130px] rounded-full pointer-events-none"></div>
-
-    <div class="w-full relative z-10">
-        <div class="w-full px-6 md:px-12 lg:px-16 xl:px-24 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-6">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-4 mb-4">
-                    <span class="w-10 h-[2px] bg-gradient-to-r from-[var(--secondary)] to-transparent"></span>
-                    <span class="text-xs tracking-[0.35em] uppercase text-[var(--secondary)] font-bold font-alexandria">
-                        <?= __('about_exh_subtitle') ?>
-                    </span>
-                </div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold font-alexandria text-white tracking-tight leading-[1.2] mb-4">
-                    <?= __('about_exh_title') ?>
-                </h2>
-                <p class="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-2xl">
-                    <?= __('about_exh_desc') ?>
-                </p>
-            </div>
-
-            <div id="events-nav-controls" class="hidden gap-3 self-start md:self-end z-20">
-                <button id="events-prev-btn" class="w-12 h-12 rounded-full border border-white/10 backdrop-blur-md flex items-center justify-center bg-neutral-950/40 text-neutral-400 hover:text-white hover:border-white/20 active:scale-95 transition-all duration-300 group"><svg class="w-4 h-4 transform group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg></button>
-                <button id="events-next-btn" class="w-12 h-12 rounded-full border border-white/10 backdrop-blur-md flex items-center justify-center bg-neutral-950/40 text-neutral-400 hover:text-white hover:border-white/20 active:scale-95 transition-all duration-300 group"><svg class="w-4 h-4 transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg></button>
-            </div>
-        </div>
-
-        <div id="events-scroll-track" class="w-full flex gap-6 overflow-x-auto px-6 md:px-12 lg:px-16 xl:px-24 pt-8 pb-14 scrollbar-none style-scroll select-none snap-x snap-mandatory">
-            
-            <?php foreach ($exhibitions_data as $item): ?>
-                <div style="--accent-glow: <?= $item['accent_color'] ?>;" class="event-slider-card w-[260px] md:w-[310px] lg:w-[330px] shrink-0 snap-start group relative bg-gradient-to-b from-[#0f0f10] to-[#070708] border border-white/[0.03] rounded-[2rem] p-6 flex flex-col justify-between transition-all duration-500 hover:border-white/[0.09] hover:-translate-y-3 overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.9)]">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-screen" style="background: radial-gradient(circle 180px at 50% -10px, <?= $item['accent_color'] ?>12, transparent 80%);"></div>
-                    <div>
-                        <div class="relative w-full aspect-[4/3] bg-neutral-900/60 border border-white/[0.05] rounded-2xl mb-5 overflow-hidden">
-                            <img src="<?= $item['image'] ?>" alt="" class="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none ease-out">
-                            <div class="absolute top-4 left-4 z-20 <?= $item['tag_class'] ?> font-bold font-alexandria text-[9px] tracking-wider px-3 py-1.5 rounded-lg uppercase shadow-md">
-                                <?= __('about_exh_' . $item['key'] . '_tag') ?>
+                    <div class="absolute bottom-6 <?= $isRtl ? 'right-6' : 'left-6' ?> max-w-[260px] bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.30)] p-5 flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-full bg-yellow-500 flex items-center justify-center text-black shrink-0">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-yellow-600 uppercase tracking-[0.2em] font-bold mb-1">
+                                <?= __('about_vis_badge_sub') ?: 'Award Winner' ?>
+                            </div>
+                            <div class="text-[13px] sm:text-sm font-semibold text-zinc-900 leading-tight">
+                                <?= __('about_vis_badge_title') ?>
                             </div>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold font-alexandria text-neutral-200 group-hover:text-white mb-2.5 transition-colors duration-300 tracking-tight">
-                            <?= __('about_exh_' . $item['key'] . '_title') ?>
-                        </h3>
-                        <p class="text-neutral-400 group-hover:text-neutral-300 text-xs md:text-sm font-light leading-relaxed transition-colors duration-300">
-                            <?= __('about_exh_' . $item['key'] . '_desc') ?>
-                        </p>
-                    </div>
-                    <div class="mt-8 pt-5 border-t border-white/[0.04] flex items-center justify-between relative z-20">
-                        <span class="text-[11px] tracking-[0.15em] font-bold uppercase font-alexandria transition-all duration-300 group-hover:tracking-[0.2em]" style="color: <?= $item['accent_color'] ?>;">
-                            <?= __('about_exh_' . $item['key'] . '_meta') ?>
-                        </span>
-                        <div class="w-8 h-8 rounded-full bg-neutral-900 border border-white/5 flex items-center justify-center text-neutral-500 group-hover:text-white transition-all duration-300">
-                            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                        </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+
+            <!-- Text — right -->
+            <div class="lg:col-span-6 pt-8 lg:pt-2 flex flex-col justify-center wv-reveal" data-reveal data-delay="100">
+                <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-4">
+                    <?= __('about_vis_subtitle') ?: 'The Visionary' ?>
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 mb-3 leading-[1.05]">
+                    <?= __('about_vis_title') ?: 'Farah Al Humaidhi' ?>
+                </h1>
+                <p class="text-base sm:text-lg text-zinc-400 font-light mb-10">
+                    <?= __('about_vis_credential') ?>
+                </p>
+
+                <div class="space-y-5 text-zinc-600 leading-relaxed font-light max-w-2xl text-[15px] sm:text-base">
+                    <p><?= __('about_vis_p1') ?></p>
+                    <p><?= __('about_vis_p2') ?></p>
+                    <p><?= __('about_vis_p3') ?></p>
+                </div>
+            </div>
 
         </div>
-    </div>
-</section>
 
-<section class="relative w-full bg-[#050506] text-white py-12 border-b border-white/[0.05] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="absolute inset-0 bg-[radial-gradient(#ffffff01_1px,transparent_1px)] [background-size:32px_32px] opacity-30 pointer-events-none"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[var(--secondary)]/[0.03] blur-[150px] rounded-full pointer-events-none"></div>
+        <!-- Career timeline — same 4 milestones, real connected-
+             line timeline rather than a plain grid. -->
+        <div class="pt-10 border-t border-zinc-100">
 
-    <div class="w-full relative z-10 px-6 md:px-12 lg:px-24">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
-            <div class="lg:col-span-5">
-                <div class="inline-flex items-center gap-3 mb-6">
-                    <span class="w-8 h-[1px] bg-[var(--secondary)]"></span>
-                    <span class="text-xs tracking-[0.4em] uppercase text-[var(--secondary)] font-bold font-alexandria"><?= __('about_strat_subtitle') ?></span>
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold font-alexandria leading-[1.15]">
-                    <?= __('about_strat_title') ?>
-                </h2>
-            </div>
-            <div class="lg:col-span-7 border-l rtl:border-r rtl:border-l-0 rtl:pr-8 border-white/[0.08] pl-8 flex flex-col justify-center">
-                <p class="text-neutral-400 text-lg leading-relaxed"><?= __('about_strat_desc') ?></p>
-            </div>
-        </div>
-
-        <div class="pt-12 border-t border-white/[0.08] grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div>
-                <div class="inline-flex items-center gap-3 mb-6">
-                    <span class="w-8 h-[1px] bg-[var(--secondary)]"></span>
-                    <span class="text-xs tracking-[0.4em] uppercase text-[var(--secondary)] font-bold font-alexandria"><?= __('about_miss_subtitle') ?></span>
-                </div>
-                <h3 class="text-2xl md:text-3xl font-bold font-alexandria mb-6"><?= __('about_miss_title') ?></h3>
-                <p class="text-neutral-400 leading-relaxed mb-8"><?= __('about_miss_p1') ?></p>
-                <p class="text-neutral-400 leading-relaxed"><?= __('about_miss_p2') ?></p>
-            </div>
-
-            <div class="bg-white/[0.02] p-8 md:p-10 rounded-2xl border border-white/[0.05] flex flex-col h-full justify-center">
-                <p class="italic text-white/90 text-lg font-light leading-relaxed mb-8"><?= __('about_miss_quote') ?></p>
-                <div class="pt-8 border-t border-white/[0.1]">
-                    <h4 class="text-sm font-bold text-[var(--secondary)] uppercase tracking-widest mb-3"><?= __('about_miss_box_title') ?></h4>
-                    <p class="text-neutral-400 text-sm leading-relaxed"><?= __('about_miss_box_desc') ?></p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="relative w-full bg-[#050506] text-white py-12 border-b border-white/[0.05] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="absolute inset-0 bg-[radial-gradient(#ffffff01_1px,transparent_1px)] [background-size:32px_32px] opacity-30 pointer-events-none"></div>
-
-    <div class="w-full relative z-10 px-6 md:px-12 lg:px-24">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
-            <div class="lg:col-span-4">
-                <div class="inline-flex items-center gap-3 mb-6">
-                    <span class="w-8 h-[1px] bg-[var(--secondary)]"></span>
-                    <span class="text-xs tracking-[0.4em] uppercase text-[var(--secondary)] font-bold font-alexandria"><?= __('about_leg_subtitle') ?></span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold font-alexandria mb-8 leading-tight"><?= __('about_leg_title') ?></h2>
-                <p class="text-neutral-400 leading-relaxed font-light text-lg"><?= __('about_leg_p1') ?></p>
-                <div class="mt-8 p-6 border-l rtl:border-r rtl:border-l-0 border-[var(--secondary)] bg-white/[0.02]">
-                    <p class="italic text-white/80 leading-relaxed"><?= __('about_leg_quote') ?></p>
-                </div>
-                <p class="mt-8 text-neutral-400 leading-relaxed"><?= __('about_leg_p2') ?></p>
-            </div>
-
-            <div class="lg:col-span-8 bg-white/[0.02] p-8 md:p-12 rounded-2xl border border-white/[0.05]">
-                <div class="inline-flex items-center gap-3 mb-8">
-                    <span class="w-8 h-[1px] bg-[var(--secondary)]"></span>
-                    <span class="text-xs tracking-[0.4em] uppercase text-[var(--secondary)] font-bold font-alexandria"><?= __('about_high_subtitle') ?></span>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <?php foreach ($highlights_data as $highlight): ?>
-                        <div class="space-y-4">
-                            <h4 class="text-white font-bold font-alexandria">
-                                <?= __('about_high_' . $highlight['key'] . '_title') ?>
-                            </h4>
-                            <p class="text-neutral-400 text-sm leading-relaxed">
-                                <?= __('about_high_' . $highlight['key'] . '_desc') ?>
-                            </p>
+            <!-- Horizontal timeline — sm and up -->
+            <div class="hidden sm:block relative">
+                <div class="absolute top-[5px] inset-x-0 h-px bg-zinc-200"></div>
+                <div class="grid grid-cols-4 gap-6 lg:gap-10">
+                    <?php foreach ($vis_milestones as $i => $ms): ?>
+                        <div class="relative wv-reveal" data-reveal data-delay="<?= $i * 70 ?>">
+                            <span class="relative z-10 block w-3 h-3 rounded-full bg-yellow-500 ring-4 ring-white mb-5"></span>
+                            <div class="text-2xl lg:text-[1.75rem] font-bold tracking-tight text-zinc-900 mb-1.5"><?= htmlspecialchars($ms['year']) ?></div>
+                            <div class="text-[12.5px] text-zinc-500 leading-snug font-light max-w-[180px]"><?= __('about_vis_milestone_' . $ms['key'] . '_label') ?></div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
 
+            <!-- Vertical timeline — mobile only -->
+            <div class="sm:hidden relative <?= $isRtl ? 'pr-6' : 'pl-6' ?>">
+                <div class="absolute top-1 bottom-1 <?= $isRtl ? 'right-[5px]' : 'left-[5px]' ?> w-px bg-zinc-200"></div>
+                <?php foreach ($vis_milestones as $i => $ms): ?>
+                    <div class="relative pb-9 last:pb-0 wv-reveal" data-reveal data-delay="<?= $i * 70 ?>">
+                        <span class="absolute top-1 <?= $isRtl ? '-right-6' : '-left-6' ?> w-3 h-3 rounded-full bg-yellow-500 ring-4 ring-white"></span>
+                        <div class="text-xl font-bold tracking-tight text-zinc-900 mb-1.5"><?= htmlspecialchars($ms['year']) ?></div>
+                        <div class="text-[12.5px] text-zinc-500 leading-snug font-light"><?= __('about_vis_milestone_' . $ms['key'] . '_label') ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
         </div>
+
     </div>
 </section>
 
-<?php
-$cat_slider_title    = "Categories";
-$cat_slider_subtitle = "";
-include 'includes/category-slider/template.php';
-?>
+
+
+
+<!-- ============================================================
+     WHITE EDITORIAL THEME CONTINUES — matches Why Exhibit /
+     Best Booth / Why Visit design system: zinc/yellow palette,
+     wv-reveal animations, finalized card style, mono eyebrows.
+============================================================ -->
+<div class="bg-white text-zinc-900 antialiased overflow-hidden" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         UPCOMING EVENTS — intro copy + real KIF photo, plus the
+         two real sister exhibitions run by the same organizer
+         (Fouz Expos Company): Mirzaamiyat and IXIR.
+    ═══════════════════════════════════════════════════════ -->
+    <section class="w-full border-b border-zinc-100">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-16 md:mb-20">
+                <div class="lg:col-span-7 wv-reveal" data-reveal>
+                    <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-3">
+                        <?= __('about_exh_subtitle') ?: "What's Next" ?>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight">
+                        <?= __('about_exh_title') ?: 'Upcoming Events' ?>
+                    </h2>
+                    <div class="space-y-4 text-zinc-500 font-light leading-relaxed text-[15px] sm:text-base max-w-xl">
+                        <p><?= __('about_exh_desc') ?></p>
+                        <p><?= __('about_exh_desc2') ?></p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 wv-reveal" data-reveal data-delay="100">
+                    <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-zinc-50 border border-zinc-100">
+                        <img src="<?= htmlspecialchars($events_image) ?>" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sister exhibitions -->
+            <div class="pt-14 border-t border-zinc-100">
+                <span class="text-[11px] tracking-[0.3em] uppercase text-zinc-400 font-semibold font-mono block mb-6">
+                    <?= __('about_exh_siblings_label') ?: 'Part of the Fouz Expos Family' ?>
+                </span>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
+                    <?php foreach ($exhibitions_data as $i => $item): ?>
+                        <a href="<?= htmlspecialchars($item['link']) ?>" target="_blank" rel="noopener"
+                           class="wv-reveal group relative bg-white rounded-2xl border border-zinc-100 overflow-hidden flex flex-col transition-all duration-500 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.10)] hover:-translate-y-1 hover:border-zinc-200"
+                           data-reveal data-delay="<?= $i * 90 ?>">
+
+                            <div class="relative aspect-[16/9] overflow-hidden bg-zinc-50">
+                                <?php if (!empty($item['no_photo'])): ?>
+                                    <div class="absolute inset-0 <?= $item['tile_class'] ?> flex items-center justify-center">
+                                        <span class="text-white font-bold text-2xl sm:text-3xl tracking-tight">
+                                            <?= __('about_exh_' . $item['key'] . '_monogram') ?>
+                                        </span>
+                                    </div>
+                                <?php else: ?>
+                                    <img src="<?= htmlspecialchars($item['image']) ?>" alt=""
+                                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <?php endif; ?>
+                                <span class="absolute top-3 <?= $isRtl ? 'right-3' : 'left-3' ?> <?= $item['tag_class'] ?> font-bold font-mono text-[9px] tracking-wider px-2.5 py-1 rounded-full uppercase">
+                                    <?= __('about_exh_' . $item['key'] . '_tag') ?: 'Sister Exhibition' ?>
+                                </span>
+                            </div>
+
+                            <div class="p-5 md:p-6 flex-1 flex flex-col">
+                                <h3 class="text-base md:text-lg font-semibold tracking-tight text-zinc-900 mb-1.5">
+                                    <?= __('about_exh_' . $item['key'] . '_title') ?>
+                                </h3>
+                                <p class="text-sm text-zinc-500 font-light leading-relaxed mb-5 flex-1">
+                                    <?= __('about_exh_' . $item['key'] . '_desc') ?>
+                                </p>
+                                <div class="flex items-center justify-between pt-4 border-t border-zinc-100">
+                                    <span class="text-[11px] tracking-[0.15em] font-bold uppercase" style="color: <?= htmlspecialchars($item['accent_color']) ?>;">
+                                        <?= __('about_exh_' . $item['key'] . '_meta') ?>
+                                    </span>
+                                    <div class="w-7 h-7 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500 group-hover:bg-zinc-900 group-hover:text-white transition-all duration-300">
+                                        <svg class="w-3.5 h-3.5 transform <?= $isRtl ? 'rotate-180 group-hover:-translate-x-0.5' : 'group-hover:translate-x-0.5' ?> transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="absolute bottom-0 <?= $isRtl ? 'right-6' : 'left-6' ?> h-[2px] w-0 bg-yellow-500 rounded-full group-hover:w-10 transition-all duration-500"></span>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         STRATEGY + MISSION
+    ═══════════════════════════════════════════════════════ -->
+    <section class="w-full bg-zinc-50/50 border-b border-zinc-100">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+
+            <!-- Strategy -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pb-16 mb-16 border-b border-zinc-200/70 wv-reveal" data-reveal>
+                <div class="lg:col-span-4">
+                    <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-3">
+                        <?= __('about_strat_subtitle') ?: 'Our Approach' ?>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 leading-[1.15]">
+                        <?= __('about_strat_title') ?: 'Strategy' ?>
+                    </h2>
+                </div>
+                <div class="lg:col-span-8 <?= $isRtl ? 'lg:border-r lg:pr-10' : 'lg:border-l lg:pl-10' ?> border-zinc-200 flex flex-col justify-center">
+                    <p class="text-zinc-500 text-base sm:text-lg font-light leading-relaxed">
+                        <?= __('about_strat_desc') ?>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mission -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+                <div class="wv-reveal" data-reveal>
+                    <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-3">
+                        <?= __('about_miss_subtitle') ?: 'Our Mission' ?>
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight">
+                        <?= __('about_miss_title') ?: 'Mission' ?>
+                    </h3>
+                    <p class="text-zinc-500 font-light leading-relaxed mb-5">
+                        <?= __('about_miss_p1') ?>
+                    </p>
+                    <p class="text-zinc-500 font-light leading-relaxed">
+                        <?= __('about_miss_p2') ?>
+                    </p>
+                </div>
+
+                <div class="wv-reveal bg-white p-8 md:p-10 rounded-2xl border border-zinc-100 flex flex-col h-full justify-center" data-reveal data-delay="100">
+                    <p class="italic text-zinc-800 text-lg font-light leading-relaxed mb-8">
+                        &ldquo;<?= __('about_miss_quote') ?>&rdquo;
+                    </p>
+                    <div class="pt-7 border-t border-zinc-100">
+                        <h4 class="text-[11px] font-bold text-yellow-600 uppercase tracking-widest mb-3">
+                            <?= __('about_miss_box_title') ?: 'Our Philosophy' ?>
+                        </h4>
+                        <p class="text-zinc-500 text-sm leading-relaxed">
+                            <?= __('about_miss_box_desc') ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         WHY "MIRZAAM"? (Legacy) + HIGHLIGHTS
+    ═══════════════════════════════════════════════════════ -->
+    <section class="w-full border-b border-zinc-100">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+
+                <div class="lg:col-span-4 wv-reveal" data-reveal>
+                    <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-3">
+                        <?= __('about_leg_subtitle') ?: 'Our Story' ?>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 mb-6 leading-[1.15]">
+                        <?= __('about_leg_title') ?: 'Why "Mirzaam"?' ?>
+                    </h2>
+                    <p class="text-zinc-500 leading-relaxed font-light text-base mb-6">
+                        <?= __('about_leg_p1') ?>
+                    </p>
+                    <div class="<?= $isRtl ? 'border-r-2 pr-5' : 'border-l-2 pl-5' ?> border-yellow-500 py-1 mb-6">
+                        <p class="italic text-zinc-700 leading-relaxed">
+                            &ldquo;<?= __('about_leg_quote') ?>&rdquo;
+                        </p>
+                    </div>
+                    <p class="text-zinc-500 leading-relaxed font-light text-base">
+                        <?= __('about_leg_p2') ?>
+                    </p>
+                </div>
+
+                <div class="lg:col-span-8 bg-zinc-50/60 p-8 md:p-12 rounded-2xl border border-zinc-100 wv-reveal" data-reveal data-delay="100">
+                    <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-6">
+                        <?= __('about_high_subtitle') ?: 'What Sets Us Apart' ?>
+                    </span>
+
+                    <div class="relative rounded-xl overflow-hidden aspect-video mb-9 bg-zinc-100 border border-zinc-100">
+                        <img src="<?= htmlspecialchars($highlights_image) ?>" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-7 md:gap-9">
+                        <?php foreach ($highlights_data as $i => $highlight): ?>
+                            <div class="space-y-3">
+                                <div class="w-8 h-8 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+                                    <?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>
+                                </div>
+                                <h4 class="text-zinc-900 font-semibold tracking-tight leading-snug">
+                                    <?= __('about_high_' . $highlight['key'] . '_title') ?>
+                                </h4>
+                                <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                                    <?= __('about_high_' . $highlight['key'] . '_desc') ?>
+                                </p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <?php
+    $cat_slider_title    = __('about_categories_title')    ?: 'Exhibitor Categories';
+    $cat_slider_subtitle = __('about_categories_subtitle') ?: 'Every sector represented at Mirzaam Expo';
+    $cat_slider_theme    = 'light';
+    include 'includes/category-slider/template.php';
+    ?>
+
+</div>

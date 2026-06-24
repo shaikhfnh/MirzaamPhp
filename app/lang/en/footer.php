@@ -1,7 +1,7 @@
 <?php
 return [
     'footer_show_days'        => 'Show Days',
-    'footer_schedule_html'    => '8 - 12 December 2026   10:00 – 10:00 Daily <br>KIF HALL 5-6',
+    'footer_schedule_html'    => '8 - 12 December 2026   10:00 AM – 10:00 PM Daily <br>KIF HALL 5-6',
 
     'footer_explore_title'    => 'Explore',
     'footer_link_about'       => 'About Us',

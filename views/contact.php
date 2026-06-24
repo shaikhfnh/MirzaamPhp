@@ -102,7 +102,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                         </div>
                     </a>
 
-                    <a href="mailto:info@fouzexpos.com"
+                    <a href="mailto:info@mirzaam.com"
                        class="flex items-center gap-4 group">
                         <div class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-yellow-500 shrink-0 group-hover:border-yellow-500/50 transition-colors duration-200">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                         </div>
                         <div>
                             <p class="text-[10px] text-white/35 uppercase tracking-widest font-mono mb-1"><?= __('ct_info_email_label') ?></p>
-                            <p class="text-white/80 text-sm font-light group-hover:text-white transition-colors duration-200">info@fouzexpos.com</p>
+                            <p class="text-white/80 text-sm font-light group-hover:text-white transition-colors duration-200">info@mirzaam.com</p>
                         </div>
                     </a>
 

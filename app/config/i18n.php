@@ -1,7 +1,7 @@
 <?php
 // 1. SETTINGS
 // Leave as '' on Railway, or '/mirzaam' on Local
-$base_path = '/mirzaam'; 
+$base_path = ''; 
 
 // 2. DETECT LANGUAGE
 $request_uri = $_SERVER['REQUEST_URI'];

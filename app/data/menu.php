@@ -35,7 +35,7 @@ $MENU = [
         "title" => "menu_explore",
         "items" => [
             ["label" => "explore_booth", "link" => "best-booth"],
-            ["label" => "explore_way",   "link" => "wayfinding"],
+            ["label" => "explore_way",  "external" => true, "link" => "https://studio--glp-navigator.us-central1.hosted.app/"],
         ]
     ],
     [
@@ -61,9 +61,9 @@ $MENU = [
     [
         "title" => "menu_mirz2026",
         "items" => [
-            ["label" => "mirz_about",      "link" => "mirzaamiyat/about"],
-            ["label" => "mirz_plan",       "link" => "mirzaamiyat/plan"],
-            ["label" => "mirz_exhibitors", "link" => "mirzaamiyat/exhibitors"],
+            ["label" => "mirz_about",      "link" => "mirzaamiyaat/about"],
+            ["label" => "mirz_plan",       "external" => true, "link" => "https://mirzaam.com/mirzaamiyat/2026/registration/plan.php"],
+            ["label" => "mirz_exhibitors", "link" => "mirzaamiyaat/exhibitors"],
         ]
     ],
     [
@@ -89,9 +89,9 @@ $footer_explore_menu = [
 
 // 2. Contact Directory
 $footer_contact_menu = [
-    ['key' => 'exhibiting', 'lang_key' => 'footer_link_exhibiting', 'url' => 'contact#exhibiting'],
-    ['key' => 'visiting',   'lang_key' => 'footer_link_visiting',   'url' => 'contact#visiting'],
-    ['key' => 'media',      'lang_key' => 'footer_link_media',      'url' => 'contact#media'],
+    ['key' => 'exhibiting', 'lang_key' => 'footer_link_exhibiting', 'url' => 'contact'],
+    ['key' => 'visiting',   'lang_key' => 'footer_link_visiting',   'url' => 'plan-your-trip'],
+    ['key' => 'media',      'lang_key' => 'footer_link_media',      'url' => 'media'],
     ['key' => 'privacy',    'lang_key' => 'footer_link_privacy',    'url' => 'privacy'],
 ];
 

@@ -29,7 +29,8 @@ return [
 
 // App Connect Section   
     'app_subhead'  => 'Mirzai Chatbot AI of Mirzaam',
-    'app_title'    => 'UNLOCK THE EXPO. <br /> <span class="text-white/40 font-light">COMPLETE LAYERS.</span> <br /> AI POWERED CONNECT.',
+    'app_title' => 'UNLOCK THE EXPO.|COMPLETE LAYERS.|AI POWERED CONNECT.',
+    'app_back'  => 'Back',
     'app_desc'     => 'Conversational AI Screen in more conversations of optimized, personalized networking recommendation. Navigate floor plans seamlessly, pinpoint luxury vendors globally, and discover optimal exhibition paths instantaneously.',
     'app_hint'     => 'Find vendors and their paths',
     'alt_map'      => 'Mirzaam App Floor Plan',
@@ -99,19 +100,55 @@ return [
     'year_m2025' => '2025',
 
 
+    
+
 //Rewiews Section
-    'reviews_title_top'    => 'Hear what our past',
-    'reviews_title_main'   => 'Attendees & Partners',
+'reviews_eyebrow'   => 'Voices From Mirzaam',
+'reviews_title_top' => 'Hear what our past',
+'reviews_title_main'=> 'Attendees & Partners say',
+ 
+// Reviewer 1 — Latifa
+'review_quote_latifa' => '"Mirzaam is where Kuwait\'s design community comes alive. The level of detail in the curation rivals any expo I\'ve attended in Milan or London."',
+'review_name_latifa'  => 'Latifa Al-Sabah',
+'review_role_latifa'  => 'Founder, Atelier Diwan Kuwait',
+ 
+// Reviewer 2 — Yousef
+'review_quote_yousef' => '"The exhibitors here aren\'t just selling products — they\'re showcasing a vision for how Kuwaiti homes should live in 2026 and beyond."',
+'review_name_yousef'  => 'Yousef Al-Mutairi',
+'review_role_yousef'  => 'Principal Architect, KAB Studio',
+ 
+// Reviewer 3 — Reem
+'review_quote_reem' => '"Every year Mirzaam refines its standard. The conversations I had on the floor in 2025 turned directly into three new projects for my studio."',
+'review_name_reem'  => 'Reem Al-Khalifa',
+'review_role_reem'  => 'Design Director, Al-Khalifa Interiors',
+ 
+// Reviewer 4 — Khaled
+'review_quote_khaled' => '"For a Kuwaiti manufacturer, Mirzaam is the platform. We met more genuine clients in five days than the previous three months of outreach combined."',
+'review_name_khaled'  => 'Khaled Al-Rashid',
+'review_role_khaled'  => 'CEO, Rashid Modular Furniture',
+ 
+// Reviewer 5 — Mariam
+'review_quote_mariam' => '"It\'s rare to find an expo that respects both the craft and the audience. Mirzaam\'s programming makes design feel approachable without losing depth."',
+'review_name_mariam'  => 'Mariam Al-Sabbah',
+'review_role_mariam'  => 'Lead Curator, Bayt Lothan Design Lab',
 
-    'review_quote_elena'   => '"The precision of the fitout and the seamless flow of the event made it the most productive exhibition I have attended in years."',
-    'review_name_elena'    => '— Elena Richardson',
 
-    'review_quote_marcus'  => '"A masterclass in industry innovation. Mirzaam consistently sets the benchmark for design events in the region."',
-    'review_name_marcus'   => '— Marcus Thorne',
-
-    'review_quote_sarah'   => '"Incredible atmosphere and perfectly curated exhibitors. We have already secured our spot for next year."',
-    'review_name_sarah'    => '— Sarah Jenkins',
-
-
+//Newsletter Section
+    'newsletter_title'         => 'Stay Updated.',
+    'newsletter_desc'          => 'Join the archives for exclusive exhibition insights, curated design trends, and partner announcements delivered to your inbox.',
+    'newsletter_placeholder'   => 'Enter your email',
+    'newsletter_button'        => 'Subscribe',
+    'newsletter_submitting'    => 'Submitting...',
+    'newsletter_privacy'       => 'We respect your inbox. Unsubscribe anytime.',
+    'newsletter_invalid'       => 'Please enter a valid email address.',
+    
+    // Success state
+    'newsletter_success_title' => "You're subscribed.",
+    'newsletter_success_desc'  => "Thanks for joining. Watch your inbox for the next dispatch from Mirzaam.",
+    
+    // Failed state
+    'newsletter_failed_title'  => 'Something went wrong.',
+    'newsletter_failed_desc'   => "We couldn't process your subscription. Please try again in a moment.",
+    'newsletter_try_again'     => 'Try again',
 
 ];

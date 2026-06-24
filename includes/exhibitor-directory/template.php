@@ -2,22 +2,38 @@
 // ============================================================
 // includes/exhibitor-directory/template.php
 // ============================================================
-// WHITE THEME — v3 per latest feedback:
-// - No max-width cap on the page (full viewport width section)
-// - Sidebar position MIRRORS by direction:
-//     EN (LTR): sidebar LEFT, cards RIGHT
-//     AR (RTL): sidebar RIGHT, cards LEFT  (true mirror, not
-//     just a CSS order flip — achieved via actual DOM order)
-// - Sidebar only renders if this year's data actually contains
-//   category info (hasCategoryData getter in controller). If
-//   not, grid goes full width with no dead space.
-// - Cards: bigger gap, refined hover, info area improved
-// - Mobile: hard cap at 2 columns, fully responsive text/tags
-// - Custom scrollbar restyled in near-black (not yellow) so
-//   the page isn't yellow-everywhere
+// WHITE THEME — v4
+// Changes from v3:
+//   • $expo_config support — heading/subtitle/year driven by
+//     the calling view (Mirzaamiyat, IXIR, etc.)
+//   • _t() helper fixes the __() key-as-fallback bug so the
+//     Mirzaam participants page title + subtitle now display
+//     correctly when translation keys are missing
+//   • Everything else is identical to v3
 // ============================================================
-$lang  = $lang ?? 'en';
+$lang  = $lang  ?? 'en';
 $isRtl = ($lang === 'ar');
+
+// ── Expo display strings ─────────────────────────────────────
+// _t() fixes the __() bug: when a translation key is missing,
+// __() returns the key NAME itself (truthy), so ?: never fires.
+// _t() compares the returned value against the key name and
+// uses the fallback when they match.
+function _t(string $key, string $fallback): string {
+    $val = __($key);
+    return ($val !== $key && $val !== '') ? $val : $fallback;
+}
+
+// Read from $expo_config if the calling view set it,
+// otherwise fall back to translation keys + hardcoded defaults.
+$_ec_eyebrow  = ($expo_config['eyebrow']  ?? null)
+    ?: _t('exhibitors_eyebrow',  'Mirzaam Expo');
+$_ec_title    = ($expo_config['title']    ?? null)
+    ?: _t('exhibitors_title',    'Exhibitors');
+$_ec_subtitle = ($expo_config['subtitle'] ?? null)
+    ?: _t('exhibitors_subtitle', 'Discover every brand, designer, and partner participating this year.');
+$_ec_year     = $expo_config['year'] ?? $year ?? date('Y');
+// ─────────────────────────────────────────────────────────────
 
 function cat_icon_path($key) {
     $icons = [
@@ -85,25 +101,20 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
 ?>
 
 <style>
-    /* Thin, unobtrusive scrollbar for the category sidebar's
-       internal scroll region. Near-invisible at rest, slightly
-       more visible on hover — intentional, not loud. */
     .cat-scroll {
         scrollbar-width: thin;
-        scrollbar-color: #d4d4d8 transparent; /* zinc-300 */
+        scrollbar-color: #d4d4d8 transparent;
     }
     .cat-scroll::-webkit-scrollbar { width: 4px; }
     .cat-scroll::-webkit-scrollbar-track { background: transparent; }
     .cat-scroll::-webkit-scrollbar-thumb {
-        background-color: #d4d4d8; /* zinc-300, quiet at rest */
+        background-color: #d4d4d8;
         border-radius: 999px;
     }
-    .cat-scroll:hover::-webkit-scrollbar-thumb { background-color: #71717a; /* zinc-500 on hover */ }
-    .cat-scroll::-webkit-scrollbar-thumb:hover { background-color: #18181b; /* zinc-900 when actively grabbed */ }
+    .cat-scroll:hover::-webkit-scrollbar-thumb { background-color: #71717a; }
+    .cat-scroll::-webkit-scrollbar-thumb:hover { background-color: #18181b; }
 </style>
 
-<!-- Full-width section, no max-w cap, only horizontal breathing
-     room via padding -->
 <div class="mt-20 bg-white px-4 sm:px-6 md:px-10 lg:px-14 pb-24 w-full"
      dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
 
@@ -111,37 +122,22 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
     <div class="pt-10 md:pt-14 pb-10 border-b border-zinc-100 text-center">
         <p class="text-yellow-600 text-[11px] tracking-[0.4em] uppercase font-semibold mb-4 inline-flex items-center gap-3">
             <span class="w-8 h-px bg-yellow-500/60"></span>
-            <?= __('exhibitors_eyebrow') ?: 'Mirzaam Expo' ?>
+            <?= htmlspecialchars($_ec_eyebrow) ?>
             <span class="w-8 h-px bg-yellow-500/60"></span>
         </p>
         <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-zinc-900 mb-3 tracking-tight">
-            <?= __('exhibitors_title') ?: 'Exhibitors' ?>
-            <span class="text-yellow-500"><?= htmlspecialchars($year) ?></span>
+            <?= htmlspecialchars($_ec_title) ?>
+            <span class="text-yellow-500"><?= htmlspecialchars($_ec_year) ?></span>
         </h1>
         <p class="text-zinc-500 text-sm md:text-base max-w-xl mx-auto font-light">
-            <?= __('exhibitors_subtitle') ?: 'Discover every brand, designer, and partner participating this year.' ?>
+            <?= htmlspecialchars($_ec_subtitle) ?>
         </p>
     </div>
 
-    <!-- ═════════ MAIN LAYOUT ═════════
-         DOM ORDER MIRRORS BY DIRECTION (not just CSS order):
-         EN (LTR): sidebar first in DOM  -> renders on the LEFT
-         AR (RTL): cards first in DOM    -> sidebar ends up on
-                   the RIGHT, because flex-row in an RTL context
-                   lays children right-to-left.
-         This is a true mirror, not a flipped order trick.
-    ═════════════════════════════════════════════════════════ -->
+    <!-- ═════════ MAIN LAYOUT ═════════ -->
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 pt-6">
 
         <!-- ───────── CATEGORY SIDEBAR ───────── -->
-        <!-- Always first in DOM for both LTR and RTL.
-             In LTR (dir=ltr): flex-row lays items left→right,
-               so sidebar appears on the LEFT, cards on the RIGHT.
-             In RTL (dir=rtl): flex-row lays items right→left,
-               so sidebar appears on the RIGHT, cards on the LEFT.
-             The browser handles the mirroring automatically via
-             the dir attribute on the parent container — no need
-             for PHP-side DOM reordering. -->
         <aside
             x-show="hasCategoryData && (filtersOpen || window.innerWidth >= 1024)"
             x-transition:enter="transition ease-out duration-200"
@@ -154,11 +150,11 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
 
                 <div class="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0">
                     <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-zinc-900">
-                        <?= __('categories') ?: 'Categories' ?>
+                        <?= _t('categories', 'Categories') ?>
                     </h3>
                     <span x-show="categories.length > 0" @click="clearCategories()"
                           class="text-[10px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer normal-case tracking-normal">
-                        <?= __('reset') ?: 'Reset' ?>
+                        <?= _t('reset', 'Reset') ?>
                     </span>
                 </div>
 
@@ -170,12 +166,10 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                     :checked="isCategoryActive(facet.name)"
                                     @change="toggleCategory(facet.name)"
                                     class="w-3.5 h-3.5 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900/30 focus:ring-2 cursor-pointer flex-shrink-0">
-
                                 <span class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 transition-colors"
                                       :class="isCategoryActive(facet.name) ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-500 group-hover:bg-zinc-200 group-hover:text-zinc-700'"
                                       x-html="$store.catIcons.svg(facet.icon)">
                                 </span>
-
                                 <span class="flex-1 min-w-0 text-[12.5px] leading-tight text-zinc-700 group-hover:text-zinc-900 transition truncate"
                                       :class="isCategoryActive(facet.name) ? 'font-semibold text-zinc-900' : ''"
                                       x-text="facet.name" :title="facet.name"></span>
@@ -188,7 +182,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 <button @click="filtersOpen = false" type="button"
                     class="lg:hidden bg-zinc-900 text-white rounded-xl py-3 text-sm font-semibold tracking-wide hover:bg-zinc-800 transition flex-shrink-0"
                     style="margin: 0 1rem 1rem 1rem;">
-                    <?= __('show_results') ?: 'Show Results' ?>
+                    <?= _t('show_results', 'Show Results') ?>
                     (<span x-text="filteredData.length"></span>)
                 </button>
             </div>
@@ -203,7 +197,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                     <svg class="absolute <?= $isRtl ? 'right-3.5' : 'left-3.5' ?> top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-zinc-900 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <input type="text" x-model="search" placeholder="<?= __('search_placeholder') ?: 'Search exhibitors, brands, or categories...' ?>"
+                    <input type="text" x-model="search" placeholder="<?= _t('search_placeholder', 'Search exhibitors, brands, or categories...') ?>"
                         class="w-full bg-white border border-zinc-200 text-zinc-900 placeholder-zinc-400 rounded-xl <?= $isRtl ? 'pr-10 pl-10' : 'pl-10 pr-10' ?> py-3 text-sm focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/15 transition">
                     <button x-show="search !== ''" @click="search = ''" type="button"
                         class="absolute <?= $isRtl ? 'left-3' : 'right-3' ?> top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-zinc-700 transition">
@@ -218,7 +212,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 12h12M10 20h4"/>
                         </svg>
-                        <span><?= __('filters') ?: 'Filters' ?></span>
+                        <span><?= _t('filters', 'Filters') ?></span>
                         <span x-show="activeFilterCount > 0" x-text="activeFilterCount"
                               class="bg-yellow-500 text-black rounded-full px-1.5 py-0.5 text-[10px] min-w-[18px] text-center font-bold"></span>
                     </button>
@@ -229,18 +223,18 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         <svg class="w-4 h-4" :fill="showFavorites ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                         </svg>
-                        <span class="hidden sm:inline"><?= __('favorites') ?: 'Favorites' ?></span>
+                        <span class="hidden sm:inline"><?= _t('favorites', 'Favorites') ?></span>
                         <span x-show="favorites.length > 0" x-text="favorites.length" class="bg-black/10 rounded-full px-2 py-0.5 text-xs min-w-[20px] text-center"></span>
                     </button>
                 </div>
             </div>
 
-            <!-- ALPHABET STRIP — English (A-Z) for LTR, Arabic (ا-ي) for RTL -->
+            <!-- ALPHABET STRIP -->
             <div class="flex flex-wrap gap-1.5 mb-6">
                 <button @click="alphabet = ''" type="button"
                     class="px-3 h-8 sm:h-9 rounded-lg text-xs font-semibold transition border"
                     :class="alphabet === '' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'">
-                    <?= __('all') ?: 'All' ?>
+                    <?= _t('all', 'All') ?>
                 </button>
                 <?php if (!$isRtl): ?>
                 <template x-for="char in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" :key="char">
@@ -272,7 +266,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
             <!-- ACTIVE FILTER CHIPS -->
             <div x-show="hasActiveFilters" class="flex flex-wrap items-center gap-2 mb-6">
                 <span class="text-xs text-zinc-400 uppercase tracking-wider">
-                    <?= __('filtering_by') ?: 'Filtering by:' ?>
+                    <?= _t('filtering_by', 'Filtering by:') ?>
                 </span>
                 <template x-for="cat in categories" :key="cat">
                     <button @click="toggleCategory(cat)" type="button"
@@ -285,7 +279,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 </template>
                 <button x-show="alphabet" @click="alphabet = ''" type="button"
                     class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-600 text-xs font-semibold tracking-wide uppercase hover:bg-zinc-200 transition">
-                    <span x-text="'<?= __("starts_with") ?: "Starts with" ?> ' + alphabet"></span>
+                    <span x-text="'<?= _t('starts_with', 'Starts with') ?> ' + alphabet"></span>
                     <svg class="w-3 h-3 group-hover:rotate-90 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
@@ -293,7 +287,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 <button @click="search=''; clearCategories(); alphabet=''; showFavorites=false" type="button"
                     class="text-xs text-zinc-400 hover:text-zinc-900 transition flex items-center gap-1 <?= $isRtl ? 'mr-2' : 'ml-2' ?>">
                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                    <?= __('clear_filters') ?: 'Clear filters' ?>
+                    <?= _t('clear_filters', 'Clear filters') ?>
                 </button>
             </div>
 
@@ -305,7 +299,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/>
                             <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
                         </svg>
-                        <span class="text-sm tracking-wider uppercase"><?= __('loading') ?: 'Loading exhibitors' ?></span>
+                        <span class="text-sm tracking-wider uppercase"><?= _t('loading', 'Loading exhibitors') ?></span>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
                         <template x-for="i in 12" :key="i">
@@ -322,8 +316,8 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
             <div x-show="exhibitors.length > 0" class="mb-5 flex items-center justify-between">
                 <p class="text-sm text-zinc-500">
                     <span class="text-zinc-900 font-semibold" x-text="filteredData.length"></span>
-                    <?= __('of') ?: 'of' ?> <span x-text="exhibitors.length"></span>
-                    <?= __('exhibitors') ?: 'exhibitors' ?>
+                    <?= _t('of', 'of') ?> <span x-text="exhibitors.length"></span>
+                    <?= _t('exhibitors', 'exhibitors') ?>
                 </p>
             </div>
 
@@ -333,9 +327,9 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                     <svg class="w-16 h-16 text-zinc-200 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <p class="text-zinc-500 text-lg mb-2"><?= __('no_results') ?: 'No exhibitors match your filters' ?></p>
+                    <p class="text-zinc-500 text-lg mb-2"><?= _t('no_results', 'No exhibitors match your filters') ?></p>
                     <button @click="search=''; clearCategories(); alphabet=''; showFavorites=false" type="button" class="text-zinc-900 hover:underline text-sm font-medium">
-                        <?= __('clear_all_filters') ?: 'Clear all filters' ?>
+                        <?= _t('clear_all_filters', 'Clear all filters') ?>
                     </button>
                 </div>
             </template>
@@ -357,15 +351,12 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                             </div>
                             <p class="text-center text-[10px] tracking-[0.2em] uppercase text-zinc-400 mt-3">
                                 <span x-text="groupedData.tiers[tier.key].length"></span>
-                                <span x-text="groupedData.tiers[tier.key].length === 1 ? '<?= __("brand") ?: "brand" ?>' : '<?= __("brands") ?: "brands" ?>'"></span>
+                                <span x-text="groupedData.tiers[tier.key].length === 1 ? '<?= _t('brand', 'brand') ?>' : '<?= _t('brands', 'brands') ?>'"></span>
                             </p>
                         </div>
 
-                        <!-- Mobile hard-capped at 2 cols. Bigger gap throughout. -->
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
                             <template x-for="item in groupedData.tiers[tier.key]" :key="'t-' + tier.key + '-' + item.name_en">
-
-                                <!-- ▼ CARD ▼ -->
                                 <div class="group relative bg-white rounded-2xl border border-zinc-100 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.12)] hover:-translate-y-1 hover:border-zinc-200">
 
                                     <div class="absolute top-2 <?= $isRtl ? 'right-2' : 'left-2' ?> z-20">
@@ -400,7 +391,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                 </svg>
-                                                <span class="hidden sm:inline"><?= __('view_on_map') ?: 'View on map' ?></span>
+                                                <span class="hidden sm:inline"><?= _t('view_on_map', 'View on map') ?></span>
                                             </span>
                                         </div>
                                     </a>
@@ -419,13 +410,12 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                         <span class="absolute bottom-0 <?= $isRtl ? 'right-3' : 'left-3' ?> h-[2px] w-0 bg-yellow-500 rounded-full group-hover:w-7 transition-all duration-500"></span>
                                     </div>
                                 </div>
-                                <!-- ▲ END CARD ▲ -->
                             </template>
                         </div>
                     </section>
                 </template>
 
-                <!-- ── Other participants ── -->
+                <!-- All Participants (no tier) -->
                 <section x-show="groupedData.other.length > 0">
                     <div class="relative mb-6">
                         <div class="flex items-center gap-3 sm:gap-4">
@@ -433,7 +423,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                             <div class="flex items-center gap-2 sm:gap-3">
                                 <svg class="w-2 h-2 text-zinc-400 hidden sm:block" fill="currentColor" viewBox="0 0 8 8"><path d="M4 0 L8 4 L4 8 L0 4 Z"/></svg>
                                 <h2 class="text-zinc-600 text-[11px] sm:text-xs md:text-sm font-bold tracking-[0.2em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                                    <?= __('all_participants') ?: 'All Participants' ?>
+                                    <?= _t('all_participants', 'All Participants') ?>
                                 </h2>
                                 <svg class="w-2 h-2 text-zinc-400 hidden sm:block" fill="currentColor" viewBox="0 0 8 8"><path d="M4 0 L8 4 L4 8 L0 4 Z"/></svg>
                             </div>
@@ -441,13 +431,12 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         </div>
                         <p class="text-center text-[10px] tracking-[0.2em] uppercase text-zinc-400 mt-3">
                             <span x-text="groupedData.other.length"></span>
-                            <span x-text="groupedData.other.length === 1 ? '<?= __("brand") ?: "brand" ?>' : '<?= __("brands") ?: "brands" ?>'"></span>
+                            <span x-text="groupedData.other.length === 1 ? '<?= _t('brand', 'brand') ?>' : '<?= _t('brands', 'brands') ?>'"></span>
                         </p>
                     </div>
 
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
                         <template x-for="item in groupedData.other" :key="'o-' + item.name_en">
-
                             <div class="group relative bg-white rounded-2xl border border-zinc-100 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.12)] hover:-translate-y-1 hover:border-zinc-200">
 
                                 <button @click.stop.prevent="toggleFavorite(item.name_en)" type="button"
@@ -478,7 +467,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             </svg>
-                                            <span class="hidden sm:inline"><?= __('view_on_map') ?: 'View on map' ?></span>
+                                            <span class="hidden sm:inline"><?= _t('view_on_map', 'View on map') ?></span>
                                         </span>
                                     </div>
                                 </a>

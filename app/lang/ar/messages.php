@@ -372,5 +372,114 @@ return [
     'mz_final_cta_primary'   => 'قائمة العارضين ٢٠٢٦',
     'mz_final_cta_secondary' => 'عرض مخطط المعرض',
 
+
+
+
+
+    //Contact Page
+        'ct_hero_eyebrow' => 'تواصل معنا',
+    'ct_hero_title'   => 'اتصل بنا',
+    'ct_hero_desc'    => 'هل لديك سؤال حول المشاركة كعارض، أو الزيارة، أو الإعلام؟ يسعدنا سماعك.',
+ 
+    // Contact info labels
+    'ct_info_address_label' => 'العنوان',
+    'ct_info_hours_label'   => 'ساعات العمل',
+    'ct_info_email_label'   => 'البريد الإلكتروني',
+    'ct_info_phone_label'   => 'الهاتف',
+ 
+    // Form
+    'ct_form_title'         => 'أرسل لنا رسالة',
+    'ct_form_subtitle'      => 'أكمل النموذج أدناه وسنرد عليك في أقرب وقت ممكن.',
+ 
+    'ct_form_name'          => 'الاسم الكامل',
+    'ct_form_name_ph'       => 'اسمك الكامل',
+ 
+    'ct_form_email'         => 'البريد الإلكتروني',
+    'ct_form_email_ph'      => 'your@email.com',
+ 
+    'ct_form_phone'         => 'رقم الهاتف',
+    'ct_form_phone_ph'      => '+965 XXXX XXXX',
+ 
+    'ct_form_company'       => 'الشركة / المؤسسة',
+    'ct_form_company_ph'    => 'اسم شركتك',
+ 
+    'ct_form_type'          => 'نوع الاستفسار',
+    'ct_form_type_ph'       => 'اختر نوع الاستفسار',
+ 
+    'ct_type_exhibiting'    => 'المشاركة كعارض',
+    'ct_type_visiting'      => 'الزيارة',
+    'ct_type_media'         => 'الإعلام',
+    'ct_type_general'       => 'استفسار عام',
+ 
+    'ct_form_message'       => 'الرسالة',
+    'ct_form_message_ph'    => 'أخبرنا كيف يمكننا مساعدتك...',
+ 
+    'ct_form_required_note' => 'الحقول المطلوبة',
+    'ct_form_submit'        => 'إرسال الرسالة',
+    'ct_form_sending'       => 'جارٍ الإرسال...',
+ 
+    // Validation errors
+    'ct_error_required'     => 'هذا الحقل مطلوب.',
+    'ct_error_email'        => 'يرجى إدخال بريد إلكتروني صحيح.',
+    'ct_error_recaptcha'    => 'يرجى إكمال التحقق من reCAPTCHA للمتابعة.',
+ 
+    // Success state
+    'ct_success_title'      => 'تم إرسال رسالتك بنجاح!',
+    'ct_success_desc'       => 'شكراً لتواصلك معنا. سنرد عليك خلال يوم عمل واحد.',
+
+
+
+
+
+    //Media Page
+       'md_hero_eyebrow' => 'الصحافة والإعلام',
+    'md_hero_title'   => 'مرزام في الإعلام',
+    'md_hero_desc'    => 'فيديوهات، تغطيات صحفية، حملات، وحوارات — كل لحظة وصلت فيها مرزام إلى عناوين الأخبار.',
+    'md_hero_stat1_num'   => '٧',
+    'md_hero_stat1_label' => 'فيديو',
+    'md_hero_stat2_num'   => '٩',
+    'md_hero_stat2_label' => 'مقال',
+    'md_hero_stat3_num'   => '+٥',
+    'md_hero_stat3_label' => 'نسخ مغطاة',
+ 
+    // YouTube
+    'md_yt_eyebrow'  => 'تغطية مرئية',
+    'md_yt_title'    => 'شاهد مرزام',
+    'md_yt_featured' => 'مميز',
+    'md_yt_play'     => 'تشغيل الفيديو',
+ 
+    // News ticker
+    'md_news_eyebrow'  => 'التغطية الصحفية',
+    'md_news_title'    => 'آخر ما نشرته الصحافة',
+    'md_news_read'     => 'اقرأ',
+    'md_news_previous' => 'تغطيات سابقة',
+ 
+    // Social buzz
+    'md_buzz_eyebrow'  => 'النبض الرقمي',
+    'md_buzz_title'    => 'ما يقوله الناس',
+    'md_buzz_view'     => 'عرض المنشور',
+ 
+    // Campaign gallery
+    'md_campaign_eyebrow' => 'معرض الحملة',
+    'md_campaign_title'   => 'حملة التواصل الاجتماعي 2023',
+    'md_campaign_desc'    => 'محتوى من خلف الكواليس وتصاميم الحملة الرقمية لمرزام 2023.',
+ 
+    // Outdoor videos
+    'md_outdoor_eyebrow' => 'الحملة الخارجية',
+    'md_outdoor_title'   => 'في شوارع الكويت',
+    'md_outdoor_desc'    => 'حملة مرزام الإعلانية الخارجية عبر أبرز الشاشات الرقمية واللوحات الإعلانية في الكويت.',
+    'md_outdoor_play'    => 'تشغيل',
+    'md_outdoor_close'   => 'إغلاق',
+ 
+    // Outdoor photos
+    'md_photos_eyebrow' => 'لحظات اللوحات الإعلانية',
+    'md_photos_title'   => 'مرزام في المدينة',
+    'md_photos_desc'    => 'لقطات من حملات 2024 و2025 الخارجية في أنحاء الكويت.',
+ 
+    // Lightbox
+    'md_lb_close' => 'إغلاق',
+    'md_lb_prev'  => 'السابق',
+    'md_lb_next'  => 'التالي',
+
 ];
 ?>

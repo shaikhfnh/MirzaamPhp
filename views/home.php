@@ -12,25 +12,27 @@
  * @var array $mirzaam_years_blueprint 
  */
 ?>
-<?php
-// Safety check: Only proceed if the data is available
-if (isset($hero_media) && is_array($hero_media)): ?>
+<?php if (isset($hero_media) && is_array($hero_media)): ?>
 
 <section id="hero" class="relative w-full h-screen overflow-hidden flex flex-col">
-    
+
     <?php foreach ($hero_media as $media): ?>
         <?php if (isset($media['type']) && $media['type'] === 'video'): ?>
-            <video autoplay loop muted playsinline poster="<?= $media['poster'] ?? '' ?>" class="absolute inset-0 w-full h-full object-cover">
+            <video  autoplay loop muted playsinline
+                   poster="<?= $media['poster'] ?? '' ?>"
+                   class="absolute inset-0 w-full h-full object-cover"
+                   style="will-change: transform;">
                 <source src="<?= $media['src'] ?? '' ?>" type="video/mp4">
             </video>
         <?php endif; ?>
     <?php endforeach; ?>
-    
+
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
 
     <div class="relative z-10 flex-grow flex items-center justify-center">
+        <!-- h1 kept commented — restore when content is ready -->
         <!-- <h1 class="text-[clamp(4rem,12vw,14rem)] font-bold font-alexandria leading-[1] tracking-tighter uppercase text-center">
-            <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;"> 
+            <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;">
                 <?= __('hero_title') ?> <br/>
             </span>
             <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;">
@@ -40,64 +42,103 @@ if (isset($hero_media) && is_array($hero_media)): ?>
     </div>
 
     <div class="relative z-10 w-full px-6 md:px-20 pb-12 flex flex-col md:flex-row justify-between items-end gap-8">
-        <div class="max-w-sm">
+
+        <!-- wv-reveal + data-reveal → slides up on page load, no delay -->
+        <div class="max-w-sm wv-reveal" data-reveal>
             <h3 class="text-lg font-bold mb-2"><?= __('hero_foundation_title') ?></h3>
             <p class="text-white/60 text-sm leading-relaxed font-light">
                 <?= __('hero_foundation_desc') ?>
             </p>
         </div>
 
-        <button class="group flex items-center gap-4 text-white/90 hover:text-white transition-all duration-300">
+        <!-- wv-reveal + data-delay="150" → staggered 150ms after the left block -->
+        <button class="group flex items-center gap-4 text-white/90 hover:text-white transition-all duration-300 wv-reveal"
+                data-reveal data-delay="150">
             <span class="uppercase tracking-[0.2em] text-sm"><?= __('watch_teaser') ?></span>
             <span class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-[var(--primary)] transition-all">
                 <span class="ml-1">▶</span>
             </span>
         </button>
+
     </div>
 </section>
 
 <?php endif; ?>
 
-
 <section id="about" class="relative w-full py-12 bg-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
+
+    <!-- Desktop image follower — homepage only, guarded in main.js -->
     <div id="image-follower" class="fixed top-0 left-0 w-80 h-80 pointer-events-none z-50 opacity-0 transition-opacity duration-300 translate-x-[-100%] translate-y-[-110%] hidden lg:block">
         <img id="follower-img" src="" class="w-full h-full object-cover rounded-2xl shadow-2xl border border-white/10" />
     </div>
 
     <div class="w-full px-6 md:px-12 lg:px-20 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-24 items-end">
+
+        <!-- ── HEADLINE + DESC ──────────────────────────────── -->
+        <!-- mb reduced on mobile: mb-12 md:mb-24 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-12 lg:mb-24 items-end">
+
+            <!-- Headline: each line wrapped in overflow-hidden for split reveal -->
             <div class="lg:col-span-7">
                 <h2 class="text-[clamp(2.5rem,7vw,6rem)] font-bold font-alexandria leading-[0.95] tracking-tighter uppercase">
-                    <?= __('about_headline_part1') ?> <br/>
-                    <span class="text-gray-500 italic"><?= __('about_headline_stroke') ?></span> <br/>
-                    <?= __('about_headline_part2') ?>
+
+                    <!-- Line 1 -->
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
+                        <span class="line-reveal"><?= __('about_headline_part1') ?></span>
+                    </span>
+
+                    <!-- Line 2 — italic, grey -->
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="80">
+                        <span class="line-reveal text-gray-500 italic"><?= __('about_headline_stroke') ?></span>
+                    </span>
+
+                    <!-- Line 3 -->
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="160">
+                        <span class="line-reveal"><?= __('about_headline_part2') ?></span>
+                    </span>
+
                 </h2>
             </div>
-            <div class="lg:col-span-5 border-l border-white/20 pl-6 md:pl-8">
+
+            <!-- Description — fades in 280ms after first headline line -->
+            <!-- border-l only on lg so it doesn't show broken on mobile -->
+            <div class="lg:col-span-5 lg:border-l border-white/20 lg:pl-8 wv-reveal" data-reveal data-delay="280">
                 <p class="text-lg md:text-xl text-white/80 leading-relaxed font-normal tracking-wide max-w-prose">
                     <?= __('about_desc') ?>
                 </p>
             </div>
         </div>
+
+        <!-- ── PILLAR CARDS ─────────────────────────────────── -->
+        <!-- Each pillar staggers 120ms after the previous one -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <?php foreach ($about_pillars as $item): ?>
-                <div class="pillar group border-t border-white/20 pt-8 cursor-pointer transition-all duration-500 hover:border-[var(--primary)]" 
+            <?php foreach ($about_pillars as $idx => $item): ?>
+                <div class="pillar group border-t border-white/20 pt-8 cursor-pointer transition-all duration-500 hover:border-[var(--primary)] wv-reveal"
+                     data-reveal
+                     data-delay="<?= $idx * 120 ?>"
                      data-img="<?= $item['image'] ?>">
-                    
+
                     <div class="text-gray-300 text-xs font-bold font-mono mb-4 uppercase tracking-widest">
-                     <?= __($item['title']) ?>
+                        <?= __($item['title']) ?>
                     </div>
-                    
-                    <h3 class="text-2xl font-bold font-alexandria mb-4"><?= __($item['heading']) ?></h3>
-                    
+
+                    <h3 class="text-2xl font-bold font-alexandria mb-4">
+                        <?= __($item['heading']) ?>
+                    </h3>
+
                     <p class="text-white/60 group-hover:text-white transition-colors duration-500 leading-relaxed font-normal tracking-wide">
                         <?= __($item['desc']) ?>
                     </p>
-                    
-                    <img src="<?= $item['image'] ?>" class="lg:hidden w-full h-48 object-cover rounded-xl mt-6 opacity-50" />
+
+                    <!-- Mobile image — opacity-50 removed, aspect-ratio replaces fixed h-48 -->
+                    <img src="<?= $item['image'] ?>"
+                         class="lg:hidden w-full aspect-[4/3] object-cover rounded-xl mt-6"
+                         loading="lazy" />
+
                 </div>
             <?php endforeach; ?>
         </div>
+
     </div>
 </section>
 
@@ -135,81 +176,177 @@ if (isset($hero_media) && is_array($hero_media)): ?>
 
 
 
-<section id="app-connect" class="relative w-full py-16 bg-black text-[var(--text-light)] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="section-glow absolute bottom-0 right-1/4 w-[35rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[130px] opacity-15 pointer-events-none"></div>
+<?php
+$_rtl = ($lang === 'ar');
+$_dir = $_rtl ? 'rtl' : 'ltr';
+?>
+
+<section id="app-connect"
+         class="relative w-full py-16 bg-black text-[var(--text-light)] overflow-hidden"
+         >
+
+    <!-- Ambient brand-yellow glow -->
+    <div class="section-glow absolute bottom-0 <?= $_rtl ? 'left-1/4' : 'right-1/4' ?>
+                w-[35rem] h-[35rem] bg-[var(--secondary)]
+                rounded-full blur-[130px] opacity-[0.06] pointer-events-none"></div>
 
     <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
-            <div class="lg:col-span-6 relative flex items-center justify-center reveal-up">
-                <div class="relative w-[280px] sm:w-[320px] h-[36rem] sm:h-[40rem] drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]">
-                    
-                    <img src="<?= $app_connect_data['frame_image'] ?>" alt="iPhone Frame" class="absolute inset-0 w-full h-full z-40 pointer-events-none object-contain" />
 
-                    <div class="absolute top-[2%] bottom-[2%] left-[5%] right-[5%] bg-white rounded-[2.2rem] z-20 overflow-hidden">
+            <!-- ═══════════════════════════════════════════════
+                 LEFT — PHONE MOCKUP (original dimensions kept)
+            ═══════════════════════════════════════════════════ -->
+            <div class="lg:col-span-6 relative flex items-center justify-center wv-reveal"
+                 data-reveal>
+                <div class="relative w-[280px] sm:w-[320px] h-[36rem] sm:h-[40rem]
+                            drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]">
+
+                    <img src="<?= $app_connect_data['frame_image'] ?>"
+                         alt="iPhone Frame"
+                         class="absolute inset-0 w-full h-full z-40 pointer-events-none object-contain"
+                         onerror="this.style.display='none';" />
+
+                    <div class="absolute top-[2%] bottom-[2%] left-[5%] right-[5%]
+                                bg-white rounded-[2.2rem] z-20 overflow-hidden">
 
                         <div id="view-container" class="relative w-full h-full">
-                            
-                           <div id="mockup-home" class="absolute inset-0 w-full h-full z-20 bg-white overflow-y-auto scroll-container transition-opacity duration-300 opacity-100">
-    <div class="relative w-full block">
-        <img src="<?= $app_connect_data['home_image'] ?>" alt="App Home" class="w-full h-auto block" />
-        
-<button 
-    onclick="switchAppView('map')" 
-    style="--glow-color: var(--primary);" 
-    class="absolute top-[40%] right-[2%] z-40 w-[7.3rem] md:w-[8.3rem] h-[3.2rem] md:h-[3.7rem] rounded-[1.5rem] bg-[var(--primary)]/20 border-2 border-white sharp-glow transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" 
-    aria-label="Open Map">
-</button>
 
-       <button 
-    onclick="switchAppView('chat')" 
-    style="--glow-color: #3b82f6;" 
-    class="absolute top-[12%] left-[12%] z-40 w-[12rem] md:w-[13.7rem] h-[2.6rem] md:h-[3rem] rounded-[1.5rem] bg-blue-500/20 border-2 border-white sharp-glow transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer" 
-    aria-label="Open Chat">
-</button>
-    </div>
-</div>
+                            <!-- HOME -->
+                            <div id="mockup-home"
+                                 class="absolute inset-0 w-full h-full z-20 bg-white
+                                        overflow-y-auto scroll-container
+                                        transition-opacity duration-300 opacity-100">
+                                <div class="relative w-full block">
+                                    <img src="<?= $app_connect_data['home_image'] ?>"
+                                         alt="App Home"
+                                         class="w-full h-auto block"
+                                         onerror="this.parentNode.innerHTML='<div class=\'flex items-center justify-center h-96 bg-zinc-100 text-zinc-400 text-xs\'>App Preview</div>';" />
 
-                            <div id="mockup-map" class="absolute inset-0 w-full h-full z-10 bg-white overflow-y-auto scroll-container transition-opacity duration-300 opacity-0 pointer-events-none">
-                                <img src="<?= $app_connect_data['map_image'] ?>" alt="App Map" class="w-full h-auto block" />
+                                    <button onclick="switchAppView('map')"
+                                            style="--glow-color: var(--primary);"
+                                            class="absolute top-[40%] right-[2%] z-40
+                                                   w-[7.3rem] md:w-[8.3rem] h-[3.2rem] md:h-[3.7rem]
+                                                   rounded-[1.5rem] bg-[var(--primary)]/20
+                                                   border-2 border-white sharp-glow
+                                                   transition-all duration-300
+                                                   hover:scale-105 active:scale-95 cursor-pointer"
+                                            aria-label="Open Map"></button>
+
+                                    <button onclick="switchAppView('chat')"
+                                            style="--glow-color: #3b82f6;"
+                                            class="absolute top-[12%] left-[12%] z-40
+                                                   w-[12rem] md:w-[13.7rem] h-[2.6rem] md:h-[3rem]
+                                                   rounded-[1.5rem] bg-blue-500/20
+                                                   border-2 border-white sharp-glow
+                                                   transition-all duration-300
+                                                   hover:scale-105 active:scale-95 cursor-pointer"
+                                            aria-label="Open Chat"></button>
+                                </div>
                             </div>
 
-                            <div id="mockup-chat" class="absolute inset-0 w-full h-full z-10 bg-[#f0f2f5] overflow-y-auto scroll-container transition-opacity duration-300 opacity-0 pointer-events-none">
-                                <img src="<?= $app_connect_data['chat_image'] ?>" alt="App Chat" class="w-full h-auto block" />
+                            <!-- MAP -->
+                            <div id="mockup-map"
+                                 class="absolute inset-0 w-full h-full z-10 bg-white
+                                        overflow-y-auto scroll-container
+                                        transition-opacity duration-300 opacity-0 pointer-events-none">
+                                <img src="<?= $app_connect_data['map_image'] ?>"
+                                     alt="App Map" class="w-full h-auto block" />
+                            </div>
+
+                            <!-- CHAT -->
+                            <div id="mockup-chat"
+                                 class="absolute inset-0 w-full h-full z-10 bg-[#f0f2f5]
+                                        overflow-y-auto scroll-container
+                                        transition-opacity duration-300 opacity-0 pointer-events-none">
+                                <img src="<?= $app_connect_data['chat_image'] ?>"
+                                     alt="App Chat" class="w-full h-auto block" />
                             </div>
                         </div>
 
-                        <button id="mockup-back-btn" onclick="switchAppView('home')" class="absolute top-8 text-[10px] left-4 z-50 bg-black/70 backdrop-blur-xl border border-white/10 text-white px-1.5 py-1 rounded-full text-xs font-medium shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-                            Back
+                        <button id="mockup-back-btn"
+                                onclick="switchAppView('home')"
+                                class="absolute top-8 left-4
+                                       z-50 bg-black/70 backdrop-blur-xl border border-white/10
+                                       text-white px-1.5 py-1 rounded-full text-[10px] font-medium
+                                       shadow-xl flex items-center gap-1
+                                       opacity-0 dir-ltr pointer-events-none transition-all duration-300">
+                            <svg class="w-3 h-3 "
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            <?= __('app_back') ?>
                         </button>
                     </div>
                 </div>
             </div>
 
-           
+            <!-- ═══════════════════════════════════════════════
+                 RIGHT — TEXT
+                 5: keep yellow bar + eyebrow
+                 3: each title LINE has its own reveal (0/100/200ms)
+                    description shows immediately — no reveal
+            ═══════════════════════════════════════════════════ -->
             <div class="lg:col-span-6 flex flex-col justify-center">
-                <span class="font-alexandria text-xs md:text-sm tracking-[0.3em] uppercase text-[var(--secondary)] mb-6 block font-medium reveal-up">
-                    <?= __('app_subhead') ?>
-                </span>
 
-                <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium leading-[1.1] font-alexandria text-white tracking-tight mb-8 reveal-up delay-100">
-                    <?= __('app_title') ?>
-                </h2>
+                <!-- Yellow bar + eyebrow -->
+                <div class="flex items-center gap-4 mb-6 wv-reveal" data-reveal>
+                    <span class="w-8 h-[2px] bg-[var(--secondary)]"></span>
+                    <span class="font-mono text-[11px] tracking-[0.3em] uppercase
+                                 text-[var(--secondary)] font-semibold">
+                        <?= __('app_subhead') ?>
+                    </span>
+                </div>
 
-                <p class="text-base md:text-lg text-[#9CA3AF] leading-[1.8] font-light font-alexandria max-w-xl mb-12 reveal-up delay-200">
+                <!-- Title — 3 lines, each line reveals separately -->
+         <?php
+$app_title_lines = explode('|', __('app_title'));
+?>
+<h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium
+           leading-[1.1] font-alexandria text-white tracking-tight mb-8">
+
+    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
+        <span class="line-reveal"><?= trim($app_title_lines[0] ?? '') ?></span>
+    </span>
+
+    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="100">
+        <span class="line-reveal text-white/40 font-light">
+            <?= trim($app_title_lines[1] ?? '') ?>
+        </span>
+    </span>
+
+    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="200">
+        <span class="line-reveal"><?= trim($app_title_lines[2] ?? '') ?></span>
+    </span>
+</h2>
+
+                <!-- Description — visible immediately, NO reveal -->
+                <p class="text-base md:text-lg text-[#9CA3AF] leading-[1.8]
+                          font-light font-alexandria max-w-xl mb-12">
                     <?= __('app_desc') ?>
                 </p>
 
-                <div class="flex flex-wrap gap-4 items-center reveal-up delay-300">
-                    <a href="<?= $app_connect_data['apple_link'] ?>" class="inline-block transition-transform duration-300 hover:-translate-y-1 active:translate-y-0" aria-label="<?= __('alt_apple') ?>">
-                        <img src="<?= $app_connect_data['app_store'] ?>" alt="<?= __('alt_apple') ?>" class="h-12 w-auto border border-white/80 rounded-xl bg-black" />
+                <!-- 1A: original app-store + google-play images, no styled buttons -->
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="<?= $app_connect_data['apple_link'] ?>"
+                       class="inline-block transition-transform duration-300
+                              hover:-translate-y-1 active:translate-y-0"
+                       aria-label="<?= __('alt_apple') ?>">
+                        <img src="<?= $app_connect_data['app_store'] ?>"
+                             alt="<?= __('alt_apple') ?>"
+                             class="h-12 w-auto border border-white/80 rounded-xl bg-black" />
                     </a>
-                    <a href="<?= $app_connect_data['google_link'] ?>" class="inline-block transition-transform duration-300 hover:-translate-y-1 active:translate-y-0" aria-label="<?= __('alt_google') ?>">
-                        <img src="<?= $app_connect_data['google_play'] ?>" alt="<?= __('alt_google') ?>" class="h-12 w-auto border border-white/80 rounded-xl bg-black" />
+                    <a href="<?= $app_connect_data['google_link'] ?>"
+                       class="inline-block transition-transform duration-300
+                              hover:-translate-y-1 active:translate-y-0"
+                       aria-label="<?= __('alt_google') ?>">
+                        <img src="<?= $app_connect_data['google_play'] ?>"
+                             alt="<?= __('alt_google') ?>"
+                             class="h-12 w-auto border border-white/80 rounded-xl bg-black" />
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -400,49 +537,251 @@ include 'includes/category-slider/template.php';
 ?>
 
 
-<section class="w-full py-16 bg-black text-white border-y border-white/5" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="w-full px-4 md:px-16 mx-auto">
-        
-        <div class="mb-8">
-            <h2 class="text-3xl md:text-4xl font-normal uppercase tracking-wide font-alexandria">
-                <span class="block text-white/40 mb-2"><?= __('reviews_title_top') ?></span>
-                <?= __('reviews_title_main') ?>
+<?php $_rtl = ($lang === 'ar'); ?>
+
+<section id="reviews"
+         class="relative w-full py-20 lg:py-28 bg-black text-white overflow-hidden border-y border-white/5"
+         dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
+
+    <!-- Subtle yellow glow — bottom right -->
+    <div class="absolute bottom-0 <?= $_rtl ? 'left-0' : 'right-0' ?>
+                w-[50rem] h-[30rem] bg-[var(--secondary)]
+                rounded-full blur-[180px] opacity-[0.04] pointer-events-none"></div>
+
+    <div class="w-full px-6 md:px-12 lg:px-20 mx-auto relative z-10">
+
+        <!-- ══ HEADER ════════════════════════════════════════ -->
+        <div class="mb-14 lg:mb-20 max-w-3xl">
+
+            <!-- A: Yellow bar + eyebrow -->
+            <div class="flex items-center gap-4 mb-6 wv-reveal" data-reveal>
+                <span class="w-8 h-[2px] bg-[var(--secondary)]"></span>
+                <span class="font-mono text-[11px] tracking-[0.3em] uppercase
+                             text-[var(--secondary)] font-semibold">
+                    <?= __('reviews_eyebrow') ?>
+                </span>
+            </div>
+
+            <!-- Title with line-reveal -->
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria
+                       leading-tight tracking-tight">
+                <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
+                    <span class="line-reveal text-white/40 font-light">
+                        <?= __('reviews_title_top') ?>
+                    </span>
+                </span>
+                <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="100">
+                    <span class="line-reveal text-white">
+                        <?= __('reviews_title_main') ?>
+                    </span>
+                </span>
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10 <?= ($lang === 'ar' ? 'md:border-r' : 'md:border-l') ?>">
-            
-            <?php foreach ($home_reviews_blueprint as $index => $review): ?>
-                <?php 
-                    $quote = __('review_quote_' . $review['key']);
-                    $name  = __('review_name_' . $review['key']);
-                    
-                    // Determine if the current loop element is the final column item to manage custom CSS edge borders cleanly
-                    $isLast = ($index === count($home_reviews_blueprint) - 1);
-                    $borderClass = $isLast ? 'border-b md:border-b-0' : ($lang === 'ar' ? 'border-b md:border-l' : 'border-b md:border-r');
-                ?>
-                
-                <div class="p-8 border-white/10 hover:bg-white/[0.03] transition-colors duration-500 group <?= $borderClass ?>">
-                    <div class="flex gap-6 items-start">
-                        <div class="w-14 h-14 flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-700 overflow-hidden border border-white/10">
-                            <img src="<?= $review['image'] ?>" alt="<?= strip_tags($name) ?>" class="w-full h-full object-cover" loading="lazy" />
-                        </div>
-                        
-                        <div class="flex flex-col">
-                            <p class="text-[15px] italic text-white/70 leading-relaxed mb-6 font-light font-alexandria">
-                                <?= $quote ?>
+        <!-- ══ C: ASYMMETRIC LAYOUT ══════════════════════════
+             Left:  Featured carousel (rotates every 7s)
+             Right: 2 static cards stacked
+        ══════════════════════════════════════════════════════ -->
+        <?php
+        // Split — first 3 rotate in featured, last 2 stay static on the right
+        $featured_reviews = array_slice($home_reviews_blueprint, 0, 3);
+        $static_reviews   = array_slice($home_reviews_blueprint, 3, 2);
+        ?>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+
+            <!-- ═════════ FEATURED CAROUSEL — LEFT ═════════ -->
+            <div class="lg:col-span-7 wv-reveal" data-reveal data-delay="200">
+                <div id="reviews-featured-slider"
+                     class="reviews-featured-slider relative
+                            bg-gradient-to-br from-white/[0.04] to-white/[0.01]
+                            border border-white/10 rounded-2xl
+                            p-8 md:p-12 lg:p-14
+                            min-h-[28rem] lg:min-h-[32rem]
+                            overflow-hidden">
+
+                    <!-- B: Massive quote mark — top corner -->
+                    <span aria-hidden="true"
+                          class="absolute top-4 <?= $_rtl ? 'right-6' : 'left-6' ?>
+                                 font-serif text-[10rem] lg:text-[14rem]
+                                 leading-none text-[var(--secondary)]/15
+                                 select-none pointer-events-none">
+                        “
+                    </span>
+
+                    <!-- Slide stack -->
+                    <?php foreach ($featured_reviews as $i => $review): ?>
+                        <article class="reviews-slide
+                                        <?= $i === 0 ? 'is-active' : '' ?>
+                                        absolute inset-0 p-8 md:p-12 lg:p-14
+                                        flex flex-col justify-between
+                                        transition-opacity duration-700">
+
+                            <!-- Numbered indicator -->
+                            <span class="font-mono text-[10px] tracking-[0.3em] uppercase
+                                         text-white/30 mb-8 self-start">
+                                <?= sprintf('%02d', $i + 1) ?> / <?= sprintf('%02d', count($featured_reviews)) ?>
+                            </span>
+
+                            <!-- Quote — takes most of the card -->
+                            <p class="text-lg md:text-2xl lg:text-3xl font-light
+                                      leading-relaxed text-white/90
+                                      font-alexandria max-w-2xl my-auto
+                                      relative z-10">
+                                <?= __('review_quote_' . $review['key']) ?>
                             </p>
-                            <h4 class="text-[11px] tracking-[0.25em] uppercase font-bold text-white/90 font-mono">
-                                <?= $name ?>
-                            </h4>
-                        </div>
+
+                            <!-- Author block -->
+                            <div class="flex items-center gap-4 mt-8 pt-8 border-t border-white/10">
+                                <div class="w-12 h-12 rounded-full overflow-hidden
+                                            border border-white/20 flex-shrink-0
+                                            grayscale hover:grayscale-0 transition-all duration-500">
+                                    <img src="<?= $review['image'] ?>"
+                                         alt="<?= htmlspecialchars(__('review_name_' . $review['key'])) ?>"
+                                         class="w-full h-full object-cover"
+                                         loading="lazy" />
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white text-base leading-tight">
+                                        <?= __('review_name_' . $review['key']) ?>
+                                    </h4>
+                                    <p class="text-[11px] uppercase tracking-[0.2em]
+                                              text-white/40 font-mono mt-1.5">
+                                        <?= __('review_role_' . $review['key']) ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+
+                    <!-- Dot indicators -->
+                    <div class="absolute bottom-6 <?= $_rtl ? 'left-8' : 'right-8' ?>
+                                z-20 flex items-center gap-2">
+                        <?php foreach ($featured_reviews as $i => $r): ?>
+                            <button type="button"
+                                    class="reviews-dot <?= $i === 0 ? 'is-active' : '' ?>
+                                           h-[2px] rounded-full transition-all duration-400 cursor-pointer"
+                                    data-slide-index="<?= $i ?>"
+                                    aria-label="Show review <?= $i + 1 ?>"></button>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+
+            <!-- ═════════ STATIC CARDS — RIGHT ═════════ -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <?php foreach ($static_reviews as $i => $review): ?>
+                    <article class="group relative flex-1
+                                    bg-white/[0.02] border border-white/[0.06]
+                                    hover:bg-white/[0.04] hover:border-white/[0.12]
+                                    rounded-2xl p-6 md:p-8
+                                    transition-all duration-500
+                                    wv-reveal"
+                             data-reveal data-delay="<?= 300 + $i * 100 ?>">
+
+                        <!-- Small corner quote mark -->
+                        <span aria-hidden="true"
+                              class="absolute top-2 <?= $_rtl ? 'right-5' : 'left-5' ?>
+                                     font-serif text-5xl leading-none
+                                     text-[var(--secondary)]/20
+                                     group-hover:text-[var(--secondary)]/40
+                                     transition-colors duration-500
+                                     select-none pointer-events-none">
+                            “
+                        </span>
+
+                        <!-- Yellow corner accent — appears on hover -->
+                        <span class="absolute top-0 <?= $_rtl ? 'left-0' : 'right-0' ?>
+                                     w-8 h-8 border-t border-<?= $_rtl ? 'l' : 'r' ?>
+                                     border-[var(--secondary)]
+                                     opacity-0 group-hover:opacity-100
+                                     transition-opacity duration-400
+                                     pointer-events-none
+                                     <?= $_rtl ? 'rounded-tl-2xl' : 'rounded-tr-2xl' ?>"></span>
+
+                        <div class="relative z-10 pt-6">
+                            <!-- Quote -->
+                            <p class="text-sm md:text-base font-light leading-relaxed
+                                      text-white/70 group-hover:text-white/90
+                                      transition-colors duration-500
+                                      font-alexandria mb-6">
+                                <?= __('review_quote_' . $review['key']) ?>
+                            </p>
+
+                            <!-- Author -->
+                            <div class="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+                                <div class="w-10 h-10 rounded-full overflow-hidden
+                                            border border-white/10 flex-shrink-0
+                                            grayscale group-hover:grayscale-0
+                                            transition-all duration-500">
+                                    <img src="<?= $review['image'] ?>"
+                                         alt="<?= htmlspecialchars(__('review_name_' . $review['key'])) ?>"
+                                         class="w-full h-full object-cover"
+                                         loading="lazy" />
+                                </div>
+                                <div>
+                                    <h4 class="text-white text-sm font-medium leading-tight">
+                                        <?= __('review_name_' . $review['key']) ?>
+                                    </h4>
+                                    <p class="text-[10px] uppercase tracking-[0.18em]
+                                              text-white/40 font-mono mt-1">
+                                        <?= __('review_role_' . $review['key']) ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
 
         </div>
     </div>
 </section>
+
+<!-- ══ INLINE CAROUSEL SCRIPT ══════════════════════════════
+     7-second auto-rotation through featured slides.
+     Dots clickable, restart timer on manual change.
+══════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+    const root = document.getElementById('reviews-featured-slider');
+    if (!root) return;
+    const slides = root.querySelectorAll('.reviews-slide');
+    const dots   = root.querySelectorAll('.reviews-dot');
+    if (!slides.length) return;
+
+    let idx = 0;
+    let timer;
+    const SPEED = 7000;
+
+    const go = (i) => {
+        slides[idx]?.classList.remove('is-active');
+        dots[idx]?.classList.remove('is-active');
+        idx = i;
+        slides[idx]?.classList.add('is-active');
+        dots[idx]?.classList.add('is-active');
+    };
+
+    const next = () => go((idx + 1) % slides.length);
+
+    const start = () => { timer = setInterval(next, SPEED); };
+    const stop  = () => { clearInterval(timer); };
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            stop();
+            go(i);
+            start();
+        });
+    });
+
+    // Pause when hovering the whole featured panel
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+
+    start();
+})();
+</script>
 
 <section class="w-full bg-black py-20 border-t border-white/10">
     <div class="max-w-[1600px] mx-auto px-6 md:px-12">
@@ -491,38 +830,226 @@ include 'includes/category-slider/template.php';
 </section>
 
 <!-- Final Refined Newsletter Section -->
-<section class="w-full bg-black py-6 md:py-32 overflow-hidden border-t border-white/10 relative">
-    
-    <!-- Increased opacity to 0.08 for better visibility -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <h2 class="text-[25vw] md:text-[22vw] font-black uppercase tracking-tighter text-white/[0.08] leading-none whitespace-nowrap">
+<?php $_rtl = ($lang === 'ar'); ?>
+
+<section class="w-full bg-black py-16 md:py-32 overflow-hidden border-t border-white/10 relative"
+         dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
+
+    <!-- Watermark — opacity refined slightly, hidden on small mobile to avoid overflow -->
+    <div class="absolute inset-0 hidden sm:flex items-center justify-center pointer-events-none select-none">
+        <h2 class="text-[25vw] md:text-[22vw] font-black uppercase tracking-tighter
+                   text-white/[0.1] leading-none whitespace-nowrap">
             MIRZAAM
         </h2>
     </div>
-    
+
     <div class="px-6 md:px-20 relative z-10 max-w-[1600px] mx-auto">
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 lg:gap-0">
-            
-            <!-- Text Content: Optimized for mobile/desktop hierarchy -->
+
+        <!-- Alpine.js controller — all state lives here -->
+        <div x-data="newsletterForm()"
+             class="flex flex-col lg:flex-row justify-between items-start lg:items-end
+                    gap-12 lg:gap-16">
+
+            <!-- ═══ LEFT — TEXT ═══════════════════════════════ -->
             <div class="max-w-xl">
-                <h3 class="text-white text-3xl md:text-5xl font-bold uppercase tracking-tight">Stay Updated.</h3>
-                <p class="text-white/70 text-base md:text-lg mt-4 font-light leading-relaxed">
-                    Join the archives for exclusive exhibition insights, curated design trends, and partner announcements delivered to your inbox.
+                <h3 class="text-white text-3xl md:text-5xl font-bold uppercase tracking-tight
+                           wv-reveal" data-reveal>
+                    <?= __('newsletter_title') ?>
+                </h3>
+                <p class="text-white/70 text-base md:text-lg mt-4 font-light leading-relaxed
+                          wv-reveal" data-reveal data-delay="100">
+                    <?= __('newsletter_desc') ?>
                 </p>
             </div>
 
-            <!-- Interaction Area: Responsive Widths -->
-            <div class="flex flex-col gap-4 w-full lg:w-96">
-                <input type="email" placeholder="ENTER YOUR EMAIL" 
-                       class="bg-transparent border-b border-white/40 py-4 text-white placeholder-white/50 outline-none focus:border-white transition-all duration-300 tracking-[0.2em] text-sm uppercase w-full">
-                
-                <button class="w-full bg-white text-black md:py-4 py-2 font-bold uppercase tracking-[0.3em] text-[11px] hover:bg-transparent hover:text-white border border-white transition-all duration-300">
-                    Subscribe
-                </button>
+            <!-- ═══ RIGHT — FORM ══════════════════════════════ -->
+            <div class="w-full lg:w-96 wv-reveal" data-reveal data-delay="200">
+
+                <!-- FORM STATE — Alpine x-show -->
+                <form x-show="state === 'form' || state === 'submitting'"
+                      x-cloak
+                      @submit.prevent="submit"
+                      action="https://formsubmit.co/developer@fnh.group"
+                      method="POST"
+                      class="flex flex-col gap-4">
+
+                    <!-- FormSubmit.co config -->
+                    <input type="hidden" name="_subject" value="New Mirzaam Newsletter Subscription">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <!-- Email input with growing yellow underline -->
+                    <div class="relative">
+                        <input type="email"
+                               name="email"
+                               x-model="email"
+                               @input="error = ''"
+                               :class="error ? 'border-red-400' : 'border-white/40'"
+                               :disabled="state === 'submitting'"
+                               placeholder="<?= __('newsletter_placeholder') ?>"
+                               class="newsletter-input
+                                      w-full bg-transparent border-b py-4
+                                      text-white placeholder-white/50 outline-none
+                                      transition-colors duration-300
+                                      tracking-[0.2em] text-sm uppercase
+                                      disabled:opacity-50"
+                               required>
+                        <!-- Yellow underline grows from 0 → 100% on focus -->
+                        <span class="newsletter-underline absolute bottom-0
+                                     <?= $_rtl ? 'right-0' : 'left-0' ?>
+                                     h-[1px] w-0 bg-[var(--secondary)]
+                                     transition-all duration-500 ease-out
+                                     pointer-events-none"></span>
+                    </div>
+
+                    <!-- Inline validation message -->
+                    <p x-show="error"
+                       x-cloak
+                       x-transition
+                       class="text-red-400 text-xs tracking-wider"
+                       x-text="error"></p>
+
+                    <!-- Subscribe button with yellow fill animation -->
+                    <button type="submit"
+                            :disabled="state === 'submitting'"
+                            class="newsletter-btn group relative overflow-hidden
+                                   w-full bg-white text-black
+                                   md:py-4 py-3
+                                   font-bold uppercase tracking-[0.25em] text-[11px]
+                                   border border-white
+                                   transition-colors duration-300
+                                   disabled:opacity-50 disabled:cursor-wait">
+
+                        <!-- Yellow fill — slides from left to right on hover -->
+                        <span class="newsletter-btn-fill absolute inset-0
+                                     bg-[var(--secondary)]
+                                     transform <?= $_rtl ? 'translate-x-full' : '-translate-x-full' ?>
+                                     group-hover:translate-x-0
+                                     transition-transform duration-500 ease-out"></span>
+
+                        <span class="relative z-10
+                                     group-hover:text-black
+                                     transition-colors duration-300">
+                            <span x-show="state === 'form'"><?= __('newsletter_button') ?></span>
+                            <span x-show="state === 'submitting'"><?= __('newsletter_submitting') ?></span>
+                        </span>
+                    </button>
+
+                    <!-- I: Privacy hint -->
+                    <p class="text-white/40 text-[10px] tracking-wider mt-1">
+                        <?= __('newsletter_privacy') ?>
+                    </p>
+                </form>
+
+                <!-- SUCCESS STATE -->
+                <div x-show="state === 'success'"
+                     x-cloak
+                     x-transition:enter="transition duration-500"
+                     x-transition:enter-start="opacity-0 translate-y-2"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     class="flex flex-col items-start gap-3 py-4">
+
+                    <!-- Yellow check icon -->
+                    <div class="w-12 h-12 rounded-full
+                                bg-[var(--secondary)]/10 border border-[var(--secondary)]/40
+                                flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--secondary)]"
+                             fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+
+                    <h4 class="text-white text-lg font-medium">
+                        <?= __('newsletter_success_title') ?>
+                    </h4>
+                    <p class="text-white/50 text-sm font-light leading-relaxed">
+                        <?= __('newsletter_success_desc') ?>
+                    </p>
+                </div>
+
+                <!-- ERROR STATE — submission failed -->
+                <div x-show="state === 'failed'"
+                     x-cloak
+                     x-transition
+                     class="flex flex-col items-start gap-3 py-4">
+
+                    <div class="w-12 h-12 rounded-full
+                                bg-red-500/10 border border-red-500/40
+                                flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-400"
+                             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
+                        </svg>
+                    </div>
+
+                    <h4 class="text-white text-lg font-medium">
+                        <?= __('newsletter_failed_title') ?>
+                    </h4>
+                    <p class="text-white/50 text-sm font-light leading-relaxed">
+                        <?= __('newsletter_failed_desc') ?>
+                    </p>
+
+                    <button type="button"
+                            @click="state = 'form'"
+                            class="mt-2 text-[var(--secondary)] text-xs uppercase tracking-widest
+                                   hover:text-white transition-colors duration-300">
+                        <?= __('newsletter_try_again') ?>
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
+
+<script>
+function newsletterForm() {
+    return {
+        email: '',
+        error: '',
+        // state machine: 'form' | 'submitting' | 'success' | 'failed'
+        state: 'form',
+
+        async submit() {
+            // Client-side validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.email.trim())) {
+                this.error = '<?= addslashes(__("newsletter_invalid")) ?>';
+                return;
+            }
+
+            this.error = '';
+            this.state = 'submitting';
+
+            try {
+                const formData = new FormData();
+                formData.append('email', this.email.trim());
+                formData.append('_subject', 'New Mirzaam Newsletter Subscription');
+                formData.append('_template', 'table');
+                formData.append('_captcha', 'false');
+
+                const res = await fetch('https://formsubmit.co/developer@fnh.group', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    this.state = 'success';
+                    this.email = '';
+                    // Auto-revert to form after 5s so user can subscribe another email
+                    setTimeout(() => { this.state = 'form'; }, 5000);
+                } else {
+                    this.state = 'failed';
+                }
+            } catch (e) {
+                this.state = 'failed';
+            }
+        },
+    };
+}
+</script>
 
 <div id="video-modal-lightbox" class="fixed inset-0 z-[9999] flex items-center justify-center invisible opacity-0 transition-all duration-500 ease-out bg-black/40 backdrop-blur-xl">
     <div class="absolute inset-0 container-close-overlay cursor-pointer"></div>

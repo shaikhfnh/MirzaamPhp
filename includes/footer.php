@@ -52,15 +52,15 @@
             </div>
 
             <div class="flex flex-col gap-6 rounded-lg">
-                <div class="w-full h-32 border border-white/20 rounded-sm overflow-hidden rounded-lg">
+                <div class="w-full h-40 border border-white/20 rounded-sm overflow-hidden rounded-lg">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.4312!2d47.96!3d29.27!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDE2JzEyLjAiTiA0N8KwNTcnMzYuMCJF!5e0!3m2!1sen!2skw!4v1!5m2!1sen!2skw" 
-                            class="w-full h-full grayscale-[50%] brightness-[0.8] hover:grayscale-0 hover:brightness-100 transition-all duration-700 rounded-lg" 
+                            class="w-full h-full  rounded-lg" 
                             allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
 
                 <div class="text-center">
-                    <h4 class="font-bold uppercase tracking-[0.2em] text-[10px] opacity-50 mb-4">
+                    <h4 class="font-bold uppercase tracking-[0.2em] text-[10px] opacity-80 mb-4">
                         <?= __('footer_follow_us') ?>
                     </h4>
                     <div class="flex justify-center gap-6">
@@ -90,11 +90,11 @@
 
     <section class="w-full bg-[#0a0a0a] px-6 py-5 text-center border-t border-white/5">
         <div class="max-w-2xl mx-auto flex flex-col items-center gap-4">
-            <p class="text-[8px] uppercase tracking-[0.3em] text-white/20 font-bold">
+            <p class="text-[8px] uppercase tracking-[0.3em] text-white/70 font-bold">
                 <?= __('footer_fouz_label') ?>
             </p>
-            <img src="/mirzaam/assets/images/Home/fouzlogo.png" alt="Fouz Expo" class="h-10 opacity-70">
-            <p class="text-[12px] leading-relaxed font-light text-white/50">
+            <img src="/mirzaam/assets/images/Home/fouzlogo.png" alt="Fouz Expo" class="h-10 ">
+            <p class="text-[12px] leading-relaxed font-light text-white/80">
                 <?= __('footer_fouz_mission') ?>
             </p>
         </div>
@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div class="bg-[#12161f] text-white/30 text-center py-6 text-[10px] uppercase tracking-widest">
+    <div class="bg-[#12161f] text-white/50 text-center py-6 text-[10px] uppercase tracking-widest">
         <?= __('footer_copyright') ?>
     </div>
 </footer>

@@ -1,51 +1,128 @@
 <?php
 // ============================================================
-// app/data/get_exhibitors.php
+// app/data/get_exhibitors.php  ·  v4 — Registry Edition
 // ============================================================
-// Handles 4 years, each with a slightly different schema.
-// All output normalised to {id, name_en, name_ar, category, image, hall, type}
+// HOW IT WORKS
+// ─────────────────────────────────────────────────────────────
+// Every expo+year combination lives in $EXPO_REGISTRY as a
+// named key: "mirzaam-2026", "mirzaamiyat-2026", "ixir-2026".
+// Adding a new expo requires only ONE new array entry here —
+// nothing else in the codebase needs to change.
+//
+// URL FORMAT (called by Alpine.js controllers in each view)
+// ─────────────────────────────────────────────────────────────
+//   /api/exhibitors/2026                → mirzaam-2026  (backward compat)
+//   /api/exhibitors/2026?expo=mirzaamiyat → mirzaamiyat-2026
+//   /api/exhibitors/2026?expo=ixir        → ixir-2026  (future)
+//
+// The year is extracted from the URL path by index.php's router
+// and injected as $_GET['year']. The expo name comes via query
+// string; defaults to 'mirzaam' when omitted.
 // ============================================================
 
 if (ob_get_level()) { ob_end_clean(); }
 header('Content-Type: application/json; charset=utf-8');
 
-// ------------------------------------------------------------
-// 1. Year + validate
-// ------------------------------------------------------------
-$year = $_GET['year'] ?? '2026';
-if (!preg_match('/^\d{4}$/', $year)) $year = '2026';
+// ── 1. Read + validate request params ──────────────────────
+$year = preg_match('/^\d{4}$/', $_GET['year'] ?? '') ? $_GET['year'] : '2026';
+$expo = preg_match('/^[a-z0-9_-]+$/', $_GET['expo'] ?? '') ? strtolower($_GET['expo']) : 'mirzaam';
 
-// ------------------------------------------------------------
-// 2. Source configuration per year
-// ------------------------------------------------------------
-$apiKey = 'AIzaSyAyGGQCjLa76kq8Sb0P3bab0Ajp36qjA14';
+$registry_key = $expo . '-' . $year;
 
-$sheetConfig = [
-    '2026' => ['id' => '1l7f5kJjskXHzlXaTQn4fX31aOpXwHBsZVOL5KMBLnL0', 'range' => 'Booths'],
-    '2025' => ['id' => '1u5aDXJSPCCnEjSL2PqgSVp2X1xTDg3t0HbDR4wPQ6mw', 'range' => 'Booths'],
-    '2024' => ['id' => '1l7f5kJjskXHzlXaTQn4fX31aOpXwHBsZVOL5KMBLnL0', 'range' => 'Booths'],
-    '2023' => ['id' => '1mzUHaLhjJFFSbD-8_oDRqWwJxBf_Zznf3X9LBfRDksE', 'range' => 'Booths'],
+// ── 2. EXPO REGISTRY ────────────────────────────────────────
+// Each entry:
+//   sheet_id   → Google Sheets document ID
+//   api_key    → Sheets API key
+//   image_base → Full URL prefix prepended to every logo filename
+//   range      → Sheet tab name (almost always 'Booths')
+//   json_url   → (optional) replaces sheet_id for static JSON sources
+//
+// ⚠  2022 uses a static JSON file — handled via json_url key.
+// ⚠  image_base for Mirzaamiyat confirmed path:
+//      https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/
+// ============================================================
+$EXPO_REGISTRY = [
+
+    // ── MIRZAAM ─────────────────────────────────────────────
+    'mirzaam-2026' => [
+        'sheet_id'   => '1l7f5kJjskXHzlXaTQn4fX31aOpXwHBsZVOL5KMBLnL0',
+        'api_key'    => 'AIzaSyAyGGQCjLa76kq8Sb0P3bab0Ajp36qjA14',
+        'image_base' => 'https://mirzaam.com/2026/logos/',
+        'range'      => 'Booths',
+    ],
+    'mirzaam-2025' => [
+        'sheet_id'   => '1u5aDXJSPCCnEjSL2PqgSVp2X1xTDg3t0HbDR4wPQ6mw',
+        'api_key'    => 'AIzaSyAyGGQCjLa76kq8Sb0P3bab0Ajp36qjA14',
+        'image_base' => 'https://mirzaam.com/2025/logos/',
+        'range'      => 'Booths',
+    ],
+    'mirzaam-2024' => [
+        'sheet_id'   => '1l7f5kJjskXHzlXaTQn4fX31aOpXwHBsZVOL5KMBLnL0',
+        'api_key'    => 'AIzaSyAyGGQCjLa76kq8Sb0P3bab0Ajp36qjA14',
+        'image_base' => 'https://mirzaam.com/2024/logos/',
+        'range'      => 'Booths',
+    ],
+    'mirzaam-2023' => [
+        'sheet_id'   => '1mzUHaLhjJFFSbD-8_oDRqWwJxBf_Zznf3X9LBfRDksE',
+        'api_key'    => 'AIzaSyAyGGQCjLa76kq8Sb0P3bab0Ajp36qjA14',
+        'image_base' => 'https://mirzaam.com/2023/logos/',
+        'range'      => 'Booths',
+    ],
+    'mirzaam-2022' => [
+        'json_url'   => 'https://mirzaam.com/wp-content/themes/flatsome-child/Booths2022.json',
+        'image_base' => 'https://mirzaam.com/images/logo2022/',
+    ],
+
+    // ── MIRZAAMIYAT ─────────────────────────────────────────
+    // To add 2027: duplicate this entry, update sheet_id + image_base.
+    'mirzaamiyat-2026' => [
+        'sheet_id'   => '1oC2hQejAGgvqJSfbg9iFjJBFsPcN1S9CU0MPpc6L40s',
+        'api_key'    => 'AIzaSyBu7aLRrDgVFsaAx3OaYDOBfSP59Y7cCmE',
+        'image_base' => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/',
+        'range'      => 'Booths',
+    ],
+
+    // ── FUTURE EXPOS ────────────────────────────────────────
+    // Add IXIR, Mama+Baby, or any other expo here.
+    // Example (uncomment + fill IDs when ready):
+    //
+    // 'ixir-2026' => [
+    //     'sheet_id'   => 'YOUR_IXIR_SHEET_ID',
+    //     'api_key'    => 'YOUR_API_KEY',
+    //     'image_base' => 'https://mirzaam.com/ixir/2026/logos/',
+    //     'range'      => 'Booths',
+    // ],
+    //
+    // 'mamababy-2026' => [
+    //     'sheet_id'   => 'YOUR_MAMABABY_SHEET_ID',
+    //     'api_key'    => 'YOUR_API_KEY',
+    //     'image_base' => 'https://mirzaam.com/mamababy/2026/logos/',
+    //     'range'      => 'Booths',
+    // ],
 ];
 
-// ------------------------------------------------------------
-// 3. Image URL builder — different prefix per year
-// ------------------------------------------------------------
-function buildImageUrl($year, $filename) {
-    if (empty($filename)) return '';
-    $filename = ltrim(trim($filename), '/');
-    switch ($year) {
-        case '2025': return 'https://mirzaam.com/2025/logos/' . $filename;
-        case '2024': return 'https://mirzaam.com/2024/logos/' . $filename;
-        case '2023': return 'https://mirzaam.com/2023/logos/' . $filename;
-        case '2022': return 'https://mirzaam.com/images/logo2022/' . $filename;
-        case '2026': return 'https://mirzaam.com/2026/logos/' . $filename;
-        default:     return 'https://mirzaam.com/wp-content/uploads/' . $filename;
-    }
+// ── 3. Validate expo key ────────────────────────────────────
+if (!isset($EXPO_REGISTRY[$registry_key])) {
+    http_response_code(404);
+    echo json_encode([
+        'error' => 'Unknown expo+year combination',
+        'key'   => $registry_key,
+        'available' => array_keys($EXPO_REGISTRY),
+    ]);
+    exit;
 }
 
-// ------------------------------------------------------------
-// 4. Header alias map — different years use different header names
-// ------------------------------------------------------------
+$cfg = $EXPO_REGISTRY[$registry_key];
+
+// ── 4. Image URL builder — uses registry image_base ─────────
+function buildImageUrl(string $base, string $filename): string {
+    if ($filename === '') return '';
+    $filename = ltrim(trim($filename), '/');
+    return rtrim($base, '/') . '/' . $filename;
+}
+
+// ── 5. Header alias map ─────────────────────────────────────
+// Covers column-name variations across all years and expos.
 $headerAliases = [
     'online'   => ['online'],
     'id'       => ['id'],
@@ -54,10 +131,10 @@ $headerAliases = [
     'category' => ['categories', 'category'],
     'image'    => ['image'],
     'hall'     => ['hall'],
-    'type'     => ['type'],
+    'type'     => ['type', 'booth category'],
 ];
 
-function mapHeaders($headerRow, $aliases) {
+function mapHeaders(array $headerRow, array $aliases): array {
     $map   = [];
     $lower = array_map(fn($h) => strtolower(trim($h ?? '')), $headerRow);
     foreach ($aliases as $field => $candidates) {
@@ -70,10 +147,8 @@ function mapHeaders($headerRow, $aliases) {
     return $map;
 }
 
-// ------------------------------------------------------------
-// 5. Generic sheet-row processor (used for ALL years including 2022)
-// ------------------------------------------------------------
-function processSheetRows($year, $rows) {
+// ── 6. Row processor ─────────────────────────────────────────
+function processSheetRows(array $rows, string $imageBase): array {
     global $headerAliases;
     $out = [];
 
@@ -82,36 +157,35 @@ function processSheetRows($year, $rows) {
     $headerRow = array_shift($rows);
     $cols      = mapHeaders($headerRow, $headerAliases);
 
-    // If we can't find a Company column, return debug info
     if ($cols['company'] === null) {
         http_response_code(500);
         echo json_encode([
             'error'   => 'No "Company" column found',
-            'year'    => $year,
             'headers' => $headerRow,
         ]);
         exit;
     }
 
     foreach ($rows as $row) {
-        // Online filter — but 2022 uses "1"/"0" string instead of TRUE/FALSE
+        // Online filter — accepts TRUE / true / 1
         if ($cols['online'] !== null) {
             $flag = strtoupper(trim((string)($row[$cols['online']] ?? '')));
-            // Accept TRUE, true, 1 as valid
             if ($flag !== 'TRUE' && $flag !== '1') continue;
         }
 
         $name_en = trim((string)($row[$cols['company']] ?? ''));
         if ($name_en === '') continue;
 
-        $rawImage = $cols['image'] !== null ? trim((string)($row[$cols['image']] ?? '')) : '';
+        $rawImage = $cols['image'] !== null
+            ? trim(str_replace("\n", '', (string)($row[$cols['image']] ?? '')))
+            : '';
 
         $out[] = [
             'id'       => $cols['id']       !== null ? (string)($row[$cols['id']]       ?? '') : '',
             'name_en'  => $name_en,
             'name_ar'  => $cols['name_ar']  !== null ? trim((string)($row[$cols['name_ar']]  ?? '')) : '',
             'category' => $cols['category'] !== null ? trim((string)($row[$cols['category']] ?? '')) : '',
-            'image'    => buildImageUrl($year, $rawImage),
+            'image'    => buildImageUrl($imageBase, $rawImage),
             'hall'     => $cols['hall']     !== null ? trim((string)($row[$cols['hall']]     ?? '')) : '',
             'type'     => $cols['type']     !== null ? trim((string)($row[$cols['type']]     ?? '')) : '',
         ];
@@ -120,40 +194,31 @@ function processSheetRows($year, $rows) {
     return $out;
 }
 
-// ------------------------------------------------------------
-// 6. Fetch + dispatch
-// ------------------------------------------------------------
+// ── 7. Fetch ─────────────────────────────────────────────────
 $formatted = [];
 
-if ($year === '2022') {
-    // ----- 2022: static JSON file, BUT it's actually Google-Sheets format
-    // ({range, majorDimension, values}) — same as the other years.
-    $json = @file_get_contents('https://mirzaam.com/wp-content/themes/flatsome-child/Booths2022.json');
+if (isset($cfg['json_url'])) {
+    // Static JSON source (2022)
+    $json = @file_get_contents($cfg['json_url']);
     if ($json === false) {
         http_response_code(502);
-        echo json_encode(['error' => 'Failed to fetch 2022 JSON']);
+        echo json_encode(['error' => 'Failed to fetch static JSON', 'url' => $cfg['json_url']]);
         exit;
     }
-    $data = json_decode($json, true);
-    $rows = $data['values'] ?? [];
+    $data      = json_decode($json, true);
+    $formatted = processSheetRows($data['values'] ?? [], $cfg['image_base']);
 
-    $formatted = processSheetRows('2022', $rows);
-}
-elseif (isset($sheetConfig[$year])) {
-    // ----- Google Sheets years (2023/2024/2025/2026)
-    $config = $sheetConfig[$year];
-    $url    = "https://sheets.googleapis.com/v4/spreadsheets/{$config['id']}/values/{$config['range']}?key={$apiKey}";
-    $json   = @file_get_contents($url);
-
+} else {
+    // Google Sheets
+    $url  = "https://sheets.googleapis.com/v4/spreadsheets/{$cfg['sheet_id']}/values/{$cfg['range']}?key={$cfg['api_key']}";
+    $json = @file_get_contents($url);
     if ($json === false) {
         http_response_code(502);
-        echo json_encode(['error' => 'Failed to fetch Google Sheets data', 'year' => $year]);
+        echo json_encode(['error' => 'Failed to fetch Google Sheets data', 'key' => $registry_key]);
         exit;
     }
-    $data = json_decode($json, true);
-    $rows = $data['values'] ?? [];
-
-    $formatted = processSheetRows($year, $rows);
+    $data      = json_decode($json, true);
+    $formatted = processSheetRows($data['values'] ?? [], $cfg['image_base']);
 }
 
 echo json_encode($formatted, JSON_UNESCAPED_UNICODE);

@@ -488,5 +488,116 @@ return [
     'mz_final_desc'          => 'Join us at Mirzaamiyat Ramadan and witness the convergence of luxury, style, and practicality — an experience that goes beyond the ordinary.',
     'mz_final_cta_primary'   => 'Exhibitor List 2026',
     'mz_final_cta_secondary' => 'View Expo Plan',
+
+
+
+
+
+    //Contact Page
+    'ct_hero_eyebrow' => 'Get In Touch',
+    'ct_hero_title'   => 'Contact Us',
+    'ct_hero_desc'    => 'Have a question about exhibiting, visiting, or media? We\'d love to hear from you.',
+ 
+    // Contact info labels
+    'ct_info_address_label' => 'Address',
+    'ct_info_hours_label'   => 'Opening Hours',
+    'ct_info_email_label'   => 'Email',
+    'ct_info_phone_label'   => 'Phone',
+ 
+    // Form
+    'ct_form_title'         => 'Send Us a Message',
+    'ct_form_subtitle'      => 'Fill in the form below and we\'ll get back to you as soon as possible.',
+ 
+    'ct_form_name'          => 'Full Name',
+    'ct_form_name_ph'       => 'Your full name',
+ 
+    'ct_form_email'         => 'Email Address',
+    'ct_form_email_ph'      => 'your@email.com',
+ 
+    'ct_form_phone'         => 'Phone Number',
+    'ct_form_phone_ph'      => '+965 XXXX XXXX',
+ 
+    'ct_form_company'       => 'Company / Organisation',
+    'ct_form_company_ph'    => 'Your company name',
+ 
+    'ct_form_type'          => 'Type of Enquiry',
+    'ct_form_type_ph'       => 'Select enquiry type',
+ 
+    'ct_type_exhibiting'    => 'Exhibiting',
+    'ct_type_visiting'      => 'Visiting',
+    'ct_type_media'         => 'Media',
+    'ct_type_general'       => 'General',
+ 
+    'ct_form_message'       => 'Message',
+    'ct_form_message_ph'    => 'Tell us how we can help...',
+ 
+    'ct_form_required_note' => 'Required fields',
+    'ct_form_submit'        => 'Send Message',
+    'ct_form_sending'       => 'Sending...',
+ 
+    // Validation errors
+    'ct_error_required'     => 'This field is required.',
+    'ct_error_email'        => 'Please enter a valid email address.',
+    'ct_error_recaptcha'    => 'Please complete the reCAPTCHA to continue.',
+ 
+    // Success state
+    'ct_success_title'      => 'Message sent successfully!',
+    'ct_success_desc'       => 'Thank you for reaching out. We\'ll get back to you within one business day.',
+
+
+
+
+
+
+    //Media Page
+    'md_hero_eyebrow' => 'Press & Media',
+    'md_hero_title'   => 'Mirzaam in the Media',
+    'md_hero_desc'    => 'Videos, press coverage, campaigns, and conversations — every moment Mirzaam made headlines.',
+    'md_hero_stat1_num'   => '7',
+    'md_hero_stat1_label' => 'Videos',
+    'md_hero_stat2_num'   => '9',
+    'md_hero_stat2_label' => 'Articles',
+    'md_hero_stat3_num'   => '5+',
+    'md_hero_stat3_label' => 'Editions Covered',
+ 
+    // YouTube
+    'md_yt_eyebrow'  => 'Video Coverage',
+    'md_yt_title'    => 'Watch Mirzaam',
+    'md_yt_featured' => 'Featured',
+    'md_yt_play'     => 'Play Video',
+ 
+    // News ticker
+    'md_news_eyebrow'  => 'Press Coverage',
+    'md_news_title'    => 'Latest from the Press',
+    'md_news_read'     => 'Read',
+    'md_news_previous' => 'Previous Coverage',
+ 
+    // Social buzz
+    'md_buzz_eyebrow'  => 'Social Buzz',
+    'md_buzz_title'    => 'What People Are Saying',
+    'md_buzz_view'     => 'View Post',
+ 
+    // Campaign gallery
+    'md_campaign_eyebrow' => 'Campaign Gallery',
+    'md_campaign_title'   => 'Social Media Campaign 2023',
+    'md_campaign_desc'    => 'Behind-the-scenes creatives and social content from the Mirzaam 2023 campaign.',
+ 
+    // Outdoor videos
+    'md_outdoor_eyebrow' => 'Outdoor Campaign',
+    'md_outdoor_title'   => 'On the Streets of Kuwait',
+    'md_outdoor_desc'    => 'Mirzaam\'s outdoor advertising campaign across Kuwait\'s biggest digital screens and billboard locations.',
+    'md_outdoor_play'    => 'Play',
+    'md_outdoor_close'   => 'Close',
+ 
+    // Outdoor photos
+    'md_photos_eyebrow' => 'Billboard Moments',
+    'md_photos_title'   => 'Mirzaam in the City',
+    'md_photos_desc'    => 'Outdoor placements from our 2024 and 2025 campaigns across Kuwait.',
+ 
+    // Lightbox
+    'md_lb_close' => 'Close',
+    'md_lb_prev'  => 'Previous',
+    'md_lb_next'  => 'Next',
+
     ];
 ?>

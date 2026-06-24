@@ -68,8 +68,9 @@ unset($_api_path, $_api_m);
         $path = strtok($request_uri, '?');
 
         // Strip base path (/mirzaam on local, '' on prod)
-        $path = str_replace($base_path, '', $path);
-        $path = trim($path, '/');
+        if ($base_path !== '' && strpos($path, $base_path) === 0) {
+            $path = substr($path, strlen($base_path));
+        }        $path = trim($path, '/');
 
         // Strip Arabic language prefix
         if (strpos($path, 'ar/') === 0) {
@@ -103,11 +104,14 @@ unset($_api_path, $_api_m);
             'best-booth'   => 'views/best-booth.php',         // alt path
             'wayfinding'   => 'views/wayfinding.php',
 
-            // MIRZAAMIYAT 2026 submenu
-            'mirzaamiyat/about'       => 'views/mirzaamiyaat.php',
-            'mirzaamiyat'             => 'views/mirzaamiyaat.php',
-            'mirzaamiyat/plan'        => 'views/mirzaamiyat-plan.php',
-            'mirzaamiyat/exhibitors'  => 'views/mirzaamiyat-exhibitors.php',
+          // MIRZAAMIYAT routes
+            'mirzaamiyaat'             => 'views/mirzaamiyaat.php',
+            'mirzaamiyaat/about'       => 'views/mirzaamiyaat.php',
+            'mirzaamiyaat/exhibitors'  => 'views/mirzaamiyaat-exhibitors.php',
+
+        // Footer Extra routes
+            'media'        => 'views/media.php',
+            'privacy'      => 'views/privacy.php',
         ];
 
         // 1. Try static route table

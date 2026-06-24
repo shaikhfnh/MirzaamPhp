@@ -512,3 +512,202 @@ $site_blueprint['mirzaamiyat']['gallery'] = [
     'https://mirzaam.com/wp-content/uploads/2026/03/dsc06850-copy.jpg',
     'https://mirzaam.com/wp-content/uploads/2026/03/dsc07044-copy.jpg',
 ];
+
+
+
+
+
+
+$site_blueprint['media']['hero_image'] =
+    'https://mirzaam.com/wp-content/uploads/2025/12/whatsapp-image-2025-12-08-at-124548-pm.jpeg';
+ 
+// ── YOUTUBE VIDEOS ───────────────────────────────────────────
+// 7 real embed IDs from the live media page.
+// First entry is used as the featured (large) player.
+// The rest render as lazy thumbnails (click to load iframe).
+$site_blueprint['media']['youtube'] = [
+    ['id' => 'ACvtkFcBD4o'],
+    ['id' => 'llZzPvmn0Pk'],
+    ['id' => 'VzrXxsl_Gmk'],
+    ['id' => '82Ckih6wPaQ'],
+    ['id' => 'K2OqRJ7abBg'],
+    ['id' => 'arGhlUVEMkM'],
+    ['id' => 'gLPL7u542FQ'],
+];
+ 
+// ── NEWS ARTICLES ────────────────────────────────────────────
+// Real press coverage from Kuwaiti newspapers.
+// Source colours used for the badge pill in the ticker.
+$site_blueprint['media']['news'] = [
+    [
+        'title'  => "Al-Humaidhi: Mirzaam reinforces its position as a national platform for creativity",
+        'source' => 'Al Anba',
+        'color'  => 'bg-blue-600',
+        'date'   => 'Dec 2025',
+        'url'    => 'https://www.alanba.com.kw/1336507/',
+    ],
+    [
+        'title'  => "Al-Humaidhi: Mirzaam's fifth edition sales doubled, exceeding one million dinars",
+        'source' => 'Al Seyassah',
+        'color'  => 'bg-red-600',
+        'date'   => 'Dec 2024',
+        'url'    => 'https://alseyassah.com/article/427117/',
+    ],
+    [
+        'title'  => "The fifth edition of Mirzaam has launched — covering 55+ categories",
+        'source' => 'Al Wasat',
+        'color'  => 'bg-teal-600',
+        'date'   => 'Dec 2024',
+        'url'    => 'https://www.alwasat.com.kw/ArticleDetail.aspx?id=158974',
+    ],
+    [
+        'title'  => "Mirzaam is back — fulfilling your home design needs from A to Z",
+        'source' => 'Al Rai Media',
+        'color'  => 'bg-yellow-600',
+        'date'   => 'Nov 2022',
+        'url'    => 'https://www.alraimedia.com/article/1613184/',
+    ],
+    [
+        'title'  => "Exceeding 400,000 visitors and over 700,000 KD in raffle coupons",
+        'source' => 'Al Rai Media',
+        'color'  => 'bg-yellow-600',
+        'date'   => 'Dec 2022',
+        'url'    => 'https://www.alraimedia.com/article/1619091/',
+    ],
+    [
+        'title'  => "Video: Mirzaam 3 — An exceptional experience in interior design quality and elegance",
+        'source' => 'Al Anba',
+        'color'  => 'bg-blue-600',
+        'date'   => 'Dec 2022',
+        'url'    => 'https://www.alanba.com.kw/ar/kuwait-news/1157895/',
+    ],
+    [
+        'title'  => "ProPainters wins Best Booth Design Award at Mirzaam 2022",
+        'source' => 'Al Wasat',
+        'color'  => 'bg-teal-600',
+        'date'   => 'Dec 2022',
+        'url'    => 'http://www.alwasat.com.kw/ArticleDetail.aspx?id=143045',
+    ],
+    [
+        'title'  => "Zain showcases its latest digital solutions in the home sector at Mirzaam",
+        'source' => 'Al Anba',
+        'color'  => 'bg-blue-600',
+        'date'   => 'Dec 2022',
+        'url'    => 'https://www.alanba.com.kw/1157894/',
+    ],
+    [
+        'title'  => "Mirzaam Exhibition: Kuwait's biggest yet — 5 days of interior design excellence",
+        'source' => 'Al Wasat',
+        'color'  => 'bg-teal-600',
+        'date'   => 'Nov 2022',
+        'url'    => 'http://www.alwasat.com.kw/ArticleDetail.aspx?id=142950',
+    ],
+];
+ 
+// ── SOCIAL BUZZ — curated Instagram reels + Twitter/X posts ──
+// platform: 'instagram' | 'twitter'
+// caption: short excerpt or description
+$site_blueprint['media']['social_buzz'] = [
+    [
+        'platform' => 'instagram',
+        'handle'   => '@mirzaamexpo',
+        'caption'  => 'The sixth edition of Mirzaam Expo 2025 has officially opened — Kuwait\'s largest interior design event is back.',
+        'url'      => 'https://www.instagram.com/reel/DDfd5-HooPX/',
+    ],
+    [
+        'platform' => 'instagram',
+        'handle'   => '@mirzaamexpo',
+        'caption'  => "Merzam Showroom — the largest furniture and building materials showroom in Kuwait, showcasing at Mirzaam.",
+        'url'      => 'https://www.instagram.com/reel/DDfd5-HooPX/',
+    ],
+    [
+        'platform' => 'instagram',
+        'handle'   => '@mirzaamexpo',
+        'caption'  => "Mirzaam's third edition surpasses expectations with over 400,000 attendees in just 5 days.",
+        'url'      => 'https://www.instagram.com/reel/DDaEZTjs-Eh/',
+    ],
+    [
+        'platform' => 'twitter',
+        'handle'   => '@cnbcarabia',
+        'caption'  => 'CNBC Arabia covers Mirzaam 2024 — the expo cementing its status as a regional benchmark for interior design.',
+        'url'      => 'https://x.com/cnbcarabia/status/1867141371464683612',
+    ],
+    [
+        'platform' => 'twitter',
+        'handle'   => '@cnnews30',
+        'caption'  => 'Live coverage: Mirzaam Expo draws massive crowds at KIF Hall 5-6, with exhibitors from across the region.',
+        'url'      => 'https://x.com/cnnews30/status/1998417459477610575',
+    ],
+    [
+        'platform' => 'twitter',
+        'handle'   => '@naharkw',
+        'caption'  => 'Nahar Kuwait reports on Mirzaam — the design destination that\'s redefining home living in Kuwait.',
+        'url'      => 'https://x.com/naharkw/status/1998434051460399301',
+    ],
+];
+ 
+// ── SOCIAL CAMPAIGN IMAGES (2023) ────────────────────────────
+$site_blueprint['media']['campaign_images'] = [
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30722-pm.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30723-pm.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30725-pm.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30726-pm-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30726-pm.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-11-29-at-30728-pm-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-12-27-at-15715-pm-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-12-27-at-15715-pm.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-12-27-at-23034-pm-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-12-27-at-24550-pm-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/whatsapp-image-2023-12-27-at-24550-pm-2.webp',
+];
+ 
+// ── OUTDOOR CAMPAIGN VIDEOS ──────────────────────────────────
+// Grouped by year. Each video has a title (shown in the tab grid)
+// and a URL to the self-hosted MP4 file.
+$site_blueprint['media']['outdoor_videos'] = [
+    '2024' => [
+        ['title' => 'Outdoor 1', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-1.mp4'],
+        ['title' => 'Outdoor 2', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-2.mp4'],
+        ['title' => 'Outdoor 3', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-3.mp4'],
+        ['title' => 'Outdoor 4', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-4.mp4'],
+        ['title' => 'Outdoor 5', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-5.mp4'],
+        ['title' => 'Outdoor 6', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-6.mp4'],
+        ['title' => 'Outdoor 7', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/outdoor-7.mp4'],
+        ['title' => 'Behind The Scenes', 'url' => 'https://mirzaam.com/wp-content/uploads/2025/12/whatsapp-video-2025-12-04-at-95739-am.mp4'],
+    ],
+    '2023' => [
+        ['title' => 'The Giant',       'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/the-giant-1.mp4'],
+        ['title' => 'The Monster',     'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/the-monster.mp4'],
+        ['title' => 'Aqarat',          'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-aqarat-8.mp4'],
+        ['title' => 'Eye of Kuwait',   'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-eye-of-kuwait-1.mp4'],
+        ['title' => 'Gate Mall',       'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-gate-mall-outdoor-2.mp4'],
+        ['title' => 'Hamra',           'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-hamra-outdoor-2.mp4'],
+        ['title' => 'Kuwait Gate',     'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-kuwait-gate-1.mp4'],
+        ['title' => 'Yaal Outdoor',    'url' => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaam-yaal-outdoor-1.mp4'],
+    ],
+];
+ 
+// ── OUTDOOR CAMPAIGN PHOTOS ──────────────────────────────────
+// Billboard and outdoor placement photography from 2025 and 2024.
+$site_blueprint['media']['outdoor_photos'] = [
+    'https://mirzaam.com/wp-content/uploads/2025/12/whatsapp-image-2025-12-08-at-124548-pm.jpeg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/whatsapp-image-2025-12-08-at-124547-pm.jpeg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-101346.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-101001.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-102247.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-102159.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-102510.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-101047.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-101426.png',
+    'https://mirzaam.com/wp-content/uploads/2025/12/screenshot-2025-12-04-101519.png',
+    'https://mirzaam.com/wp-content/uploads/2024/10/image00010-scaled-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/10.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/9-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/8-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/7-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/6-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/5-1.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/4-2.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/3-2.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/img-0983.webp',
+    'https://mirzaam.com/wp-content/uploads/2024/10/img-0984.webp',];

@@ -44,6 +44,7 @@ unset($_api_path, $_api_m);
     <link rel="stylesheet" href="/mirzaam/assets/css/header.css">
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/@rive-app/canvas@latest" defer></script>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 

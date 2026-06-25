@@ -35,6 +35,7 @@ return [
     'alt_chat'     => 'واجهة مساعد مرزام الذكي',
     'alt_apple'    => 'حمل التطبيق من متجر آبل',
     'alt_google'   => 'احصل عليه من جوجل بلاي',
+    'app_bot_bubble' => 'جرّب التطبيق ←',
 
 
 // Insights Section

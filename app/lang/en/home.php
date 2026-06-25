@@ -37,6 +37,7 @@ return [
     'alt_chat'     => 'Mirzai AI Chatbot Interface',
     'alt_apple'    => 'Download on the App Store',
     'alt_google'   => 'Get it on Google Play',
+    'app_bot_bubble' => 'Experience the App →',
 
 
 // Insights Section

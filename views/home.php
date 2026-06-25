@@ -179,13 +179,14 @@
 <?php
 $_rtl = ($lang === 'ar');
 $_dir = $_rtl ? 'rtl' : 'ltr';
+$_bp  = isset($base_path) ? $base_path : '';
 ?>
 
 <section id="app-connect"
-         class="relative w-full py-16 bg-black text-[var(--text-light)] overflow-hidden"
-         >
+         class="relative bg-[#303030] w-full py-16  text-[var(--text-light)] overflow-hidden"
+         dir="<?= $_dir ?>">
 
-    <!-- Ambient brand-yellow glow -->
+    <!-- Ambient glow -->
     <div class="section-glow absolute bottom-0 <?= $_rtl ? 'left-1/4' : 'right-1/4' ?>
                 w-[35rem] h-[35rem] bg-[var(--secondary)]
                 rounded-full blur-[130px] opacity-[0.06] pointer-events-none"></div>
@@ -193,13 +194,41 @@ $_dir = $_rtl ? 'rtl' : 'ltr';
     <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-            <!-- ═══════════════════════════════════════════════
-                 LEFT — PHONE MOCKUP (original dimensions kept)
-            ═══════════════════════════════════════════════════ -->
-            <div class="lg:col-span-6 relative flex items-center justify-center wv-reveal"
+            <!-- ══ LEFT — BOT + PHONE ══════════════════════════ -->
+            <div class="lg:col-span-6 relative lg:flex grid items-end justify-center gap-6 wv-reveal"
                  data-reveal>
+
+                <!-- BOT COLUMN — desktop only, sits beside phone -->
+                <div class="flex flex-col items-center gap-3 mb-16 flex-shrink-0">
+
+                    <!-- Speech bubble -->
+                    <div class="app-bot-bubble relative
+                                border border-white/[0.12]
+                                rounded-2xl rounded-bl-none
+                                px-4 py-3 w-[150px]
+                                shadow-lg mb-[4rem]">
+                        <p class="text-white text-[11px] font-light leading-snug text-center">
+                            <?= __('app_bot_bubble') ?>
+                        </p>
+                        <!-- Tail -->
+                        <span class="absolute -bottom-[5rem] <?= $_rtl ? 'right-4' : 'left-4' ?>
+                                     w-0 h-0
+                                     border-l-[8px] border-l-transparent
+                                     border-r-[8px] border-r-transparent
+                                     border-t-[8px] border-t-white/[0.12]"></span>
+                    </div>
+
+                    <!-- Rive canvas — bot renders here, lazy-booted by main.js -->
+                    <canvas id="app-bot-canvas"
+                            width="500" height="360"
+                            data-src="<?= $_bp ?>/assets/animations/chatbot.riv"
+                   class="opacity-0 transition-opacity absolute bg-red-900 w-[600px] h-[360px] duration-700 bottom-[25rem] md:bottom-[30rem] lg:bottom-[-12rem]">                        
+                </canvas>
+                </div>
+
+                <!-- PHONE MOCKUP — original dimensions unchanged -->
                 <div class="relative w-[280px] sm:w-[320px] h-[36rem] sm:h-[40rem]
-                            drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]">
+                            drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)] flex-shrink-0">
 
                     <img src="<?= $app_connect_data['frame_image'] ?>"
                          alt="iPhone Frame"
@@ -220,7 +249,7 @@ $_dir = $_rtl ? 'rtl' : 'ltr';
                                     <img src="<?= $app_connect_data['home_image'] ?>"
                                          alt="App Home"
                                          class="w-full h-auto block"
-                                         onerror="this.parentNode.innerHTML='<div class=\'flex items-center justify-center h-96 bg-zinc-100 text-zinc-400 text-xs\'>App Preview</div>';" />
+                                         onerror="this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:24rem;background:#f4f4f5;color:#a1a1aa;font-size:12px\'>App Preview</div>';" />
 
                                     <button onclick="switchAppView('map')"
                                             style="--glow-color: var(--primary);"
@@ -263,30 +292,26 @@ $_dir = $_rtl ? 'rtl' : 'ltr';
                             </div>
                         </div>
 
+                        <!-- Back button -->
                         <button id="mockup-back-btn"
                                 onclick="switchAppView('home')"
-                                class="absolute top-8 left-4
-                                       z-50 bg-black/70 backdrop-blur-xl border border-white/10
-                                       text-white px-1.5 py-1 rounded-full text-[10px] font-medium
+                                dir="ltr"
+                                class="absolute top-8 left-4 z-50
+                                       bg-black/70 backdrop-blur-xl border border-white/10
+                                       text-white px-2 py-1 rounded-full text-[10px] font-medium
                                        shadow-xl flex items-center gap-1
-                                       opacity-0 dir-ltr pointer-events-none transition-all duration-300">
-                            <svg class="w-3 h-3 "
-                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       opacity-0 pointer-events-none transition-all duration-300">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2.5" d="M15 19l-7-7 7-7"/>
                             </svg>
-                            <?= __('app_back') ?>
+                            <span><?= __('app_back') ?></span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- ═══════════════════════════════════════════════
-                 RIGHT — TEXT
-                 5: keep yellow bar + eyebrow
-                 3: each title LINE has its own reveal (0/100/200ms)
-                    description shows immediately — no reveal
-            ═══════════════════════════════════════════════════ -->
+            <!-- ══ RIGHT — TEXT ════════════════════════════════ -->
             <div class="lg:col-span-6 flex flex-col justify-center">
 
                 <!-- Yellow bar + eyebrow -->
@@ -298,35 +323,30 @@ $_dir = $_rtl ? 'rtl' : 'ltr';
                     </span>
                 </div>
 
-                <!-- Title — 3 lines, each line reveals separately -->
-         <?php
-$app_title_lines = explode('|', __('app_title'));
-?>
-<h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium
-           leading-[1.1] font-alexandria text-white tracking-tight mb-8">
+                <!-- Title — 3 lines split by | in translation file -->
+                <?php $app_title_lines = explode('|', __('app_title')); ?>
+                <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium
+                           leading-[1.1] font-alexandria text-white tracking-tight mb-8">
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
+                        <span class="line-reveal"><?= trim($app_title_lines[0] ?? '') ?></span>
+                    </span>
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="100">
+                        <span class="line-reveal text-white/40 font-light">
+                            <?= trim($app_title_lines[1] ?? '') ?>
+                        </span>
+                    </span>
+                    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="200">
+                        <span class="line-reveal"><?= trim($app_title_lines[2] ?? '') ?></span>
+                    </span>
+                </h2>
 
-    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
-        <span class="line-reveal"><?= trim($app_title_lines[0] ?? '') ?></span>
-    </span>
-
-    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="100">
-        <span class="line-reveal text-white/40 font-light">
-            <?= trim($app_title_lines[1] ?? '') ?>
-        </span>
-    </span>
-
-    <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="200">
-        <span class="line-reveal"><?= trim($app_title_lines[2] ?? '') ?></span>
-    </span>
-</h2>
-
-                <!-- Description — visible immediately, NO reveal -->
+                <!-- Description -->
                 <p class="text-base md:text-lg text-[#9CA3AF] leading-[1.8]
                           font-light font-alexandria max-w-xl mb-12">
                     <?= __('app_desc') ?>
                 </p>
 
-                <!-- 1A: original app-store + google-play images, no styled buttons -->
+                <!-- Store buttons -->
                 <div class="flex flex-wrap gap-4 items-center">
                     <a href="<?= $app_connect_data['apple_link'] ?>"
                        class="inline-block transition-transform duration-300
@@ -414,71 +434,153 @@ $app_title_lines = explode('|', __('app_title'));
 </section>
 
 <?php
-// Sort items dynamically from global dataset matrix
+$_rtl = ($lang === 'ar');
+
+// Safety — ensure data file is loaded
+if (!isset($sponsors_data_2025)) {
+    $data_path = __DIR__ . '/../data/participantsdata-2025.php';
+    if (file_exists($data_path)) require $data_path;
+}
+
 $platinum_items = $sponsors_data_2025['platinum']['items'] ?? [];
-$tier_1_row = array_filter($platinum_items, fn($item) => $item['sub_tier'] === 'tier_1');
-$tier_2_row = array_filter($platinum_items, fn($item) => $item['sub_tier'] === 'tier_2');
+$tier_1_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_1');
+$tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2');
 ?>
 
-<section id="sponsors-portfolio" class="relative w-full py-16 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[180px] opacity-15 pointer-events-none"></div>
+<section id="sponsors-portfolio"
+         class="relative w-full py-16 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden"
+         dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
 
-    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-        <div class="reveal-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-white font-sans">
-                <?= __('sponsors_heading'); ?> <br />
-                <span class="text-white/40 font-light text-base md:text-xl block mt-1">
-                    <?= __('sponsors_subheading'); ?>
-                </span>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                w-[75rem] h-[35rem] bg-[var(--secondary)]
+                rounded-full blur-[180px] opacity-[0.06] pointer-events-none"></div>
+
+    <!-- Header -->
+    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10
+                flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div class="wv-reveal" data-reveal>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria text-white tracking-tight leading-tight">
+                <?= __('sponsors_heading') ?> <br />
+            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed">
+                    <?= __('sponsors_subheading') ?>
+</p>
             </h2>
         </div>
+     
     </div>
 
     <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col gap-6 md:gap-8">
-        
+
+        <!-- Tier 1 -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
-            <?php foreach ($tier_1_row as $sponsor): ?>
-            <div class="group relative rounded-xl bg-white p-3 sm:p-4 flex flex-col justify-between aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px] shadow-lg hover:shadow-xl transition-all duration-400 border border-zinc-200/50 hover:-translate-y-1">
+            <?php foreach ($tier_1_row as $i => $sponsor): ?>
+            <div class="group relative rounded-xl bg-white p-3 sm:p-4
+                        flex flex-col justify-between
+                        aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px]
+                        shadow-lg hover:shadow-xl
+                        transition-all duration-400
+                        border border-zinc-200/50 hover:-translate-y-1
+                        wv-reveal"
+                 data-reveal data-delay="<?= $i * 70 ?>">
+
                 <div class="w-full flex items-center justify-between relative mb-1">
-                    <span class="text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-zinc-400 bg-zinc-50 px-2 py-0.5 rounded-full border border-zinc-100 truncate max-w-[80%]">
+                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
+                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                                 rounded-full border border-zinc-100
+                                 truncate max-w-[80%]">
                         <?= __($sponsor['tier_tag']) ?>
                     </span>
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5" aria-label="Link to website">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                       target="_blank" rel="noopener noreferrer"
+                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5"
+                       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+                        </svg>
                     </a>
                 </div>
+
                 <div class="flex-1 flex items-center justify-center p-1">
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="block w-full text-center">
-                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>" alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo" class="max-w-full w-auto mx-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                       target="_blank" rel="noopener noreferrer"
+                       class="block w-full text-center">
+                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
+                             alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
+                             class="max-w-full max-h-12 w-auto mx-auto object-contain
+                                    transition-transform duration-300 group-hover:scale-105"
+                             loading="lazy"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+                        <span class="hidden text-zinc-400 text-sm font-medium uppercase tracking-wider">
+                            <?= htmlspecialchars($sponsor['brand_name']) ?>
+                        </span>
                     </a>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
 
+        <!-- Tier 2 -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
-            <?php foreach ($tier_2_row as $sponsor): ?>
-            <div class="group relative rounded-xl bg-white p-3 sm:p-4 flex flex-col justify-between aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px] shadow-lg hover:shadow-xl transition-all duration-400 border border-zinc-200/50 hover:-translate-y-1">
+            <?php foreach ($tier_2_row as $i => $sponsor): ?>
+            <div class="group relative rounded-xl bg-white p-3 sm:p-4
+                        flex flex-col justify-between
+                        aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px]
+                        shadow-lg hover:shadow-xl
+                        transition-all duration-400
+                        border border-zinc-200/50 hover:-translate-y-1
+                        wv-reveal"
+                 data-reveal data-delay="<?= (count($tier_1_row) + $i) * 70 ?>">
+
                 <div class="w-full flex items-center justify-between relative mb-1">
-                    <span class="text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-zinc-400 bg-zinc-50 px-2 py-0.5 rounded-full border border-zinc-100 truncate max-w-[80%]">
+                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
+                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                                 rounded-full border border-zinc-100
+                                 truncate max-w-[80%]">
                         <?= __($sponsor['tier_tag']) ?>
                     </span>
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5" aria-label="Link to website">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                       target="_blank" rel="noopener noreferrer"
+                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5"
+                       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+                        </svg>
                     </a>
                 </div>
+
                 <div class="flex-1 flex items-center justify-center p-1">
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>" target="_blank" rel="noopener noreferrer" class="block w-full text-center">
-                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>" alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo" class="max-w-full w-auto mx-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                       target="_blank" rel="noopener noreferrer"
+                       class="block w-full text-center">
+                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
+                             alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
+                             class="max-w-full max-h-12 w-auto mx-auto object-contain
+                                    transition-transform duration-300 group-hover:scale-105"
+                             loading="lazy"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+                        <span class="hidden text-zinc-400 text-sm font-medium uppercase tracking-wider">
+                            <?= htmlspecialchars($sponsor['brand_name']) ?>
+                        </span>
                     </a>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
 
-        <div class="w-full flex justify-center mt-10">
-            <a href="javascript:void(0);" class="inline-flex items-center justify-center px-10 py-4 border border-white text-white font-medium tracking-wide rounded-full text-xs uppercase bg-transparent hover:bg-white hover:text-black transition-all duration-300 transform active:scale-95 shadow-md">
+        <!-- View All — fixed link -->
+        <div class="w-full flex justify-center mt-10 wv-reveal" data-reveal data-delay="<?= (count($platinum_items)) * 70 ?>">
+            <a href="<?= isset($base_path) ? $base_path : '' ?>/participants/2025"
+               class="inline-flex items-center justify-center gap-3
+                      px-10 py-4 border border-white text-white
+                      font-medium tracking-wide rounded-full
+                      text-xs uppercase bg-transparent
+                      hover:bg-white hover:text-black
+                      transition-all duration-300 active:scale-95 shadow-md">
                 <?= __('view_all_participants') ?? 'View All Participants' ?>
+                <svg class="w-3.5 h-3.5 <?= $_rtl ? 'rotate-180' : '' ?>"
+                     fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                </svg>
             </a>
         </div>
     </div>

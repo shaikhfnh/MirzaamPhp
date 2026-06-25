@@ -77,7 +77,7 @@ $sponsors = [
         "brand_name"  => "Al Wazzan",
         "tier_tag"    => "platinum_sponsor",
         "logo_url"    => "/mirzaam/assets/images/brands/alwazzan-logo.png",
-        "website_url" => "https://www.alwazzan.com"
+        "website_url" => "https://www.alwazzanstore.com/"
     ],
     [
         "brand_name"  => "Boubyan",

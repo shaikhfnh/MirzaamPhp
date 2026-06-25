@@ -465,7 +465,57 @@ function initImageFollower() {
         });
     });
 }
-
+function initAppBot() {
+    const canvas = document.getElementById('app-bot-canvas');
+    if (!canvas) return; // not on this page — exits immediately
+ 
+    const src = canvas.dataset.src; // .riv path from data-src attr
+    if (!src) return;
+ 
+    // Lazy — only load when canvas enters viewport
+    const io = new IntersectionObserver(([entry], obs) => {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(canvas);
+ 
+        // Dynamically inject Rive runtime script (once only)
+        if (!document.getElementById('rive-runtime')) {
+            const script = document.createElement('script');
+            script.id  = 'rive-runtime';
+            script.src = 'https://unpkg.com/@rive-app/canvas@latest';
+            script.onload = bootRive;
+            document.head.appendChild(script);
+        } else {
+            bootRive();
+        }
+    }, { threshold: 0.3 });
+ 
+    io.observe(canvas);
+ 
+    function bootRive() {
+        // Small poll — runtime script may still be executing
+        if (typeof rive === 'undefined') {
+            setTimeout(bootRive, 80);
+            return;
+        }
+ 
+        const r = new rive.Rive({
+            src: src,
+            canvas: canvas,
+            autoplay: true,
+            stateMachines: 'State Machine 1', // ← update if different in your .riv
+            onLoad: () => {
+                r.resizeDrawingSurfaceToCanvas();
+                // Fade in once loaded
+                canvas.style.opacity = '1';
+            },
+            onLoadError: (e) => {
+                // Hide canvas if file missing — no broken box
+                canvas.style.display = 'none';
+                console.warn('App bot .riv not found:', src);
+            }
+        });
+    }
+}
 
 
 // ─────────────────────────────────────────────────────────────
@@ -485,6 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategorySlider();
     initAppMockup();
     initImageFollower();
+    initAppBot();
     new EditorialSlider('fair-moments-slider', 5000);
 });
 

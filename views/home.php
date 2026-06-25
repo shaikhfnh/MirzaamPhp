@@ -195,11 +195,11 @@ $_bp  = isset($base_path) ? $base_path : '';
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
             <!-- ══ LEFT — BOT + PHONE ══════════════════════════ -->
-            <div class="lg:col-span-6 relative lg:flex grid items-end justify-center gap-6 wv-reveal"
+            <div class="lg:col-span-6 relative lg:flex grid  items-end justify-center gap-6 wv-reveal"
                  data-reveal>
 
                 <!-- BOT COLUMN — desktop only, sits beside phone -->
-                <div class="flex flex-col items-center gap-3 mb-16 flex-shrink-0">
+                <div class="hidden md:flex flex-col items-center gap-3 mb-16 flex-shrink-0">
 
                     <!-- Speech bubble -->
                     <div class="app-bot-bubble relative

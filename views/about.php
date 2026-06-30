@@ -24,25 +24,51 @@ $isRtl = ($lang === 'ar');
      on mobile.
 ============================================================ -->
 <section class="relative w-full bg-white overflow-hidden border-b border-zinc-100" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
-    <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-24">
+    <div class="mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-24">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-stretch mb-14 md:mb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-14 md:mb-16">
 
-            <!-- Photo — left, full-bleed within its column, no
-                 fixed ratio on desktop (fills the row's natural
-                 height instead), subtle angled bottom edge for a
-                 more editorial, premium silhouette. -->
-            <div class="lg:col-span-6 h-full wv-reveal" data-reveal>
-                <div class="relative h-full lg:min-h-[600px]">
-                    <div class="relative w-full h-full aspect-[3/4] lg:aspect-auto overflow-hidden bg-zinc-50"
+            <!-- ══ PHOTO — natural portrait ratio, no forced height ══
+                 D: aspect-[77/125] matches the real intrinsic ratio
+                 of the source file exactly. No cropping, ever.
+                 Image is capped at a max-height on large screens so
+                 it doesn't tower over the text column, but it never
+                 stretches or crops to fill a mismatched box. -->
+            <div class="md:col-span-6 lg:col-span-3 wv-reveal" data-reveal>
+                <div class="relative w-full max-w-[420px] mx-auto lg:mx-0
+                            lg:max-h-[680px]">
+
+                    <div class="relative w-full aspect-[77/125] lg:max-h-[680px]
+                                overflow-hidden bg-zinc-50 mx-auto"
                          style="clip-path: <?= $isRtl
                              ? 'polygon(0 0, 100% 0, 100% 100%, 0 96%)'
                              : 'polygon(0 0, 100% 0, 100% 96%, 0 100%)' ?>;">
-                        <img src="/mirzaam/assets/images/about/fnhbw.webp" alt="<?= strip_tags(__('about_vis_title')) ?>"
+
+                        <img src="/mirzaam/assets/images/about/fnhbw.webp"
+                             alt="<?= strip_tags(__('about_vis_title')) ?>"
                              class="absolute inset-0 w-full h-full object-cover object-top">
+
+                        <!-- A: Mesh gradient bloom — bottom third only,
+                             ties B&W photo to brand yellow without
+                             touching her face. Pure CSS, no extra asset. -->
+                        <div class="absolute inset-x-0 bottom-0 h-[45%] pointer-events-none"
+                             style="background:
+                                 radial-gradient(ellipse 120% 100% at 20% 100%, rgba(234,179,8,0.35) 0%, transparent 55%),
+                                 radial-gradient(ellipse 100% 80% at 80% 100%, rgba(0,0,0,0.45) 0%, transparent 60%),
+                                 linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+                                 mix-blend-mode: <?= $isRtl ? 'normal' : 'normal' ?>;"></div>
+
+                        <!-- C: Subtle film grain — elevates the B&W
+                             treatment from "desaturated photo" to an
+                             intentional editorial choice. SVG noise,
+                             very low opacity, no extra image request. -->
+                        <div class="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
+                             style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
                     </div>
 
-                    <div class="absolute bottom-6 <?= $isRtl ? 'right-6' : 'left-6' ?> max-w-[260px] bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.30)] p-5 flex items-center gap-4">
+                    <!-- Award badge — sits on the mesh bloom now, reads
+                         clean against the darkened bottom of the photo -->
+                    <div class="absolute bottom-[-3rem] <?= $isRtl ? 'right-6' : 'left-6' ?> max-w-[260px] bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.30)] p-5 flex items-center gap-4">
                         <div class="w-11 h-11 rounded-full bg-yellow-500 flex items-center justify-center text-black shrink-0">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         </div>
@@ -58,8 +84,9 @@ $isRtl = ($lang === 'ar');
                 </div>
             </div>
 
-            <!-- Text — right -->
-            <div class="lg:col-span-6 pt-8 lg:pt-2 flex flex-col justify-center wv-reveal" data-reveal data-delay="100">
+            <!-- ══ TEXT — right, vertically centered beside the
+                   natural-height photo (no longer forced to match) ══ -->
+            <div class="md:col-span-6 lg:col-span-9 flex flex-col justify-center wv-reveal" data-reveal data-delay="100">
                 <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-4">
                     <?= __('about_vis_subtitle') ?: 'The Visionary' ?>
                 </span>
@@ -70,7 +97,7 @@ $isRtl = ($lang === 'ar');
                     <?= __('about_vis_credential') ?>
                 </p>
 
-                <div class="space-y-5 text-zinc-600 leading-relaxed font-light max-w-2xl text-[15px] sm:text-base">
+                <div class="space-y-5 text-zinc-600 leading-relaxed font-light  text-[15px] sm:text-base">
                     <p><?= __('about_vis_p1') ?></p>
                     <p><?= __('about_vis_p2') ?></p>
                     <p><?= __('about_vis_p3') ?></p>
@@ -79,11 +106,9 @@ $isRtl = ($lang === 'ar');
 
         </div>
 
-        <!-- Career timeline — same 4 milestones, real connected-
-             line timeline rather than a plain grid. -->
+        <!-- Career timeline — unchanged -->
         <div class="pt-10 border-t border-zinc-100">
 
-            <!-- Horizontal timeline — sm and up -->
             <div class="hidden sm:block relative">
                 <div class="absolute top-[5px] inset-x-0 h-px bg-zinc-200"></div>
                 <div class="grid grid-cols-4 gap-6 lg:gap-10">
@@ -97,7 +122,6 @@ $isRtl = ($lang === 'ar');
                 </div>
             </div>
 
-            <!-- Vertical timeline — mobile only -->
             <div class="sm:hidden relative <?= $isRtl ? 'pr-6' : 'pl-6' ?>">
                 <div class="absolute top-1 bottom-1 <?= $isRtl ? 'right-[5px]' : 'left-[5px]' ?> w-px bg-zinc-200"></div>
                 <?php foreach ($vis_milestones as $i => $ms): ?>

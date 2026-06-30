@@ -93,28 +93,37 @@
             <p class="text-[8px] uppercase tracking-[0.3em] text-white/70 font-bold">
                 <?= __('footer_fouz_label') ?>
             </p>
-            <img src="/mirzaam/assets/images/Home/fouzlogo.png" alt="Fouz Expo" class="h-10 ">
+             <a href="https://fouzexpos.com/"
+               target="_blank"
+               rel="noopener noreferrer">
+               <img src="/mirzaam/assets/images/Home/fouzlogo.png" alt="Fouz Expo" class="h-20 ">
+            </a>
             <p class="text-[12px] leading-relaxed font-light text-white/80">
                 <?= __('footer_fouz_mission') ?>
             </p>
         </div>
     </section>
 
-    <div class="bg-white px-6 md:px-12 py-8 border-t border-black/5">
-        <div class="text-center mb-6">
-            <h5 class="text-[9px] uppercase tracking-[0.4em] text-black/40 font-bold">
-                <?= __('footer_expos_headline') ?>
-            </h5>
-        </div>
-
-        <div class="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
-            <?php foreach ($footer_expos_blueprint as $expo): ?>
-                <div class="flex items-center justify-center p-4 border border-black/5 rounded-xl shadow-sm bg-white hover:shadow-md hover:border-black/20 transition-all duration-300 transform hover:-translate-y-0.5">
-                    <img src="<?= $expo['image'] ?>" alt="<?= strip_tags(__('footer_expos_headline')) ?>" class="h-8 w-auto object-contain">
-                </div>
-            <?php endforeach; ?>
-        </div>
+<div class="bg-white px-6 md:px-12 py-8 border-t border-black/5">
+    <div class="text-center mb-6">
+        <h5 class="text-[9px] uppercase tracking-[0.4em] text-black/40 font-bold">
+            <?= __('footer_expos_headline') ?>
+        </h5>
     </div>
+
+    <!-- aspect-[21/9] is wider/shorter than aspect-video (16/9) —
+         crops the empty top/bottom space your logos were leaving. -->
+    <div class="max-w-[1100px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <?php foreach ($footer_expos_blueprint as $expo): ?>
+            <a href="<?= htmlspecialchars($expo['url']) ?>"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="md:aspect-[21/9] flex items-center justify-center md:p-3 sm:p-4 border border-black/5 rounded-xl shadow-sm bg-white hover:shadow-md hover:border-black/20 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                <img src="<?= $expo['image'] ?>" alt="<?= strip_tags(__('footer_expos_headline')) ?>" class="max-h-full max-w-full w-auto h-auto object-contain">
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>
 
     <div class="bg-[#12161f] text-white/50 text-center py-6 text-[10px] uppercase tracking-widest">
         <?= __('footer_copyright') ?>

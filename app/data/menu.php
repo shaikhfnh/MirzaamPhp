@@ -18,6 +18,13 @@
 // ============================================================
 
 $MENU = [
+     [
+        "title" => "menu_overview",
+        "items" => [
+            ["label" => "ov_about",   "link" => "about"],
+            ["label" => "ov_contact", "link" => "contact"],
+        ]
+    ],
     [
         "title" => "menu_visit",
         "items" => [
@@ -66,13 +73,7 @@ $MENU = [
             ["label" => "mirz_exhibitors", "link" => "mirzaamiyaat/exhibitors"],
         ]
     ],
-    [
-        "title" => "menu_overview",
-        "items" => [
-            ["label" => "ov_about",   "link" => "about"],
-            ["label" => "ov_contact", "link" => "contact"],
-        ]
-    ],
+   
 ];
 
 // ============================================================
@@ -97,8 +98,8 @@ $footer_contact_menu = [
 
 // 3. Corporate Expos
 $footer_expos_blueprint = [
-    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/logo/NO BG.png'],
-    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/Home/mirzaamiyatlogo.png'],
-    ['key' => 'ixir',        'image' => '/mirzaam/assets/images/Home/ixirlogo.png'],
-    ['key' => 'mamababy',    'image' => '/mirzaam/assets/images/Home/mamababylogo.png'],
+    ['key' => 'ixir',        'image' => '/mirzaam/assets/images/footer/ixir.png',        'url' => 'https://ixirexpo.com'],
+    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/footer/mirzaam.png',     'url' => 'https://mirzaam.com'],
+    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/footer/mirzaamiyaat.png', 'url' => 'https://mirzaam.com/about-mirzaamiyat/'],
+    ['key' => 'mamababy',    'image' => '/mirzaam/assets/images/footer/mamababy.png',    'url' => 'https://mamababyexpo.com'],
 ];

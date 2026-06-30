@@ -1,5 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600&display=swap');
-
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Extra_Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Semi_Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Extra_Bold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+ 
+@font-face {
+    font-family: 'Madani';
+    src: url('/assets/fonts/Madani/Madani_Arabic_Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
 /* Global Root Configuration Array variables */
 :root {
     --primary: #232A42;
@@ -42,7 +112,7 @@ html {
 }
 
 body {
-    font-family: 'Alexandria', sans-serif;
+    font-family: 'Madani', sans-serif;
     background-color: var(--background);
     color: var(--text-light);
     -webkit-font-smoothing: antialiased;
@@ -50,7 +120,7 @@ body {
 }
 
 .font-alexandria {
-    font-family: 'Alexandria', sans-serif;
+    font-family: 'Madani', sans-serif;
 }
 
 /* RTL / Arabic Layout Directional Adjustments */
@@ -114,6 +184,107 @@ html[dir="rtl"] .padding-start { padding-left: 0; padding-right: 1.5rem; }
     display: flex;
     flex-wrap: nowrap;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL FLOATING WHATSAPP BUTTON — ADD TO global.css
+   ═══════════════════════════════════════════════════════════
+   Glass effect adapts automatically to dark/light backgrounds
+   via backdrop-filter — no page-specific overrides needed.
+   ═══════════════════════════════════════════════════════════ */
+ 
+.global-whatsapp-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999; /* below modals (9999) but above all page content */
+ 
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+    /* True glass — transparent base, blur picks up whatever's behind */
+    background: rgba(37, 211, 102, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+ 
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(37, 211, 102, 0.08) inset;
+ 
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+}
+ 
+.global-whatsapp-fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    background: rgba(37, 211, 102, 0.22);
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(37, 211, 102, 0.15) inset;
+}
+ 
+.global-whatsapp-fab svg {
+    width: 26px;
+    height: 26px;
+    fill: #25D366;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+ 
+/* Pulse ring — subtle, doesn't compete with page content */
+.global-whatsapp-fab-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(37, 211, 102, 0.35);
+    animation: wa-fab-pulse 2.8s ease-out infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+ 
+@keyframes wa-fab-pulse {
+    0%   { transform: scale(1);    opacity: 0.55; }
+    100% { transform: scale(1.65); opacity: 0; }
+}
+ 
+/* RTL — move to bottom-left instead of bottom-right */
+html[dir="rtl"] .global-whatsapp-fab {
+    right: auto;
+    left: 24px;
+}
+ 
+/* Mobile — slightly smaller, tighter margin */
+@media (max-width: 640px) {
+    .global-whatsapp-fab {
+        width: 50px;
+        height: 50px;
+        bottom: 18px;
+        right: 18px;
+    }
+    html[dir="rtl"] .global-whatsapp-fab {
+        right: auto;
+        left: 18px;
+    }
+    .global-whatsapp-fab svg {
+        width: 23px;
+        height: 23px;
+    }
+}
+ 
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .global-whatsapp-fab-pulse { animation: none; }
+    .global-whatsapp-fab:hover { transform: none; }
+}
+ 
 
 /* ==========================================================================
    ADVANCED ARCHITECTURAL DESIGN CORE BLUEPRINT ENGINE

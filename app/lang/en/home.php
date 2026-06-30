@@ -69,7 +69,7 @@ return [
 // Categories Section
     'section_title' => 'Strategic Categories',
     'section_subtitle' => 'Explore Our Featured Event Sectors & Fitouts',
-    'sector_label' => 'Sector // ',
+    'sector_label' => 'Category // ',
     'toggle_view_all' => 'View All Categories',
     'toggle_collapse' => 'Collapse to Track',
     'cat_carpentry_wardrobe' => 'Carpentry &<br/>Wardrobe Fitout',

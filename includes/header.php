@@ -61,7 +61,7 @@ require_once __DIR__ . '/../app/data/menu.php';
                 <a href="<?= get_switch_url() ?>" class="border rounded-lg px-3 py-1">
                     <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
                 </a>
-                <button class="bg-white text-black px-5 rounded-lg h-[40px]">
+                <button class="bg-white text-black px-5 rounded-lg h-[3rem]">
                     <?= __('book_booth') ?>
                 </button>
             </div>

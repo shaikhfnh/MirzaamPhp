@@ -447,6 +447,19 @@ $tier_1_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
 $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2');
 ?>
 
+<?php
+$_rtl = ($lang === 'ar');
+
+if (!isset($sponsors_data_2025)) {
+    $data_path = __DIR__ . '/../data/participantsdata-2025.php';
+    if (file_exists($data_path)) require $data_path;
+}
+
+$platinum_items = $sponsors_data_2025['platinum']['items'] ?? [];
+$tier_1_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_1');
+$tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2');
+?>
+
 <section id="sponsors-portfolio"
          class="relative w-full py-16 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden"
          dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
@@ -460,115 +473,120 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
                 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
         <div class="wv-reveal" data-reveal>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria text-white tracking-tight leading-tight">
-                <?= __('sponsors_heading') ?> <br />
-            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed">
-                    <?= __('sponsors_subheading') ?>
-</p>
+                <?= __('sponsors_heading') ?>
             </h2>
+            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed">
+                <?= __('sponsors_subheading') ?>
+            </p>
         </div>
-     
     </div>
 
     <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col gap-6 md:gap-8">
 
         <!-- Tier 1 -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
             <?php foreach ($tier_1_row as $i => $sponsor): ?>
-            <div class="group relative rounded-xl bg-white p-3 sm:p-4
-                        flex flex-col justify-between
-                        aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px]
+            <div class="group relative rounded-2xl bg-white
+                        aspect-square
+                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
+                        max-w-[260px]
+                        flex flex-col
                         shadow-lg hover:shadow-xl
                         transition-all duration-400
                         border border-zinc-200/50 hover:-translate-y-1
+                        overflow-hidden
                         wv-reveal"
                  data-reveal data-delay="<?= $i * 70 ?>">
 
-                <div class="w-full flex items-center justify-between relative mb-1">
+                <!-- Top bar — tier badge + link -->
+                <div class="flex items-center justify-between px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
                     <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
                                  text-zinc-400 bg-zinc-50 px-2 py-0.5
                                  rounded-full border border-zinc-100
-                                 truncate max-w-[80%]">
+                                 truncate max-w-[75%]">
                         <?= __($sponsor['tier_tag']) ?>
                     </span>
                     <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
                        target="_blank" rel="noopener noreferrer"
-                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5"
+                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
                        aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
                         </svg>
                     </a>
                 </div>
 
-                <div class="flex-1 flex items-center justify-center p-1">
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                       target="_blank" rel="noopener noreferrer"
-                       class="block w-full text-center">
-                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
-                             alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
-                             class="max-w-full max-h-12 w-auto mx-auto object-contain
-                                    transition-transform duration-300 group-hover:scale-105"
-                             loading="lazy"
-                             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
-                        <span class="hidden text-zinc-400 text-sm font-medium uppercase tracking-wider">
-                            <?= htmlspecialchars($sponsor['brand_name']) ?>
-                        </span>
-                    </a>
-                </div>
+                <!-- Logo — fills remaining square space, no max-height -->
+                <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                   target="_blank" rel="noopener noreferrer"
+                   class="flex-1 flex items-center justify-center p-4">
+                    <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
+                         alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
+                         class="w-full h-full object-contain
+                                transition-transform duration-300 group-hover:scale-105"
+                         loading="lazy"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                    <span class="hidden items-center justify-center
+                                 text-zinc-400 text-sm font-medium uppercase tracking-wider">
+                        <?= htmlspecialchars($sponsor['brand_name']) ?>
+                    </span>
+                </a>
             </div>
             <?php endforeach; ?>
         </div>
 
         <!-- Tier 2 -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5">
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
             <?php foreach ($tier_2_row as $i => $sponsor): ?>
-            <div class="group relative rounded-xl bg-white p-3 sm:p-4
-                        flex flex-col justify-between
-                        aspect-[1.6/1] w-full md:w-[220px] lg:w-[240px]
+            <div class="group relative rounded-2xl bg-white
+                        aspect-square
+                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
+                        max-w-[220px]
+                        flex flex-col
                         shadow-lg hover:shadow-xl
                         transition-all duration-400
                         border border-zinc-200/50 hover:-translate-y-1
+                        overflow-hidden
                         wv-reveal"
                  data-reveal data-delay="<?= (count($tier_1_row) + $i) * 70 ?>">
 
-                <div class="w-full flex items-center justify-between relative mb-1">
+                <div class="flex items-center justify-between px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
                     <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
                                  text-zinc-400 bg-zinc-50 px-2 py-0.5
                                  rounded-full border border-zinc-100
-                                 truncate max-w-[80%]">
+                                 truncate max-w-[75%]">
                         <?= __($sponsor['tier_tag']) ?>
                     </span>
                     <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
                        target="_blank" rel="noopener noreferrer"
-                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5"
+                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
                        aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
                         </svg>
                     </a>
                 </div>
 
-                <div class="flex-1 flex items-center justify-center p-1">
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                       target="_blank" rel="noopener noreferrer"
-                       class="block w-full text-center">
-                        <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
-                             alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
-                             class="max-w-full max-h-12 w-auto mx-auto object-contain
-                                    transition-transform duration-300 group-hover:scale-105"
-                             loading="lazy"
-                             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
-                        <span class="hidden text-zinc-400 text-sm font-medium uppercase tracking-wider">
-                            <?= htmlspecialchars($sponsor['brand_name']) ?>
-                        </span>
-                    </a>
-                </div>
+                <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+                   target="_blank" rel="noopener noreferrer"
+                   class="flex-1 flex items-center justify-center p-4">
+                    <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
+                         alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
+                         class="w-full h-full object-contain
+                                transition-transform duration-300 group-hover:scale-105"
+                         loading="lazy"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                    <span class="hidden items-center justify-center
+                                 text-zinc-400 text-sm font-medium uppercase tracking-wider">
+                        <?= htmlspecialchars($sponsor['brand_name']) ?>
+                    </span>
+                </a>
             </div>
             <?php endforeach; ?>
         </div>
 
-        <!-- View All — fixed link -->
-        <div class="w-full flex justify-center mt-10 wv-reveal" data-reveal data-delay="<?= (count($platinum_items)) * 70 ?>">
+        <!-- View All -->
+        <div class="w-full flex justify-center mt-10 wv-reveal" data-reveal data-delay="<?= count($platinum_items) * 70 ?>">
             <a href="<?= isset($base_path) ? $base_path : '' ?>/participants/2025"
                class="inline-flex items-center justify-center gap-3
                       px-10 py-4 border border-white text-white
@@ -601,15 +619,15 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
             
             <div class="w-full max-w-4xl mx-auto px-6 text-center relative z-30 selection:bg-white selection:text-black">
                 <div class="flex flex-col items-center justify-center space-y-2 md:space-y-4">
-                    <h3 class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic font-light tracking-wide leading-none capitalize drop-shadow-md">
+                    <h3 class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl f italic font-light tracking-wide leading-none capitalize drop-shadow-md">
                         <?= __($moment['title']) ?>
                     </h3>
-                    <h2 class="text-white text-[10px] sm:text-xs md:text-sm lg:text-base font-sans font-medium tracking-[0.2em] sm:tracking-[0.35em] uppercase drop-shadow-md">
+                    <h2 class="text-white text-[10px] sm:text-xs md:text-sm lg:text-base  font-medium tracking-[0.2em] sm:tracking-[0.35em] uppercase drop-shadow-md">
                         <?= __($moment['sub']) ?>
                     </h2>
                     
                     <?php if (!empty($moment['year_key']) && !empty(__($moment['year_key']))): ?>
-                        <p class="text-white/90 text-base sm:text-lg md:text-2xl font-serif italic font-light tracking-wider pt-0.5 drop-shadow-sm">
+                        <p class="text-white/90 text-base sm:text-lg md:text-2xl  italic font-light tracking-wider pt-0.5 drop-shadow-sm">
                             <?= __($moment['year_key']) ?>
                         </p>
                     <?php endif; ?>

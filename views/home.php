@@ -31,7 +31,7 @@
 
     <div class="relative z-10 flex-grow flex items-center justify-center">
         <!-- h1 kept commented — restore when content is ready -->
-        <!-- <h1 class="text-[clamp(4rem,12vw,14rem)] font-bold font-alexandria leading-[1] tracking-tighter uppercase text-center">
+        <!-- <h1 class="text-[clamp(4rem,12vw,14rem)] font-bold  leading-[1] tracking-tighter uppercase text-center">
             <span class="text-transparent stroke-text italic" style="-webkit-text-stroke: 1px white;">
                 <?= __('hero_title') ?> <br/>
             </span>
@@ -80,7 +80,7 @@
 
             <!-- Headline: each line wrapped in overflow-hidden for split reveal -->
             <div class="lg:col-span-7">
-                <h2 class="text-[clamp(2.5rem,7vw,6rem)] font-bold font-alexandria leading-[0.95] tracking-tighter uppercase">
+                <h2 class="text-[clamp(2.5rem,7vw,6rem)] font-bold  leading-[0.95] tracking-tighter uppercase">
 
                     <!-- Line 1 -->
                     <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
@@ -122,7 +122,7 @@
                         <?= __($item['title']) ?>
                     </div>
 
-                    <h3 class="text-2xl font-bold font-alexandria mb-4">
+                    <h3 class="text-2xl font-bold  mb-4">
                         <?= __($item['heading']) ?>
                     </h3>
 
@@ -160,12 +160,12 @@
 </svg>
                     </div>
                     <div class="reveal-up text-center w-full">
-                        <span class="metric-odometer block text-3xl sm:text-4xl md:text-5xl font-sans font-medium text-white tracking-tight mb-2">0</span>
-<span class="block text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-white/80  font-sans">
+                        <span class="metric-odometer block text-3xl sm:text-4xl md:text-5xl  font-medium text-white tracking-tight mb-2">0</span>
+<span class="block text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-white/80  ">
     <?= ($lang === 'ar') ? $metric['ar'] : $metric['en'] ?>
 </span>                    </div>
                 </div>
-<div class="vertical-arabic-label text-gray-300 font-alexandria text-[10px] sm:text-xs font-light select-none lg:group-hover:text-white/60 transition-colors duration-300 self-end mb-2 sm:mb-4 relative z-10" dir="rtl">
+<div class="vertical-arabic-label text-gray-300  text-[10px] sm:text-xs font-light select-none lg:group-hover:text-white/60 transition-colors duration-300 self-end mb-2 sm:mb-4 relative z-10" dir="rtl">
     <?= ($lang === 'ar') ? $metric['en'] : $metric['ar'] ?>
 </div>            </div>
             <?php endforeach; ?>
@@ -326,7 +326,7 @@ $_bp  = isset($base_path) ? $base_path : '';
                 <!-- Title — 3 lines split by | in translation file -->
                 <?php $app_title_lines = explode('|', __('app_title')); ?>
                 <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium
-                           leading-[1.1] font-alexandria text-white tracking-tight mb-8">
+                           leading-[1.1]  text-white tracking-tight mb-8">
                     <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
                         <span class="line-reveal"><?= trim($app_title_lines[0] ?? '') ?></span>
                     </span>
@@ -342,7 +342,7 @@ $_bp  = isset($base_path) ? $base_path : '';
 
                 <!-- Description -->
                 <p class="text-base md:text-lg text-[#9CA3AF] leading-[1.8]
-                          font-light font-alexandria max-w-xl mb-12">
+                          font-light  max-w-xl mb-12">
                     <?= __('app_desc') ?>
                 </p>
 
@@ -378,10 +378,10 @@ $_bp  = isset($base_path) ? $base_path : '';
 
     <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 flex align-end md:items-end md:justify-between gap-6 mb-12 md:mb-16">
         <div class="reveal-up">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria text-white tracking-tight leading-tight">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium  text-white tracking-tight leading-tight uppercase">
                 <?= __('insight_main_title') ?>
             </h2>
-            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed">
+            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed uppercase">
                 <?= __('insight_desc') ?>
             </p>
         </div>
@@ -472,14 +472,16 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
     <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10
                 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
         <div class="wv-reveal" data-reveal>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria text-white tracking-tight leading-tight">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium  text-white tracking-tight leading-tight uppercase">
                 <?= __('sponsors_heading') ?>
             </h2>
-            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed">
+            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed uppercase">
                 <?= __('sponsors_subheading') ?>
             </p>
         </div>
     </div>
+   
+    
 
     <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col gap-6 md:gap-8">
 
@@ -683,9 +685,9 @@ include 'includes/category-slider/template.php';
             </div>
 
             <!-- Title with line-reveal -->
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium font-alexandria
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium uppercase
                        leading-tight tracking-tight">
-                <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
+                <span class="line-reveal-wrap wv-reveal uppercase" data-reveal data-delay="0">
                     <span class="line-reveal text-white/40 font-light">
                         <?= __('reviews_title_top') ?>
                     </span>
@@ -723,7 +725,7 @@ include 'includes/category-slider/template.php';
                     <!-- B: Massive quote mark — top corner -->
                     <span aria-hidden="true"
                           class="absolute top-4 <?= $_rtl ? 'right-6' : 'left-6' ?>
-                                 font-serif text-[10rem] lg:text-[14rem]
+                                  text-[10rem] lg:text-[14rem]
                                  leading-none text-[var(--secondary)]/15
                                  select-none pointer-events-none">
                         “
@@ -746,7 +748,7 @@ include 'includes/category-slider/template.php';
                             <!-- Quote — takes most of the card -->
                             <p class="text-lg md:text-2xl lg:text-3xl font-light
                                       leading-relaxed text-white/90
-                                      font-alexandria max-w-2xl my-auto
+                                       max-w-2xl my-auto
                                       relative z-10">
                                 <?= __('review_quote_' . $review['key']) ?>
                             </p>
@@ -802,7 +804,7 @@ include 'includes/category-slider/template.php';
                         <!-- Small corner quote mark -->
                         <span aria-hidden="true"
                               class="absolute top-2 <?= $_rtl ? 'right-5' : 'left-5' ?>
-                                     font-serif text-5xl leading-none
+                                      text-5xl leading-none
                                      text-[var(--secondary)]/20
                                      group-hover:text-[var(--secondary)]/40
                                      transition-colors duration-500
@@ -824,7 +826,7 @@ include 'includes/category-slider/template.php';
                             <p class="text-sm md:text-base font-light leading-relaxed
                                       text-white/70 group-hover:text-white/90
                                       transition-colors duration-500
-                                      font-alexandria mb-6">
+                                       mb-6">
                                 <?= __('review_quote_' . $review['key']) ?>
                             </p>
 
@@ -913,7 +915,7 @@ include 'includes/category-slider/template.php';
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
         </svg>
-        <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight text-white font-alexandria">
+        <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight text-white ">
             @MirzaamExpo
         </h2>
     </div>

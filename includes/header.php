@@ -1,23 +1,45 @@
 <?php
 // Ensure i18n.php is loaded in index.php before this file
 require_once __DIR__ . '/../app/data/menu.php';
+
+// ── Mirzaamiyat page detection ──────────────────────────────
+// Swaps just the logo when the URL path contains "mirzaamiyat"
+// (e.g. /mirzaamiyat/about, /mirzaamiyaat/exhibitors).
+// No logo file exists yet — using a text wordmark stand-in.
+// Replace the text block below with an <img> once a real
+// Mirzaamiyat logo asset is provided.
+$isMirzaamiyatPage = str_contains($_SERVER['REQUEST_URI'], 'mirzaamiyat')
+                  || str_contains($_SERVER['REQUEST_URI'], 'mirzaamiyaat');
 ?>
 
 <header id="mainHeader" class="fixed top-0 left-0 w-full bg-black border-b border-white/10 z-50">
     <div class="mx-auto px-5">
         <div class="flex items-center justify-between h-[80px]">
             <div class="flex">
-                <a href="<?= get_url('/') ?>">
-                    <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px] h-full grid self-center">
+                <a href="<?= get_url('/') ?>" class="flex items-center">
+                    <?php if ($isMirzaamiyatPage): ?>
+                        <!-- Text stand-in — swap for <img> once a real
+                             Mirzaamiyat logo file is provided -->
+                        <!-- <span class="text-white font-bold text-lg tracking-wide whitespace-nowrap">
+                            MIRZAAMIYAT
+                        </span> -->
+                        <img src="/mirzaam/assets/images/logo/mirzaamiyaat.png" class="w-[80px] h-full grid self-center">
+                        <?php else: ?>
+                            <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px] h-full grid self-center">
+                    <?php endif; ?>
                 </a>
                 <div class="ms-8 hidden sm:block my-2 w-1 bg-white"></div>
                 <div class="ms-8">
                     <div class="hidden lg:block border-l border-white/10 ">
-                        <p class="text-sm">
-                            <span class="text-[var(--secondary)]"><?= __('header_date') ?></span>
-                            &nbsp;<?= __('header_time') ?>&nbsp;
-                            <?= __('header_location') ?>
-                        </p>
+                         <?php if ($isMirzaamiyatPage): ?>
+                      
+                        <?php else: ?>
+                            <p class="text-sm">
+                                <span class="text-[var(--secondary)]"><?= __('header_date') ?></span>
+                                &nbsp;<?= __('header_time') ?>&nbsp;
+                                <?= __('header_location') ?>
+                            </p>
+                    <?php endif; ?>
                     </div>
                     <nav class="hidden lg:flex gap-8 h-[50px] items-end">
                         <div class="flex gap-8">
@@ -61,7 +83,7 @@ require_once __DIR__ . '/../app/data/menu.php';
                 <a href="<?= get_switch_url() ?>" class="border rounded-lg px-3 py-1">
                     <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
                 </a>
-                <button class="bg-white text-black px-5 rounded-lg h-[3rem]">
+                <button class="bg-white text-black px-5 rounded-lg h-[40px]">
                     <?= __('book_booth') ?>
                 </button>
             </div>
@@ -73,7 +95,13 @@ require_once __DIR__ . '/../app/data/menu.php';
 <div id="mobileMenu" class="fixed top-0 right-0 w-full h-full bg-black z-[999] translate-x-full transition-transform duration-300 overflow-y-auto">
     <div class="p-6 min-h-full flex flex-col">
         <div class="flex items-center justify-between mb-8">
-            <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[70px]">
+            <?php if ($isMirzaamiyatPage): ?>
+                <span class="text-white font-bold text-base tracking-wide whitespace-nowrap">
+                    MIRZAAMIYAT
+                </span>
+            <?php else: ?>
+                <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[70px]">
+            <?php endif; ?>
             <button id="closeMenu" class="text-2xl text-white">✕</button>
         </div>
 

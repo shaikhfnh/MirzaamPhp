@@ -34,7 +34,7 @@ $isRtl = ($lang === 'ar');
                  Image is capped at a max-height on large screens so
                  it doesn't tower over the text column, but it never
                  stretches or crops to fill a mismatched box. -->
-            <div class="md:col-span-6 lg:col-span-3 wv-reveal" data-reveal>
+           <div class="col-span-8 md:col-span-6 xl:col-span-4 min-[1600px]:col-span-3 wv-reveal" data-reveal>
                 <div class="relative w-full max-w-[420px] mx-auto lg:mx-0
                             lg:max-h-[680px]">
 
@@ -68,25 +68,43 @@ $isRtl = ($lang === 'ar');
 
                     <!-- Award badge — sits on the mesh bloom now, reads
                          clean against the darkened bottom of the photo -->
-                    <div class="absolute bottom-[-3rem] <?= $isRtl ? 'right-6' : 'left-6' ?> max-w-[260px] bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.30)] p-5 flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-full bg-yellow-500 flex items-center justify-center text-black shrink-0">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        </div>
-                        <div>
-                            <div class="text-[10px] text-yellow-600 uppercase tracking-[0.2em] font-bold mb-1">
-                                <?= __('about_vis_badge_sub') ?: 'Award Winner' ?>
-                            </div>
-                            <div class="text-[13px] sm:text-sm font-semibold text-zinc-900 leading-tight">
-                                <?= __('about_vis_badge_title') ?>
-                            </div>
-                        </div>
-                    </div>
+<div class="absolute -bottom-5 sm:-bottom-7 md:-bottom-10
+            <?= $isRtl ? 'left-2 sm:left-4' : 'right-2 sm:right-4' ?>
+            bg-white/95 backdrop-blur-sm
+            rounded-full sm:rounded-2xl
+            shadow-[0_16px_32px_-10px_rgba(0,0,0,0.30)] sm:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.30)]
+            flex items-center
+            gap-0 sm:gap-4
+            p-1.5 sm:p-4 md:p-5
+            max-w-[44px] sm:max-w-[230px] md:max-w-[260px]
+            overflow-hidden
+            transition-all duration-300">
+
+    <!-- Icon — always visible, stays a perfect circle at every size -->
+    <div class="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11
+                rounded-full bg-yellow-500 flex items-center justify-center
+                text-black shrink-0">
+        <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+    </div>
+
+    <!-- Text — hidden on mobile (icon-only pill), reveals at sm+ -->
+    <div class="hidden sm:block min-w-0">
+        <div class="text-[10px] text-yellow-600 uppercase tracking-[0.2em] font-bold mb-1">
+            <?= __('about_vis_badge_sub') ?: 'Award Winner' ?>
+        </div>
+        <div class="text-[13px] md:text-sm font-semibold text-zinc-900 leading-tight">
+            <?= __('about_vis_badge_title') ?>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
 
             <!-- ══ TEXT — right, vertically centered beside the
                    natural-height photo (no longer forced to match) ══ -->
-            <div class="md:col-span-6 lg:col-span-9 flex flex-col justify-center wv-reveal" data-reveal data-delay="100">
+            <div class="col-span-8 md:col-span-6 xl:col-span-8 min-[1600px]:col-span-9 flex flex-col justify-center wv-reveal" data-reveal data-delay="100">
                 <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-4">
                     <?= __('about_vis_subtitle') ?: 'The Visionary' ?>
                 </span>

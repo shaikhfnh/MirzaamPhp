@@ -86,6 +86,15 @@ return [
     'cat_food_beverage'      => 'المأكولات والمشروبات',
     'cat_home_accessories'   => 'الإكسسوارات المنزلية',
     'cat_home_automation'    => 'أنظمة الأتمتة المنزلية',
+    'cat_mz_accessories' => 'الإكسسوارات المنزلية',
+    'cat_mz_gifting'      => 'هدايا رمضان',
+    'cat_mz_mothersday'   => 'هدايا عيد الأم',
+    'cat_mz_carpets'      => 'السجاد',
+    'cat_mz_outdoor'      => 'ديكور الحدائق والمساحات الخارجية',
+    'cat_mz_fragrance'    => 'المبخر والبخور والعطور المنزلية',
+    'cat_mz_tableware'    => 'أدوات المائدة',
+    'cat_mz_serveware'    => 'أدوات التقديم',
+    'cat_mz_rentals'      => 'تأجير الأثاث وأدوات المائدة',
 
 
 // Previous Expo Section

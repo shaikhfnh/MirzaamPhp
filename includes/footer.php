@@ -6,6 +6,7 @@
  * @var array $footer_expos_blueprint
  * @var array $footer_contact_menu
  */
+
 ?>
 <footer class="w-full border-t-[1px] border-gray-700" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
     <div class="bg-black text-white px-6 md:px-12 py-6">

@@ -1,5 +1,11 @@
 <?php
 // global_data.php
+/**
+ * These variables are injected from index.php/init
+ * @var string $lang
+ * @var array $site_blueprint
+ */
+$isRtl = ($lang === 'ar');
 
 $site_blueprint = [
     // ... your existing home arrays ...
@@ -405,7 +411,7 @@ $site_blueprint['about']['exhibitions'] = [
         'image'         => 'https://mirzaam.com/wp-content/uploads/2026/03/dsc04495-copy.jpg',
         'accent_color'  => '#F4B223',
         'tag_class'     => 'bg-yellow-500 text-black',
-        'link'          => 'https://mirzaam.com/',
+        'link'          => ($lang === 'ar') ? 'https://mirzaam.com/ar/' : 'https://mirzaam.com/',
         'no_photo'      => false,
     ],
     // Real sister exhibitions run by the same organizer, Fouz
@@ -415,7 +421,7 @@ $site_blueprint['about']['exhibitions'] = [
         'image'         => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaamiaten-min-1024x1024-1.webp',
         'accent_color'  => '#F4B223',
         'tag_class'     => 'bg-yellow-500 text-black',
-        'link'          => 'https://mirzaam.com/about-mirzaamiyat/',
+        'link'          => ($lang === 'ar') ? 'https://mirzaam.com/ar/about-mirzaamiyat/' : 'https://mirzaam.com/about-mirzaamiyat/',
         'no_photo'      => false,
     ],
     [
@@ -423,7 +429,7 @@ $site_blueprint['about']['exhibitions'] = [
         'image'         => 'https://ixirexpo.com/wp-content/uploads/2024/04/why-visit-2-1024x683.jpg',
         'accent_color'  => '#22C55E',
         'tag_class'     => 'bg-emerald-500 text-black',
-        'link'          => 'https://ixirexpo.com/',
+        'link'          => ($lang === 'ar') ? 'https://ixirexpo.com/ar' : 'https://ixirexpo.com/',
         'no_photo'      => false,
     ],
     // No clean real photo was available for this one on the live
@@ -432,12 +438,12 @@ $site_blueprint['about']['exhibitions'] = [
     // of forcing a mismatched stock image.
     [
         'key'           => 'mamababy',
-        'image'         => '',
+        'image'         => 'https://www.mamababyexpo.com/wp-content/uploads/2026/03/cropped-mama-icon-270x270.gif',
         'accent_color'  => '#FB7185',
         'tag_class'     => 'bg-rose-400 text-black',
         'tile_class'    => 'bg-gradient-to-br from-rose-300 to-rose-400',
-        'link'          => 'https://mamababyexpo.com/',
-        'no_photo'      => true,
+        'link'          =>  ($lang === 'ar') ? 'https://mamababyexpo.com/ar' : 'https://mamababyexpo.com/',
+        'no_photo'      => false,
     ],
 ];
 
@@ -470,47 +476,88 @@ $site_blueprint['about']['vis_milestones'] = [
 
 
 
-$site_blueprint['mirzaamiyat']['hero_image'] = 'https://mirzaam.com/wp-content/uploads/2026/03/dsc06109-copy.jpg';
- 
-// ── Categories — 9 real categories, in the same order as the
-// live page's "Discover and indulge in the following categories" list.
-$site_blueprint['mirzaamiyat']['categories'] = [
-    ['key' => 'accessories'],
-    ['key' => 'gifting'],
-    ['key' => 'mothersday'],
-    ['key' => 'carpets'],
-    ['key' => 'outdoor'],
-    ['key' => 'fragrance'],
-    ['key' => 'tableware'],
-    ['key' => 'serveware'],
-    ['key' => 'rentals'],
-];
- 
-// ── Sponsors — real names, tiers, and booth numbers, sourced
-// from the live page's Instagram sponsor-announcement captions.
-// tier_class drives the small tag pill colour per tier.
-$site_blueprint['mirzaamiyat']['sponsors'] = [
-    ['key' => 'asfour',  'tier_key' => 'main',         'tier_class' => 'bg-[#C9A267] text-[#1E2F4D]', 'booth' => '49'],
-    ['key' => 'asnan',   'tier_key' => 'main',         'tier_class' => 'bg-[#C9A267] text-[#1E2F4D]', 'booth' => '125'],
-    ['key' => 'safat',   'tier_key' => 'supporting',   'tier_class' => 'bg-[#1E2F4D] text-white',     'booth' => '50'],
-    ['key' => 'deema',   'tier_key' => 'supporting',   'tier_class' => 'bg-[#1E2F4D] text-white',     'booth' => '67'],
-    ['key' => 'alrai',   'tier_key' => 'media',        'tier_class' => 'bg-rose-100 text-rose-700',   'booth' => '38'],
-    ['key' => 'm2r',     'tier_key' => 'media',        'tier_class' => 'bg-rose-100 text-rose-700',   'booth' => null],
-    ['key' => 'alfares', 'tier_key' => 'landscaping',  'tier_class' => 'bg-emerald-100 text-emerald-700', 'booth' => null],
-];
- 
-// ── Gallery — remaining 8 real photos from the "previous
-// edition" set on the live page (the 9th is used as the hero
-// above).
-$site_blueprint['mirzaamiyat']['gallery'] = [
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc06496-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc07269.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc07246-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc07255-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc07202-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc06850-copy.jpg',
-    'https://mirzaam.com/wp-content/uploads/2026/03/dsc07044-copy.jpg',
+
+
+$site_blueprint['mirzaamiyat'] = [
+
+    'hero_image' => 'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
+
+    // ── CATEGORIES — unchanged, keep your existing array as-is ──
+    'categories' => [
+        [ 'key' => 'accessories', 'image' => 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'gifting',     'image' => 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'mothersday',  'image' => 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'carpets',     'image' => 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'outdoor',     'image' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'fragrance',   'image' => 'https://images.unsplash.com/photo-1602910344008-22f323cc1817?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'tableware',   'image' => 'https://images.unsplash.com/photo-1543007631-283050bb3e8c?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'serveware',   'image' => 'https://images.unsplash.com/photo-1530062845289-9109b2c9c868?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'rentals',     'image' => 'https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=900&q=80' ],
+    ],
+
+'sponsors' => [
+    // MAIN
+    [
+        'key'         => 'asfour',
+        'tier'        => 'main',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Asfour-1.jpg',
+        'website_url' => 'https://asfourcrystal.com',
+    ],
+    [
+        'key'         => 'asnan',
+        'tier'        => 'main',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Asnan-Logo.png',
+        'website_url' => 'https://www.asnan.com/en',
+    ],
+    // MEDIA
+    [
+        'key'         => 'alrai',
+        'tier'        => 'media',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/AL-RAI.jpg',
+        'website_url' => 'https://www.alraimediagroup.com',
+    ],
+    [
+        'key'         => 'm2r',
+        'tier'        => 'media',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/M2R-logo.jpg',
+        'website_url' => 'https://www.m2rkw.com',
+    ],
+    // SUPPORTING
+    [
+        'key'         => 'safat',
+        'tier'        => 'supporting',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/New-Logo-1.jpg',
+        'website_url' => 'https://www.safathome.com',
+    ],
+    [
+        'key'         => 'deema',
+        'tier'        => 'supporting',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Deema.jpg',
+        'website_url' => 'https://deema.me/en',
+    ],
+    // LANDSCAPING
+    [
+        'key'         => 'alfares',
+        'tier'        => 'landscaping',
+        'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/alfares_gardens.jpg',
+        // No corporate domain found for this one — Instagram is
+        // their only public presence, used as the fallback link.
+        'website_url' => 'https://www.instagram.com/alfares_gardens',
+    ],
+],
+    // ── GALLERY — unchanged, keep your existing array as-is ──
+    'gallery' => [
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc06109-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc06496-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07269.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07246-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07255-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07202-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc06850-copy.jpg',
+        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07044-copy.jpg',
+    ],
+
 ];
 
 
@@ -711,3 +758,73 @@ $site_blueprint['media']['outdoor_photos'] = [
     'https://mirzaam.com/wp-content/uploads/2024/10/3-2.webp',
     'https://mirzaam.com/wp-content/uploads/2024/10/img-0983.webp',
     'https://mirzaam.com/wp-content/uploads/2024/10/img-0984.webp',];
+
+//     $mz_sponsors_row1 = [
+//     [
+//         'key'         => 'alrai',
+//         'tier_key'    => 'media',
+//         'tier_class'  => 'bg-zinc-100 text-zinc-500',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/AL-RAI.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Al%20Rai%20Media',
+//         'instagram'   => 'alraimediagroup',
+//         'booth'       => '38',
+//     ],
+//     [
+//         'key'         => 'asfour',
+//         'tier_key'    => 'main',
+//         'tier_class'  => 'bg-[#C9A267]/15 text-[#9c7a45]',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Asfour-1.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Asfour%20Crystal',
+//         'instagram'   => 'asfourcrystal_kuwait',
+//         'booth'       => '49',
+//     ],
+//     [
+//         'key'         => 'asnan',
+//         'tier_key'    => 'main',
+//         'tier_class'  => 'bg-[#C9A267]/15 text-[#9c7a45]',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Asnan-Logo.png',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Asnan%20Tower',
+//         'instagram'   => 'asnan_tower',
+//         'booth'       => '125',
+//     ],
+// ];
+ 
+// // ── ROW 2 — PARTNERS (bottom, slightly smaller cards) ─────────
+// $mz_sponsors_row2 = [
+//     [
+//         'key'         => 'alfares',
+//         'tier_key'    => 'landscaping',
+//         'tier_class'  => 'bg-zinc-100 text-zinc-500',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/alfares_gardens.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Al%20Fares%20Gardens',
+//         'instagram'   => 'alfares_gardens',
+//         'booth'       => '',
+//     ],
+//     [
+//         'key'         => 'deema',
+//         'tier_key'    => 'supporting',
+//         'tier_class'  => 'bg-zinc-100 text-zinc-500',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/Deema.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Deema%20Financing',
+//         'instagram'   => 'pay.deema',
+//         'booth'       => '67',
+//     ],
+//     [
+//         'key'         => 'm2r',
+//         'tier_key'    => 'media',
+//         'tier_class'  => 'bg-zinc-100 text-zinc-500',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/M2R-logo.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=M2R',
+//         'instagram'   => 'm2rkw',
+//         'booth'       => '',
+//     ],
+//     [
+//         'key'         => 'safat',
+//         'tier_key'    => 'supporting',
+//         'tier_class'  => 'bg-zinc-100 text-zinc-500',
+//         'logo_url'    => 'https://mirzaam.com/mirzaamiyat/2026/registration/images/logos/New-Logo-1.jpg',
+//         'website_url' => 'https://mirzaamiyat/2026/registration/plan.php?name=Safat%20Home',
+//         'instagram'   => 'Safathome',
+//         'booth'       => '50',
+//     ],
+// ];

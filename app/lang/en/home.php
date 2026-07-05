@@ -88,6 +88,15 @@ return [
     'cat_food_beverage'      => 'Food & Beverage',
     'cat_home_accessories'   => 'Home Accessories',
     'cat_home_automation'    => 'Home Automation Systems',
+    'cat_mz_accessories' => 'Home Accessories',
+    'cat_mz_gifting'      => 'Ramadan Gifting',
+    'cat_mz_mothersday'   => "Mother's Day Gifting",
+    'cat_mz_carpets'      => 'Carpets',
+    'cat_mz_outdoor'      => 'Outdoor & Garden Decor',
+    'cat_mz_fragrance'    => 'Mubkhar, Bakhour & Home Fragrance',
+    'cat_mz_tableware'    => 'Tableware',
+    'cat_mz_serveware'    => 'Serveware',
+    'cat_mz_rentals'      => 'Furniture & Tableware Rentals',
 
 
 // Previous Expo Section

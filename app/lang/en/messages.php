@@ -20,7 +20,8 @@ return [
     'about_exh_subtitle'         => "What's Next",
     'about_exh_title'            => 'Upcoming Events',
     'about_exh_desc'             => 'Mirzaam Exhibition is organized by Fouz Expos Company, a leading organizer of several successful exhibitions in Kuwait, including Mirzaamiyat, the exhibition for everything modern and unique in home supplies, and IXIR, the expo dedicated to health, wellness, and quality of life.',
-    'about_exh_desc2'            => 'Through Mirzaam, we aim to gather all relevant specialties, including furniture and finishing companies, material suppliers, service offices, academics, and interior design students, under one roof. Mirzaam strives to unify efforts and provide a unique and distinguished experience in the field of interior design, showcasing the latest and most innovative trends to help you design your dream home.',
+    'about_exh_desc2'            => 'Through Mirzaam, we aim to gather all relevant specialties, including furniture and finishing companies, material suppliers, service offices, academics, and interior design students, under one roof. Mirzaam strives to unify efforts and provide a unique and distinguished experience in the field of interior design, showcasing the latest and most innovative trends to help you design your dream home.
+                                    as well as Mama Baby & Kids Expo, Kuwaits leading exhibition for expecting parents, babies, children, and families',
     'about_exh_siblings_label'   => 'Part of the Fouz Expos Family',
     
     'about_exh_mirzaam_tag'   => 'Flagship Event',
@@ -388,7 +389,7 @@ return [
 
     
 
-    //Mirzaamiyat Page
+//Mirzaamiyat Page
     'mz_hero_eyebrow'      => 'Part of the Fouz Expos Family',
     'mz_hero_title'        => 'Mirzaamiyat',
     'mz_hero_subtitle'     => 'Ramadan Edition',
@@ -399,95 +400,106 @@ return [
     'mz_hero_venue_value'  => 'The Arena, 360 Mall, Kuwait',
     'mz_hero_cta_primary'   => 'Exhibitor List 2026',
     'mz_hero_cta_secondary' => 'View Expo Plan',
-    
+    'mz_hero_cta_booth' => 'Book Your Booth',
+    'mz_intro_word' => 'Curated.',
+
     // ── INTRO — "What is Mirzaamiyat" ────────────────────────
     'mz_intro_eyebrow' => 'What Is Mirzaamiyat',
     'mz_intro_title'   => 'Beautiful spaces, beautifully sourced',
     'mz_intro_p1'      => 'Mirzaamiyat is a series of specialised exhibitions that focus on the services and products that beautify certain parts of our homes and spaces.',
     'mz_intro_p2'      => "Mirzaamiyat Ramadan brings elegance and functionality together in transforming your living spaces — a world of curated beauty for everything exquisite and essential in the home, presented each year in the lead-up to the holy month.",
     'mz_intro_quote'   => 'Where elegance meets functionality in transforming your living spaces.',
+
+    'mz_intro_founder_name'     => 'Eng. Farah Al Humaidhi',
+    'mz_intro_founder_title'    => 'Founder, Fouz Expos',
+    'mz_intro_stat_categories'  => 'Categories',
+    'mz_intro_stat_edition'     => 'Edition',
+    'mz_intro_stat_days'        => 'Days',
     
+
     // ── CATEGORIES ────────────────────────────────────────────
     'mz_cat_eyebrow'  => 'Discover & Indulge',
     'mz_cat_title'    => 'Nine categories, one home',
     'mz_cat_subtitle' => 'Every detail of Ramadan home styling, under one roof.',
-    
+
     'mz_cat_accessories_title' => 'Home Accessories',
     'mz_cat_accessories_desc'  => 'Elevate your living space with stylish, functional additions.',
-    
+
     'mz_cat_gifting_title' => 'Ramadan Gifting',
     'mz_cat_gifting_desc'  => 'Find the perfect gifts to share the joy of the season.',
-    
+
     'mz_cat_mothersday_title' => "Mother's Day Gifting",
     'mz_cat_mothersday_desc'  => 'Show appreciation with thoughtful, meaningful presents.',
-    
+
     'mz_cat_carpets_title' => 'Carpets',
     'mz_cat_carpets_desc'  => 'A variety of carpets to add warmth and charm to any room.',
-    
+
     'mz_cat_outdoor_title' => 'Outdoor & Garden Decor',
     'mz_cat_outdoor_desc'  => 'Transform outdoor spaces into havens of tranquility.',
-    
+
     'mz_cat_fragrance_title' => 'Mubkhar, Bakhour & Home Fragrance',
     'mz_cat_fragrance_desc'  => 'Fill your home with captivating, signature scents.',
-    
+
     'mz_cat_tableware_title' => 'Tableware',
     'mz_cat_tableware_desc'  => 'Set the perfect table with exquisite tableware selections.',
-    
+
     'mz_cat_serveware_title' => 'Serveware',
     'mz_cat_serveware_desc'  => 'Serve your guests in style with elegant serveware.',
-    
+
     'mz_cat_rentals_title' => 'Furniture & Tableware Rentals',
     'mz_cat_rentals_desc'  => 'Access furniture and tableware for any occasion.',
-    
+
     // ── SPONSORS ──────────────────────────────────────────────
     'mz_sponsors_eyebrow'  => 'With Thanks To',
     'mz_sponsors_title'    => 'Partners & sponsors',
     'mz_sponsors_subtitle' => 'The names supporting Mirzaamiyat Ramadan 2026.',
-    
+
     'mz_tier_main'        => 'Main Sponsor',
     'mz_tier_supporting'  => 'Supporting Partner',
     'mz_tier_media'       => 'Media Partner',
     'mz_tier_landscaping' => 'Landscaping Partner',
-    
+
     'mz_sponsor_asfour_title' => 'Asfour Crystal',
     'mz_sponsor_asfour_desc'  => 'A globally recognised name in crystal craftsmanship, bringing brilliance and artistry to every space.',
-    
+
     'mz_sponsor_asnan_title' => 'Asnan Tower',
     'mz_sponsor_asnan_desc'  => "The world's largest dental clinic, with American-board consultants across every specialty.",
-    
+
     'mz_sponsor_safat_title' => 'Safat Home',
     'mz_sponsor_safat_desc'  => 'Thoughtfully curated home accessories that blend functionality with refined design.',
-    
+
     'mz_sponsor_deema_title' => 'Deema Financing',
     'mz_sponsor_deema_desc'  => 'Flexible financing — live now, pay later — with zero fees across 2–4 instalments.',
-    
+
     'mz_sponsor_alrai_title' => 'Al Rai Media Group',
     'mz_sponsor_alrai_desc'  => "One of Kuwait's leading media institutions, covering the expo across TV and print.",
-    
+
     'mz_sponsor_m2r_title' => 'M2R',
     'mz_sponsor_m2r_desc'  => "A leader in outdoor screens, carrying Mirzaamiyat across Kuwait's busiest locations.",
-    
+
     'mz_sponsor_alfares_title' => 'Al Fares Gardens',
     'mz_sponsor_alfares_desc'  => 'Indoor and outdoor planting that brings natural beauty throughout the venue.',
-    
+
     'mz_sponsor_booth_label' => 'Booth',
-    
+    'mz_view_all_participants' => 'View All Participants',
+
     // ── GALLERY ───────────────────────────────────────────────
     'mz_gallery_eyebrow' => 'Previous Edition',
     'mz_gallery_title'   => 'A glimpse into the magic',
     'mz_gallery_desc'    => 'Browse captivating moments from the last Mirzaamiyat Ramadan.',
-    
+
     // ── FOLLOW BANNER (Instagram handled by app — no static feed) ─
     'mz_follow_title'  => 'Follow along',
     'mz_follow_desc'   => 'Real-time updates, sneak peeks, and behind-the-scenes moments from Mirzaamiyat Ramadan.',
     'mz_follow_handle' => '@mirzaamiyat',
     'mz_follow_cta'    => 'Follow on Instagram',
-    
+
     // ── FINAL CTA ─────────────────────────────────────────────
     'mz_final_title'         => 'Your dream home awaits',
     'mz_final_desc'          => 'Join us at Mirzaamiyat Ramadan and witness the convergence of luxury, style, and practicality — an experience that goes beyond the ordinary.',
     'mz_final_cta_primary'   => 'Exhibitor List 2026',
     'mz_final_cta_secondary' => 'View Expo Plan',
+     
 
 
 
@@ -543,7 +555,25 @@ return [
     // Success state
     'ct_success_title'      => 'Message sent successfully!',
     'ct_success_desc'       => 'Thank you for reaching out. We\'ll get back to you within one business day.',
-
+  
+    'ct_address_line' => 'Al Andalus Tower, 12th Floor, Beirut St, Hawally',
+    
+    // ── Opening hours (form section card — was hardcoded ternary) ──
+    'ct_hours_days'    => 'Sunday – Thursday',
+    'ct_hours_time'    => '8:00 am – 4:00 pm',
+    'ct_hours_note'    => 'Send us a message any time and our team will respond within one business day.',
+    
+    // ── Brand note card ──────────────────────────────────────────
+    'ct_organised_by_label' => 'Organised By',
+    'ct_organised_by_desc'  => 'Organisers of Mirzaam Expo, Mirzaamiyat, IXIR, and Mama + Baby Expo.',
+    
+    // ── Hero stat card (right panel, desktop only) ───────────────
+    'ct_stat_brand_label' => 'Fouz Expos',
+    'ct_stat_headline'    => 'We organise four leading expos across Kuwait every year.',
+    'ct_stat_value_1'     => '4',
+    'ct_stat_label_1'     => 'Annual Expos',
+    'ct_stat_value_2'     => '12+',
+    'ct_stat_label_2'     => 'Years Running',
 
 
 
@@ -598,6 +628,62 @@ return [
     'md_lb_close' => 'Close',
     'md_lb_prev'  => 'Previous',
     'md_lb_next'  => 'Next',
+
+ 
+    //Mirzaam categories
+     'cat_architectural_consultant'  => 'Architectural Consultant',
+     'cat_bathroom_accessories'      => 'Bathroom Accessories',
+     'cat_bathroom_fitouts'          => 'Bathroom Fitouts',
+     'cat_beddings'                  => 'Beddings',
+     'cat_carpentry_wardrobe_fitout' => 'Carpentry & Wardrobe Fitout',
+     'cat_carpets'                   => 'Carpets',
+     'cat_cleaning_services'         => 'Cleaning Services',
+     'cat_contracting_company'       => 'Contracting Company',
+     'cat_counter_tops'              => 'Counter Tops',
+     'cat_curtains_drapes'           => 'Curtains & Drapes',
+     'cat_custom_furniture'          => 'Custom Furniture',
+     'cat_doors_windows_indoor'      => 'Doors & Windows | Indoor',
+     'cat_electrical_sockets'        => 'Electrical Sockets',
+     'cat_exterior_doors_windows'    => 'Exterior Doors & Windows',
+     'cat_food_beverage'             => 'Food & Beverage',
+     'cat_home_accessories'          => 'Home Accessories',
+     'cat_home_appliances'           => 'Home Appliances',
+     'cat_home_automation_systems'   => 'Home Automation Systems',
+     'cat_home_electronics'          => 'Home Electronics',
+     'cat_home_fragrances'           => 'Home Fragrances',
+     'cat_home_gifting'              => 'Home Gifting',
+     'cat_home_insurance'            => 'Home Insurance',
+     'cat_home_office_furniture'     => 'Home Office Furniture',
+     'cat_home_security'             => 'Home Security',
+     'cat_indoor_furniture'          => 'Indoor Furniture',
+     'cat_indoor_plants'             => 'Indoor Plants',
+     'cat_industrial_floors'         => 'Industrial Floors',
+     'cat_interior_design_consultant'=> 'Interior Design Consultant',
+     'cat_interior_design_education' => 'Interior Design Educational Bodies',
+     'cat_interior_fitout'           => 'Interior Fitout',
+     'cat_kitchen_equipment'         => 'Kitchen Equipment',
+     'cat_kitchen_fitout'            => 'Kitchen Fitout',
+     'cat_landscape_design'          => 'Landscape Design',
+     'cat_landscaping'               => 'Landscaping',
+     'cat_light_fittings'            => 'Light Fittings',
+     'cat_mattress'                  => 'Mattress',
+     'cat_online_apps_ecommerce'     => 'Online Apps & E-Commerce',
+     'cat_outdoor_furniture'         => 'Outdoor Furniture',
+     'cat_outdoor_plants'            => 'Outdoor Plants',
+     'cat_paint'                     => 'Paint',
+     'cat_parquet'                   => 'Parquet',
+     'cat_pillows'                   => 'Pillows',
+     'cat_plant_accessories'         => 'Plant Accessories',
+     'cat_property_development'      => 'Property Development',
+     'cat_security_system'           => 'Security System',
+     'cat_shading_systems'           => 'Shading Systems',
+     'cat_shutter_systems'           => 'Shutter Systems',
+     'cat_stones'                    => 'Stones',
+     'cat_swimming_pool'             => 'Swimming Pool Design & Installation',
+     'cat_textiles'                  => 'Textiles',
+     'cat_tiles'                     => 'Tiles',
+     'cat_upholstery'                => 'Upholstery',
+     'cat_wallpaper'                 => 'Wallpaper',
 
     ];
 ?>

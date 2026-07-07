@@ -38,6 +38,8 @@ return [
     'alt_apple'    => 'Download on the App Store',
     'alt_google'   => 'Get it on Google Play',
     'app_bot_bubble' => 'Experience the App →',
+    'bb_cta_apple_alt'  => 'Download on the App Store',
+    'bb_cta_google_alt' => 'Get it on Google Play',
 
 
 // Insights Section
@@ -88,15 +90,27 @@ return [
     'cat_food_beverage'      => 'Food & Beverage',
     'cat_home_accessories'   => 'Home Accessories',
     'cat_home_automation'    => 'Home Automation Systems',
-    'cat_mz_accessories' => 'Home Accessories',
-    'cat_mz_gifting'      => 'Ramadan Gifting',
-    'cat_mz_mothersday'   => "Mother's Day Gifting",
-    'cat_mz_carpets'      => 'Carpets',
-    'cat_mz_outdoor'      => 'Outdoor & Garden Decor',
-    'cat_mz_fragrance'    => 'Mubkhar, Bakhour & Home Fragrance',
-    'cat_mz_tableware'    => 'Tableware',
-    'cat_mz_serveware'    => 'Serveware',
-    'cat_mz_rentals'      => 'Furniture & Tableware Rentals',
+    
+    //Mirzaamiyat Categories
+    'cat_mz_home_accessories' => 'Home Accessories',
+    'cat_mz_perfumes'         => 'Perfumes & Home Fragrances',
+    'cat_mz_gifting'          => 'Gifting & Giveaways',
+    'cat_mz_desserts'         => 'Dessert Stores & Chocolatiers',
+    'cat_mz_loungewear'       => 'Loungewear',
+    'cat_mz_services'         => 'Services',
+    'cat_mz_event_services'   => 'Event Services',
+    'cat_mz_fnb'              => 'F&B',
+    'cat_mz_tableware'        => 'Tableware & Serveware',
+    'cat_mz_ramadan_food'     => 'Ramadan Gourmet Food',
+    'cat_mz_personal_care'    => 'Personal Care',
+    'cat_mz_mubkhar'          => 'Mubkhar & Bukhoor Accessories',
+    'cat_mz_kitchen'          => 'Kitchen Appliances & Cookware',
+    'cat_mz_jewelry'          => 'Jewelry',
+    'cat_mz_financial'        => 'Financial Services',
+    'cat_mz_catering'         => 'Catering Stations & Setup',
+    'cat_mz_furniture'        => 'Furniture',
+    'cat_mz_wall_decor'       => 'Wall Decor',
+    'cat_mz_uniforms'         => 'Uniforms',
 
 
 // Previous Expo Section
@@ -108,6 +122,8 @@ return [
     'year_m2023' => '2023',
     'year_m2024' => '2024',
     'year_m2025' => '2025',
+    'exhibitors_no_data_title' => 'Data not available',
+    'exhibitors_no_data_desc'  => "We don't have exhibitor data for this edition yet. Please check back closer to the event.",
 
 
     

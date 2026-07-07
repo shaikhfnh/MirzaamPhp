@@ -210,15 +210,15 @@ return [
     // ── VALUE PILLARS ────────────────────────────────────────
     'whyexhibit_pillars_label'  => 'Why It Matters',
     
-    'we_pillar1_tag'   => '// STRATEGIC_ACCESS',
+    'we_pillar1_tag'   => 'Gain Strategic Access to Key Markets',
     'we_pillar1_title' => 'Direct Access to High-Value Buyers',
     'we_pillar1_desc'  => 'Connect with decision-makers from the real estate, hospitality, and interior design sectors. Meet serious buyers looking for luxury furniture, smart home solutions, high-end finishes, and design innovations.',
-    
-    'we_pillar2_tag'   => '// MARKET_DOMINANCE',
+
+    'we_pillar2_tag'   => 'Establish Your Dominance in the Industry',
     'we_pillar2_title' => 'Unparalleled Brand Visibility',
     'we_pillar2_desc'  => 'Showcase your brand to over 400,000+ visitors, including VIP clients and business owners. Gain exposure through our multi-channel media campaigns, influencer collaborations, and industry partnerships.',
-    
-    'we_pillar3_tag'   => '// REVENUE_SCALING',
+
+    'we_pillar3_tag'   => 'Scale Your Revenue and Accelerate Growth',
     'we_pillar3_title' => 'Exclusive Business Growth',
     'we_pillar3_desc'  => 'Secure bulk orders and long-term contracts with retail and wholesale buyers. Join industry panels, networking sessions, and closed-door VIP presentations.',
     
@@ -264,7 +264,7 @@ return [
     'we_aud_others'      => 'Others',
     
     // ── CATEGORY SLIDER ──────────────────────────────────────
-    'whyexhibit_categories_title'    => 'Who Should Exhibit?',
+    'whyexhibit_categories_title'    => 'Strategic Categories',
     'whyexhibit_categories_subtitle' => 'Explore the sectors represented at Mirzaam Expo',
     
     // ── CTA ──────────────────────────────────────────────────
@@ -286,83 +286,54 @@ return [
     
     //Best booth Page
 
-    'bb_eyebrow'        => 'Mirzaam Expo 2025',
-    'bb_title'          => 'Best Booth',
-    'bb_title_accent'   => 'Competition',
-    'bb_hero_subtitle'  => 'Vote for the best booth across three categories — Innovation, Aesthetics, and Sustainability.',
+    // ── HERO ──────────────────────────────────────────────────────
+    'bb_eyebrow'       => 'Mirzaam Expo 2025',
+    'bb_title'         => 'Best Booth',
+    'bb_title_accent'  => 'Competition',
+    'bb_hero_subtitle' => 'Vote for the best booth across three categories — Innovation, Aesthetics, and Sustainability.',
     
-    // ── INTRO ────────────────────────────────────────────────
-    'bb_overview_label' => '2025 Edition',
+    // ── INTRO + HONORING PARTICIPANTS ────────────────────────────
+    'bb_overview_label'  => '2025 Edition',
     'bb_intro'           => "The Best Booth Competition at Mirzaam Expo is one of the most anticipated events of the year. It's a moment where we celebrate the incredible designs and innovations that make Mirzaam a unique platform for elegance and creativity.",
-    'bb_honoring_title' => 'Honoring Participants',
-    'bb_honoring_desc'  => 'All Mirzaam participants deserve acknowledgment for their outstanding booth designs, exceptional executions, and significant investments. Each booth is a testament to the creativity and dedication that defines Mirzaam year after year.',
+    'bb_honoring_title'  => 'Honoring Participants',
+    'bb_honoring_desc'   => 'All Mirzaam participants deserve acknowledgment for their outstanding booth designs, exceptional executions, and significant investments. Each booth is a testament to the creativity and dedication that defines Mirzaam year after year.',
     
-    // ── COMPETITION MECHANICS ────────────────────────────────
+    // ── COMPETITION MECHANICS ────────────────────────────────────
     'bb_mechanics_label' => 'Competition Mechanics',
     'bb_mechanics_title' => 'Three winners are selected across three distinct categories.',
     
     'bb_mech1_title' => 'Innovation',
-    'bb_mech1_desc'  => 'Evaluate originality, innovative elements, interactive experience, storytelling, and bold design choices.',
+    'bb_mech1_desc'  => 'Originality, innovative elements, interactive experience, storytelling, and bold design choices.',
     
     'bb_mech2_title' => 'Aesthetics',
-    'bb_mech2_desc'  => 'Assess the booth for visual harmony, design unity, quality of finishes, effective branding, and impactful presence.',
+    'bb_mech2_desc'  => 'Visual harmony, design unity, quality of finishes, effective branding, and impactful presence.',
     
     'bb_mech3_title' => 'Sustainability',
-    'bb_mech3_desc'  => 'Consider material usage, energy efficiency, waste minimization, life cycle planning, and eco-friendly practices.',
+    'bb_mech3_desc'  => 'Material usage, energy efficiency, waste minimization, life cycle planning, and eco-friendly practices.',
     
-    // ── JURY PANEL ────────────────────────────────────────────
-    'bb_jury_label'    => 'The Judges',
-    'bb_jury_title'    => 'Meet Our Qualified Panel of Judges',
-    'bb_jury_subtitle' => 'Our panel shortlists the top booths across every category, evaluating design, craft, and innovation in person.',
-    'bb_jury_tag'      => 'JURY MEMBER',
+    // ── JURY ──────────────────────────────────────────────────────
+    'bb_jury_label'       => 'The Judges',
+    'bb_jury_title'       => 'Meet Our Qualified Panel of Judges',
+    'bb_jury_count_label' => 'Judges',
     
-    'bb_judge1_name' => 'Architect Hussein Ali Qassem',
-    'bb_judge1_role' => 'Architect, partner, and founder of KAF Design, KAF Construction, and the Construction Materials Chamber',
-    'bb_judge1_bio'  => 'Striving to transform spaces into architectural experiences that pulse with emotion and beauty, he holds a degree in Architecture from Kuwait University and has participated in the design and supervision of distinguished commercial and residential projects across the Gulf region. He is a partner and co-founder of KAF Design, KAF Construction, and Ghurfa Building Materials, where he seamlessly merges art with construction and vision with execution. He has also taken part in university lectures, international and Gulf exhibitions, and in the development of architectural codes in Kuwait.',
-    
-    'bb_judge2_name' => 'Abdulaziz Nasser Al-Nasser',
-    'bb_judge2_role' => 'General Manager of Al Bayt Al Khushabi Furniture and Decor Company',
-    'bb_judge2_bio'  => 'He is the General Manager of Wooden House for Furniture and Decor Company, and he owns several companies specializing in general contracting, interior design, home cleaning services, as well as gifts and packaging businesses.',
-    
-    'bb_judge3_name' => 'Sura AlSabah',
-    'bb_judge3_role' => 'Architect and Founder of Home Genius Company',
-    'bb_judge3_bio'  => "Sura Saud AlSabah is a Kuwaiti architect, researcher, and designer with a Master's degree in Architecture. Her academic work explores future visions for multi-use homes in Kuwait, blending research with innovative design thinking. She is the founder of Home Genius and @homegeniusarc, leading community workshops that promote architectural awareness, creativity, and problem-solving among youth and adults. As a writer and motivational storyteller, she inspires others through imaginative narratives and messages of personal growth.",
-    
-    'bb_judge4_name' => 'Dr. Ahmad Ebrahim Alansari',
-    'bb_judge4_role' => 'Associate Professor, Interior Design Department, College of Basic Education — Public Authority for Applied Education and Training, Kuwait',
-    'bb_judge4_bio'  => 'Dr. Ahmad Ebrahim Al-Ansari is a faculty member in the Department of Interior Design at the College of Basic Education. He holds a Ph.D. in Interior Design from Texas Tech University in the United States. He is also the General Manager and founder of Fine Design, a firm specializing in interior design and the execution of residential and commercial projects. His combined academic and professional experience has provided him with extensive expertise in the Kuwaiti market.',
-    
-    'bb_judge5_name' => 'Sameer Al Dahan',
-    'bb_judge5_role' => 'Founder and Managing Partner at Dahan W.L.L.',
-    'bb_judge5_bio'  => 'The founder of Dahan W.L.L, a company based in Kuwait that specializes in high-end interior finish for local and international retail brands and spaces, with offices in both KSA and the UAE.',
-    
-    'bb_judge6_name' => 'Jasmine Karimi',
-    'bb_judge6_role' => 'Interior Designer and Creative Director, LOOK BOOK LIVING',
-    'bb_judge6_bio'  => 'A Kuwaiti multidisciplinary creative: interior designer, fashion illustrator, and artist. Through the studio and editorial platform LOOK BOOK LIVING, design theory is weaved together with a focus on emotion, material psychology, narrative details, and the rituals of daily living.',
-    
-    'bb_judge7_name' => 'Noor Mohammed Bin Eidan',
-    'bb_judge7_role' => 'Interior Designer, CEO and Founder of Noorbinaidan Design Firm',
-    'bb_judge7_bio'  => 'Noor Bin Eidan is a renowned Kuwaiti interior designer who transforms spaces into works of art. Founder of Done Interiors, she blends modern luxury with Middle Eastern elegance, inspiring with over 20 years of award-winning design.',
-    
-    'bb_judge8_name' => 'Seba Orabi',
-    'bb_judge8_role' => 'Interior Architect Consultant and Founder of Seba Spaces',
-    'bb_judge8_bio'  => 'Seba Orabi stands out as a skilled Interior Architect Consultant, known for her significant contributions to some of the largest and most innovative projects in Kuwait, as well as other impressive ventures throughout the region. Her ability to create enduring and beautiful designs showcases her exceptional creativity, distinctive taste, and commitment to meeting international standards. Having gained valuable experience working with various regional and international architecture firms, Seba has now chosen to steer her career in a new direction — leaving the realm of large corporations to focus more intently on her passion for sustainability and crafting more authentic designs.',
-    
-    // ── HOW VISITORS VOTE ─────────────────────────────────────
+    // ── HOW VISITORS VOTE ─────────────────────────────────────────
     'bb_voting_label' => 'How To Vote',
     'bb_voting_title' => 'How Do Visitors Participate in Voting?',
     
     'bb_step1_title' => 'Explore the Booths',
-    'bb_step1_desc'  => 'Walk the show floor and experience the stunning booth designs in person.',
+    'bb_step1_desc'  => 'Walk through the expo halls and discover the standout booth designs from every participating brand.',
     
-    'bb_step2_title' => 'Vote via the App',
-    'bb_step2_desc'  => 'Cast your vote for your favorite booth directly through the Mirzaam App. You must be at the expo location in order to vote.',
+    'bb_step2_title' => 'Cast Your Vote',
+    'bb_step2_desc'  => 'Open the Mirzaam App and vote for your favorite booth across Innovation, Aesthetics, and Sustainability.',
+    
+    'bb_voting_onsite_note' => 'Must be at the expo',
+    'bb_voting_app_note'    => 'Vote in the App',
     
     'bb_closing_statement' => "The Best Booth Competition is more than just a celebration of design, it's a platform for appreciation and inspiration. Be part of this exceptional experience, and let's celebrate innovation, beauty, and sustainability together!",
     
-    // ── NOMINEES ──────────────────────────────────────────────
+    // ── NOMINEES / WINNERS ────────────────────────────────────────
     'bb_nominees_label' => '2025 Winners',
-    'bb_nominees_title' => 'Nominees of Mirzaam 2025 Best Booth Design',
+    'bb_nominees_title' => 'Winners of Mirzaam 2025 Best Booth Design',
     
     'bb_nominee1_category' => 'Best in Aesthetic',
     'bb_nominee1_company'  => 'Design Details',
@@ -373,20 +344,18 @@ return [
     'bb_nominee3_category' => 'Best in Sustainability',
     'bb_nominee3_company'  => 'AlRefaei International',
     
-    // ── CTA ──────────────────────────────────────────────────
+    // ── APP DOWNLOAD CTA ──────────────────────────────────────────
     'bb_cta_eyebrow' => 'Cast Your Vote',
     'bb_cta_title'   => 'Vote for Your Favorite Booth',
     'bb_cta_desc'    => 'Explore the booths during the expo and cast your vote via the Mirzaam App. You must be at the expo location to vote.',
-    'bb_cta_button'  => 'Download the App',
-    'bb_cta_link'    => '#',
     
-    'bb_cta_stat1_value' => '3',
-    'bb_cta_stat1_label' => 'Categories',
-    'bb_cta_stat2_value' => '8',
-    'bb_cta_stat2_label' => 'Judges',
-    'bb_cta_stat3_value' => 'App',
-    'bb_cta_stat3_label' => 'Vote Method',
-
+    'bb_cta_apple_alt'  => 'Download on the App Store',
+    'bb_cta_google_alt' => 'Get it on Google Play',
+    
+    'bb_cta_stat1_value' => '3',    'bb_cta_stat1_label' => 'Categories',
+    'bb_cta_stat2_value' => '8',    'bb_cta_stat2_label' => 'Judges',
+    'bb_cta_stat3_value' => 'App',  'bb_cta_stat3_label' => 'Vote Method',
+ 
     
 
 //Mirzaamiyat Page
@@ -402,6 +371,8 @@ return [
     'mz_hero_cta_secondary' => 'View Expo Plan',
     'mz_hero_cta_booth' => 'Book Your Booth',
     'mz_intro_word' => 'Curated.',
+    'mz_booth_coming_soon' => 'Registration opening soon',
+    'mz_booth_soon_tag'    => 'Soon',
 
     // ── INTRO — "What is Mirzaamiyat" ────────────────────────
     'mz_intro_eyebrow' => 'What Is Mirzaamiyat',

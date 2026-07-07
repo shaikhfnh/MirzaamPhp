@@ -3,8 +3,10 @@ ob_start();
 
 require_once 'app/config/i18n.php';
 require_once 'app/data/participantsdata-2025.php';
+require_once 'app/config/forms.php';
 require_once 'app/data/home_data.php';
 require_once 'app/data/global_data.php';
+require_once 'app/data/menu.php';
 require_once 'app/data/categories_data.php';
 
 // ── API EARLY EXIT ──────────────────────────────────────────
@@ -46,9 +48,9 @@ unset($_api_path, $_api_m);
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="https://unpkg.com/@rive-app/canvas@latest" defer></script>
 
+    <script type="module" src="/mirzaam/assets/js/main.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 
-    <script type="module" src="/mirzaam/assets/js/main.js"></script>
 </head>
 <body class="bg-black text-white">
 
@@ -117,9 +119,9 @@ unset($_api_path, $_api_m);
             'wayfinding'   => 'views/wayfinding.php',
 
           // MIRZAAMIYAT routes
-            'mirzaamiyaat'             => 'views/mirzaamiyaat.php',
-            'mirzaamiyaat/about'       => 'views/mirzaamiyaat.php',
-            'mirzaamiyaat/exhibitors'  => 'views/mirzaamiyaat-exhibitors.php',
+            'mirzaamiyat'             => 'views/mirzaamiyat.php',
+            'mirzaamiyat/about'       => 'views/mirzaamiyat.php',
+            'mirzaamiyat/exhibitors'  => 'views/mirzaamiyat-exhibitors.php',
 
         // Footer Extra routes
             'media'        => 'views/media.php',
@@ -134,6 +136,11 @@ unset($_api_path, $_api_m);
         elseif (preg_match('#^participants/(\d{4})$#', $path, $matches)) {
             $year      = $matches[1];
             $view_file = 'views/participants.php';
+        }
+        // Dynamic: /mirzaamiyat/exhibitors/{year}
+        elseif (preg_match('#^mirzaamiyat/exhibitors/(\d{4})$#', $path, $matches)) {
+            $year      = $matches[1];
+            $view_file = 'views/mirzaamiyat-exhibitors.php';
         }
         // 3. /participants by itself (defaults to current edition)
         elseif ($path === 'participants') {

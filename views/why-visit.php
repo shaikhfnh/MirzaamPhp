@@ -168,24 +168,6 @@ $isRtl  = ($lang === 'ar');
                                 <p><?= __($feature['desc2_key']) ?></p>
                             <?php endif; ?>
                         </div>
-
-                        <?php if (!empty($feature['cta'])): ?>
-                            <?php
-                                $cta        = $feature['cta'];
-                                $isExternal = !empty($cta['external']);
-                                $href       = $isExternal ? $cta['url'] : get_url($cta['url']);
-                                $target     = $isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
-                            ?>
-                            <div class="pt-7">
-                                <a href="<?= htmlspecialchars($href) ?>"<?= $target ?>
-                                   class="group/btn inline-flex items-center gap-3 px-6 py-3 rounded-full border border-zinc-900 text-zinc-900 text-xs tracking-[0.2em] uppercase font-semibold hover:bg-zinc-900 hover:text-white transition-all duration-300">
-                                    <?= __($cta['label_key']) ?>
-                                    <svg class="w-3.5 h-3.5 <?= $isRtl ? 'group-hover/btn:-translate-x-1 rotate-180' : 'group-hover/btn:translate-x-1' ?> transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -213,7 +195,7 @@ $isRtl  = ($lang === 'ar');
             <p class="text-base text-white/55 font-light max-w-2xl mx-auto mb-9 leading-relaxed">
                 <?= __($wv['final_cta']['desc_key']) ?>
             </p>
-            <a href="<?= htmlspecialchars(get_url($wv['final_cta']['button_url'])) ?>"
+            <a href="<?= htmlspecialchars(get_url($wv['final_cta']['button_planyourtrip_url'])) ?>"
                class="group inline-flex items-center gap-3 bg-yellow-500 text-black px-7 py-3.5 rounded-full text-xs tracking-[0.2em] uppercase font-bold hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
                 <?= __($wv['final_cta']['button_key']) ?>
                 <svg class="w-4 h-4 <?= $isRtl ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1' ?> transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">

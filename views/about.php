@@ -204,7 +204,9 @@ $isRtl = ($lang === 'ar');
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
                     <?php foreach ($exhibitions_data as $i => $item): ?>
-                        <a href="<?= htmlspecialchars($item['link']) ?>" target="_blank" rel="noopener"
+                        <a href="<?= htmlspecialchars($item['link']) ?>" 
+                        <?= str_contains($item['link'], $base_path) ? 'target="_self"' : 'target="_blank"' ?>
+                         rel="noopener"
                            class="wv-reveal group relative bg-white rounded-2xl border border-zinc-100 overflow-hidden flex flex-col transition-all duration-500 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.10)] hover:-translate-y-1 hover:border-zinc-200"
                            data-reveal data-delay="<?= $i * 90 ?>">
 

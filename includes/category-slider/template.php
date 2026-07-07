@@ -34,6 +34,9 @@
 $cat_slider_title    = $cat_slider_title    ?? (__('section_title')    ?: 'Explore Categories');
 $cat_slider_subtitle = $cat_slider_subtitle ?? (__('section_subtitle') ?: 'Interior design sectors at Mirzaam Expo');
 $cat_slider_year     = $mirzaam_active_year ?? '2025';
+$cat_slider_link_builder = $cat_slider_link_builder ?? function ($base, $year, $categoryName) {
+    return $base . '/participants/' . $year . '?category=' . urlencode($categoryName);
+};
 $cat_slider_theme    = $cat_slider_theme    ?? 'dark';
 $isLight             = ($cat_slider_theme === 'light');
 
@@ -88,9 +91,9 @@ $edgeFadeColor  = $isLight ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)';
              improvement over a hard-cut edge. Fade color matches
              the section background so it blends seamlessly. -->
         <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 <?= $isRtlSlider ? 'right-0' : 'left-0' ?> w-10 sm:w-16 z-20"
+            <div class="pointer-events-none category-shade absolute inset-y-0 <?= $isRtlSlider ? 'right-0' : 'left-0' ?> w-10 sm:w-16 z-20"
                  style="background: linear-gradient(<?= $isRtlSlider ? 'to left' : 'to right' ?>, <?= $edgeFadeColor ?> 0%, transparent 100%);"></div>
-            <div class="pointer-events-none absolute inset-y-0 <?= $isRtlSlider ? 'left-0' : 'right-0' ?> w-10 sm:w-16 z-20"
+            <div class="pointer-events-none category-shade absolute inset-y-0 <?= $isRtlSlider ? 'left-0' : 'right-0' ?> w-10 sm:w-16 z-20"
                  style="background: linear-gradient(<?= $isRtlSlider ? 'to right' : 'to left' ?>, <?= $edgeFadeColor ?> 0%, transparent 100%);"></div>
 
             <div id="categories-scroll-track" class="flex flex-row flex-nowrap overflow-x-auto pb-6 transition-all duration-300 ease-in-out" style="-webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
@@ -99,11 +102,11 @@ $edgeFadeColor  = $isLight ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)';
                     <?php
                         $sectorNumber  = str_pad($index + 1, 2, "0", STR_PAD_LEFT);
                         $localizedTitle = __('cat_' . $cat['key']) ?: $cat['category'];
-                        $catFilterUrl = $cat_slider_base . '/participants/' . $cat_slider_year
-                                      . '?category=' . urlencode($cat['category']);
+                        $catFilterUrl = $cat_slider_link_builder($cat_slider_base, $cat_slider_year, $cat['category']);
                     ?>
 
                     <a href="<?= $catFilterUrl ?>"
+                    id="categories-scroll-card"
                        class="category-slider-card flex-shrink-0 w-[240px] relative aspect-[0.75/1] group overflow-hidden border <?= $cardBorder ?> <?= $cardSkeletonBg ?> transition-all duration-500 ease-out rounded-none block <?= $cardShadow ?>">
                         <img src="<?= $cat['img'] ?>" alt="<?= strip_tags($localizedTitle) ?>"
                              class="absolute inset-0 w-full h-full object-cover transform scale-100 transition-transform duration-700 ease-out group-hover:scale-105"

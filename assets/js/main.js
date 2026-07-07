@@ -254,6 +254,7 @@ function initCategorySlider() {
     const nextBtn   = document.getElementById('categories-next-btn');
     const toggleBtn = document.getElementById('toggle-categories-grid-btn');
     const cards     = document.querySelectorAll('.category-slider-card');
+    const card_shades = document.querySelectorAll('.category-shade');
     if (!track) return;
 
     const SPEED   = 0.8;
@@ -328,18 +329,21 @@ function initCategorySlider() {
                 pause();
                 if (controls) { controls.style.visibility = 'hidden'; controls.style.opacity = '0'; }
                 track.classList.remove('flex', 'flex-row', 'flex-nowrap', 'overflow-x-auto');
-                track.classList.add('grid', 'grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-6', 'gap-1', 'w-full');
+                track.classList.add('grid', 'grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-5', 'gap-1', 'w-full');
                 track.style.display = 'grid';
-                cards.forEach(c => c.classList.add('w-full'));
+                cards.forEach(c => c.classList.add('!w-full'));
                 toggleBtn.textContent = textCollapse;
+                card_shades.forEach(shade => shade.classList.add('hidden'));
             } else {
                 resume();
                 if (controls) { controls.style.visibility = 'visible'; controls.style.opacity = '1'; }
                 track.classList.remove('grid', 'grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-6', 'gap-1', 'w-full');
                 track.classList.add('flex', 'flex-row', 'flex-nowrap', 'overflow-x-auto');
                 track.style.display = 'flex';
-                cards.forEach(c => c.classList.remove('w-full'));
+                cards.forEach(c => c.classList.remove('!w-full'));
+                cards.forEach(c => c.classList.add('w-[240px]'));
                 toggleBtn.textContent = textAll;
+                card_shades.forEach(shade => shade.classList.remove('hidden'));
                 lenis?.resize();
             }
         });
@@ -516,6 +520,147 @@ function initAppBot() {
         });
     }
 }
+
+document.addEventListener('alpine:init', () => {
+    Alpine.data('fouzForm', (config = {}) => ({
+ 
+        // ── Config (passed in per-form) ──────────────────────
+        actionUrl:        config.actionUrl        || '',
+        subject:          config.subject          || 'New Website Enquiry',
+        successTitle:     config.successTitle     || "You're all set.",
+        successDesc:      config.successDesc      || 'Thanks — we will be in touch shortly.',
+        failedTitle:      config.failedTitle      || 'Something went wrong.',
+        failedDesc:       config.failedDesc       || "We couldn't submit your form. Please try again.",
+        botDetectedTitle: config.botDetectedTitle || 'Submission blocked.',
+        botDetectedDesc:  config.botDetectedDesc  || 'Your submission was flagged as automated. Please try again.',
+        autoRevertMs:     config.autoRevertMs     ?? 5000,   // 0 = stay on success screen
+        fields:           config.fields           || {},
+        timeTrapSeconds:  config.timeTrapSeconds   ?? 3,
+ 
+        // ── State ─────────────────────────────────────────────
+        values:    {},
+        errors:    {},
+        state:     'form',       // 'form' | 'submitting' | 'success' | 'failed'
+        honeypot:  '',           // bound to the hidden trap field
+        loadedAt:  0,            // timestamp when form initialised
+ 
+        // ── Init ──────────────────────────────────────────────
+        init() {
+            // Seed values/errors from field config
+            Object.keys(this.fields).forEach(name => {
+                this.values[name] = '';
+                this.errors[name] = '';
+            });
+ 
+            // Time-trap: record when the form loaded
+            this.loadedAt = Date.now();
+        },
+ 
+        // ── Field validation ────────────────────────────────
+        validateField(name) {
+            const rules = this.fields[name];
+            if (!rules) return true;
+ 
+            const val = (this.values[name] || '').trim();
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
+            if (rules.required && val === '') {
+                this.errors[name] = rules.requiredMsg || 'This field is required.';
+                return false;
+            }
+            if (rules.email && val && !emailRe.test(val)) {
+                this.errors[name] = rules.emailMsg || 'Please enter a valid email address.';
+                return false;
+            }
+            this.errors[name] = '';
+            return true;
+        },
+ 
+        validateAll() {
+            let allValid = true;
+            Object.keys(this.fields).forEach(name => {
+                if (!this.validateField(name)) allValid = false;
+            });
+            return allValid;
+        },
+ 
+        // ── Anti-spam checks ────────────────────────────────
+        isBot() {
+            // Check 1: honeypot filled (bots auto-fill hidden fields)
+            if (this.honeypot && this.honeypot.trim() !== '') {
+                return true;
+            }
+ 
+            // Check 2: submitted too fast (< 3 seconds = not human)
+            const elapsed = (Date.now() - this.loadedAt) / 1000;
+            if (elapsed < this.timeTrapSeconds) {
+                return true;
+            }
+ 
+            return false;
+        },
+ 
+        // ── Submit ────────────────────────────────────────────
+        async submit() {
+            // Step 1: validate fields
+            if (!this.validateAll()) {
+                return;
+            }
+ 
+            // Step 2: anti-spam check
+            if (this.isBot()) {
+                this.state = 'failed';
+                this.failedTitle = this.botDetectedTitle;
+                this.failedDesc  = this.botDetectedDesc;
+                return;
+            }
+ 
+            // Step 3: submit to FormSubmit.co
+            this.state = 'submitting';
+ 
+            try {
+                const formData = new FormData();
+ 
+                // User fields
+                Object.entries(this.values).forEach(([key, val]) => {
+                    formData.append(key, val);
+                });
+ 
+                // FormSubmit.co config fields
+                formData.append('_subject', this.subject);
+                formData.append('_template', 'table');
+                formData.append('_captcha', 'false');
+ 
+                const res = await fetch(this.actionUrl, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' },
+                });
+ 
+                if (res.ok) {
+                    this.state = 'success';
+                    Object.keys(this.values).forEach(k => this.values[k] = '');
+ 
+                    if (this.autoRevertMs > 0) {
+                        setTimeout(() => { this.state = 'form'; }, this.autoRevertMs);
+                    }
+                } else {
+                    this.state = 'failed';
+                }
+            } catch (e) {
+                this.state = 'failed';
+            }
+        },
+ 
+        // ── Retry from failed state ───────────────────────────
+        retry() {
+            this.state = 'form';
+            this.loadedAt = Date.now(); // reset time-trap on retry
+        },
+    }));
+});
+
+
 
 
 // ─────────────────────────────────────────────────────────────

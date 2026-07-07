@@ -78,7 +78,7 @@
                                 <polyline points="22,6 12,13 2,6"/>
                             </svg>
                         </a>
-                        <a href="tel:+96500000000" aria-label="Call Office" class="opacity-60 hover:opacity-100 transition-opacity">
+                        <a href="tel:+96593333555" aria-label="Call Office" class="opacity-60 hover:opacity-100 transition-opacity">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                             </svg>
@@ -117,7 +117,7 @@
     <div class="max-w-[1100px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
         <?php foreach ($footer_expos_blueprint as $expo): ?>
             <a href="<?= htmlspecialchars($expo['url']) ?>"
-               target="_blank"
+            <?= str_contains($expo['url'], $base_path) ? 'target="_self"' : 'target="_blank"' ?>
                rel="noopener noreferrer"
                class="md:aspect-[21/9] flex items-center justify-center md:p-3 sm:p-4 border border-black/5 rounded-xl shadow-sm bg-white hover:shadow-md hover:border-black/20 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
                 <img src="<?= $expo['image'] ?>" alt="<?= strip_tags(__('footer_expos_headline')) ?>" class="max-h-full max-w-full w-auto h-auto object-contain">

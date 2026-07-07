@@ -77,7 +77,7 @@ $categories_blueprint = [
 
     ['key' => 'doors_windows_indoor',
      'category' => 'DOORS & WINDOWS | INDOOR',
-     'img' => 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1200&q=80'],
+     'img' => 'https://images.unsplash.com/photo-1537301636683-5ac98e0466a2?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
 
     ['key' => 'electrical_sockets',
      'category' => 'ELECTRICAL SOCKETS',
@@ -109,7 +109,7 @@ $categories_blueprint = [
 
     ['key' => 'home_fragrances',
      'category' => 'HOME FRAGRANCES',
-     'img' => 'https://images.unsplash.com/photo-1602178509398-6dd7d8e3f7c4?auto=format&fit=crop&w=1200&q=80'],
+     'img' => 'https://images.unsplash.com/photo-1636714528228-f469eefb3eef?q=80&w=723&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
 
     ['key' => 'home_gifting',
      'category' => 'HOME GIFTING',
@@ -161,7 +161,7 @@ $categories_blueprint = [
 
     ['key' => 'landscape_design',
      'category' => 'LANDSCAPE DESIGN',
-     'img' => 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1200&q=80'],
+     'img' => 'https://plus.unsplash.com/premium_photo-1687960116909-096420a63d5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
 
     ['key' => 'landscaping',
      'category' => 'LANDSCAPING',
@@ -169,7 +169,7 @@ $categories_blueprint = [
 
     ['key' => 'light_fittings',
      'category' => 'LIGHT FITTINGS',
-     'img' => 'https://images.unsplash.com/photo-1507473885765-e6ed057ab3f9?auto=format&fit=crop&w=1200&q=80'],
+     'img' => 'https://plus.unsplash.com/premium_photo-1670914333012-f4093b108aa1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
 
     ['key' => 'mattress',
      'category' => 'MATTRESS',
@@ -229,7 +229,7 @@ $categories_blueprint = [
 
     ['key' => 'textiles',
      'category' => 'TEXTILES',
-     'img' => 'https://images.unsplash.com/photo-1558171813-01eda5e3f1ce?auto=format&fit=crop&w=1200&q=80'],
+     'img' => 'https://images.unsplash.com/photo-1669125207581-789b24db33b8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
 
     ['key' => 'tiles',
      'category' => 'TILES',

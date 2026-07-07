@@ -40,8 +40,8 @@ $app_connect_data = [
     'chat_image'  => '/mirzaam/assets/images/Home/app_chat.jpeg',
     'app_store'   => '/mirzaam/assets/images/Home/app-store.png',
     'google_play' => '/mirzaam/assets/images/Home/google-play.png',
-    'apple_link'  => '#',
-    'google_link' => '#'
+    'apple_link'  => 'https://apps.apple.com/kw/app/mirzaam/id6677052834',
+    'google_link' => 'https://play.google.com/store/apps/details?id=com.mirazaamexpo.kuwait&referrer=utm_source%3Dapkpure.com'
 ];
 
 $insights_data = [

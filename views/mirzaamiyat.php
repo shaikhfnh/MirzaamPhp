@@ -5,7 +5,6 @@
  * @var array $site_blueprint
  */
 require __DIR__ . '/../app/data/mirzaamiyat-categories-data.php';
-$mz_categories = $site_blueprint['mirzaamiyat']['categories'];
 $mz_sponsors   = $site_blueprint['mirzaamiyat']['sponsors'];
 $mz_gallery    = $site_blueprint['mirzaamiyat']['gallery'];
 $mz_hero_image = $site_blueprint['mirzaamiyat']['hero_image'];
@@ -65,7 +64,7 @@ $isRtl = ($lang === 'ar');
                 style="text-shadow: 0 4px 28px rgba(0,0,0,0.4);"
                 data-reveal data-delay="100">
              
-                                        <img src="/mirzaam/assets/images/logo/mirzaamiyaat.png" class="w-[260px] h-full grid self-center">
+             <img src="/mirzaam/assets/images/logo/mirzaamiyat.png" alt="<?= strip_tags(__('mz_hero_title')) ?>" class="w-[260px] h-full grid self-center">
 
             </h1>
 
@@ -78,18 +77,10 @@ $isRtl = ($lang === 'ar');
             <!-- Two CTAs — gold primary + navy secondary -->
             <div class="flex flex-wrap items-center justify-center gap-3 wv-reveal" data-reveal data-delay="260">
 
-                <!-- Gold — Book Your Booth (primary action) -->
-                <a href="https://mirzaam.com/mirzaamiyat/2026/registration/plan.php"
-                   class="inline-flex items-center justify-center gap-2.5
-                          bg-[#C9A267] hover:bg-[#d9b67c]
-                          text-[#1E2F4D] font-semibold text-sm
-                          px-7 py-3.5 rounded-full
-                          transition-colors duration-300">
-                    <?= __('mz_hero_cta_booth') ?: 'Book Your Booth' ?>
-                </a>
+         
 
                 <!-- Navy — Exhibitor List (secondary action) -->
-                <a href="https://mirzaam.com/mirzaamiyat/2026/participants2026.php"
+                <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/exhibitors/2026' : $base_path . '/mirzaamiyat/exhibitors/2026' ?>"
                    class="inline-flex items-center justify-center gap-2.5
                           bg-[var(--primary)] hover:bg-[#2A3654]
                           border border-white/15 hover:border-white/30
@@ -202,8 +193,11 @@ $categories_blueprint = $mirzaamiyat_categories_blueprint;
 $cat_slider_title    = __('mz_cat_title');
 $cat_slider_subtitle = __('mz_cat_subtitle');
 $cat_slider_theme    = 'dark';
- 
+$cat_slider_link_builder = function ($base, $year, $categoryName) {
+    return get_url('mirzaamiyat/exhibitors') . '?category=' . urlencode($categoryName);
+}; 
 include 'includes/category-slider/template.php';
+unset($cat_slider_link_builder);
 ?>
 
 
@@ -306,7 +300,7 @@ $mz_tier_styles = [
 
         <!-- ── VIEW ALL PARTICIPANTS — square, not pill ──────── -->
         <div class="flex justify-center mt-12 md:mt-14 wv-reveal" data-reveal data-delay="500">
-            <a href="https://mirzaam.com/mirzaamiyat/2026/participants2026.php"
+            <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/exhibitors/2026' : $base_path . '/mirzaamiyat/exhibitors/2026' ?>"
                class="inline-flex items-center justify-center gap-3
                       bg-white/[0.04] hover:bg-white/10
                       border border-white/20 hover:border-[#C9A267]/50

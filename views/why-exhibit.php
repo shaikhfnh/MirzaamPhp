@@ -14,6 +14,8 @@
 $we     = $why_exhibit ?? [];
 $lang   = $lang ?? 'en';
 $isRtl  = ($lang === 'ar');
+$main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
+
 ?>
 
 <div class="mt-20 bg-white text-zinc-900 antialiased overflow-hidden"
@@ -291,13 +293,44 @@ $isRtl  = ($lang === 'ar');
             <p class="text-base text-white/55 font-light max-w-2xl mx-auto mb-9 leading-relaxed">
                 <?= __('whyexhibit_cta_desc') ?: 'Secure your booth at Mirzaam Expo and connect with thousands of buyers, designers, and industry leaders.' ?>
             </p>
-            <a href="<?= __('whyexhibit_cta_link') ?: '/contact' ?>"
-               class="group inline-flex items-center gap-3 bg-yellow-500 text-black px-7 py-3.5 rounded-full text-xs tracking-[0.2em] uppercase font-bold hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
-                <?= __('whyexhibit_cta_button') ?: 'Book Your Booth' ?>
-                <svg class="w-4 h-4 <?= $isRtl ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1' ?> transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-            </a>
+
+<?php if (!empty($main_booth_url)): ?>
+
+    <!-- ENABLED -->
+    <a href="<?= htmlspecialchars($main_booth_url) ?>"
+       target="_blank" rel="noopener noreferrer"
+       class="group inline-flex items-center gap-3 bg-yellow-500 text-black px-7 py-3.5 rounded-full text-xs tracking-[0.2em] uppercase font-bold hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
+        <?= __('book_booth') ?>
+        <svg class="w-4 h-4 <?= $isRtl ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1' ?> transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+    </a>
+
+<?php else: ?>
+
+    <!-- DISABLED — actually muted this time: dark translucent
+         fill instead of solid yellow, yellow-tinted BORDER
+         instead of yellow FILL so it reads as "the yellow
+         button, just inactive" rather than looking identical
+         to the working one. -->
+    <button type="button"
+            disabled
+            aria-disabled="true"
+            title="<?= htmlspecialchars(__('booth_coming_soon') ?: 'Registration opening soon') ?>"
+            class="inline-flex items-center gap-3
+                   bg-yellow-500/10
+                   text-yellow-500/60
+                   px-7 py-3.5 rounded-full
+                   text-xs tracking-[0.2em] uppercase font-bold
+                   border border-yellow-500/25
+                   cursor-not-allowed select-none">
+        <?= __('book_booth') ?>
+        <span class="text-[8px] font-mono uppercase tracking-wider bg-black/40 text-yellow-500/80 px-2 py-0.5 rounded-full leading-none">
+            <?= __('booth_soon_tag') ?: 'Soon' ?>
+        </span>
+    </button>
+
+<?php endif; ?>
 
             <div class="mt-14 pt-10 border-t border-white/10 grid grid-cols-3 gap-6 max-w-lg mx-auto">
                 <div>

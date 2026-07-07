@@ -1,7 +1,8 @@
 <?php
 /**
  * Mirzaamiyat Exhibitors
- * Route: /mirzaamiyaat/exhibitors
+ * Route: /mirzaamiyat/exhibitors
+ * @var string $lang
  *
  * Sets $expo_config — the single source of truth for this page.
  * The shared template + Alpine controller read everything from here.
@@ -14,18 +15,22 @@ $expo_config = [
     'eyebrow'    => $lang === 'ar' ? 'مرزاميات رمضان ٢٠٢٦' : 'Mirzaamiyat Ramadan 2026',
     'title'      => $lang === 'ar' ? 'قائمة العارضين'        : 'Exhibitors',
     'subtitle'   => $lang === 'ar'
-        ? 'اكتشف جميع العلامات التجارية والمشاركين في معرض مرزاميات رمضان ٢٠٢٦'
-        : 'Discover all brands and participants at Mirzaamiyat Ramadan 2026',
-
+    ? 'اكتشف جميع العلامات التجارية والمشاركين في معرض مرزاميات رمضان ٢٠٢٦'
+    : 'Discover all brands and participants at Mirzaamiyat Ramadan 2026',
+    
     // ── API ───────────────────────────────────────────────────
     // Must match a key in $EXPO_REGISTRY inside get_exhibitors.php.
     // Format: "{expo_name}-{year}"
     'expo'       => 'mirzaamiyat',
-    'year'       => '2026',
+    'year'       => $year,
 ];
 ?>
+ 
+
 
 <?php
+
+
 // Build the API fetch URL (PHP side, no sheet IDs in JS)
 $_api_base = isset($base_path) ? $base_path : '';
 $_api_url  = $_api_base . '/api/exhibitors/' . $expo_config['year'] . '?expo=' . $expo_config['expo'];
@@ -43,7 +48,10 @@ $_is_rtl   = ($lang === 'ar');
 <script>
 function exhibitorController(apiUrl, lang) {
     return {
-        // ── State ─────────────────────────────────────────────
+        // ── State ─────────────────────────────────────────────       
+        exhibitors: [],
+        loading:    true,   // NEW — true while fetch is in progress
+        apiError:   false,  // NEW — true if the API returned an error (bad year/expo)
         exhibitors:    [],
         search:        '',
         categories:    [],
@@ -62,23 +70,44 @@ function exhibitorController(apiUrl, lang) {
         ],
 
         // ── Init ──────────────────────────────────────────────
-        async init() {
-            Alpine.store('catIcons', {
-                svg(key) {
-                    if (window.catIconSvg) return window.catIconSvg(key);
-                    return '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.6 13.4L13 21l-9-9 7.6-7.6a2 2 0 011.4-.6H19a2 2 0 012 2v6.2a2 2 0 01-.4 1.4z"/><circle cx="14.5" cy="9.5" r="1.2" fill="currentColor" stroke="none"/></svg>';
-                }
-            });
-
-            try {
-                const res  = await fetch(apiUrl);
-                const data = await res.json();
-                this.exhibitors = Array.isArray(data) ? data : [];
-            } catch (e) {
-                console.error('Exhibitor fetch failed:', e);
-                this.exhibitors = [];
-            }
-        },
+async init() {
+    // FIX A — pre-fill the category filter from the URL, if
+    // present. This is what makes category-slider links like
+    // /mirzaamiyat/exhibitors?category=LOUNGEWEAR actually
+    // filter the page on load, instead of showing everything
+    // until the user manually clicks a category.
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get('category');
+    if (categoryFromUrl) {
+        this.categories = [categoryFromUrl];
+    }
+ 
+    Alpine.store('catIcons', {
+        svg(key) {
+            if (window.catIconSvg) return window.catIconSvg(key);
+            return '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.6 13.4L13 21l-9-9 7.6-7.6a2 2 0 011.4-.6H19a2 2 0 012 2v6.2a2 2 0 01-.4 1.4z"/><circle cx="14.5" cy="9.5" r="1.2" fill="currentColor" stroke="none"/></svg>';
+        }
+    });
+ 
+    // FIX B — proper loading/error state (no infinite spinner)
+    try {
+        const res  = await fetch(apiUrl);
+        const data = await res.json();
+ 
+        if (Array.isArray(data)) {
+            this.exhibitors = data;
+        } else {
+            this.exhibitors = [];
+            this.apiError = true;
+        }
+    } catch (e) {
+        console.error('Exhibitor fetch failed:', e);
+        this.exhibitors = [];
+        this.apiError = true;
+    } finally {
+        this.loading = false;
+    }
+},
 
         // ── Computed ──────────────────────────────────────────
         get filteredData() {
@@ -129,7 +158,7 @@ function exhibitorController(apiUrl, lang) {
 
         get categoryFacets() {
             const counts = {};
-            this.filteredData.forEach(e => {
+            this.exhibitors.forEach(e => {   // ← changed from filteredData
                 e.category.split(',').forEach(c => {
                     const name = c.trim();
                     if (name) counts[name] = (counts[name] || 0) + 1;

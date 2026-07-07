@@ -36,6 +36,8 @@ return [
     'alt_apple'    => 'حمل التطبيق من متجر آبل',
     'alt_google'   => 'احصل عليه من جوجل بلاي',
     'app_bot_bubble' => 'جرّب التطبيق ←',
+    'bb_cta_apple_alt'  => 'حمّل التطبيق من آب ستور',
+    'bb_cta_google_alt' => 'احصل عليه من جوجل بلاي',
 
 
 // Insights Section
@@ -85,16 +87,27 @@ return [
     'cat_finances_systems'   => 'التمويل والأنظمة',
     'cat_food_beverage'      => 'المأكولات والمشروبات',
     'cat_home_accessories'   => 'الإكسسوارات المنزلية',
-    'cat_home_automation'    => 'أنظمة الأتمتة المنزلية',
-    'cat_mz_accessories' => 'الإكسسوارات المنزلية',
-    'cat_mz_gifting'      => 'هدايا رمضان',
-    'cat_mz_mothersday'   => 'هدايا عيد الأم',
-    'cat_mz_carpets'      => 'السجاد',
-    'cat_mz_outdoor'      => 'ديكور الحدائق والمساحات الخارجية',
-    'cat_mz_fragrance'    => 'المبخر والبخور والعطور المنزلية',
-    'cat_mz_tableware'    => 'أدوات المائدة',
-    'cat_mz_serveware'    => 'أدوات التقديم',
-    'cat_mz_rentals'      => 'تأجير الأثاث وأدوات المائدة',
+
+    //Mirzaamiyat Categories
+    'cat_mz_home_accessories' => 'الإكسسوارات المنزلية',
+    'cat_mz_perfumes'         => 'العطور وروائح المنزل',
+    'cat_mz_gifting'          => 'الهدايا والتوزيعات',
+    'cat_mz_desserts'         => 'محلات الحلويات والشوكولاتة',
+    'cat_mz_loungewear'       => 'ملابس الاسترخاء',
+    'cat_mz_services'         => 'الخدمات',
+    'cat_mz_event_services'   => 'خدمات الفعاليات',
+    'cat_mz_fnb'              => 'الأطعمة والمشروبات',
+    'cat_mz_tableware'        => 'أدوات المائدة والتقديم',
+    'cat_mz_ramadan_food'     => 'أطعمة رمضان الفاخرة',
+    'cat_mz_personal_care'    => 'العناية الشخصية',
+    'cat_mz_mubkhar'          => 'مستلزمات المبخر والبخور',
+    'cat_mz_kitchen'          => 'أجهزة وأدوات المطبخ',
+    'cat_mz_jewelry'          => 'المجوهرات',
+    'cat_mz_financial'        => 'الخدمات المالية',
+    'cat_mz_catering'         => 'محطات وتجهيزات الضيافة',
+    'cat_mz_furniture'        => 'الأثاث',
+    'cat_mz_wall_decor'       => 'ديكور الجدران',
+    'cat_mz_uniforms'         => 'الزي الموحد',
 
 
 // Previous Expo Section
@@ -106,6 +119,8 @@ return [
     'year_m2023' => '٢٠٢٣',
     'year_m2024' => '٢٠٢٤',
     'year_m2025' => '٢٠٢٥',
+    'exhibitors_no_data_title' => 'البيانات غير متوفرة',
+    'exhibitors_no_data_desc'  => 'لا تتوفر بيانات العارضين لهذه النسخة بعد. يُرجى المحاولة مرة أخرى قبيل موعد الفعالية.',
 
     
 

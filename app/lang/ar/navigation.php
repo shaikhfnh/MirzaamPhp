@@ -4,6 +4,10 @@ return [
     'header_time'     => '١٠:٠٠ - ٢٢:٠٠',
     'header_location' => 'القاعة ٥-٦',
 
+    'header_date_mirzaamiyat'     => 'سيتم الإعلان عن التاريخ لاحقاً',
+    'header_time_mirzaamiyat'     => '',    
+    'header_location_location' => '',
+
     'menu_visit'      => 'الزيارة',
     'visit_why'       => 'لماذا تزورنا؟',
     'visit_plan'      => 'خطط لرحلتك',
@@ -32,5 +36,7 @@ return [
     'ov_about'        => 'من نحن',
     'ov_contact'      => 'اتصل بنا',
     
-    'book_booth'      => 'احجز جناحك 2026'
+    'book_booth'      => 'احجز جناحك 2026',
+    'booth_coming_soon' => 'التسجيل يفتح قريباً',
+    'booth_soon_tag'    => 'قريباً',
 ];

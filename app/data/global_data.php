@@ -7,6 +7,7 @@
  */
 $isRtl = ($lang === 'ar');
 
+
 $site_blueprint = [
     // ... your existing home arrays ...
 
@@ -47,6 +48,7 @@ $site_blueprint = [
     
 ];
 
+$site_blueprint['booth_registration_url'] = '';
 
 $site_blueprint['why_visit'] = [
 
@@ -130,7 +132,7 @@ $site_blueprint['why_visit'] = [
         'title_key'   => 'whyvisit_cta_title',
         'desc_key'    => 'whyvisit_cta_desc',
         'button_key'  => 'whyvisit_cta_button',
-        'button_url'  => 'participants/2026',
+        'button_planyourtrip_url'  => 'plan-your-trip',
     ],
 ];
 
@@ -293,57 +295,17 @@ $best_booth = [
     // Ryan Hoffman, Christina @ wocintechchat.com, Troy Spoelma,
     // Clay Elliot, Michael Dam). Stand-in portraits — swap for
     // real judge photos whenever you have them.
-    'jury' => [
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge1_name',
-            'role_key' => 'bb_judge1_role',
-            'bio_key'  => 'bb_judge1_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1652471943570-f3590a4e52ed?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge2_name',
-            'role_key' => 'bb_judge2_role',
-            'bio_key'  => 'bb_judge2_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge3_name',
-            'role_key' => 'bb_judge3_role',
-            'bio_key'  => 'bb_judge3_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge4_name',
-            'role_key' => 'bb_judge4_role',
-            'bio_key'  => 'bb_judge4_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1595211877493-41a4e5f236b3?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge5_name',
-            'role_key' => 'bb_judge5_role',
-            'bio_key'  => 'bb_judge5_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge6_name',
-            'role_key' => 'bb_judge6_role',
-            'bio_key'  => 'bb_judge6_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge7_name',
-            'role_key' => 'bb_judge7_role',
-            'bio_key'  => 'bb_judge7_bio',
-        ],
-        [
-            'photo'    => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80',
-            'name_key' => 'bb_judge8_name',
-            'role_key' => 'bb_judge8_role',
-            'bio_key'  => 'bb_judge8_bio',
-        ],
-    ],
-
+// ── JURY PANEL — 8 real slide graphics from mirzaam.com/jury/ ──
+'jury_slides' => [
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-01.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-02.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-03.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-04.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-05.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-06.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-07.jpg',
+    'https://mirzaam.com/wp-content/uploads/2025/12/jury-english-08.jpg',
+],
     // ── HOW VISITORS VOTE — 2 steps ────────────────────────────
     'voting_steps' => [
         ['title_key' => 'bb_step1_title', 'desc_key' => 'bb_step1_desc'],
@@ -351,46 +313,43 @@ $best_booth = [
     ],
 
     // ── NOMINEES — 3 category winners ──────────────────────────
-    // Photos are generic premium interior/booth photography
-    // (already-vetted free Unsplash images reused from
-    // categories_data.php) standing in for the real nominee
-    // booth photography — swap in actual booth photos when
-    // available. Logos are rendered as styled text tiles in the
-    // template rather than image files, since "Design Details",
-    // "ProPainters", and "AlRefaei International" are placeholder
-    // names with no real logo artwork to source.
-    'nominees' => [
-        [
-            'category_key' => 'bb_nominee1_category',
-            'company_key'  => 'bb_nominee1_company',
-            'logo_text'    => 'DESIGN DETAILS',
-            'images' => [
-                'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=900&q=80',
-            ],
-        ],
-        [
-            'category_key' => 'bb_nominee2_category',
-            'company_key'  => 'bb_nominee2_company',
-            'logo_text'    => 'PROPAINTERS',
-            'images' => [
-                'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80',
-            ],
-        ],
-        [
-            'category_key' => 'bb_nominee3_category',
-            'company_key'  => 'bb_nominee3_company',
-            'logo_text'    => 'ALREFAEI INTL.',
-            'images' => [
-                'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?auto=format&fit=crop&w=900&q=80',
-                'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
-            ],
+
+
+'nominees' => [
+    [
+        'category_key' => 'bb_nominee1_category', // Best in Aesthetic
+        'company_key'  => 'bb_nominee1_company',
+        'logo'         => 'https://mirzaam.com/wp-content/uploads/2025/12/design-details-logo-2969.jpg',
+        'website'      => '', // no confirmed match found
+        'images' => [
+            'https://mirzaam.com/wp-content/uploads/2025/12/dsc03771-copy.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/dsc03774-copy.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/dsc03776-copy.jpg',
         ],
     ],
+    [
+        'category_key' => 'bb_nominee2_category', // Best in Innovation
+        'company_key'  => 'bb_nominee2_company',
+        'logo'         => 'https://mirzaam.com/wp-content/uploads/2024/12/propainters.jpg', // was wrongly in images[]
+        'website'      => 'https://propainterskw.com', // confirmed real
+        'images' => [
+            'https://mirzaam.com/wp-content/uploads/2025/12/pp1.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/pp2.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/pp.jpg',
+        ],
+    ],
+    [
+        'category_key' => 'bb_nominee3_category', // Best in Sustainability
+        'company_key'  => 'bb_nominee3_company',
+        'logo'         => 'https://mirzaam.com/wp-content/uploads/2025/12/alrefaei-1.jpg', // was wrongly in images[]
+        'website'      => '', // no confirmed match found
+        'images' => [
+            'https://mirzaam.com/wp-content/uploads/2025/12/r2.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/r1.jpg',
+            'https://mirzaam.com/wp-content/uploads/2025/12/r.jpg',
+        ],
+    ],
+],
 
 
 
@@ -411,7 +370,7 @@ $site_blueprint['about']['exhibitions'] = [
         'image'         => 'https://mirzaam.com/wp-content/uploads/2026/03/dsc04495-copy.jpg',
         'accent_color'  => '#F4B223',
         'tag_class'     => 'bg-yellow-500 text-black',
-        'link'          => ($lang === 'ar') ? 'https://mirzaam.com/ar/' : 'https://mirzaam.com/',
+        'link'          => $lang === 'ar' ? $base_path . '/ar' : $base_path,
         'no_photo'      => false,
     ],
     // Real sister exhibitions run by the same organizer, Fouz
@@ -421,7 +380,7 @@ $site_blueprint['about']['exhibitions'] = [
         'image'         => 'https://mirzaam.com/wp-content/uploads/2024/10/mirzaamiaten-min-1024x1024-1.webp',
         'accent_color'  => '#F4B223',
         'tag_class'     => 'bg-yellow-500 text-black',
-        'link'          => ($lang === 'ar') ? 'https://mirzaam.com/ar/about-mirzaamiyat/' : 'https://mirzaam.com/about-mirzaamiyat/',
+        'link'          => $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/about' : $base_path . '/mirzaamiyat/about',
         'no_photo'      => false,
     ],
     [
@@ -481,12 +440,13 @@ $site_blueprint['about']['vis_milestones'] = [
 $site_blueprint['mirzaamiyat'] = [
 
     'hero_image' => 'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
-
+    
+    'booth_registration_url' => '', 
     // ── CATEGORIES — unchanged, keep your existing array as-is ──
     'categories' => [
         [ 'key' => 'accessories', 'image' => 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=900&q=80' ],
         [ 'key' => 'gifting',     'image' => 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80' ],
-        [ 'key' => 'mothersday',  'image' => 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=900&q=80' ],
+        [ 'key' => 'mothersday',  'image' => 'https://images.unsplash.com/photo-1542385151-efd9000785a0?q=80&w=689&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=900&q=80' ],
         [ 'key' => 'carpets',     'image' => 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=900&q=80' ],
         [ 'key' => 'outdoor',     'image' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80' ],
         [ 'key' => 'fragrance',   'image' => 'https://images.unsplash.com/photo-1602910344008-22f323cc1817?auto=format&fit=crop&w=900&q=80' ],
@@ -550,7 +510,6 @@ $site_blueprint['mirzaamiyat'] = [
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc06109-copy.jpg',
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc06496-copy.jpg',
-        'https://mirzaam.com/wp-content/uploads/2026/03/dsc07269.jpg',
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc07246-copy.jpg',
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc07255-copy.jpg',
         'https://mirzaam.com/wp-content/uploads/2026/03/dsc07202-copy.jpg',

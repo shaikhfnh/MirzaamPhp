@@ -4,6 +4,10 @@ return [
     'header_time'     => '10:00 - 22:00',
     'header_location' => 'DAILY KIF HALL 5-6',
 
+    'header_date_mirzaamiyat'     => 'Date to be announced',
+    'header_time_mirzaamiyat'     => '',
+    'header_location_location' => '',
+
     'menu_visit'      => 'VISIT',
     'visit_why'       => 'Why Visit?',
     'visit_plan'      => 'Plan Your Trip',
@@ -23,7 +27,7 @@ return [
     'prev_2022'       => 'Previous Mirzaam 2022',
     'prev_2020'       => 'Previous Mirzaam 2020',
     
-    'menu_mirz2026'   => 'MIRZAAMIYAAT 2026',
+    'menu_mirz2026'   => 'MIRZAAMIYAT 2026',
     'mirz_about'      => 'About Mirzaamiyat',
     'mirz_plan'       => 'Plan 2026',
     'mirz_exhibitors' => 'Exhibitors List 2026',
@@ -32,5 +36,7 @@ return [
     'ov_about'        => 'About Us',
     'ov_contact'      => 'Contact Us',
     
-    'book_booth'      => 'Book Your Booth 2026'
+    'book_booth'      => 'Book Your Booth 2026',
+    'booth_coming_soon' => 'Registration opening soon',
+    'booth_soon_tag'    => 'Soon',
 ];

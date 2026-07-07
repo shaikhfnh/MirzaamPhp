@@ -153,7 +153,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         <?= _t('categories', 'Categories') ?>
                     </h3>
                     <span x-show="categories.length > 0" @click="clearCategories()"
-                          class="text-[10px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer normal-case tracking-normal">
+                          class="text-[10px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer normal-case tracking-normal !dir-ltr">
                         <?= _t('reset', 'Reset') ?>
                     </span>
                 </div>
@@ -291,8 +291,10 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 </button>
             </div>
 
-            <!-- LOADING -->
-            <template x-if="exhibitors.length === 0">
+            <!-- LOADING — spinner shows ONLY while the fetch is genuinely
+                in progress, never gets stuck since `loading` always
+                flips to false when the request finishes (success or not) -->
+            <template x-if="loading">
                 <div>
                     <div class="flex items-center justify-center gap-3 mb-6 text-zinc-500">
                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -311,6 +313,24 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                     </div>
                 </div>
             </template>
+ 
+<!-- NO DATA FOR THIS YEAR — shown once loading finishes and
+     the API came back with an error (year/expo combo doesn't
+     exist in the registry). Fully bilingual via _t(), which
+     reads from your lang/en and lang/ar files. -->
+<template x-if="!loading && apiError">
+    <div class="text-center py-24">
+        <svg class="w-16 h-16 text-zinc-200 mx-auto mb-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-zinc-700 text-lg font-semibold mb-2">
+            <?= _t('exhibitors_no_data_title', 'Data not available') ?>
+        </p>
+        <p class="text-zinc-400 text-sm max-w-sm mx-auto">
+            <?= _t('exhibitors_no_data_desc', "We don't have exhibitor data for this edition yet. Please check back closer to the event.") ?>
+        </p>
+    </div>
+</template>
 
             <!-- RESULTS COUNT -->
             <div x-show="exhibitors.length > 0" class="mb-5 flex items-center justify-between">

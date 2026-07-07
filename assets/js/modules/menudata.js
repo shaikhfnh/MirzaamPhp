@@ -31,7 +31,7 @@ export const MENU = [
         ]
     },
     {
-        title: "MIRZAAMIYAAT 2026",
+        title: "MIRZAAMIYAT 2026",
         items: [
             { label: "About Mirzaamiyat", link: "#" },
             { label: "Plan 2026", link: "#" },

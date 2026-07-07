@@ -10,8 +10,10 @@
  * @var array $moments_data 
  * @var array $home_categories_blueprint 
  * @var array $mirzaam_years_blueprint 
+ * @var array $_form_config 
  */
 ?>
+
 <?php if (isset($hero_media) && is_array($hero_media)): ?>
 
 <section id="hero" class="relative w-full h-screen overflow-hidden flex flex-col">
@@ -589,7 +591,7 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
 
         <!-- View All -->
         <div class="w-full flex justify-center mt-10 wv-reveal" data-reveal data-delay="<?= count($platinum_items) * 70 ?>">
-            <a href="<?= isset($base_path) ? $base_path : '' ?>/participants/2025"
+            <a href="<?= isset($base_path) ? $base_path : '' ?><?=  $lang === 'ar' ? '/ar/participants/2025' : '/participants/2025' ?> "
                class="inline-flex items-center justify-center gap-3
                       px-10 py-4 border border-white text-white
                       font-medium tracking-wide rounded-full
@@ -957,165 +959,120 @@ include 'includes/category-slider/template.php';
 <section class="w-full bg-black py-16 md:py-32 overflow-hidden border-t border-white/10 relative"
          dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
 
-    <!-- Watermark — opacity refined slightly, hidden on small mobile to avoid overflow -->
     <div class="absolute inset-0 hidden sm:flex items-center justify-center pointer-events-none select-none">
         <h2 class="text-[25vw] md:text-[22vw] font-black uppercase tracking-tighter
-                   text-white/[0.1] leading-none whitespace-nowrap">
+                   text-white/[0.06] leading-none whitespace-nowrap">
             MIRZAAM
         </h2>
     </div>
 
     <div class="px-6 md:px-20 relative z-10 max-w-[1600px] mx-auto">
 
-        <!-- Alpine.js controller — all state lives here -->
-        <div x-data="newsletterForm()"
-             class="flex flex-col lg:flex-row justify-between items-start lg:items-end
-                    gap-12 lg:gap-16">
+        <div x-data="fouzForm({
+                actionUrl:    '<?= $_form_config['action_url'] ?>',
+                subject:      'New Mirzaam Newsletter Subscription',
+                successTitle: '<?= addslashes(__('newsletter_success_title')) ?>',
+                successDesc:  '<?= addslashes(__('newsletter_success_desc')) ?>',
+                failedTitle:  '<?= addslashes(__('newsletter_failed_title')) ?>',
+                failedDesc:   '<?= addslashes(__('newsletter_failed_desc')) ?>',
+                botDetectedTitle: '<?= addslashes(__('newsletter_failed_title')) ?>',
+                botDetectedDesc:  '<?= addslashes(__('newsletter_failed_desc')) ?>',
+                autoRevertMs: 5000,
+                timeTrapSeconds: <?= $_form_config['time_trap_seconds'] ?>,
+                fields: { email: { required: true, email: true } }
+             })"
+             class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 lg:gap-16">
 
-            <!-- ═══ LEFT — TEXT ═══════════════════════════════ -->
             <div class="max-w-xl">
-                <h3 class="text-white text-3xl md:text-5xl font-bold uppercase tracking-tight
-                           wv-reveal" data-reveal>
+                <h3 class="text-white text-3xl md:text-5xl font-bold uppercase tracking-tight wv-reveal" data-reveal>
                     <?= __('newsletter_title') ?>
                 </h3>
-                <p class="text-white/70 text-base md:text-lg mt-4 font-light leading-relaxed
-                          wv-reveal" data-reveal data-delay="100">
+                <p class="text-white/70 text-base md:text-lg mt-4 font-light leading-relaxed wv-reveal" data-reveal data-delay="100">
                     <?= __('newsletter_desc') ?>
                 </p>
             </div>
 
-            <!-- ═══ RIGHT — FORM ══════════════════════════════ -->
             <div class="w-full lg:w-96 wv-reveal" data-reveal data-delay="200">
 
-                <!-- FORM STATE — Alpine x-show -->
                 <form x-show="state === 'form' || state === 'submitting'"
                       x-cloak
                       @submit.prevent="submit"
-                      action="https://formsubmit.co/developer@fnh.group"
-                      method="POST"
                       class="flex flex-col gap-4">
 
-                    <!-- FormSubmit.co config -->
-                    <input type="hidden" name="_subject" value="New Mirzaam Newsletter Subscription">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_captcha" value="false">
+                    <!-- HONEYPOT — invisible to real users, bots fill
+                         it automatically. If filled → submission
+                         rejected before it ever reaches FormSubmit.co.
+                         DO NOT use display:none — some bots skip those.
+                         Instead: visually hidden but still in the DOM. -->
+                    <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                        <input type="text" name="_company_fax" x-model="honeypot"
+                               tabindex="-1" autocomplete="off">
+                    </div>
 
-                    <!-- Email input with growing yellow underline -->
                     <div class="relative">
                         <input type="email"
                                name="email"
-                               x-model="email"
-                               @input="error = ''"
-                               :class="error ? 'border-red-400' : 'border-white/40'"
+                               x-model="values.email"
+                               @input="errors.email = ''"
+                               :class="errors.email ? 'border-red-400' : 'border-white/40'"
                                :disabled="state === 'submitting'"
                                placeholder="<?= __('newsletter_placeholder') ?>"
-                               class="newsletter-input
-                                      w-full bg-transparent border-b py-4
+                               class="newsletter-input w-full bg-transparent border-b py-4
                                       text-white placeholder-white/50 outline-none
-                                      transition-colors duration-300
-                                      tracking-[0.2em] text-sm uppercase
+                                      transition-colors duration-300 tracking-[0.2em] text-sm uppercase
                                       disabled:opacity-50"
                                required>
-                        <!-- Yellow underline grows from 0 → 100% on focus -->
-                        <span class="newsletter-underline absolute bottom-0
-                                     <?= $_rtl ? 'right-0' : 'left-0' ?>
-                                     h-[1px] w-0 bg-[var(--secondary)]
-                                     transition-all duration-500 ease-out
+                        <span class="newsletter-underline absolute bottom-0 <?= $_rtl ? 'right-0' : 'left-0' ?>
+                                     h-[1px] w-0 bg-[var(--secondary)] transition-all duration-500 ease-out
                                      pointer-events-none"></span>
                     </div>
 
-                    <!-- Inline validation message -->
-                    <p x-show="error"
-                       x-cloak
-                       x-transition
-                       class="text-red-400 text-xs tracking-wider"
-                       x-text="error"></p>
+                    <p x-show="errors.email" x-cloak x-transition class="text-red-400 text-xs tracking-wider" x-text="errors.email"></p>
 
-                    <!-- Subscribe button with yellow fill animation -->
                     <button type="submit"
                             :disabled="state === 'submitting'"
-                            class="newsletter-btn group relative overflow-hidden
-                                   w-full bg-white text-black
-                                   md:py-4 py-3
-                                   font-bold uppercase tracking-[0.25em] text-[11px]
-                                   border border-white
-                                   transition-colors duration-300
+                            class="newsletter-btn group relative overflow-hidden w-full bg-white text-black
+                                   md:py-4 py-3 font-bold uppercase tracking-[0.25em] text-[11px]
+                                   border border-white transition-colors duration-300
                                    disabled:opacity-50 disabled:cursor-wait">
-
-                        <!-- Yellow fill — slides from left to right on hover -->
-                        <span class="newsletter-btn-fill absolute inset-0
-                                     bg-[var(--secondary)]
+                        <span class="newsletter-btn-fill absolute inset-0 bg-[var(--secondary)]
                                      transform <?= $_rtl ? 'translate-x-full' : '-translate-x-full' ?>
-                                     group-hover:translate-x-0
-                                     transition-transform duration-500 ease-out"></span>
-
-                        <span class="relative z-10
-                                     group-hover:text-black
-                                     transition-colors duration-300">
+                                     group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+                        <span class="relative z-10 group-hover:text-black transition-colors duration-300">
                             <span x-show="state === 'form'"><?= __('newsletter_button') ?></span>
                             <span x-show="state === 'submitting'"><?= __('newsletter_submitting') ?></span>
                         </span>
                     </button>
 
-                    <!-- I: Privacy hint -->
                     <p class="text-white/40 text-[10px] tracking-wider mt-1">
                         <?= __('newsletter_privacy') ?>
                     </p>
                 </form>
 
-                <!-- SUCCESS STATE -->
-                <div x-show="state === 'success'"
-                     x-cloak
+                <div x-show="state === 'success'" x-cloak
                      x-transition:enter="transition duration-500"
                      x-transition:enter-start="opacity-0 translate-y-2"
                      x-transition:enter-end="opacity-100 translate-y-0"
                      class="flex flex-col items-start gap-3 py-4">
-
-                    <!-- Yellow check icon -->
-                    <div class="w-12 h-12 rounded-full
-                                bg-[var(--secondary)]/10 border border-[var(--secondary)]/40
-                                flex items-center justify-center">
-                        <svg class="w-6 h-6 text-[var(--secondary)]"
-                             fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-full bg-[var(--secondary)]/10 border border-[var(--secondary)]/40 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--secondary)]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-
-                    <h4 class="text-white text-lg font-medium">
-                        <?= __('newsletter_success_title') ?>
-                    </h4>
-                    <p class="text-white/50 text-sm font-light leading-relaxed">
-                        <?= __('newsletter_success_desc') ?>
-                    </p>
+                    <h4 class="text-white text-lg font-medium" x-text="successTitle"></h4>
+                    <p class="text-white/50 text-sm font-light leading-relaxed" x-text="successDesc"></p>
                 </div>
 
-                <!-- ERROR STATE — submission failed -->
-                <div x-show="state === 'failed'"
-                     x-cloak
-                     x-transition
-                     class="flex flex-col items-start gap-3 py-4">
-
-                    <div class="w-12 h-12 rounded-full
-                                bg-red-500/10 border border-red-500/40
-                                flex items-center justify-center">
-                        <svg class="w-6 h-6 text-red-400"
-                             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
+                <div x-show="state === 'failed'" x-cloak x-transition class="flex flex-col items-start gap-3 py-4">
+                    <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/40 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
                         </svg>
                     </div>
-
-                    <h4 class="text-white text-lg font-medium">
-                        <?= __('newsletter_failed_title') ?>
-                    </h4>
-                    <p class="text-white/50 text-sm font-light leading-relaxed">
-                        <?= __('newsletter_failed_desc') ?>
-                    </p>
-
-                    <button type="button"
-                            @click="state = 'form'"
-                            class="mt-2 text-[var(--secondary)] text-xs uppercase tracking-widest
-                                   hover:text-white transition-colors duration-300">
+                    <h4 class="text-white text-lg font-medium" x-text="failedTitle"></h4>
+                    <p class="text-white/50 text-sm font-light leading-relaxed" x-text="failedDesc"></p>
+                    <button type="button" @click="retry()"
+                            class="mt-2 text-[var(--secondary)] text-xs uppercase tracking-widest hover:text-white transition-colors duration-300">
                         <?= __('newsletter_try_again') ?>
                     </button>
                 </div>
@@ -1124,54 +1081,6 @@ include 'includes/category-slider/template.php';
         </div>
     </div>
 </section>
-
-<script>
-function newsletterForm() {
-    return {
-        email: '',
-        error: '',
-        // state machine: 'form' | 'submitting' | 'success' | 'failed'
-        state: 'form',
-
-        async submit() {
-            // Client-side validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(this.email.trim())) {
-                this.error = '<?= addslashes(__("newsletter_invalid")) ?>';
-                return;
-            }
-
-            this.error = '';
-            this.state = 'submitting';
-
-            try {
-                const formData = new FormData();
-                formData.append('email', this.email.trim());
-                formData.append('_subject', 'New Mirzaam Newsletter Subscription');
-                formData.append('_template', 'table');
-                formData.append('_captcha', 'false');
-
-                const res = await fetch('https://formsubmit.co/developer@fnh.group', {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (res.ok) {
-                    this.state = 'success';
-                    this.email = '';
-                    // Auto-revert to form after 5s so user can subscribe another email
-                    setTimeout(() => { this.state = 'form'; }, 5000);
-                } else {
-                    this.state = 'failed';
-                }
-            } catch (e) {
-                this.state = 'failed';
-            }
-        },
-    };
-}
-</script>
 
 <div id="video-modal-lightbox" class="fixed inset-0 z-[9999] flex items-center justify-center invisible opacity-0 transition-all duration-500 ease-out bg-black/40 backdrop-blur-xl">
     <div class="absolute inset-0 container-close-overlay cursor-pointer"></div>

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * These variables are injected from index.php
+ * @var string $lang
+ */
 // ============================================================
 // app/data/menu.php
 // ============================================================
@@ -68,9 +73,9 @@ $MENU = [
     [
         "title" => "menu_mirz2026",
         "items" => [
-            ["label" => "mirz_about",      "link" => "mirzaamiyaat/about"],
+            ["label" => "mirz_about",      "link" => "mirzaamiyat"],
             ["label" => "mirz_plan",       "external" => true, "link" => "https://mirzaam.com/mirzaamiyat/2026/registration/plan.php"],
-            ["label" => "mirz_exhibitors", "link" => "mirzaamiyaat/exhibitors"],
+            ["label" => "mirz_exhibitors", "link" => "mirzaamiyat/exhibitors"],
         ]
     ],
    
@@ -97,9 +102,17 @@ $footer_contact_menu = [
 ];
 
 // 3. Corporate Expos
+
+
+// 3. Corporate Expos
 $footer_expos_blueprint = [
-    ['key' => 'ixir',        'image' => '/mirzaam/assets/images/footer/ixir.png',        'url' => 'https://ixirexpo.com'],
-    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/footer/mirzaam.png',     'url' => 'https://mirzaam.com'],
-    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/footer/mirzaamiyaat.png', 'url' => 'https://mirzaam.com/about-mirzaamiyat/'],
-    ['key' => 'mamababy',    'image' => '/mirzaam/assets/images/footer/mamababy.png',    'url' => 'https://mamababyexpo.com'],
+    ['key' => 'ixir',        'image' => '/mirzaam/assets/images/footer/ixir.png',        'url' => $lang === 'ar' ? 'https://ixirexpo.com/ar' : 'https://ixirexpo.com'],
+    ['key' => 'mamababy',    'image' => '/mirzaam/assets/images/footer/mamababy.png',    'url' => $lang === 'ar' ? 'https://mamababyexpo.com/ar' : 'https://mamababyexpo.com'],
+    
+    // Only mirzaam uses the concatenated base path
+    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/footer/mirzaam.png',     'url' => $lang === 'ar' ? $base_path . '/ar' : $base_path],
+    
+    // Only mirzaamiyat uses the concatenated base path
+    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/footer/mirzaamiyat.png', 'url' => $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/about' : $base_path . '/mirzaamiyat/about'],
 ];
+

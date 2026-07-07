@@ -1,32 +1,15 @@
 <?php
 /**
  * Contact page view
- * Form → FormSubmit.co → developer@fnh.group
- * reCAPTCHA v2 — add your site key to $_recaptcha_site_key below
+ * Form → FormSubmit.co (config in app/config/forms.php)
  *
- * FIRST-TIME SETUP:
- * FormSubmit.co will send a one-time verification email to the
- * recipient address the first time this form is submitted.
- * Click the confirmation link in that email to activate delivery.
- *
- * ALL TEXT now flows through __() — every previous hardcoded
- * $isRtl ? '...' : '...' ternary has been replaced with a
- * translation key. See lang-en-contact-additions.php and
- * lang-ar-contact-additions.php for the new keys to add.
+ * Migrated to the global fouzForm Alpine component.
+ * Anti-spam: honeypot + 3-second time-trap (no third-party CAPTCHA).
  */
 
-$isRtl  = ($lang === 'ar');
+$isRtl   = ($lang === 'ar');
 $success = isset($_GET['success']) && $_GET['success'] === '1';
-
-// ── CONFIG ────────────────────────────────────────────────────
-$_form_recipient = 'developer@fnh.group';
-$_recaptcha_site_key = ''; // TODO: add site key here
-// ─────────────────────────────────────────────────────────────
 ?>
-
-<?php if (!empty($_recaptcha_site_key)): ?>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<?php endif; ?>
 
 <div class="bg-white text-zinc-900 antialiased" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
 
@@ -64,7 +47,6 @@ $_recaptcha_site_key = ''; // TODO: add site key here
             <div class="lg:col-span-5 bg-zinc-950 relative flex flex-col justify-between
                         px-5 sm:px-10 lg:px-14 xl:px-20 py-10 sm:py-12 md:py-16 min-h-[460px] sm:min-h-[520px] lg:min-h-0">
 
-                <!-- Top: title & desc -->
                 <div class="wv-reveal" data-reveal>
                     <span class="inline-flex items-center gap-3 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-yellow-500 font-semibold font-mono mb-4 sm:mb-5">
                         <span class="w-6 sm:w-7 h-px bg-yellow-500/60"></span>
@@ -78,7 +60,6 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                     </p>
                 </div>
 
-                <!-- Bottom: quick contact info -->
                 <div class="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/10 space-y-4 sm:space-y-5 wv-reveal" data-reveal data-delay="100">
                     <a href="https://maps.google.com/?q=Al+Andalus+Tower+Hawally+Kuwait"
                        target="_blank" rel="noopener"
@@ -118,7 +99,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                         </div>
                         <div>
                             <p class="text-[9px] sm:text-[10px] text-white/35 uppercase tracking-widest font-mono mb-1"><?= __('ct_info_phone_label') ?></p>
-                            <p class="text-white/80 text-[13px] sm:text-sm font-light group-hover:text-white transition-colors duration-200">+965 9333 3555</p>
+                            <p class="text-white/80 text-[13px] sm:text-sm font-light group-hover:text-white transition-colors duration-200" dir="ltr">+965 9333 3555</p>
                         </div>
                     </a>
                 </div>
@@ -199,7 +180,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                     </div>
                 </div>
 
-                <!-- Right: form -->
+                <!-- Right: form (fouzForm migrated) -->
                 <div class="lg:col-span-8 wv-reveal" data-reveal data-delay="80">
                     <div class="bg-white rounded-2xl border border-zinc-100 shadow-[0_4px_32px_-8px_rgba(0,0,0,0.07)] p-5 sm:p-7 md:p-10">
 
@@ -212,116 +193,154 @@ $_recaptcha_site_key = ''; // TODO: add site key here
                             </p>
                         </div>
 
-                        <form id="contact-form"
-                              action="https://formsubmit.co/<?= htmlspecialchars($_form_recipient) ?>"
-                              method="POST" novalidate>
+                        <!-- ══ fouzForm — global Alpine component ══ -->
+                        <div x-data="fouzForm({
+                                actionUrl:    '<?= $_form_config['action_url'] ?>',
+                                subject:      'Mirzaam Expo — New Contact Enquiry',
+                                successTitle: '<?= addslashes(__('ct_success_title')) ?>',
+                                successDesc:  '<?= addslashes(__('ct_success_desc')) ?>',
+                                failedTitle:  'Something went wrong.',
+                                failedDesc:   'Please try again in a moment.',
+                                botDetectedTitle: 'Submission blocked.',
+                                botDetectedDesc:  'Your submission was flagged as automated. Please try again.',
+                                autoRevertMs: 0,
+                                timeTrapSeconds: <?= $_form_config['time_trap_seconds'] ?>,
+                                fields: {
+                                    name:          { required: true },
+                                    email:         { required: true, email: true },
+                                    enquiry_type:  { required: true },
+                                    message:       { required: true }
+                                }
+                             })">
 
-                            <input type="hidden" name="_subject"  value="Mirzaam Expo — New Contact Enquiry">
-                            <input type="hidden" name="_captcha"  value="false">
-                            <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_next"     value="<?= htmlspecialchars(get_url('contact') . '?success=1') ?>">
-                            <input type="text"   name="_honey"    style="display:none" tabindex="-1" autocomplete="off">
+                            <!-- FORM STATE -->
+                            <form x-show="state === 'form' || state === 'submitting'"
+                                  x-cloak
+                                  @submit.prevent="submit"
+                                  novalidate>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
-
-                                <div class="field-group">
-                                    <label class="ct-label" for="ct-name">
-                                        <?= __('ct_form_name') ?> <span class="text-yellow-600">*</span>
-                                    </label>
-                                    <input type="text" id="ct-name" name="name" required autocomplete="name"
-                                        placeholder="<?= htmlspecialchars(__('ct_form_name_ph')) ?>" class="ct-input">
-                                    <p class="ct-error hidden"><?= __('ct_error_required') ?></p>
+                                <!-- HONEYPOT — offscreen, bots auto-fill it -->
+                                <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                                    <input type="text" name="_company_fax" x-model="honeypot"
+                                           tabindex="-1" autocomplete="off">
                                 </div>
 
-                                <div class="field-group">
-                                    <label class="ct-label" for="ct-email">
-                                        <?= __('ct_form_email') ?> <span class="text-yellow-600">*</span>
-                                    </label>
-                                    <input type="email" id="ct-email" name="email" required autocomplete="email"
-                                        placeholder="<?= htmlspecialchars(__('ct_form_email_ph')) ?>" class="ct-input">
-                                    <p class="ct-error ct-error-email hidden"><?= __('ct_error_email') ?></p>
-                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
+                                    <div class="field-group">
+                                        <label class="ct-label" for="ct-name">
+                                            <?= __('ct_form_name') ?> <span class="text-yellow-600">*</span>
+                                        </label>
+                                        <input type="text" id="ct-name" x-model="values.name" @input="errors.name = ''"
+                                            :class="errors.name ? 'is-invalid' : ''"
+                                            autocomplete="name"
+                                            placeholder="<?= htmlspecialchars(__('ct_form_name_ph')) ?>" class="ct-input">
+                                        <p class="ct-error" x-show="errors.name" x-text="errors.name"></p>
+                                    </div>
 
-                                <div class="field-group">
-                                    <label class="ct-label" for="ct-phone"><?= __('ct_form_phone') ?></label>
-                                    <input type="tel" id="ct-phone" name="phone" autocomplete="tel"
-                                        placeholder="<?= htmlspecialchars(__('ct_form_phone_ph')) ?>" class="ct-input">
-                                </div>
+                                    <div class="field-group">
+                                        <label class="ct-label" for="ct-email">
+                                            <?= __('ct_form_email') ?> <span class="text-yellow-600">*</span>
+                                        </label>
+                                        <input type="email" id="ct-email" x-model="values.email" @input="errors.email = ''"
+                                            :class="errors.email ? 'is-invalid' : ''"
+                                            autocomplete="email"
+                                            placeholder="<?= htmlspecialchars(__('ct_form_email_ph')) ?>" class="ct-input">
+                                        <p class="ct-error" x-show="errors.email" x-text="errors.email"></p>
+                                    </div>
 
-                                <div class="field-group">
-                                    <label class="ct-label" for="ct-company"><?= __('ct_form_company') ?></label>
-                                    <input type="text" id="ct-company" name="company" autocomplete="organization"
-                                        placeholder="<?= htmlspecialchars(__('ct_form_company_ph')) ?>" class="ct-input">
-                                </div>
-                            </div>
+                                    <div class="field-group">
+                                        <label class="ct-label" for="ct-phone"><?= __('ct_form_phone') ?></label>
+                                        <input type="tel" id="ct-phone" x-model="values.phone" autocomplete="tel"
+                                            placeholder="<?= htmlspecialchars(__('ct_form_phone_ph')) ?>" class="ct-input">
+                                    </div>
 
-                            <div class="field-group mb-4 sm:mb-5">
-                                <label class="ct-label" for="ct-type">
-                                    <?= __('ct_form_type') ?> <span class="text-yellow-600">*</span>
-                                </label>
-                                <div class="relative">
-                                    <select id="ct-type" name="enquiry_type" required class="ct-input appearance-none cursor-pointer">
-                                        <option value="" disabled selected><?= htmlspecialchars(__('ct_form_type_ph')) ?></option>
-                                        <option value="Exhibiting"><?= __('ct_type_exhibiting') ?></option>
-                                        <option value="Visiting"><?= __('ct_type_visiting') ?></option>
-                                        <option value="Media"><?= __('ct_type_media') ?></option>
-                                        <option value="General"><?= __('ct_type_general') ?></option>
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 <?= $isRtl ? 'left-4' : 'right-4' ?> flex items-center text-zinc-400">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                                        </svg>
+                                    <div class="field-group">
+                                        <label class="ct-label" for="ct-company"><?= __('ct_form_company') ?></label>
+                                        <input type="text" id="ct-company" x-model="values.company" autocomplete="organization"
+                                            placeholder="<?= htmlspecialchars(__('ct_form_company_ph')) ?>" class="ct-input">
                                     </div>
                                 </div>
-                                <p class="ct-error hidden"><?= __('ct_error_required') ?></p>
-                            </div>
 
-                            <div class="field-group mb-5 sm:mb-6">
-                                <label class="ct-label" for="ct-message">
-                                    <?= __('ct_form_message') ?> <span class="text-yellow-600">*</span>
-                                </label>
-                                <textarea id="ct-message" name="message" required rows="5"
-                                    placeholder="<?= htmlspecialchars(__('ct_form_message_ph')) ?>" class="ct-input resize-none"></textarea>
-                                <p class="ct-error hidden"><?= __('ct_error_required') ?></p>
-                            </div>
+                                <div class="field-group mb-4 sm:mb-5">
+                                    <label class="ct-label" for="ct-type">
+                                        <?= __('ct_form_type') ?> <span class="text-yellow-600">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <select id="ct-type" x-model="values.enquiry_type" @change="errors.enquiry_type = ''"
+                                                :class="errors.enquiry_type ? 'is-invalid' : ''"
+                                                class="ct-input appearance-none cursor-pointer">
+                                            <option value="" disabled selected><?= htmlspecialchars(__('ct_form_type_ph')) ?></option>
+                                            <option value="Exhibiting"><?= __('ct_type_exhibiting') ?></option>
+                                            <option value="Visiting"><?= __('ct_type_visiting') ?></option>
+                                            <option value="Media"><?= __('ct_type_media') ?></option>
+                                            <option value="General"><?= __('ct_type_general') ?></option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 <?= $isRtl ? 'left-4' : 'right-4' ?> flex items-center text-zinc-400">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="ct-error" x-show="errors.enquiry_type" x-text="errors.enquiry_type"></p>
+                                </div>
 
-                            <?php if (!empty($_recaptcha_site_key)): ?>
-                            <div class="mb-5 sm:mb-6">
-                                <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($_recaptcha_site_key) ?>"></div>
-                                <p id="recaptcha-error" class="hidden text-[11px] text-red-500 mt-2 font-medium">
-                                    <?= __('ct_error_recaptcha') ?>
-                                </p>
-                            </div>
-                            <?php else: ?>
-                            <div class="mb-5 sm:mb-6 rounded-xl border border-dashed border-yellow-300 bg-yellow-50 px-4 sm:px-5 py-3 sm:py-4">
-                                <p class="text-[11px] sm:text-[12px] text-yellow-800 font-medium mb-1">🔑 Developer Note — reCAPTCHA not active</p>
-                                <p class="text-[10px] sm:text-[11px] text-yellow-700 font-light">
-                                    Get a free site key at
-                                    <a href="https://www.google.com/recaptcha/admin/create" target="_blank" class="underline">google.com/recaptcha</a>
-                                    then add it to <code class="bg-yellow-100 px-1 rounded font-mono">$_recaptcha_site_key</code> at the top of this file.
-                                </p>
-                            </div>
-                            <?php endif; ?>
+                                <div class="field-group mb-5 sm:mb-6">
+                                    <label class="ct-label" for="ct-message">
+                                        <?= __('ct_form_message') ?> <span class="text-yellow-600">*</span>
+                                    </label>
+                                    <textarea id="ct-message" x-model="values.message" @input="errors.message = ''"
+                                        :class="errors.message ? 'is-invalid' : ''"
+                                        rows="5"
+                                        placeholder="<?= htmlspecialchars(__('ct_form_message_ph')) ?>" class="ct-input resize-none"></textarea>
+                                    <p class="ct-error" x-show="errors.message" x-text="errors.message"></p>
+                                </div>
 
-                            <!-- Submit row — stacks on mobile, full-width button -->
-                            <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 pt-1">
-                                <p class="text-[11px] text-zinc-400 font-light text-center sm:text-left">
-                                    <span class="text-yellow-600">*</span> <?= __('ct_form_required_note') ?>
-                                </p>
-                                <button type="submit" id="ct-submit"
-                                    class="inline-flex items-center justify-center gap-2.5 bg-zinc-950 hover:bg-yellow-500 active:scale-[0.98] text-white hover:text-zinc-900 font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group w-full sm:w-auto">
-                                    <span id="ct-submit-text"><?= __('ct_form_submit') ?></span>
-                                    <svg id="ct-submit-arrow" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                                <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 pt-1">
+                                    <p class="text-[11px] text-zinc-400 font-light text-center sm:text-left">
+                                        <span class="text-yellow-600">*</span> <?= __('ct_form_required_note') ?>
+                                    </p>
+                                    <button type="submit" :disabled="state === 'submitting'"
+                                        class="inline-flex items-center justify-center gap-2.5 bg-zinc-950 hover:bg-yellow-500 active:scale-[0.98] text-white hover:text-zinc-900 font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group w-full sm:w-auto">
+                                        <span x-show="state === 'form'"><?= __('ct_form_submit') ?></span>
+                                        <span x-show="state === 'submitting'"><?= __('ct_form_sending') ?></span>
+                                        <svg x-show="state === 'form'" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                                        </svg>
+                                        <svg x-show="state === 'submitting'" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- SUCCESS STATE -->
+                            <div x-show="state === 'success'" x-cloak x-transition class="text-center py-12">
+                                <div class="w-14 h-14 mx-auto rounded-full bg-emerald-100 flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                                     </svg>
-                                    <svg id="ct-submit-spinner" class="w-4 h-4 hidden animate-spin" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                                </div>
+                                <h3 class="text-xl font-bold text-zinc-900 mb-2" x-text="successTitle"></h3>
+                                <p class="text-zinc-500 text-sm" x-text="successDesc"></p>
+                            </div>
+
+                            <!-- FAILED / BOT-DETECTED STATE -->
+                            <div x-show="state === 'failed'" x-cloak x-transition class="text-center py-12">
+                                <div class="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
                                     </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-zinc-900 mb-2" x-text="failedTitle"></h3>
+                                <p class="text-zinc-500 text-sm mb-4" x-text="failedDesc"></p>
+                                <button type="button" @click="retry()" class="text-yellow-600 text-sm font-semibold hover:text-yellow-700">
+                                    Try again
                                 </button>
                             </div>
 
-                        </form>
+                        </div>
+
                     </div>
                 </div>
 
@@ -331,6 +350,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
 
 </div>
 
+<!-- ── HERO STYLES ───────────────────────────────────────── -->
 <style>
 .ct-kenburns {
     transform: scale(1.0);
@@ -369,6 +389,7 @@ $_recaptcha_site_key = ''; // TODO: add site key here
 }());
 </script>
 
+<!-- ── INPUT STYLES ───────────────────────────────────────── -->
 <style>
 .ct-label {
     display: block;
@@ -405,107 +426,3 @@ $_recaptcha_site_key = ''; // TODO: add site key here
     .ct-input { font-size: 16px; padding: 13px 16px; }
 }
 </style>
-
-<script>
-(function () {
-    'use strict';
-
-    const form    = document.getElementById('contact-form');
-    const btn     = document.getElementById('ct-submit');
-    const btnText = document.getElementById('ct-submit-text');
-    const arrow   = document.getElementById('ct-submit-arrow');
-    const spinner = document.getElementById('ct-submit-spinner');
-
-    if (!form) return;
-
-    const RULES = {
-        'ct-name':    { required: true },
-        'ct-email':   { required: true, email: true },
-        'ct-type':    { required: true },
-        'ct-message': { required: true },
-    };
-
-    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    function getError(input) {
-        const group = input.closest('.field-group');
-        if (!group) return null;
-        if (input.id === 'ct-email') {
-            return group.querySelector('.ct-error-email') || group.querySelector('.ct-error');
-        }
-        return group.querySelector('.ct-error');
-    }
-
-    function validate(input) {
-        const rules = RULES[input.id];
-        if (!rules) return true;
-
-        const val   = input.value.trim();
-        const error = getError(input);
-        let   valid = true;
-
-        if (rules.required && val === '') {
-            valid = false;
-        } else if (rules.email && val && !EMAIL_RE.test(val)) {
-            valid = false;
-        }
-
-        if (valid) {
-            input.classList.remove('is-invalid');
-            if (val) input.classList.add('is-valid');
-            if (error) error.classList.add('hidden');
-        } else {
-            input.classList.add('is-invalid');
-            input.classList.remove('is-valid');
-            if (error) error.classList.remove('hidden');
-        }
-
-        return valid;
-    }
-
-    Object.keys(RULES).forEach(function (id) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener('blur', function () { validate(el); });
-        el.addEventListener('input', function () {
-            if (el.classList.contains('is-invalid')) validate(el);
-        });
-    });
-
-    form.addEventListener('submit', function (e) {
-        let allValid = true;
-
-        Object.keys(RULES).forEach(function (id) {
-            const el = document.getElementById(id);
-            if (el && !validate(el)) allValid = false;
-        });
-
-        const recaptchaWidget = form.querySelector('.g-recaptcha');
-        const recaptchaError  = document.getElementById('recaptcha-error');
-        if (recaptchaWidget && typeof grecaptcha !== 'undefined') {
-            const token = grecaptcha.getResponse();
-            if (!token) {
-                if (recaptchaError) recaptchaError.classList.remove('hidden');
-                allValid = false;
-            } else {
-                if (recaptchaError) recaptchaError.classList.add('hidden');
-            }
-        }
-
-        if (!allValid) {
-            e.preventDefault();
-            const firstInvalid = form.querySelector('.is-invalid');
-            if (firstInvalid) {
-                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                firstInvalid.focus();
-            }
-            return;
-        }
-
-        btnText.textContent = '<?= addslashes(__('ct_form_sending')) ?>';
-        arrow.classList.add('hidden');
-        spinner.classList.remove('hidden');
-        btn.disabled = true;
-    });
-}());
-</script>

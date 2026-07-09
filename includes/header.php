@@ -26,12 +26,12 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
         <div class="flex items-center justify-between h-[80px]">
             <div class="flex">
                 <?php if ($isMirzaamiyatPage): ?>
-                    <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat' : $base_path . '/mirzaamiyat' ?>" class="flex items-center">
+                    <a href="<?= get_url('mirzaamiyat') ?>" class="flex items-center">
                         
                         <img src="/mirzaam/assets/images/logo/mirzaamiyat.png" class="w-[80px] lg:w-[120px] h-full grid self-center">
                     </a>
                     <?php else: ?>
-                        <a href="<?= $lang === 'ar' ? $base_path . '/ar' : $base_path ?>" class="flex items-center">
+                        <a href="<?= get_url('/') ?>" class="flex items-center">
                             <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px] lg:w-[90px] h-full grid self-center">
                         </a>
                     <?php endif; ?>
@@ -104,7 +104,7 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
         <!-- Mirzaam logo link — fixed h-10 to match the row,
              width auto-scales with the image ratio instead of
              the fragile h-full on a flex parent -->
-        <a href="<?= $lang === 'ar' ? $base_path . '/ar' : $base_path ?>"
+        <a href="<?= get_url('/') ?>"
            class="h-10 bg-white flex items-center rounded-md ">
             <img src="/mirzaam/assets/images/footer/mirzaam.png"
                  alt="Mirzaam"
@@ -271,7 +271,7 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
     <?php if ($isMirzaamiyatPage): ?>
         <!-- Back to Main Mirzaam Button -->
         <!-- Note: bg-white removed so the gold tint bg-[#C9A267]/10 functions correctly -->
-        <a href="<?= $lang === 'ar' ? $base_path . '/ar' : $base_path ?>"
+        <a href="<?= get_url('/') ?>"
            class="h-12 bg-white flex items-center justify-center border border-[#C9A267]/30 hover:border-[#C9A267]/60 rounded-lg bg-[#C9A267]/10 transition-colors duration-200">
             <img src="/mirzaam/assets/images/footer/mirzaam.png"
                  alt="Mirzaam"

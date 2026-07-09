@@ -65,7 +65,7 @@ $MENU = [
         "items" => [
             ["label" => "mirz_about",      "link" => "mirzaamiyat"],
             ["label" => "mirz_plan",       "external" => true, "link" => "https://mirzaam.com/mirzaamiyat/2026/registration/plan.php"],
-            ["label" => "mirz_exhibitors", "link" => "mirzaamiyat/exhibitors"],
+            ["label" => "mirz_exhibitors", "link" => "mirzaamiyat/exhibitors/2026"],
         ]
     ],
    
@@ -100,9 +100,9 @@ $footer_expos_blueprint = [
     ['key' => 'mamababy',    'image' => '/mirzaam/assets/images/footer/mamababy.png',    'url' => $lang === 'ar' ? 'https://mamababyexpo.com/ar' : 'https://mamababyexpo.com'],
     
     // Only mirzaam uses the concatenated base path
-    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/footer/mirzaam.png',     'url' => $lang === 'ar' ? $base_path . '/ar' : $base_path],
+    ['key' => 'mirzaam',     'image' => '/mirzaam/assets/images/footer/mirzaam.png',     'url' => get_url('/'),],
     
     // Only mirzaamiyat uses the concatenated base path
-    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/footer/mirzaamiyat.png', 'url' => $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/about' : $base_path . '/mirzaamiyat/about'],
+    ['key' => 'mirzaamiyat', 'image' => '/mirzaam/assets/images/footer/mirzaamiyat.png', 'url' =>  get_url('mirzaamiyat') ],
 ];
 

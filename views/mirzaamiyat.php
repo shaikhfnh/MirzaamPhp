@@ -493,7 +493,7 @@ $mz_tier_styles = [
                     <?= __('mz_final_desc') ?>
                 </p>
                 <div class="flex flex-wrap justify-center gap-3">
-                    <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat' : $base_path . '/mirzaamiyat' ?>" 
+                    <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/exhibitors/2026' : $base_path . '/mirzaamiyat/exhibitors/2026' ?>"
                        class="inline-flex items-center justify-center
                               bg-yellow-500 hover:bg-yellow-400
                               border border-yellow-500 hover:border-yellow-400

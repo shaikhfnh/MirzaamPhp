@@ -11,7 +11,7 @@ $isRtl   = ($lang === 'ar');
 $success = isset($_GET['success']) && $_GET['success'] === '1';
 ?>
 
-<div class="bg-white text-zinc-900 antialiased" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
+<div class="bg-white text-zinc-900 antialiased">
 
     <!-- ── SUCCESS BANNER ───────────────────────────────────── -->
     <?php if ($success): ?>
@@ -31,7 +31,7 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
     <?php endif; ?>
 
     <!-- ── HERO ──────────────────────────────────────────────── -->
-    <section id="ct-hero" class="relative w-full mt-20 overflow-hidden" style="min-height:62vh;">
+<section id="ct-hero" class="relative w-full mt-20 overflow-hidden" style="min-height:62vh; min-height:62dvh;">
 
         <div class="absolute inset-0 overflow-hidden">
             <img src="https://mirzaam.com/wp-content/uploads/2024/10/dsc07442-min-2048x1368-1.webp"
@@ -41,11 +41,12 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                  style="background: linear-gradient(to top, rgba(9,9,11,0.6) 0%, rgba(9,9,11,0.05) 50%, rgba(9,9,11,0.15) 100%);"></div>
         </div>
 
-        <div class="relative z-10 max-w-none grid grid-cols-1 lg:grid-cols-12" style="min-height:62vh;">
+<div class="relative z-10 max-w-none grid grid-cols-1 lg:grid-cols-12" style="min-height:62vh; min-height:62dvh;">
 
             <!-- Dark panel -->
-            <div class="lg:col-span-5 bg-zinc-950 relative flex flex-col md:justify-between
-                        px-5 sm:px-10 lg:px-14 xl:px-20 py-10 sm:py-12 md:py-16  lg:min-h-0">
+          <div class="lg:col-span-5 bg-zinc-950 relative flex flex-col md:justify-between
+            px-5 sm:px-10 lg:px-14 xl:px-20 py-10 sm:py-12 md:py-16
+            min-h-[460px] sm:min-h-[520px] lg:min-h-0">
 
                 <div class="wv-reveal" data-reveal>
                     <span class="inline-flex items-center gap-3 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-yellow-500 font-semibold font-mono mb-4 sm:mb-5">
@@ -181,7 +182,7 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                 </div>
 
                 <!-- Right: form (fouzForm migrated) -->
-                <div class="lg:col-span-8 wv-reveal" data-reveal data-delay="80">
+                <div class="lg:col-span-8 " data-reveal data-delay="80">
                     <div class="bg-white rounded-2xl border border-zinc-100 shadow-[0_4px_32px_-8px_rgba(0,0,0,0.07)] p-5 sm:p-7 md:p-10">
 
                         <div class="mb-6 sm:mb-8">

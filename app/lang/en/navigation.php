@@ -1,8 +1,8 @@
 <?php
 return [
     'header_date'     => '8 - 12 December 2026',
-    'header_time'     => '10:00 - 22:00',
-    'header_location' => 'DAILY KIF HALL 5-6',
+    'header_time'     => '10:00 - 22:00 DAILY',
+    'header_location' => ' KIF HALL 5-6',
 
     'header_date_mirzaamiyat'     => 'Date to be announced',
     'header_time_mirzaamiyat'     => '',

@@ -40,6 +40,7 @@ return [
     'app_bot_bubble' => 'Experience the App →',
     'bb_cta_apple_alt'  => 'Download on the App Store',
     'bb_cta_google_alt' => 'Get it on Google Play',
+    'experience_app' => 'Experience the App',
 
 
 // Insights Section

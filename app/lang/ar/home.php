@@ -38,6 +38,8 @@ return [
     'app_bot_bubble' => 'جرّب التطبيق ←',
     'bb_cta_apple_alt'  => 'حمّل التطبيق من آب ستور',
     'bb_cta_google_alt' => 'احصل عليه من جوجل بلاي',
+    'experience_app' => 'جرّب التطبيق',
+
 
 
 // Insights Section

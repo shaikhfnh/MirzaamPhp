@@ -23,7 +23,7 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
 
 <header id="mainHeader" class="fixed top-0 left-0 w-full bg-black border-b border-white/10 z-50">
     <div class="mx-auto px-5">
-        <div class="flex items-center justify-between h-[80px]">
+        <div class="flex items-center justify-between h-[80px] lg:h-full lg:py-2">
             <div class="flex">
                 <?php if ($isMirzaamiyatPage): ?>
                     <a href="<?= get_url('mirzaamiyat') ?>" class="flex items-center">
@@ -32,31 +32,38 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
                     </a>
                     <?php else: ?>
                         <a href="<?= get_url('/') ?>" class="flex items-center">
-                            <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px] lg:w-[90px] h-full grid self-center">
+                            <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px] lg:w-[100px] h-full grid self-center">
                         </a>
                     <?php endif; ?>
                 <div class="ms-5 hidden lg:block  w-[1px] bg-white"></div>
-                <div class="ms-5">
+                <div class="ms-5 grid justify-between ">
                     <div class="hidden lg:block border-l border-white/10 ">
                          <?php if ($isMirzaamiyatPage): ?>
-                              <p class="text-sm uppercase font-medium">
-                                <span class="text-[var(--secondary)] "><?= __('header_date_mirzaamiyat') ?></span>
-                                &nbsp;<?= __('header_time_mirzaamiyat') ?>&nbsp;
-                                <?= __('header_location_location') ?>
-                            </p>
+                              <div class="">
+                                <div class=" text-[14px]  uppercase "><?= __('header_date_mirzaamiyat') ?></div>
+                                <div class="text-[14px]  uppercase ">
+                                <?= __('header_time_mirzaamiyat') ?>&nbsp;
+                                    <?= __('header_location_location') ?>
+                                </div>
+                            </div>
                         <?php else: ?>
-                            <p class="text-sm uppercase font-medium">
-                                <span class="text-[var(--secondary)]"><?= __('header_date') ?></span>
-                                &nbsp;<?= __('header_time') ?>&nbsp;
-                                <?= __('header_location') ?>
-                            </p>
+                            <div class=" ">
+                                <div class=" text-[14px]  uppercase "><?= __('header_date') ?>
+                            &nbsp;
+                               <?= __('header_time') ?></div>
+                                <div class=" text-[14px]  uppercase ">
+
+                                 
+                                    <?= __('header_location') ?>
+                                </div>
+                            </div>
                     <?php endif; ?>
                     </div>
-                    <nav class="hidden lg:flex gap-3 lg:gap-8 h-[40px] items-end">
+                    <nav class="hidden lg:flex gap-3 lg:gap-8 h-full items-end">
                         <div class="flex gap-3 xl:gap-4 ">
                             <?php foreach($MENU as $menu): ?>
                                 <div class="nav-item group relative text-white text-sm">
-                                    <button class="flex items-center gap-1 uppercase tracking-wide text-[10px] lg:text-[12px] font-medium transition-all duration-300 hover:text-yellow-400">
+                                    <button class="flex items-center gap-1 uppercase tracking-wide text-[10px] lg:text-[14px] font-medium transition-all duration-300 hover:text-yellow-400">
                                         <span><?= __($menu['title']); ?></span>
                                         <svg class="w-4 h-4 text-white/70 transition-transform duration-300 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -90,16 +97,9 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
                 </div>
             </div>
 
-<div class="hidden lg:flex gap-3 items-center h-10">
+ <div class="hidden lg:flex gap-3 items-center h-10">
 
-    <!-- Lang switch — unchanged size, now the height reference
-         every other element in this row matches against -->
-    <a href="<?= get_switch_url() ?>"
-       class="h-10 inline-flex items-center border border-white/20 hover:border-white/40 rounded-md px-4 text-sm text-white transition-colors duration-200">
-        <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
-    </a>
-
-    <?php if ($isMirzaamiyatPage): ?>
+     <?php if ($isMirzaamiyatPage): ?>
 
         <!-- Mirzaam logo link — fixed h-10 to match the row,
              width auto-scales with the image ratio instead of
@@ -108,52 +108,27 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
            class="h-10 bg-white flex items-center rounded-md ">
             <img src="/mirzaam/assets/images/footer/mirzaam.png"
                  alt="Mirzaam"
-                 class="h-10 w-32  border border-white/20 hover:border-white/40 rounded-md  transition-colors duration-200  ">
+                 class="h-10 w-full  border border-white/20 hover:border-white/40 rounded-md  transition-colors duration-200  ">
         </a>
-
-        <?php if (!empty($mz_booth_url)): ?>
-
-            <!-- ENABLED — compact nav-scale button, matches h-10
-                 row height, not the oversized hero-CTA sizing -->
-            <a href="<?= htmlspecialchars($mz_booth_url) ?>"
-               target="_blank" rel="noopener noreferrer"
-               class="h-10 inline-flex items-center justify-center
-                      bg-[#C9A267] hover:bg-[#d9b67c]
-                      text-[#1E2F4D] font-semibold text-sm
-                      px-5 rounded-md
-                      transition-all duration-200
-                      hover:shadow-[0_8px_20px_-6px_rgba(201,162,103,0.5)]">
-                <?= __('mz_hero_cta_booth') ?: 'Book Your Booth' ?>
-            </a>
-
-        <?php else: ?>
-
-            <!-- DISABLED — same h-10 footprint, muted gold,
-                 "Soon" tag scaled down to fit a compact nav
-                 button instead of the hero-sized version -->
-           <button type="button"
-            disabled
-            aria-disabled="true"
-            title="<?= htmlspecialchars(__('booth_coming_soon') ?: 'Registration opening soon') ?>"
-            class="h-12 inline-flex items-center justify-center gap-2
-                   bg-white/10 w-full
-                   text-white/50 text-sm font-medium
-                   px-4 rounded-lg
-                   border border-white/15
-                   cursor-not-allowed select-none">
-        <?= __('book_booth') ?>
-        <span class="text-[8px] font-mono uppercase tracking-wider bg-yellow-500/15 text-yellow-500/80 px-1.5 py-0.5 rounded-full leading-none">
-            <?= __('booth_soon_tag') ?: 'Soon' ?>
-        </span>
-    </button>
 
         <?php endif; ?>
 
-    <?php else: ?>
-<?php if (!empty($main_booth_url)): ?>
+    <!-- Lang switch — unchanged size, now the height reference
+         every other element in this row matches against -->
+    <a href="<?= get_switch_url() ?>"
+       class="h-10 inline-flex items-center border border-white/20 hover:border-white/40 rounded-md px-4 text-sm text-white transition-colors duration-200">
+        <?= ($lang === 'en' ? 'عربي' : 'EN') ?>
+    </a>
+
+
+
+
+
+     
+      <?php if (!empty($main_booth_url)): ?>
  
-    <!-- ENABLED — same white/black look you already have -->
-    <a href="<?= htmlspecialchars($main_booth_url) ?>"
+      <!-- ENABLED — same white/black look you already have -->
+      <a href="<?= htmlspecialchars($main_booth_url) ?>"
        target="_blank" rel="noopener noreferrer"
        class="h-10 inline-flex items-center justify-center
               bg-white/10 hover:bg-white/20
@@ -162,15 +137,15 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
               px-5 rounded-lg
               transition-colors duration-200">
         <?= __('book_booth') ?>
-    </a>
+     </a>
  
-<?php else: ?>
+     <?php else: ?>
  
-    <!-- DISABLED — on a black bg, a low-opacity WHITE fill reads
+     <!-- DISABLED — on a black bg, a low-opacity WHITE fill reads
          as "muted/inactive" without disappearing into the
          background the way a dark gray would. Border makes the
          button's shape clearly readable even at low opacity. -->
-    <button type="button"
+     <button type="button"
             disabled
             aria-disabled="true"
             title="<?= htmlspecialchars(__('booth_coming_soon') ?: 'Registration opening soon') ?>"
@@ -184,35 +159,35 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
         <span class="text-[8px] font-mono uppercase tracking-wider bg-yellow-500/15 text-yellow-500/80 px-1.5 py-0.5 rounded-full leading-none">
             <?= __('booth_soon_tag') ?: 'Soon' ?>
         </span>
-    </button>
+      </button>
  
-<?php endif; ?>
+     <?php endif; ?>
  
 
-    <?php endif; ?>
 
-</div>
+
+      </div>
             <button id="menuToggle" class="lg:hidden text-2xl text-white">☰</button>
         </div>
     </div>
 </header>
 
 <div id="mobileMenu" class="fixed top-0 right-0 w-full h-full bg-black z-[999] translate-x-full transition-transform duration-300 overflow-y-auto">
-    <div class="p-6 min-h-full flex flex-col">
+    <div class="p-5 pt-3 min-h-full flex flex-col">
 
         <!-- Header — logo + close button -->
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10 ">
             <?php if ($isMirzaamiyatPage): ?>
-                <img src="/mirzaam/assets/images/logo/mirzaamiyat.png" class="w-[70px]">
+                <img src="/mirzaam/assets/images/logo/mirzaamiyat.png" class="w-[80px]">
             <?php else: ?>
-                <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[70px]">
+                <img src="/mirzaam/assets/images/logo/WHITE LOGO.png" class="w-[80px]">
             <?php endif; ?>
 
             <!-- F: proper tap target — circular hit area instead
                  of a bare glyph -->
             <button id="closeMenu"
                     aria-label="Close menu"
-                    class="w-10 h-10 flex items-center justify-center rounded-full
+                    class=" h-10 flex items-center justify-center rounded-full
                            text-white/80 hover:text-white hover:bg-white/10
                            transition-colors duration-200 text-xl">
                 ✕

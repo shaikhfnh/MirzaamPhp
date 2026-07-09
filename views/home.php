@@ -54,13 +54,14 @@
         </div>
 
         <!-- wv-reveal + data-delay="150" → staggered 150ms after the left block -->
-        <button class="group flex items-center gap-4 text-white/90 hover:text-white transition-all duration-300 wv-reveal"
-                data-reveal data-delay="150">
-            <span class="uppercase tracking-[0.2em] text-sm"><?= __('watch_teaser') ?></span>
-            <span class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-[var(--primary)] transition-all">
-                <span class="ml-1">▶</span>
-            </span>
-        </button>
+       <button class="group flex items-center gap-4 text-white/90 hover:text-white transition-all duration-300 wv-reveal video-trigger-wrapper"
+        data-video-id="ACvtkFcBD4o"
+        data-reveal data-delay="150">
+    <span class="uppercase tracking-[0.2em] text-sm"><?= __('watch_teaser') ?></span>
+    <span class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-[var(--primary)] transition-all">
+        <span class="ml-1">▶</span>
+    </span>
+</button>
 
     </div>
 </section>
@@ -176,7 +177,6 @@
 </section>
 
 
-
 <?php
 $_rtl = ($lang === 'ar');
 $_dir = $_rtl ? 'rtl' : 'ltr';
@@ -184,52 +184,50 @@ $_bp  = isset($base_path) ? $base_path : '';
 ?>
 
 <section id="app-connect"
-         class="relative bg-[#303030] w-full py-16  text-[var(--text-light)] overflow-hidden"
+         class="relative bg-[#303030] w-full py-16 text-[var(--text-light)] overflow-hidden"
          dir="<?= $_dir ?>">
 
-    <!-- Ambient glow -->
+    <!-- Ambient glow — unchanged -->
     <div class="section-glow absolute bottom-0 <?= $_rtl ? 'left-1/4' : 'right-1/4' ?>
                 w-[35rem] h-[35rem] bg-[var(--secondary)]
                 rounded-full blur-[130px] opacity-[0.06] pointer-events-none"></div>
 
     <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-end">
 
             <!-- ══ LEFT — BOT + PHONE ══════════════════════════ -->
-            <div class="lg:col-span-6 relative lg:flex grid  items-end justify-center gap-6 wv-reveal"
-                 data-reveal>
+            <div class="lg:col-span-6 relative lg:flex grid items-end justify-center gap-6">
 
-                <!-- BOT COLUMN — desktop only, sits beside phone -->
-                <div class="hidden md:flex flex-col items-center gap-3 mb-16 flex-shrink-0">
+                <!-- BOT COLUMN — desktop only.
+                     A: FIXED overlap bug — was using absolute
+                     positioning with a huge negative bottom offset
+                     (bottom-[-12rem] on lg) that pushed the canvas
+                     out of the section entirely, into whatever
+                     comes next on the page. Now the canvas sits
+                     inside a properly sized, constrained container
+                     that stays within this section's bounds.
+                     E: slide-in animation added — bot-slide-in +
+                     wv-reveal, reuses the site's existing scroll
+                     reveal observer, no new JS needed. -->
+                <div class="hidden md:flex flex-col items-center gap-3 flex-shrink-0 bot-slide-in wv-reveal"
+                     data-reveal data-delay="200">
 
-                    <!-- Speech bubble -->
-                    <div class="app-bot-bubble relative
-                                border border-white/[0.12]
-                                rounded-2xl rounded-bl-none
-                                px-4 py-3 w-[150px]
-                                shadow-lg mb-[4rem]">
-                        <p class="text-white text-[11px] font-light leading-snug text-center">
-                            <?= __('app_bot_bubble') ?>
-                        </p>
-                        <!-- Tail -->
-                        <span class="absolute -bottom-[5rem] <?= $_rtl ? 'right-4' : 'left-4' ?>
-                                     w-0 h-0
-                                     border-l-[8px] border-l-transparent
-                                     border-r-[8px] border-r-transparent
-                                     border-t-[8px] border-t-white/[0.12]"></span>
+                   
+
+                    <!-- Robot — constrained container, no more
+                         overflow into the next section -->
+                    <div class="relative w-[280px] h-[280px] lg:w-[320px] lg:h-[320px]">
+                        <canvas id="app-bot-canvas"
+                                width="500" height="360"
+                                data-src="<?= $_bp ?>/assets/animations/chatbot.riv"
+                                class="opacity-0 transition-opacity duration-700 absolute inset-0 w-full h-full object-contain">
+                        </canvas>
                     </div>
-
-                    <!-- Rive canvas — bot renders here, lazy-booted by main.js -->
-                    <canvas id="app-bot-canvas"
-                            width="500" height="360"
-                            data-src="<?= $_bp ?>/assets/animations/chatbot.riv"
-                   class="opacity-0 transition-opacity absolute bg-red-900 w-[600px] h-[360px] duration-700 bottom-[25rem] md:bottom-[30rem] lg:bottom-[-12rem]">                        
-                </canvas>
                 </div>
 
-                <!-- PHONE MOCKUP — original dimensions unchanged -->
+                <!-- PHONE MOCKUP — unchanged dimensions -->
                 <div class="relative w-[280px] sm:w-[320px] h-[36rem] sm:h-[40rem]
-                            drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)] flex-shrink-0">
+                            drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)] flex-shrink-0 wv-reveal" data-reveal>
 
                     <img src="<?= $app_connect_data['frame_image'] ?>"
                          alt="iPhone Frame"
@@ -247,14 +245,32 @@ $_bp  = isset($base_path) ? $base_path : '';
                                         overflow-y-auto scroll-container
                                         transition-opacity duration-300 opacity-100">
                                 <div class="relative w-full block">
+                                    <!--
+                                        B: The black bar cutting across the
+                                        Arabic title text near the top of
+                                        this screenshot is baked into the
+                                        source image file itself — not
+                                        something CSS/HTML can fix. When
+                                        re-exporting $app_connect_data['home_image'],
+                                        check for: a stray dark rectangle/
+                                        overlay layer left visible in the
+                                        export, or a leftover status-bar
+                                        mockup element positioned incorrectly.
+                                        Re-export the screenshot with that
+                                        element removed or repositioned.
+                                    -->
                                     <img src="<?= $app_connect_data['home_image'] ?>"
                                          alt="App Home"
                                          class="w-full h-auto block"
                                          onerror="this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:24rem;background:#f4f4f5;color:#a1a1aa;font-size:12px\'>App Preview</div>';" />
 
+                                    <!-- D: hotspot-pulse class added — subtle
+                                         animated ring signals these are
+                                         tappable, instead of relying only
+                                         on a static glow -->
                                     <button onclick="switchAppView('map')"
                                             style="--glow-color: var(--primary);"
-                                            class="absolute top-[40%] right-[2%] z-40
+                                            class="hotspot-pulse absolute top-[40%] right-[2%] z-40
                                                    w-[7.3rem] md:w-[8.3rem] h-[3.2rem] md:h-[3.7rem]
                                                    rounded-[1.5rem] bg-[var(--primary)]/20
                                                    border-2 border-white sharp-glow
@@ -264,7 +280,7 @@ $_bp  = isset($base_path) ? $base_path : '';
 
                                     <button onclick="switchAppView('chat')"
                                             style="--glow-color: #3b82f6;"
-                                            class="absolute top-[12%] left-[12%] z-40
+                                            class="hotspot-pulse absolute top-[12%] left-[12%] z-40
                                                    w-[12rem] md:w-[13.7rem] h-[2.6rem] md:h-[3rem]
                                                    rounded-[1.5rem] bg-blue-500/20
                                                    border-2 border-white sharp-glow
@@ -310,12 +326,31 @@ $_bp  = isset($base_path) ? $base_path : '';
                         </button>
                     </div>
                 </div>
+
+                <!-- C: "Experience the App" — now a real link.
+                     Default: smooth-scrolls down to the store
+                     badges within this same section (keeps the
+                     visitor on-page, doesn't assume iOS/Android).
+                     Change the href to a direct store link or
+                     video trigger if you'd rather it do something
+                     else. -->
+                <a href="#app-connect-stores"
+                   class="group hidden md:flex x absolute bottom-4  <?= $_rtl ? 'right-0' : 'left-4' ?> md:bottom-8
+                          inline-flex items-center gap-2 px-4 py-2.5 rounded-full
+                          border border-white/15 bg-black/20 backdrop-blur-sm
+                          text-white/80 hover:text-white hover:border-white/30
+                          text-xs font-medium transition-all duration-300">
+                    <?= __('experience_app') ?: 'Experience the App' ?>
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200 <?= $_rtl ? 'rotate-180' : '' ?>"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
             </div>
 
             <!-- ══ RIGHT — TEXT ════════════════════════════════ -->
             <div class="lg:col-span-6 flex flex-col justify-center">
 
-                <!-- Yellow bar + eyebrow -->
                 <div class="flex items-center gap-4 mb-6 wv-reveal" data-reveal>
                     <span class="w-8 h-[2px] bg-[var(--secondary)]"></span>
                     <span class="font-mono text-[11px] tracking-[0.3em] uppercase
@@ -324,15 +359,19 @@ $_bp  = isset($base_path) ? $base_path : '';
                     </span>
                 </div>
 
-                <!-- Title — 3 lines split by | in translation file -->
+                <!-- G: title contrast improved — middle line was
+                     text-white/40 (quite faint on this dark bg),
+                     bumped to /60 for better legibility while
+                     still reading as visually "lighter" than the
+                     other two lines -->
                 <?php $app_title_lines = explode('|', __('app_title')); ?>
                 <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium
-                           leading-[1.1]  text-white tracking-tight mb-8">
+                           leading-[1.1] text-white tracking-tight mb-8">
                     <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="0">
                         <span class="line-reveal"><?= trim($app_title_lines[0] ?? '') ?></span>
                     </span>
                     <span class="line-reveal-wrap wv-reveal" data-reveal data-delay="100">
-                        <span class="line-reveal text-white/40 font-light">
+                        <span class="line-reveal text-white/60 font-light">
                             <?= trim($app_title_lines[1] ?? '') ?>
                         </span>
                     </span>
@@ -341,25 +380,32 @@ $_bp  = isset($base_path) ? $base_path : '';
                     </span>
                 </h2>
 
-                <!-- Description -->
-                <p class="text-base md:text-lg text-[#9CA3AF] leading-[1.8]
-                          font-light  max-w-xl mb-12">
+                <!-- H: description contrast improved — was
+                     #9CA3AF on #303030 (borderline contrast for
+                     body text at this size), lightened to #B4B9C2 -->
+                <p class="text-base md:text-lg leading-[1.8]
+                          font-light max-w-xl mb-12" style="color:#B4B9C2;">
                     <?= __('app_desc') ?>
                 </p>
 
-                <!-- Store buttons -->
-                <div class="flex flex-wrap gap-4 items-center">
+                <!-- F: store badges — hover lift + shadow added,
+                     matching the site's other button hover language -->
+                <div id="app-connect-stores" class="flex flex-wrap gap-4 items-center scroll-mt-24">
                     <a href="<?= $app_connect_data['apple_link'] ?>"
-                       class="inline-block transition-transform duration-300
-                              hover:-translate-y-1 active:translate-y-0"
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-block transition-all duration-300
+                              hover:-translate-y-1 hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.5)]
+                              active:translate-y-0"
                        aria-label="<?= __('alt_apple') ?>">
                         <img src="<?= $app_connect_data['app_store'] ?>"
                              alt="<?= __('alt_apple') ?>"
                              class="h-12 w-auto border border-white/80 rounded-xl bg-black" />
                     </a>
                     <a href="<?= $app_connect_data['google_link'] ?>"
-                       class="inline-block transition-transform duration-300
-                              hover:-translate-y-1 active:translate-y-0"
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-block transition-all duration-300
+                              hover:-translate-y-1 hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.5)]
+                              active:translate-y-0"
                        aria-label="<?= __('alt_google') ?>">
                         <img src="<?= $app_connect_data['google_play'] ?>"
                              alt="<?= __('alt_google') ?>"
@@ -372,68 +418,142 @@ $_bp  = isset($base_path) ? $base_path : '';
     </div>
 </section>
 
+<style>
+/* E: robot slide-in — lg+ only, reuses the existing wv-reveal/
+   is-in scroll observer already running in main.js */
+@media (min-width: 1024px) {
+    .bot-slide-in {
+        transform: translateX(-120%);
+        opacity: 0;
+        transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 700ms ease-out;
+    }
+    .bot-slide-in.is-in {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* D: hotspot pulse — subtle animated ring draws the eye to the
+   tappable map/categories overlays without needing a tooltip */
+.hotspot-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid var(--glow-color, #fff);
+    opacity: 0.6;
+    animation: hotspot-pulse-ring 2.2s ease-out infinite;
+    pointer-events: none;
+}
+@keyframes hotspot-pulse-ring {
+    0%   { transform: scale(1);    opacity: 0.6; }
+    70%  { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1.15); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hotspot-pulse::after { animation: none; }
+}
+</style>
+
 
 <section id="insights-reviews" class="relative w-full py-12 bg-black text-[var(--text-light)] overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
-    
+
     <div class="section-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[180px] opacity-10 pointer-events-none"></div>
 
-    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 flex align-end md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+    <!-- Header row — title + desc only -->
+    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 mb-12 md:mb-16">
         <div class="reveal-up">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium  text-white tracking-tight leading-tight uppercase">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight uppercase">
                 <?= __('insight_main_title') ?>
             </h2>
             <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed uppercase">
                 <?= __('insight_desc') ?>
             </p>
         </div>
-
-      <div id="insights-nav-controls" class="flex items-center gap-3 align-end  pointer-events-none transition-all duration-500 ease-out translate-x-4">
-    
-    <button id="insights-prev-btn" class="w-12 h-12  bg-white/5 border border-white/60 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Previous">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-    </button>
-
-    <button id="insights-next-btn" class="w-12 h-12  bg-white/5 border border-white/60 text-white flex items-center justify-center backdrop-blur-md hover:bg-white/15 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-xl" aria-label="Next">
-       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-    </button>
-</div>
-   
     </div>
 
-    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10">
-        <div id="insights-scroll-track" class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory responsive-scroll-behavior" style="-webkit-overflow-scrolling: touch;">
-            
-            <?php foreach ($insights_data as $item): ?>
-            <div class="min-w-[20rem] max-h-[14rem] md:min-w-[28rem] md:max-h-[18rem] aspect-[4/5] snap-start group relative rounded-2xl overflow-hidden bg-[var(--background-alt)] border border-white/5 reveal-up">
-                <div class="video-trigger-wrapper w-full h-full cursor-pointer relative overflow-hidden" data-video-id="<?= $item['video_id'] ?>">
-                    
-                    <div class="absolute top-3 left-3 z-20 rounded-[10%] bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center transition-all duration-300">
-                        <img src="<?= $item['logo'] ?>" alt="Brand Logo" class="h-8 w-auto object-contain brightness-10 grayscale transition-all duration-300 group-hover:brightness-100 group-hover:grayscale-0" />
-                    </div>
-                    
-                    <img src="<?= $item['img_src'] ?>" alt="Leader Insight" class="thumbnail-target w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 ease-out scale-100 group-hover:scale-105" loading="lazy" />
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
-                    
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div class="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform group-hover:scale-110 group-hover:bg-[var(--secondary)] group-hover:text-white group-hover:border group-hover:border-[var(--secondary)]">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 ml-0.5"><path d="M8 5.14v14c0 .86.94 1.39 1.66.9l10-7c.61-.43.61-1.37 0-1.8l-10-7C8.94 3.75 8 4.28 8 5.14z"/></svg>
+    <!-- Relative wrapper now spans the FULL section width — not
+         the padded content container — so the buttons can float
+         outside the card row, in the open gutter space near the
+         true section edges, instead of being pinned right at the
+         first/last card's boundary. -->
+    <div class="relative w-full">
+
+        <!-- Prev — floats outside the card row, circular control
+             with more breathing room and a softer, more "floating"
+             feel than the previous boxed square buttons -->
+        <button id="insights-prev-btn"
+                class="hidden md:flex absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 z-30
+                       w-12 h-12 lg:w-14 lg:h-14 rounded-full
+                       bg-black/70 border border-white/15 text-white
+                       items-center justify-center backdrop-blur-xl
+                       shadow-[0_8px_28px_rgba(0,0,0,0.5)]
+                       hover:bg-white hover:text-black hover:border-white hover:scale-110
+                       active:scale-95
+                       transition-all duration-300
+                       opacity-0 pointer-events-none"
+                aria-label="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                 class="w-4 h-4 lg:w-5 lg:h-5 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+            </svg>
+        </button>
+
+        <!-- Next — mirrored, same treatment -->
+        <button id="insights-next-btn"
+                class="hidden md:flex absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-30
+                       w-12 h-12 lg:w-14 lg:h-14 rounded-full
+                       bg-black/70 border border-white/15 text-white
+                       items-center justify-center backdrop-blur-xl
+                       shadow-[0_8px_28px_rgba(0,0,0,0.5)]
+                       hover:bg-white hover:text-black hover:border-white hover:scale-110
+                       active:scale-95
+                       transition-all duration-300
+                       opacity-0 pointer-events-none"
+                aria-label="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                 class="w-4 h-4 lg:w-5 lg:h-5 transform <?= ($lang === 'ar' ? 'rotate-180' : '') ?>">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+            </svg>
+        </button>
+
+        <!-- Padding now lives only on the track's container, not
+             on the relative wrapper the buttons position against -->
+        <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10">
+            <div id="insights-scroll-track" class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory responsive-scroll-behavior" style="-webkit-overflow-scrolling: touch;">
+
+                <?php foreach ($insights_data as $item): ?>
+                <div class="min-w-[20rem] max-h-[14rem] md:min-w-[28rem] md:max-h-[18rem] aspect-[4/5] snap-start group relative rounded-2xl overflow-hidden bg-[var(--background-alt)] border border-white/5 reveal-up">
+                    <div class="video-trigger-wrapper w-full h-full cursor-pointer relative overflow-hidden" data-video-id="<?= $item['video_id'] ?>">
+
+                        <div class="absolute top-3 left-3 z-20 rounded-[10%] bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center transition-all duration-300">
+                            <img src="<?= $item['logo'] ?>" alt="Brand Logo" class="h-8 w-auto object-contain brightness-10 grayscale transition-all duration-300 group-hover:brightness-100 group-hover:grayscale-0" />
+                        </div>
+
+                        <img src="<?= $item['img_src'] ?>" alt="Leader Insight" class="thumbnail-target w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 ease-out scale-100 group-hover:scale-105" loading="lazy" />
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
+
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform group-hover:scale-110 group-hover:bg-[var(--secondary)] group-hover:text-white group-hover:border group-hover:border-[var(--secondary)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 ml-0.5"><path d="M8 5.14v14c0 .86.94 1.39 1.66.9l10-7c.61-.43.61-1.37 0-1.8l-10-7C8.94 3.75 8 4.28 8 5.14z"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-3 left-3 right-3 z-20 text-right" dir="rtl">
+                            <h3 class="text-md text-white drop-shadow-md">
+                                <?= __($item['title']) ?>
+                            </h3>
                         </div>
                     </div>
-                    
-                    <div class="absolute bottom-3 left-3 right-3 z-20 text-right" dir="rtl">
-                        <h3 class=" text-md  text-white  drop-shadow-md">
-                            <?= __($item['title']) ?>
-                        </h3>
-                    </div>
                 </div>
-            </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
 
+            </div>
         </div>
     </div>
 </section>
-
 <?php
 $_rtl = ($lang === 'ar');
 

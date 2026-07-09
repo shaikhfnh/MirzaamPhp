@@ -1,9 +1,9 @@
 <?php
 return [
     'header_date'     => '٨ - ١٢ ديسمبر ٢٠٢٦',
-    'header_time'     => '١٠:٠٠ - ٢٢:٠٠',
-    'header_location' => 'القاعة ٥-٦',
-
+    'header_time'     => '10:00 - 22:00 يومياً',
+    'header_location' => 'معرض الكويت الدولي، صالة 5-6',
+    
     'header_date_mirzaamiyat'     => 'سيتم الإعلان عن التاريخ لاحقاً',
     'header_time_mirzaamiyat'     => '',    
     'header_location_location' => '',

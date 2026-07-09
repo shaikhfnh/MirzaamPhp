@@ -207,11 +207,12 @@ function initLightbox() {
 // RTL-aware scroll direction.
 // ─────────────────────────────────────────────────────────────
 
+
+
 function initInsightsSlider() {
-    const track    = document.getElementById('insights-scroll-track');
-    const controls = document.getElementById('insights-nav-controls');
-    const prev     = document.getElementById('insights-prev-btn');
-    const next     = document.getElementById('insights-next-btn');
+    const track = document.getElementById('insights-scroll-track');
+    const prev  = document.getElementById('insights-prev-btn');
+    const next  = document.getElementById('insights-next-btn');
     if (!track) return;
 
     const scroll = dir => {
@@ -220,14 +221,14 @@ function initInsightsSlider() {
     };
 
     const checkOverflow = debounce(() => {
-        if (!controls) return;
         const overflow = track.scrollWidth > track.clientWidth && window.innerWidth >= 768;
-        controls.classList.toggle('opacity-0', !overflow);
-        controls.classList.toggle('pointer-events-none', !overflow);
-        controls.classList.toggle('translate-x-4', !overflow);
-        controls.classList.toggle('opacity-100', overflow);
-        controls.classList.toggle('pointer-events-auto', overflow);
-        controls.classList.toggle('translate-x-0', overflow);
+        [prev, next].forEach(btn => {
+            if (!btn) return;
+            btn.classList.toggle('opacity-0', !overflow);
+            btn.classList.toggle('pointer-events-none', !overflow);
+            btn.classList.toggle('opacity-100', overflow);
+            btn.classList.toggle('pointer-events-auto', overflow);
+        });
     }, 150);
 
     setTimeout(checkOverflow, 300);
@@ -359,7 +360,7 @@ function initCategorySlider() {
                     if (section && lenis) {
                         lenis.scrollTo(section, {
                             offset: -100,
-                            duration: 1.1,
+                            duration: 2,
                             easing: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
                         });
                     } else if (section) {

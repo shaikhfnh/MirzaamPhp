@@ -17,7 +17,7 @@ $isRtl = ($lang === 'ar');
 <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600;700&display=swap" rel="stylesheet">
 <style>.mz-display { font-family: 'Markazi Text', serif; }</style>
 
-<div class="bg-white text-zinc-900 antialiased overflow-hidden" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
+<div class="bg-white text-zinc-900  overflow-hidden" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
 
 <!-- ============================================================
          HERO — v3
@@ -82,7 +82,7 @@ $isRtl = ($lang === 'ar');
                 <!-- Navy — Exhibitor List (secondary action) -->
                 <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat/exhibitors/2026' : $base_path . '/mirzaamiyat/exhibitors/2026' ?>"
                    class="inline-flex items-center justify-center gap-2.5
-                          bg-[var(--primary)] hover:bg-[#2A3654]
+                          bg-white/10 hover:bg-white/20
                           border border-white/15 hover:border-white/30
                           text-white font-semibold text-sm
                           px-7 py-3.5 rounded-full
@@ -439,7 +439,7 @@ $mz_tier_styles = [
          • Instagram icon now sits in a bordered glass circle
            instead of a solid navy-on-cream fill
     ============================================================ -->
-    <section class="w-full bg-[#070B14] border-b border-white/5">
+    <section class="w-full bg-zinc-950 border border-white/10">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-10 md:py-12">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-6 wv-reveal" data-reveal>
                 <div class="flex items-center gap-4">
@@ -478,7 +478,9 @@ $mz_tier_styles = [
          • Minimal — no glow, no texture, just clean type + two CTAs
          • Thin gold divider line above the title as a quiet accent
     ============================================================ -->
-    <section class="w-full bg-[#070B14]">
+    <section class="w-full relative overflow-hidden bg-zinc-950 wv-grid-texture">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 pointer-events-none"></div>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-yellow-500/10 rounded-full blur-[160px] pointer-events-none"></div>
         <div class="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-20 md:py-28 text-center">
             <div class="wv-reveal" data-reveal>
 
@@ -491,10 +493,11 @@ $mz_tier_styles = [
                     <?= __('mz_final_desc') ?>
                 </p>
                 <div class="flex flex-wrap justify-center gap-3">
-                    <a href="https://mirzaam.com/mirzaamiyat/2026/participants2026.php"
+                    <a href="<?= $lang === 'ar' ? $base_path . '/ar/mirzaamiyat' : $base_path . '/mirzaamiyat' ?>" 
                        class="inline-flex items-center justify-center
-                              bg-[#C9A267] hover:bg-[#d9b67c]
-                              text-[#070B14] font-semibold text-sm
+                              bg-yellow-500 hover:bg-yellow-400
+                              border border-yellow-500 hover:border-yellow-400
+                              text-[#070B14] font-medium text-sm
                               px-7 py-3.5 rounded-lg
                               transition-colors duration-300">
                         <?= __('mz_final_cta_primary') ?>
@@ -503,7 +506,7 @@ $mz_tier_styles = [
                        class="inline-flex items-center justify-center
                               bg-white/[0.04] hover:bg-white/10
                               border border-white/15 hover:border-white/30
-                              text-white font-semibold text-sm
+                              text-white font-medium text-sm
                               px-7 py-3.5 rounded-lg
                               transition-all duration-300">
                         <?= __('mz_final_cta_secondary') ?>

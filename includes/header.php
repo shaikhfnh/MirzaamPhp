@@ -39,13 +39,13 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
                 <div class="ms-5">
                     <div class="hidden lg:block border-l border-white/10 ">
                          <?php if ($isMirzaamiyatPage): ?>
-                              <p class="text-sm">
-                                <span class="text-[var(--secondary)]"><?= __('header_date_mirzaamiyat') ?></span>
+                              <p class="text-sm uppercase font-medium">
+                                <span class="text-[var(--secondary)] "><?= __('header_date_mirzaamiyat') ?></span>
                                 &nbsp;<?= __('header_time_mirzaamiyat') ?>&nbsp;
                                 <?= __('header_location_location') ?>
                             </p>
                         <?php else: ?>
-                            <p class="text-sm">
+                            <p class="text-sm uppercase font-medium">
                                 <span class="text-[var(--secondary)]"><?= __('header_date') ?></span>
                                 &nbsp;<?= __('header_time') ?>&nbsp;
                                 <?= __('header_location') ?>

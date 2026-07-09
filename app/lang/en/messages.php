@@ -390,7 +390,7 @@ return [
 
     // ── CATEGORIES ────────────────────────────────────────────
     'mz_cat_eyebrow'  => 'Discover & Indulge',
-    'mz_cat_title'    => 'Nine categories, one home',
+    'mz_cat_title'    => 'Nineteen categories, one home',
     'mz_cat_subtitle' => 'Every detail of Ramadan home styling, under one roof.',
 
     'mz_cat_accessories_title' => 'Home Accessories',
@@ -655,6 +655,45 @@ return [
      'cat_tiles'                     => 'Tiles',
      'cat_upholstery'                => 'Upholstery',
      'cat_wallpaper'                 => 'Wallpaper',
+
+
+
+
+     //Previous Exhibitors Page
+    'prev_eyebrow'            => 'Previous Edition',
+    'prev_not_found'          => 'This edition is not available.',
+    'prev_vr_badge'           => 'VR Tour',
+    'prev_gallery_label'      => 'Gallery',
+    'prev_view_full_gallery'  => 'View Full Gallery',
+    'prev_sponsors_label'     => 'Sponsors & Partners',
+    'prev_sponsors_count'     => 'Partners',
+    'prev_cta_title'          => 'Explore This Edition',
+    'prev_cta_desc'           => 'Browse the complete exhibitor list from this edition of Mirzaam.',
+    'prev_cta_participants'   => 'View All Participants',
+    'prev_visit_website' => 'Visit Website',
+    
+    'categories'              => 'Categories',
+    'reset'                   => 'Reset',
+    'show_results'            => 'Show Results',
+    'search_placeholder'      => 'Search exhibitors, brands, or categories...',
+    'filters'                 => 'Filters',
+    'favorites'               => 'Favorites',
+    'all'                     => 'All',
+    'filtering_by'            => 'Filtering by:',
+    'starts_with'             => 'Starts with',
+    'clear_filters'           => 'Clear filters',
+    'loading'                 => 'Loading exhibitors',
+    'of'                      => 'of',
+    'exhibitors'              => 'exhibitors',
+    'no_results'              => 'No exhibitors match your filters',
+    'clear_all_filters'       => 'Clear all filters',
+    'brand'                   => 'brand',
+    'brands'                  => 'brands',
+    'all_participants'        => 'All Participants',
+    'view_on_map'             => 'View on map',
+    'exhibitors_eyebrow'      => 'Mirzaam Expo',
+    'exhibitors_title'        => 'Exhibitors',
+    'exhibitors_subtitle'     => 'Discover every brand, designer, and partner participating this year.',
 
     ];
 ?>

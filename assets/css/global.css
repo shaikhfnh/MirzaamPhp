@@ -1,71 +1,70 @@
- 
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Thin.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Thin.ttf') format('truetype');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Extra_Light.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Extra Light.ttf') format('truetype');
     font-weight: 200;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Light.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Regular.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Medium.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Semi_Bold.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Semi Bold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Bold.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Extra_Bold.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Extra Bold.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
- 
+
 @font-face {
     font-family: 'Madani';
-    src: url('/assets/fonts/Madani/Madani_Arabic_Black.ttf') format('truetype');
+    src: url('/mirzaam/assets/fonts/Madani/Madani Arabic Black.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
     font-display: swap;

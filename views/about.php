@@ -24,7 +24,7 @@ $isRtl = ($lang === 'ar');
      on mobile.
 ============================================================ -->
 <section class="relative w-full bg-white overflow-hidden border-b border-zinc-100" dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
-    <div class="mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-24">
+    <div class="mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-12 md:py-24">
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-14 md:mb-16">
 
@@ -173,7 +173,7 @@ $isRtl = ($lang === 'ar');
          (Fouz Expos Company): Mirzaamiyat and IXIR.
     ═══════════════════════════════════════════════════════ -->
     <section class="w-full border-b border-zinc-100">
-        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-12 ">
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-16 md:mb-20">
                 <div class="lg:col-span-7 wv-reveal" data-reveal>
@@ -183,7 +183,7 @@ $isRtl = ($lang === 'ar');
                     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight">
                         <?= __('about_exh_title') ?: 'Upcoming Events' ?>
                     </h2>
-                    <div class="space-y-4 text-zinc-500 font-light leading-relaxed text-[15px] sm:text-base max-w-xl">
+                    <div class="space-y-4 text-zinc-500 font-light leading-relaxed text-[15px] sm:text-base ">
                         <p><?= __('about_exh_desc') ?></p>
                         <p><?= __('about_exh_desc2') ?></p>
                     </div>
@@ -202,7 +202,7 @@ $isRtl = ($lang === 'ar');
                     <?= __('about_exh_siblings_label') ?: 'Part of the Fouz Expos Family' ?>
                 </span>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
                     <?php foreach ($exhibitions_data as $i => $item): ?>
                         <a href="<?= htmlspecialchars($item['link']) ?>" 
                         <?= str_contains($item['link'], $base_path) ? 'target="_self"' : 'target="_blank"' ?>
@@ -257,10 +257,10 @@ $isRtl = ($lang === 'ar');
          STRATEGY + MISSION
     ═══════════════════════════════════════════════════════ -->
     <section class="w-full bg-zinc-50/50 border-b border-zinc-100">
-        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 ">
 
             <!-- Strategy -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pb-16 mb-16 border-b border-zinc-200/70 wv-reveal" data-reveal>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pb-12 mb-12 border-b border-zinc-200/70 wv-reveal" data-reveal>
                 <div class="lg:col-span-4">
                     <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono block mb-3">
                         <?= __('about_strat_subtitle') ?: 'Our Approach' ?>
@@ -316,7 +316,7 @@ $isRtl = ($lang === 'ar');
          WHY "MIRZAAM"? (Legacy) + HIGHLIGHTS
     ═══════════════════════════════════════════════════════ -->
     <section class="w-full border-b border-zinc-100">
-        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 md:py-20">
+        <div class=" mx-auto px-4 sm:px-8 lg:px-16 xl:px-24 py-16 ">
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
 

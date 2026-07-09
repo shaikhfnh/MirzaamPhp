@@ -343,8 +343,29 @@ function initCategorySlider() {
                 cards.forEach(c => c.classList.remove('!w-full'));
                 cards.forEach(c => c.classList.add('w-[240px]'));
                 toggleBtn.textContent = textAll;
-                card_shades.forEach(shade => shade.classList.remove('hidden'));
-                lenis?.resize();
+           card_shades.forEach(shade => shade.classList.remove('hidden'));
+               lenis?.resize();
+
+                requestAnimationFrame(() => {
+                    const section = document.getElementById('categories-hybrid-section');
+                    if (!section) return;
+                    const y = section.getBoundingClientRect().top + window.scrollY - 100;
+                    window.scrollTo(0, y);
+                });
+
+                // Scroll back to the category section after collapse
+                setTimeout(() => {
+                    const section = document.getElementById('categories-hybrid-section');
+                    if (section && lenis) {
+                        lenis.scrollTo(section, {
+                            offset: -100,
+                            duration: 1.1,
+                            easing: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+                        });
+                    } else if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 80);
             }
         });
     }

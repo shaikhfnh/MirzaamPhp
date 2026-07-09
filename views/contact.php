@@ -44,8 +44,8 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
         <div class="relative z-10 max-w-none grid grid-cols-1 lg:grid-cols-12" style="min-height:62vh;">
 
             <!-- Dark panel -->
-            <div class="lg:col-span-5 bg-zinc-950 relative flex flex-col justify-between
-                        px-5 sm:px-10 lg:px-14 xl:px-20 py-10 sm:py-12 md:py-16 min-h-[460px] sm:min-h-[520px] lg:min-h-0">
+            <div class="lg:col-span-5 bg-zinc-950 relative flex flex-col md:justify-between
+                        px-5 sm:px-10 lg:px-14 xl:px-20 py-10 sm:py-12 md:py-16  lg:min-h-0">
 
                 <div class="wv-reveal" data-reveal>
                     <span class="inline-flex items-center gap-3 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-yellow-500 font-semibold font-mono mb-4 sm:mb-5">

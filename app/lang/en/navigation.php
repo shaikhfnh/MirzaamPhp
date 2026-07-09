@@ -19,13 +19,7 @@ return [
     'explore_booth'   => 'Best Booth Design',
     'explore_way'     => 'WayFinding',
     
-    'menu_prev'       => 'PREVIOUS EXPO',
-    'prev_2025'       => 'Previous Mirzaam 2025',
-    'prev_2024'       => 'Previous Mirzaam 2024',
-    'prev_2023'       => 'Previous Mirzaam 2023',
-    'prev_vr2023'     => 'VR Mirzaam 2023',
-    'prev_2022'       => 'Previous Mirzaam 2022',
-    'prev_2020'       => 'Previous Mirzaam 2020',
+
     
     'menu_mirz2026'   => 'MIRZAAMIYAT 2026',
     'mirz_about'      => 'About Mirzaamiyat',
@@ -39,4 +33,15 @@ return [
     'book_booth'      => 'Book Your Booth 2026',
     'booth_coming_soon' => 'Registration opening soon',
     'booth_soon_tag'    => 'Soon',
+
+    
+    // Menu keys
+    'menu_previous'  => 'Previous Editions',
+    'menu_prev_2025' => 'Mirzaam 2025',
+    'menu_prev_2024' => 'Mirzaam 2024',
+    'menu_prev_2023' => 'Mirzaam 2023',
+    'menu_prev_2022' => 'Mirzaam 2022',
+    'menu_prev_2020' => 'Mirzaam 2020',
+ 
+
 ];

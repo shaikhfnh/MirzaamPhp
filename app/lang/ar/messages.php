@@ -374,7 +374,7 @@ return [
 
     // ── CATEGORIES ────────────────────────────────────────────
     'mz_cat_eyebrow'  => 'اكتشف وانغمس',
-    'mz_cat_title'    => 'تسع فئات، منزل واحد',
+    'mz_cat_title'    => 'تسع عشرة فئة، منزل واحد', 
     'mz_cat_subtitle' => 'كل تفاصيل تنسيق المنزل لرمضان، تحت سقف واحد.',
 
     'mz_cat_accessories_title' => 'الإكسسوارات المنزلية',
@@ -638,6 +638,44 @@ return [
     'cat_tiles'                     => 'البلاط',
     'cat_upholstery'                => 'التنجيد',
     'cat_wallpaper'                 => 'ورق الجدران',
+
+    //Previous Exhibitions Page
+    
+    'prev_eyebrow'            => 'النسخة السابقة',
+    'prev_not_found'          => 'هذه النسخة غير متوفرة.',
+    'prev_vr_badge'           => 'جولة افتراضية',
+    'prev_gallery_label'      => 'المعرض',
+    'prev_view_full_gallery'  => 'عرض المعرض الكامل',
+    'prev_sponsors_label'     => 'الرعاة والشركاء',
+    'prev_sponsors_count'     => 'شريك',
+    'prev_cta_title'          => 'استكشف هذه النسخة',
+    'prev_cta_desc'           => 'تصفح القائمة الكاملة للعارضين في هذه النسخة من مرزام.',
+    'prev_cta_participants'   => 'عرض جميع المشاركين',
+    'prev_visit_website' => 'زيارة الموقع',
+
+    'categories'              => 'الفئات',
+    'reset'                   => 'إعادة تعيين',
+    'show_results'            => 'عرض النتائج',
+    'search_placeholder'      => 'ابحث عن العارضين أو العلامات التجارية أو الفئات...',
+    'filters'                 => 'الفلاتر',
+    'favorites'               => 'المفضلة',
+    'all'                     => 'الكل',
+    'filtering_by'            => 'التصفية حسب:',
+    'starts_with'             => 'يبدأ بـ',
+    'clear_filters'           => 'مسح الفلاتر',
+    'loading'                 => 'جاري تحميل العارضين',
+    'of'                      => 'من',
+    'exhibitors'              => 'عارض',
+    'no_results'              => 'لا يوجد عارضون يطابقون الفلاتر المحددة',
+    'clear_all_filters'       => 'مسح جميع الفلاتر',
+    'brand'                   => 'علامة تجارية',
+    'brands'                  => 'علامات تجارية',
+    'all_participants'        => 'جميع المشاركين',
+    'view_on_map'             => 'عرض على الخريطة',
+    'exhibitors_eyebrow'      => 'معرض مرزام',
+    'exhibitors_title'        => 'العارضون',
+    'exhibitors_subtitle'     => 'اكتشف كل علامة تجارية ومصمم وشريك مشارك هذا العام.',
+
 
 ];
 

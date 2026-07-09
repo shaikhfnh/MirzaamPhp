@@ -51,23 +51,13 @@ $MENU = [
         ]
     ],
     [
-        "title" => "menu_prev",
-        "items" => [
-            // ── 2025 → current dynamic page on this site
-            ["label" => "prev_2025", "link" => "participants/2025"],
-            // ── 2024 → current dynamic page on this site
-            ["label" => "prev_2024", "link" => "participants/2024"],
-            // ── 2023 → current dynamic page on this site
-            ["label" => "prev_2023", "link" => "participants/2023"],
-            // ── VR tour 2023 → Matterport, external
-            [
-                "label"    => "prev_vr2023",
-                "link"     => "https://my.matterport.com/show/?m=YkF6q7FDhGb",
-                "external" => true,
-            ],
-            // ── 2022 → current dynamic page on this site (uses old JSON source)
-            ["label" => "prev_2022", "link" => "participants/2022"],
-            // ── 2020 → archived elsewhere (no sheet exists for 2020)
+        'title' => 'menu_previous',
+        'items' => [
+            ['label' => 'menu_prev_2025', 'link' => '/previous/2025'],
+            ['label' => 'menu_prev_2024', 'link' => '/previous/2024'],
+            ['label' => 'menu_prev_2023', 'link' => '/previous/2023'],
+            ['label' => 'menu_prev_2022', 'link' => '/previous/2022'],
+            ['label' => 'menu_prev_2020', 'link' => '/previous/2020'],
         ]
     ],
     [

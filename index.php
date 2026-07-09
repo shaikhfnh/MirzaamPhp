@@ -7,6 +7,7 @@ require_once 'app/config/forms.php';
 require_once 'app/data/home_data.php';
 require_once 'app/data/global_data.php';
 require_once 'app/data/menu.php';
+require_once 'app/data/previous-mirzaam-data.php';
 require_once 'app/data/categories_data.php';
 
 // ── API EARLY EXIT ──────────────────────────────────────────
@@ -53,6 +54,7 @@ unset($_api_path, $_api_m);
 
 </head>
 <body class="bg-black text-white">
+    
 
     <?php include 'includes/header.php'; ?>
     <a href="https://wa.me/96565783517"
@@ -67,14 +69,10 @@ unset($_api_path, $_api_m);
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.198.297-.768.966-.941 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.174-1.413-.074-.124-.272-.198-.57-.347zM12.042 0C5.495 0 .162 5.333.162 11.88c0 2.093.547 4.136 1.588 5.938L0 24l6.353-1.667a11.86 11.86 0 005.689 1.448h.005c6.547 0 11.88-5.333 11.88-11.88A11.913 11.913 0 0012.042 0zm0 21.77h-.004a9.88 9.88 0 01-5.032-1.378l-.36-.214-3.769.988 1.005-3.675-.234-.377a9.86 9.86 0 01-1.516-5.233c.002-5.443 4.43-9.87 9.876-9.87a9.82 9.82 0 016.98 2.894 9.82 9.82 0 012.89 6.98c-.003 5.445-4.43 9.875-9.876 9.875z"/>
     </svg>
 </a>
-    <main>
+<main>
         <?php
         // ────────────────────────────────────────────────────────
         // ROUTER
-        // ────────────────────────────────────────────────────────
-        // Every request comes through here (via .htaccess catch-all).
-        // We strip the base path and language prefix, then pattern-
-        // match the remaining path to choose which view to include.
         // ────────────────────────────────────────────────────────
         $request_uri = $_SERVER['REQUEST_URI'];
 
@@ -84,7 +82,8 @@ unset($_api_path, $_api_m);
         // Strip base path (/mirzaam on local, '' on prod)
         if ($base_path !== '' && strpos($path, $base_path) === 0) {
             $path = substr($path, strlen($base_path));
-        }        $path = trim($path, '/');
+        }
+        $path = trim($path, '/');
 
         // Strip Arabic language prefix
         if (strpos($path, 'ar/') === 0) {
@@ -101,29 +100,28 @@ unset($_api_path, $_api_m);
         $view_file = 'views/home.php';
 
         // ──────── ROUTE TABLE ────────
-        // Static pages: path => view file
         $routes = [
             ''             => 'views/home.php',
             'about'        => 'views/about.php',
             'contact'      => 'views/contact.php',
 
             // VISIT submenu
-            'why-visit'    => 'views/why-visit.php',
-            'plan-your-trip'    => 'views/plan-your-trip.php',       
+            'why-visit'         => 'views/why-visit.php',
+            'plan-your-trip'    => 'views/plan-your-trip.php',
 
             // EXHIBIT submenu
             'why-exhibit'  => 'views/why-exhibit.php',
 
             // EXPLORE EXPO submenu
-            'best-booth'   => 'views/best-booth.php',         // alt path
+            'best-booth'   => 'views/best-booth.php',
             'wayfinding'   => 'views/wayfinding.php',
 
-          // MIRZAAMIYAT routes
+            // MIRZAAMIYAT routes
             'mirzaamiyat'             => 'views/mirzaamiyat.php',
             'mirzaamiyat/about'       => 'views/mirzaamiyat.php',
             'mirzaamiyat/exhibitors'  => 'views/mirzaamiyat-exhibitors.php',
 
-        // Footer Extra routes
+            // Footer Extra routes
             'media'        => 'views/media.php',
             'privacy'      => 'views/privacy.php',
         ];
@@ -137,17 +135,27 @@ unset($_api_path, $_api_m);
             $year      = $matches[1];
             $view_file = 'views/participants.php';
         }
-        // Dynamic: /mirzaamiyat/exhibitors/{year}
+        // 3. Dynamic: /mirzaamiyat/exhibitors/{year}
         elseif (preg_match('#^mirzaamiyat/exhibitors/(\d{4})$#', $path, $matches)) {
             $year      = $matches[1];
             $view_file = 'views/mirzaamiyat-exhibitors.php';
         }
-        // 3. /participants by itself (defaults to current edition)
+        // 4. Dynamic: /previous/{year}
+        elseif (preg_match('#^previous/(\d{4})$#', $path, $matches)) {
+            $year      = $matches[1];
+            $view_file = 'views/previous-mirzaam.php';
+        }
+        // 5. /previous by itself (defaults to latest year)
+        elseif ($path === 'previous') {
+            $year      = '2025';
+            $view_file = 'views/previous-mirzaam.php';
+        }
+        // 6. /participants by itself (defaults to current edition)
         elseif ($path === 'participants') {
             $year      = '2026';
             $view_file = 'views/participants.php';
         }
-        // 4. External VR experience — handled by JS redirect in the view
+        // 7. External VR experience
         elseif ($path === 'vr-2023' || $path === 'mirzaam-vr') {
             $view_file = 'views/vr-redirect.php';
         }

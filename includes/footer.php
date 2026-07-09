@@ -119,7 +119,7 @@
             <a href="<?= htmlspecialchars($expo['url']) ?>"
             <?= str_contains($expo['url'], $base_path) ? 'target="_self"' : 'target="_blank"' ?>
                rel="noopener noreferrer"
-               class="md:aspect-[21/9] flex items-center justify-center md:p-3 sm:p-4 border border-black/5 rounded-xl shadow-sm bg-white hover:shadow-md hover:border-black/20 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+               class="aspect-[10/2] md:aspect-[21/9] flex items-center justify-center md:p-3 sm:p-4 border border-black/5 rounded-xl shadow-sm bg-white hover:shadow-md hover:border-black/20 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
                 <img src="<?= $expo['image'] ?>" alt="<?= strip_tags(__('footer_expos_headline')) ?>" class="max-h-full max-w-full w-auto h-auto object-contain">
             </a>
         <?php endforeach; ?>

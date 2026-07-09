@@ -2,30 +2,22 @@
 // ============================================================
 // includes/exhibitor-directory/template.php
 // ============================================================
-// WHITE THEME — v4
-// Changes from v3:
-//   • $expo_config support — heading/subtitle/year driven by
-//     the calling view (Mirzaamiyat, IXIR, etc.)
-//   • _t() helper fixes the __() key-as-fallback bug so the
-//     Mirzaam participants page title + subtitle now display
-//     correctly when translation keys are missing
-//   • Everything else is identical to v3
+// WHITE THEME — v5
+// Changes from v4:
+//   • Mobile/tablet category filter redesigned as a searchable
+//     bottom sheet (was a cramped inline drawer). Desktop
+//     sidebar (lg+) is completely unchanged.
+//   • Requires categorySearch state + filteredCategoryFacets
+//     getter added to both exhibitorController and exhibitorApp.
 // ============================================================
 $lang  = $lang  ?? 'en';
 $isRtl = ($lang === 'ar');
 
-// ── Expo display strings ─────────────────────────────────────
-// _t() fixes the __() bug: when a translation key is missing,
-// __() returns the key NAME itself (truthy), so ?: never fires.
-// _t() compares the returned value against the key name and
-// uses the fallback when they match.
 function _t(string $key, string $fallback): string {
     $val = __($key);
     return ($val !== $key && $val !== '') ? $val : $fallback;
 }
 
-// Read from $expo_config if the calling view set it,
-// otherwise fall back to translation keys + hardcoded defaults.
 $_ec_eyebrow  = ($expo_config['eyebrow']  ?? null)
     ?: _t('exhibitors_eyebrow',  'Mirzaam Expo');
 $_ec_title    = ($expo_config['title']    ?? null)
@@ -33,7 +25,6 @@ $_ec_title    = ($expo_config['title']    ?? null)
 $_ec_subtitle = ($expo_config['subtitle'] ?? null)
     ?: _t('exhibitors_subtitle', 'Discover every brand, designer, and partner participating this year.');
 $_ec_year     = $expo_config['year'] ?? $year ?? date('Y');
-// ─────────────────────────────────────────────────────────────
 
 function cat_icon_path($key) {
     $icons = [
@@ -119,7 +110,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
      dir="<?= $isRtl ? 'rtl' : 'ltr' ?>">
 
     <!-- ═════════ PAGE HEADER ═════════ -->
-    <div class="pt-10 md:pt-14 pb-10 border-b border-zinc-100 text-center">
+    <div class="py-5 border-b border-zinc-100 text-center">
         <p class="text-yellow-600 text-[11px] tracking-[0.4em] uppercase font-semibold mb-4 inline-flex items-center gap-3">
             <span class="w-8 h-px bg-yellow-500/60"></span>
             <?= htmlspecialchars($_ec_eyebrow) ?>
@@ -137,15 +128,8 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
     <!-- ═════════ MAIN LAYOUT ═════════ -->
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 pt-6">
 
-        <!-- ───────── CATEGORY SIDEBAR ───────── -->
-        <aside
-            x-show="hasCategoryData && (filtersOpen || window.innerWidth >= 1024)"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 -translate-y-2"
-            x-transition:enter-end="opacity-100 translate-y-0"
-            class="w-full lg:w-[280px] lg:flex-shrink-0"
-            :class="filtersOpen ? 'block' : 'lg:flex hidden'">
-
+        <!-- ───────── DESKTOP CATEGORY SIDEBAR — unchanged, lg+ only ───────── -->
+        <aside x-show="hasCategoryData" class="hidden lg:flex w-full lg:w-[280px] lg:flex-shrink-0">
             <div class="bg-white border border-zinc-100 rounded-2xl flex flex-col h-full overflow-hidden">
 
                 <div class="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0">
@@ -153,7 +137,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                         <?= _t('categories', 'Categories') ?>
                     </h3>
                     <span x-show="categories.length > 0" @click="clearCategories()"
-                          class="text-[10px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer normal-case tracking-normal !dir-ltr">
+                          class="text-[10px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer normal-case tracking-normal">
                         <?= _t('reset', 'Reset') ?>
                     </span>
                 </div>
@@ -172,21 +156,95 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                 </span>
                                 <span class="flex-1 min-w-0 text-[12.5px] leading-tight text-zinc-700 group-hover:text-zinc-900 transition truncate"
                                       :class="isCategoryActive(facet.name) ? 'font-semibold text-zinc-900' : ''"
-                                      x-text="facet.name" :title="facet.name"></span>
+                                      x-text="translateCategory(facet.name)" :title="translateCategory(facet.name)"></span>
                                 <span class="text-[10px] text-zinc-400 tabular-nums flex-shrink-0" x-text="facet.count"></span>
                             </label>
                         </template>
                     </div>
                 </div>
+            </div>
+        </aside>
 
+        <!-- ───────── MOBILE/TABLET — searchable bottom sheet ───────── -->
+        <div x-show="filtersOpen" x-cloak
+             x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+             class="lg:hidden fixed inset-0 bg-black/40 z-[100]"
+             @click="filtersOpen = false"></div>
+
+        <div x-show="filtersOpen" x-cloak
+             x-transition:enter="transition duration-300 ease-out" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
+             x-transition:leave="transition duration-200 ease-in" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
+             class="lg:hidden fixed inset-x-0 bottom-0 z-[101] bg-white rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.2)]
+                    max-h-[85vh] flex flex-col"
+             @click.outside="filtersOpen = false">
+
+            <div class="flex justify-center pt-3 pb-1 flex-shrink-0">
+                <div class="w-10 h-1 rounded-full bg-zinc-200"></div>
+            </div>
+
+            <div class="flex items-center justify-between px-5 py-3 border-b border-zinc-100 flex-shrink-0">
+                <h3 class="text-sm font-bold text-zinc-900">
+                    <?= _t('categories', 'Categories') ?>
+                </h3>
+                <div class="flex items-center gap-4">
+                    <span x-show="categories.length > 0" @click="clearCategories()"
+                          class="text-[11px] font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer">
+                        <?= _t('reset', 'Reset') ?>
+                    </span>
+                    <button @click="filtersOpen = false" type="button" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-zinc-100 text-zinc-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="px-5 py-3 border-b border-zinc-100 flex-shrink-0">
+                <div class="relative">
+                    <svg class="absolute <?= $isRtl ? 'right-3' : 'left-3' ?> top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" x-model="categorySearch"
+                           placeholder="<?= _t('search_categories', 'Search categories...') ?>"
+                           class="w-full bg-zinc-50 border border-zinc-200 rounded-xl <?= $isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3' ?> py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-900 focus:bg-white transition">
+                </div>
+            </div>
+
+            <div class="flex-1 min-h-0 overflow-y-auto px-3 py-2">
+                <template x-if="filteredCategoryFacets.length === 0">
+                    <p class="text-center text-sm text-zinc-400 py-8">
+                        <?= _t('no_categories_found', 'No categories found') ?>
+                    </p>
+                </template>
+                <div class="space-y-0.5">
+                    <template x-for="facet in filteredCategoryFacets" :key="facet.name">
+                        <label class="flex items-center gap-3 py-3 px-2.5 rounded-lg cursor-pointer active:bg-zinc-50 transition">
+                            <input type="checkbox"
+                                :checked="isCategoryActive(facet.name)"
+                                @change="toggleCategory(facet.name)"
+                                class="w-4 h-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900/30 focus:ring-2 cursor-pointer flex-shrink-0">
+                            <span class="w-5 h-5 flex items-center justify-center flex-shrink-0 text-zinc-400"
+                                  :class="isCategoryActive(facet.name) ? 'text-zinc-900' : ''"
+                                  x-html="$store.catIcons.svg(facet.icon)">
+                            </span>
+                            <span class="flex-1 min-w-0 text-sm leading-tight text-zinc-700 truncate"
+                                  :class="isCategoryActive(facet.name) ? 'font-semibold text-zinc-900' : ''"
+                                  x-text="translateCategory(facet.name)"></span>
+                            <span class="text-[11px] text-zinc-400 tabular-nums flex-shrink-0" x-text="facet.count"></span>
+                        </label>
+                    </template>
+                </div>
+            </div>
+
+            <div class="px-4 py-3.5 border-t border-zinc-100 flex-shrink-0" style="padding-bottom: max(0.875rem, env(safe-area-inset-bottom));">
                 <button @click="filtersOpen = false" type="button"
-                    class="lg:hidden bg-zinc-900 text-white rounded-xl py-3 text-sm font-semibold tracking-wide hover:bg-zinc-800 transition flex-shrink-0"
-                    style="margin: 0 1rem 1rem 1rem;">
+                        class="w-full bg-zinc-900 text-white rounded-xl py-3.5 text-sm font-semibold hover:bg-zinc-800 transition">
                     <?= _t('show_results', 'Show Results') ?>
                     (<span x-text="filteredData.length"></span>)
                 </button>
             </div>
-        </aside>
+        </div>
 
         <!-- ───────── CONTENT COLUMN ───────── -->
         <div class="flex-1 min-w-0">
@@ -271,7 +329,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 <template x-for="cat in categories" :key="cat">
                     <button @click="toggleCategory(cat)" type="button"
                         class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-300 text-zinc-700 text-xs font-semibold tracking-wide uppercase hover:bg-zinc-200 transition">
-                        <span x-text="cat"></span>
+                        <span x-text="translateCategory(cat)"></span>
                         <svg class="w-3 h-3 group-hover:rotate-90 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -291,9 +349,7 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                 </button>
             </div>
 
-            <!-- LOADING — spinner shows ONLY while the fetch is genuinely
-                in progress, never gets stuck since `loading` always
-                flips to false when the request finishes (success or not) -->
+            <!-- LOADING -->
             <template x-if="loading">
                 <div>
                     <div class="flex items-center justify-center gap-3 mb-6 text-zinc-500">
@@ -313,24 +369,20 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                     </div>
                 </div>
             </template>
- 
-<!-- NO DATA FOR THIS YEAR — shown once loading finishes and
-     the API came back with an error (year/expo combo doesn't
-     exist in the registry). Fully bilingual via _t(), which
-     reads from your lang/en and lang/ar files. -->
-<template x-if="!loading && apiError">
-    <div class="text-center py-24">
-        <svg class="w-16 h-16 text-zinc-200 mx-auto mb-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <p class="text-zinc-700 text-lg font-semibold mb-2">
-            <?= _t('exhibitors_no_data_title', 'Data not available') ?>
-        </p>
-        <p class="text-zinc-400 text-sm max-w-sm mx-auto">
-            <?= _t('exhibitors_no_data_desc', "We don't have exhibitor data for this edition yet. Please check back closer to the event.") ?>
-        </p>
-    </div>
-</template>
+
+            <template x-if="!loading && apiError">
+                <div class="text-center py-24">
+                    <svg class="w-16 h-16 text-zinc-200 mx-auto mb-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="text-zinc-700 text-lg font-semibold mb-2">
+                        <?= _t('exhibitors_no_data_title', 'Data not available') ?>
+                    </p>
+                    <p class="text-zinc-400 text-sm max-w-sm mx-auto">
+                        <?= _t('exhibitors_no_data_desc', "We don't have exhibitor data for this edition yet. Please check back closer to the event.") ?>
+                    </p>
+                </div>
+            </template>
 
             <!-- RESULTS COUNT -->
             <div x-show="exhibitors.length > 0" class="mb-5 flex items-center justify-between">
@@ -425,8 +477,8 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                             type="button"
                                             class="mt-1 text-left text-[9px] sm:text-[10px] uppercase tracking-wide truncate font-medium transition w-full"
                                             :class="isCategoryActive(primaryCategory(item)) ? 'text-zinc-900' : 'text-zinc-400 hover:text-zinc-700'"
-                                            x-text="primaryCategory(item)"
-                                            :title="primaryCategory(item)"></button>
+                                            x-text="translateCategory(primaryCategory(item))"
+                                            :title="translateCategory(primaryCategory(item))"></button>
                                         <span class="absolute bottom-0 <?= $isRtl ? 'right-3' : 'left-3' ?> h-[2px] w-0 bg-yellow-500 rounded-full group-hover:w-7 transition-all duration-500"></span>
                                     </div>
                                 </div>
@@ -501,8 +553,8 @@ function cat_icon_svg($key, $class = 'w-4 h-4') {
                                         type="button"
                                         class="mt-1 text-left text-[9px] sm:text-[10px] uppercase tracking-wide truncate font-medium transition w-full"
                                         :class="isCategoryActive(primaryCategory(item)) ? 'text-zinc-900' : 'text-zinc-400 hover:text-zinc-700'"
-                                        x-text="primaryCategory(item)"
-                                        :title="primaryCategory(item)"></button>
+                                        x-text="translateCategory(primaryCategory(item))"
+                                        :title="translateCategory(primaryCategory(item))"></button>
                                     <span class="absolute bottom-0 <?= $isRtl ? 'right-3' : 'left-3' ?> h-[2px] w-0 bg-yellow-500 rounded-full group-hover:w-7 transition-all duration-500"></span>
                                 </div>
                             </div>

@@ -76,6 +76,73 @@ const CATEGORY_ICON_MAP = {
 };
 
 // ────────────────────────────────────────────────────────────
+// CATEGORY → ARABIC LABEL MAP
+// Same lowercase-key convention as CATEGORY_ICON_MAP above, so
+// translateCategory() can reuse the same lookup pattern as
+// iconKeyFor(). Any category not listed falls back to showing
+// the original English text — safe, never breaks.
+// ────────────────────────────────────────────────────────────
+const CATEGORY_LABEL_MAP_AR = {
+    'architectural consultant': 'استشاري معماري',
+    'bathroom accessories': 'إكسسوارات الحمامات',
+    'bathroom fitouts': 'تجهيزات الحمامات',
+    'beddings': 'السرائر',
+    'carpentry & wardrobe fitout': 'النجارة وتجهيز الخزائن',
+    'carpets': 'السجاد',
+    'cleaning services': 'خدمات التنظيف',
+    'contracting company': 'شركات المقاولات',
+    'counter tops': 'أسطح',
+    'curtains & drapes': 'الستائر',
+    'custom furniture': 'تفصيل الأثاث',
+    'doors & windows | indoor': 'الأبواب والنوافذ الداخلية',
+    'electrical sockets': 'مقابس كهربائية',
+    'elevator fitout': 'تجهيزات المصاعد',
+    'exterior doors & windows': 'الأبواب والنوافذ الخارجية',
+    'food & beverage': 'الأطعمة والمشروبات',
+    'home accessories': 'الإكسسوارات المنزلية',
+    'home appliances': 'معدات المنازل',
+    'home automation systems': 'أتمتة المنازل',
+    'home electronics': 'الأجهزة الكهربائية',
+    'home fragrances': 'المعطرات المنزلية',
+    'home gifting': 'الهدايا المنزلية',
+    'home insurance': 'التأمين المنزلي',
+    'home office furniture': 'المكتب المنزلي',
+    'home security': 'شركات الحراسة',
+    'independent educator': 'معلم مستقل',
+    'indoor furniture': 'الأثاث الداخلي',
+    'indoor plants': 'النباتات الداخلية',
+    'industrial floors': 'أرضيات صناعية',
+    'interior design consultant': 'استشاري التصميم الداخلي',
+    'interior design educational bodies': 'الهيئات التعليمية للتصميم الداخلي',
+    'interior fitout': 'التجهيزات الداخلية',
+    'kitchen equipment': 'أجهزة المطابخ',
+    'kitchen fitout': 'تجهيزات المطابخ',
+    'landscape design': 'تصميم الحدائق',
+    'landscaping': 'الحدائق المنزلية',
+    'light fittings': 'تركيبات الإضاءة',
+    'mattress': 'المراتب',
+    'offers': 'عروض',
+    'online apps & e-commerce': 'التطبيقات الإلكترونية والتسوق الإلكتروني',
+    'outdoor furniture': 'الأثاث الخارجي',
+    'outdoor plants': 'النباتات الخارجية',
+    'paint': 'الدهانات',
+    'parquet': 'باركيه',
+    'pillows': 'الوسائد',
+    'plant accessories': 'اكسسوارات النبات',
+    'property development': 'تطوير العقارات',
+    'security system': 'أنظمة الأمن',
+    'shading systems': 'أنظمة التظليل',
+    'shutter systems': 'أنظمة الشتر',
+    'stones': 'أحجار',
+    'swimming pool design & installation': 'تجهيز وتركيب حمامات السباحة',
+    'textiles': 'المنسوجات',
+    'tiles': 'بلاط',
+    'trainer': 'مدرب',
+    'upholstery': 'المفروشات',
+    'wallpaper': 'ورق الحائط',
+};
+
+// ────────────────────────────────────────────────────────────
 // ICON SVG STRINGS — must mirror cat_icon_path() in template.php
 // exactly (same keys, same path data). Used by the sidebar via
 // $store.catIcons.svg(key) since x-html needs a JS-side source,
@@ -144,11 +211,19 @@ function registerExhibitorApp() {
         lang: lang || 'en',
         search: '',
         categories: [],
+        categorySearch: '', 
         alphabet: '',
         view: 'grid',
         showFavorites: false,
         filtersOpen: false,
         exhibitors: [],
+        apiError : false,
+        loading: true,
+        translateCategory(categoryName) {
+            if (!categoryName) return '';
+            if (this.lang !== 'ar') return categoryName;
+            return CATEGORY_LABEL_MAP_AR[categoryName.toLowerCase().trim()] || categoryName;
+        },
         favorites: JSON.parse(localStorage.getItem(`mirzaam_favs_${year || '2026'}`) || '[]'),
         tiers: SPONSOR_TIERS,
         _ready: false,
@@ -224,7 +299,7 @@ function registerExhibitorApp() {
             history.replaceState(null, '', url);
         },
 
-        async init() {
+       async init() {
             this.hydrateFromUrl();
             window.addEventListener('popstate', () => this.hydrateFromUrl());
 
@@ -234,9 +309,6 @@ function registerExhibitorApp() {
             this.$watch('showFavorites', () => this.syncUrl());
             this.$watch('view',          () => this.syncUrl());
 
-            // Detect base path automatically:
-            // Local: /mirzaam/participants/2025 → basePath = '/mirzaam'
-            // Prod:  /participants/2025         → basePath = ''
             const basePath = window.location.pathname.split('/participants')[0] || '';
             const fetchUrl = `${basePath}/api/exhibitors/${this.year}`;
             console.log(`🚀 [FETCH] ${fetchUrl}`);
@@ -272,6 +344,9 @@ function registerExhibitorApp() {
                 this._ready = true;
             } catch (err) {
                 console.error("❌", err);
+                this.apiError = true;
+            } finally {
+                this.loading = false;
             }
         },
 
@@ -314,6 +389,18 @@ function registerExhibitorApp() {
                 .map(([name, count]) => ({ name, count, icon: this.iconKeyFor(name) }))
                 .sort((a, b) => a.name.localeCompare(b.name));
         },
+
+        get filteredCategoryFacets() {
+    if (!this.categorySearch.trim()) return this.categoryFacets;
+    const q = this.categorySearch.trim().toLowerCase();
+    return this.categoryFacets.filter(f => {
+        // Search matches either the raw English name OR the
+        // translated Arabic label, so it works regardless of
+        // which language the visitor is typing in.
+        const translated = this.translateCategory(f.name).toLowerCase();
+        return f.name.toLowerCase().includes(q) || translated.includes(q);
+    });
+},
 
         get uniqueCategories() { return this.categoryFacets.map(f => f.name); },
 

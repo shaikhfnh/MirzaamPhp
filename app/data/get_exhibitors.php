@@ -128,7 +128,7 @@ $headerAliases = [
     'id'       => ['id'],
     'company'  => ['company', '2024 company', '2023 company', 'company name'],
     'name_ar'  => ['arabic  name', 'arabic name'],
-    'category' => ['categories', 'category'],
+    'category' => ['categories', 'category','Categories', 'Category', 'category name', 'category type'],
     'image'    => ['image'],
     'hall'     => ['hall'],
     'type'     => ['type', 'booth category'],
@@ -140,8 +140,17 @@ function mapHeaders(array $headerRow, array $aliases): array {
     foreach ($aliases as $field => $candidates) {
         $map[$field] = null;
         foreach ($candidates as $candidate) {
-            $idx = array_search(strtolower($candidate), $lower, true);
-            if ($idx !== false) { $map[$field] = $idx; break; }
+            $needle = strtolower($candidate);
+            foreach ($lower as $idx => $header) {
+                // Changed from exact match to "starts with" — catches
+                // headers with accidental extra text appended (like
+                // "Categories, ARCHITECTURAL CONSULTANT, ...") while
+                // still safely matching clean headers exactly.
+                if (str_starts_with($header, $needle)) {
+                    $map[$field] = $idx;
+                    break 2;
+                }
+            }
         }
     }
     return $map;

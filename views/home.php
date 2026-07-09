@@ -113,33 +113,32 @@
 
         <!-- ── PILLAR CARDS ─────────────────────────────────── -->
         <!-- Each pillar staggers 120ms after the previous one -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <?php foreach ($about_pillars as $idx => $item): ?>
-                <div class="pillar group border-t border-white/20 pt-8 cursor-pointer transition-all duration-500 hover:border-[var(--primary)] wv-reveal"
-                     data-reveal
-                     data-delay="<?= $idx * 120 ?>"
-                     data-img="<?= $item['image'] ?>">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <?php foreach ($about_pillars as $idx => $item): ?>
+        <div class="pillar group border-t border-white/20 pt-8 cursor-pointer transition-all duration-500 hover:border-[var(--primary)] wv-reveal flex flex-col"
+             data-reveal
+             data-delay="<?= $idx * 120 ?>"
+             data-img="<?= $item['image'] ?>">
 
-                    <div class="text-gray-300 text-xs font-bold font-mono mb-4 uppercase tracking-widest">
-                        <?= __($item['title']) ?>
-                    </div>
+            <div class="text-gray-300 text-xs font-bold font-mono mb-4 uppercase tracking-widest">
+                <?= __($item['title']) ?>
+            </div>
 
-                    <h3 class="text-2xl font-bold  mb-4">
-                        <?= __($item['heading']) ?>
-                    </h3>
+            <h3 class="text-2xl font-bold mb-4">
+                <?= __($item['heading']) ?>
+            </h3>
 
-                    <p class="text-white/60 group-hover:text-white transition-colors duration-500 leading-relaxed font-normal tracking-wide">
-                        <?= __($item['desc']) ?>
-                    </p>
+            <p class="text-white/60 group-hover:text-white transition-colors duration-500 leading-relaxed font-normal tracking-wide flex-1">
+                <?= __($item['desc']) ?>
+            </p>
 
-                    <!-- Mobile image — opacity-50 removed, aspect-ratio replaces fixed h-48 -->
-                    <img src="<?= $item['image'] ?>"
-                         class="lg:hidden w-full aspect-[4/3] object-cover rounded-xl mt-6"
-                         loading="lazy" />
+            <img src="<?= $item['image'] ?>"
+                 class="lg:hidden w-full aspect-[4/3] object-cover rounded-xl mt-6"
+                 loading="lazy" />
 
-                </div>
-            <?php endforeach; ?>
         </div>
+    <?php endforeach; ?>
+</div>
 
     </div>
 </section>
@@ -492,7 +491,7 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
             <?php foreach ($tier_1_row as $i => $sponsor): ?>
             <div class="group relative rounded-2xl bg-white
                         aspect-square
-                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
+                        w-[calc(50%-2px)] sm:w-[calc(33.333%-2px)] md:w-[calc(25%-2px)]
                         max-w-[260px]
                         flex flex-col
                         shadow-lg hover:shadow-xl
@@ -503,22 +502,23 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
                  data-reveal data-delay="<?= $i * 70 ?>">
 
                 <!-- Top bar — tier badge + link -->
-                <div class="flex items-center justify-between px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
-                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
-                                 rounded-full border border-zinc-100
-                                 truncate max-w-[75%]">
-                        <?= __($sponsor['tier_tag']) ?>
-                    </span>
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                       target="_blank" rel="noopener noreferrer"
-                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
-                       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
-                        </svg>
-                    </a>
-                </div>
+ <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
+    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
+                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                 rounded-full border border-zinc-100
+                 whitespace-nowrap">
+        <?= __($sponsor['tier_tag']) ?>
+    </span>
+    
+    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+       target="_blank" rel="noopener noreferrer"
+       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
+       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+        </svg>
+    </a>
+</div>
 
                 <!-- Logo — fills remaining square space, no max-height -->
                 <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
@@ -554,22 +554,23 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
                         wv-reveal"
                  data-reveal data-delay="<?= (count($tier_1_row) + $i) * 70 ?>">
 
-                <div class="flex items-center justify-between px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
-                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
-                                 rounded-full border border-zinc-100
-                                 truncate max-w-[75%]">
-                        <?= __($sponsor['tier_tag']) ?>
-                    </span>
-                    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                       target="_blank" rel="noopener noreferrer"
-                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
-                       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
-                        </svg>
-                    </a>
-                </div>
+         <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
+    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
+                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                 rounded-full border border-zinc-100
+                 whitespace-nowrap">
+        <?= __($sponsor['tier_tag']) ?>
+    </span>
+    
+    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
+       target="_blank" rel="noopener noreferrer"
+       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
+       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+        </svg>
+    </a>
+</div>
 
                 <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
                    target="_blank" rel="noopener noreferrer"

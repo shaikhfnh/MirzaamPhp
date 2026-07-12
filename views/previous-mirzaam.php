@@ -56,7 +56,7 @@ function getTierColor($tier, $tierColors) {
     preg_match('#previous/(\d{4})#', $_nav_path, $_nav_match);
     $_active_year = $_nav_match[1] ?? (isset($year) ? (string)$year : '');
     ?>
-    <div class="sticky top-[80px] z-40 bg-black backdrop-blur-md border-t border-zinc-100 mt-20">
+    <div class="sticky top-[90px] z-40 bg-black backdrop-blur-md border-t border-zinc-100 mt-20">
         <div class=" mx-auto px-4 sm:px-8 lg:px-40 ">
             <div class="flex items-center gap-2 overflow-x-auto py-1"
                  style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
@@ -77,31 +77,56 @@ function getTierColor($tier, $tierColors) {
 
     <!-- ── HERO BANNER ──────────────────────────────────── -->
     <?php if (!empty($heroImg)): ?>
-    <section class="relative w-full h-[42vh] min-h-[320px] max-h-[500px] overflow-hidden">
+<section class="relative w-full h-[50vh]  max-h-[400px] overflow-hidden">
         <img src="<?= htmlspecialchars($heroImg) ?>" alt="Mirzaam <?= $year ?>"
              class="absolute inset-0 w-full h-full object-cover">
+                     <div class="absolute inset-0"
+             style="background-image: linear-gradient(to bottom,
+                rgba(0,0,0,0.60) 0%,
+                rgba(0,0,0,0.35) 25%,
+                rgba(0,0,0,0.15) 50%,
+                rgba(0,0,0,0.04) 75%,
+                rgba(255,255,255,1) 100%);">
+        </div>
+
+        <!-- Gradient no longer fades to near-white at the bottom
+             — kept a consistent dark tone throughout instead, so
+             white text stays legible everywhere in this section,
+             including right at the bottom where the meta row sits.
+             The transition into the white page section below is
+             now a clean hard edge instead of an image-to-white
+             fade trick. -->
         <div class="absolute inset-0"
-             style="background: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.20) 40%, rgba(0,0,0,0.05) 70%, rgba(255,255,255,0.95) 100%);"></div>
-        <div class="absolute inset-x-0 bottom-0 px-4 sm:px-8 lg:px-16 xl:px-24 pb-8 md:pb-10">
+             style="background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.5) 100%);"></div>
+
+        <div class="absolute inset-x-0 bottom-0 px-4 sm:px-8 lg:px-16 xl:px-24 pb-10 md:pb-14">
             <div class="max-w-[1600px] mx-auto">
-                <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-500 font-semibold font-mono block mb-3"
-                      style="text-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+
+                <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-500 font-semibold font-mono block mb-4"
+                      style="text-shadow: 0 2px 8px rgba(0,0,0,0.4);">
                     <?= $isRtl ? $edition['edition_ar'] : $edition['edition'] ?>
                 </span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[0.95] mb-3"
-                    style="text-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+
+                <!-- Bigger — was text-4xl sm:5xl lg:6xl, now scales
+                     all the way up to 8xl on large screens -->
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white leading-[0.9] mb-4"
+                    style="text-shadow: 0 4px 24px rgba(0,0,0,0.4);">
                     Mirzaam <span class="text-yellow-500"><?= $year ?></span>
                 </h1>
-                <div class="flex flex-wrap items-center gap-3 text-sm text-black font-medium"
-                     style="text-shadow: 0 1px 6px rgba(0,0,0,0.3);">
+
+                <!-- Date/hall row — fixed from text-black to
+                     text-white, matches the rest of the text now -->
+                <div class="flex flex-wrap items-center gap-3 text-sm sm:text-base text-white font-medium"
+                     style="text-shadow: 0 2px 8px rgba(0,0,0,0.4);">
                     <span class="inline-flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
                             <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
                         </svg>
                         <?= $isRtl ? $edition['dates_ar'] : $edition['dates'] ?>
                     </span>
                     <span class="w-px h-3.5 bg-white/30"></span>
                     <span><?= $edition['venue'] ?></span>
+
                     <?php if (!empty($edition['vr_url'])): ?>
                     <span class="w-px h-3.5 bg-white/30"></span>
                     <a href="<?= htmlspecialchars($edition['vr_url']) ?>" target="_blank" rel="noopener noreferrer"
@@ -174,7 +199,7 @@ function getTierColor($tier, $tierColors) {
         </div>
     </section>
 
-    <!-- ── SPONSORS — grouped by tier stage ─────────────── -->
+<!-- ── SPONSORS — grouped by tier stage, home-page card style ── -->
     <?php if (!empty($sponsorsByTier)): ?>
     <section class="w-full px-4 sm:px-8 lg:px-16 xl:px-24 py-10 md:py-14 border-t border-zinc-100 bg-zinc-50/50">
         <div class="max-w-[1600px] mx-auto">
@@ -201,52 +226,74 @@ function getTierColor($tier, $tierColors) {
                         </span>
                     </div>
 
-                    <!-- Sponsor cards for this tier -->
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                    <!-- Sponsor cards — home page style: square card,
+                         top bar with tier badge + separate external-
+                         link icon, logo fills the rest of the square -->
+                    <div class="flex flex-wrap gap-3 sm:gap-4 md:gap-5">
                         <?php foreach ($tierSponsors as $si => $sp):
-                            $hasUrl = !empty($sp['website_url']);
-                            $tag = $hasUrl ? 'a' : 'div';
-                            $linkAttrs = $hasUrl
+                            $hasUrl    = !empty($sp['website_url']);
+                            $logoTag   = $hasUrl ? 'a' : 'div';
+                            $logoAttrs = $hasUrl
                                 ? 'href="' . htmlspecialchars($sp['website_url']) . '" target="_blank" rel="noopener noreferrer"'
                                 : '';
                         ?>
-                            <<?= $tag ?> <?= $linkAttrs ?>
-                               class="group flex flex-col items-center rounded-2xl
-                                      bg-white border border-zinc-100 p-5
-                                      <?= $hasUrl ? 'hover:border-zinc-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.08)] cursor-pointer' : '' ?>
-                                      transition-all duration-400">
+                            <div class="group relative rounded-2xl bg-white
+                                        aspect-square
+                                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)] lg:w-[calc(16.666%-14px)]
+                                        max-w-[220px]
+                                        flex flex-col
+                                        shadow-lg hover:shadow-xl
+                                        transition-all duration-400
+                                        border border-zinc-200/50 hover:-translate-y-1
+                                        overflow-hidden
+                                        wv-reveal"
+                                 data-reveal data-delay="<?= $si * 70 ?>">
 
-                                <!-- Logo or initial -->
-                                <div class="w-full aspect-square rounded-xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-3 mb-4">
-                                    <?php if (!empty($sp['logo_url'])): ?>
-                                        <img src="<?= htmlspecialchars($sp['logo_url']) ?>"
-                                             alt="<?= htmlspecialchars($sp['name']) ?>"
-                                             class="max-h-full max-w-full object-contain transition-transform duration-400 group-hover:scale-105"
-                                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                                        <span class="hidden items-center justify-center w-full h-full text-zinc-400 text-lg font-bold uppercase">
-                                            <?= htmlspecialchars(substr($sp['name'], 0, 2)) ?>
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="text-zinc-300 text-2xl font-bold uppercase tracking-wider">
-                                            <?= htmlspecialchars(substr($sp['name'], 0, 2)) ?>
-                                        </span>
+                                <!-- Top bar — tier badge + external link icon -->
+                                <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
+                                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
+                                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                                                 rounded-full border border-zinc-100
+                                                 whitespace-nowrap truncate max-w-[70%]">
+                                        <?= htmlspecialchars($tier) ?>
+                                    </span>
+
+                                    <?php if ($hasUrl): ?>
+                                    <a href="<?= htmlspecialchars($sp['website_url']) ?>"
+                                       target="_blank" rel="noopener noreferrer"
+                                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
+                                       aria-label="<?= htmlspecialchars($sp['name']) ?>">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+                                        </svg>
+                                    </a>
                                     <?php endif; ?>
                                 </div>
 
-                                <p class="text-xs sm:text-sm font-semibold text-zinc-800 text-center leading-tight truncate w-full">
-                                    <?= htmlspecialchars($sp['name']) ?>
-                                </p>
-
-                                <?php if ($hasUrl): ?>
-                                <span class="text-[9px] text-zinc-400 mt-1 group-hover:text-yellow-600 transition-colors duration-200 inline-flex items-center gap-1">
-                                    <?= __('prev_visit_website') ?: 'Visit Website' ?>
-                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                    </svg>
-                                </span>
-                                <?php endif; ?>
-
-                            </<?= $tag ?>>
+                                <!-- Logo — fills remaining square space.
+                                     Renders as <a> when a website URL
+                                     exists, plain <div> when it doesn't
+                                     (no dead/empty link). -->
+                                <<?= $logoTag ?> <?= $logoAttrs ?> class="flex-1 flex items-center justify-center p-4">
+                                    <?php if (!empty($sp['logo_url'])): ?>
+                                        <img src="<?= htmlspecialchars($sp['logo_url']) ?>"
+                                             alt="<?= htmlspecialchars($sp['name']) ?> Logo"
+                                             class="w-full h-full object-contain
+                                                    transition-transform duration-300 group-hover:scale-105"
+                                             loading="lazy"
+                                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                        <span class="hidden items-center justify-center
+                                                     text-zinc-400 text-sm font-medium uppercase tracking-wider text-center px-2">
+                                            <?= htmlspecialchars($sp['name']) ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="flex items-center justify-center
+                                                     text-zinc-300 text-2xl font-bold uppercase tracking-wider">
+                                            <?= htmlspecialchars(substr($sp['name'], 0, 2)) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </<?= $logoTag ?>>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>

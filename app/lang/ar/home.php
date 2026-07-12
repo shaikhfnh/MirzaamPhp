@@ -38,8 +38,7 @@ return [
     'app_bot_bubble' => 'جرّب التطبيق ←',
     'bb_cta_apple_alt'  => 'حمّل التطبيق من آب ستور',
     'bb_cta_google_alt' => 'احصل عليه من جوجل بلاي',
-    'experience_app' => 'جرّب التطبيق',
-
+    
 
 
 // Insights Section
@@ -51,9 +50,8 @@ return [
     'insight_4_title'    => 'ابتكار تكنوجيم',
 
 // Sponsors Section
-    'sponsors_heading'    => 'تحالفات استراتيجية',
-    'sponsors_subheading' => 'رعاة وشركاء الفعالية',
-    'platinum_sponsor'  => 'راعي بلاتيني',
+    'sponsors_heading'    => 'رعاتنا وشركاؤنا لعام ٢٠٢٥',
+    'sponsors_subheading' =>  'تعرّف على العلامات التجارية والشركاء وراء تجربة مرزام هذا العام.',
     'banking_sponsor'   => 'راعي مالي',
     'strategic_sponsor' => 'راعي استراتيجي',
     'media_sponsor'     => 'راعي إعلامي',

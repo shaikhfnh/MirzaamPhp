@@ -52,8 +52,8 @@ return [
     'insight_4_title'    => 'Technogym Innovation', 
 
 // Sponsors Section
-    'sponsors_heading'    => 'Strategic Alliances',
-    'sponsors_subheading' => 'Our Event Sponsors & Partners',
+    'sponsors_heading'    => 'Our 2025 Sponsors ',
+    'sponsors_subheading' => 'Meet the brands and partners behind the Mirzaam experience.',
     'platinum_sponsor'  => 'Platinum Sponsor',
     'banking_sponsor'   => 'Banking Sponsor',
     'strategic_sponsor' => 'Strategic Sponsor',

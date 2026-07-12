@@ -210,6 +210,8 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                                     name:          { required: true },
                                     email:         { required: true, email: true },
                                     enquiry_type:  { required: true },
+                                    phone:  { required: true },
+                                    company:  { required: true },
                                     message:       { required: true }
                                 }
                              })">
@@ -253,12 +255,15 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                                         <label class="ct-label" for="ct-phone"><?= __('ct_form_phone') ?></label>
                                         <input type="tel" id="ct-phone" x-model="values.phone" autocomplete="tel"
                                             placeholder="<?= htmlspecialchars(__('ct_form_phone_ph')) ?>" class="ct-input">
+                                            <p class="ct-error" x-show="errors.phone" x-text="errors.phone"></p>
                                     </div>
-
-                                    <div class="field-group">
-                                        <label class="ct-label" for="ct-company"><?= __('ct_form_company') ?></label>
-                                        <input type="text" id="ct-company" x-model="values.company" autocomplete="organization"
-                                            placeholder="<?= htmlspecialchars(__('ct_form_company_ph')) ?>" class="ct-input">
+                                  
+                                  
+                                  <div class="field-group">
+                                      <label class="ct-label" for="ct-company"><?= __('ct_form_company') ?></label>
+                                      <input type="text" id="ct-company" x-model="values.company" autocomplete="organization"
+                                      placeholder="<?= htmlspecialchars(__('ct_form_company_ph')) ?>" class="ct-input">
+                                      <p class="ct-error" x-show="errors.company" x-text="errors.company"></p>
                                     </div>
                                 </div>
 

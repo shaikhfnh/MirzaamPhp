@@ -76,13 +76,13 @@ $sponsors = [
     [
         "brand_name"  => "Al Wazzan",
         "tier_tag"    => "platinum_sponsor",
-        "logo_url"    => "/mirzaam/assets/images/brands/alwazzan-logo.png",
+        "logo_url"    => "https://mirzaam.com/wp-content/uploads/2025/11/alwazzan.png",
         "website_url" => "https://www.alwazzanstore.com/"
     ],
     [
         "brand_name"  => "Boubyan",
         "tier_tag"    => "banking_sponsor",
-        "logo_url"    => "/mirzaam/assets/images/brands/boubyan-logo.png",
+        "logo_url"    => "https://mirzaam.com/wp-content/uploads/2025/11/boubyan.png",
         "website_url" => "https://www.bankboubyan.com"
     ],
     [
@@ -113,7 +113,7 @@ $sponsors = [
 
 $metrics = [
     [
-        'value' => '40000',
+        'value' => '400000',
         'en' => 'Attendees', 'ar' => 'الحضور',
         'svg' => ' <path d="M 5 95 L 5 90 M 155 95 L 155 90 M 5 20 L 10 20 M 155 20 L 150 20" class="opacity-50" />
                             <line x1="5" y1="95" x2="155" y2="95" class="blueprint-axis-line stroke-[2]" />

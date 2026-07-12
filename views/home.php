@@ -42,7 +42,6 @@
             </span>
         </h1> -->
     </div>
-
     <div class="relative z-10 w-full px-6 md:px-20 pb-12 flex flex-col md:flex-row justify-between items-end gap-8">
 
         <!-- wv-reveal + data-reveal → slides up on page load, no delay -->
@@ -67,6 +66,7 @@
 </section>
 
 <?php endif; ?>
+
 
 <section id="about" class="relative w-full py-12 bg-black text-white overflow-hidden" dir="<?= ($lang === 'ar' ? 'rtl' : 'ltr') ?>">
 
@@ -462,7 +462,7 @@ $_bp  = isset($base_path) ? $base_path : '';
     <div class="section-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[35rem] bg-[var(--primary)] rounded-full blur-[180px] opacity-10 pointer-events-none"></div>
 
     <!-- Header row — title + desc only -->
-    <div class="w-full px-6 md:px-12 lg:px-16 mx-auto relative z-10 mb-12 md:mb-16">
+    <div class="w-full px-8 md:px-12 lg:px-16 mx-auto relative z-10 mb-12 md:mb-16">
         <div class="reveal-up">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight uppercase">
                 <?= __('insight_main_title') ?>
@@ -484,9 +484,9 @@ $_bp  = isset($base_path) ? $base_path : '';
              with more breathing room and a softer, more "floating"
              feel than the previous boxed square buttons -->
         <button id="insights-prev-btn"
-                class="hidden md:flex absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 z-30
-                       w-12 h-12 lg:w-14 lg:h-14 rounded-full
-                       bg-black/70 border border-white/15 text-white
+                class="flex absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 -mt-3  z-30
+                       w-10 h-10 lg:w-14 lg:h-14 rounded-full
+                       bg-black/70 border border-white/20 text-white
                        items-center justify-center backdrop-blur-xl
                        shadow-[0_8px_28px_rgba(0,0,0,0.5)]
                        hover:bg-white hover:text-black hover:border-white hover:scale-110
@@ -502,9 +502,9 @@ $_bp  = isset($base_path) ? $base_path : '';
 
         <!-- Next — mirrored, same treatment -->
         <button id="insights-next-btn"
-                class="hidden md:flex absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-30
-                       w-12 h-12 lg:w-14 lg:h-14 rounded-full
-                       bg-black/70 border border-white/15 text-white
+                class="flex absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 -mt-3  z-30
+                       w-10 h-10 lg:w-14 lg:h-14 rounded-full
+                       bg-black/70 border border-white/20 text-white
                        items-center justify-center backdrop-blur-xl
                        shadow-[0_8px_28px_rgba(0,0,0,0.5)]
                        hover:bg-white hover:text-black hover:border-white hover:scale-110
@@ -609,14 +609,13 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
         <!-- Tier 1 -->
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
             <?php foreach ($tier_1_row as $i => $sponsor): ?>
-            <div class="group relative rounded-2xl bg-white
-                        aspect-square
+            <div class="group relative rounded-2xl
                         w-[calc(50%-2px)] sm:w-[calc(33.333%-2px)] md:w-[calc(25%-2px)]
-                        max-w-[260px]
+                        max-w-[260px] bg-white/10 backdrop-blur-xl
                         flex flex-col
                         shadow-lg hover:shadow-xl
                         transition-all duration-400
-                        border border-zinc-200/50 hover:-translate-y-1
+                        border border-zinc-200/50 
                         overflow-hidden
                         wv-reveal"
                  data-reveal data-delay="<?= $i * 70 ?>">
@@ -624,7 +623,7 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
                 <!-- Top bar — tier badge + link -->
  <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
     <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                 text-zinc-400  px-2 py-0.5
                  rounded-full border border-zinc-100
                  whitespace-nowrap">
         <?= __($sponsor['tier_tag']) ?>
@@ -632,7 +631,7 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
     
     <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
        target="_blank" rel="noopener noreferrer"
-       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
+       class="text-zinc-400 hover:text-black transition-colors duration-200  flex-shrink-0"
        aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
         <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
@@ -643,11 +642,11 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
                 <!-- Logo — fills remaining square space, no max-height -->
                 <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
                    target="_blank" rel="noopener noreferrer"
-                   class="flex-1 flex items-center justify-center p-4">
+                   class="flex-1 flex items-center justify-center m-4 pb-2">
                     <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
                          alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
                          class="w-full h-full object-contain
-                                transition-transform duration-300 group-hover:scale-105"
+                                transition-transform duration-300  group-hover:scale-105 rounded-lg"
                          loading="lazy"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                     <span class="hidden items-center justify-center
@@ -662,21 +661,20 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
         <!-- Tier 2 -->
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
             <?php foreach ($tier_2_row as $i => $sponsor): ?>
-            <div class="group relative rounded-2xl bg-white
-                        aspect-square
-                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
+            <div class="group relative rounded-2xl 
+                            w-[calc(50%-4px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
                         max-w-[220px]
-                        flex flex-col
+                        flex flex-col bg-white/10 backdrop-blur-xl
                         shadow-lg hover:shadow-xl
                         transition-all duration-400
-                        border border-zinc-200/50 hover:-translate-y-1
+                        border border-zinc-200/50 
                         overflow-hidden
                         wv-reveal"
                  data-reveal data-delay="<?= (count($tier_1_row) + $i) * 70 ?>">
 
          <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
     <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                 text-zinc-400 bg-zinc-50 px-2 py-0.5
+                 text-zinc-400  px-2 py-0.5
                  rounded-full border border-zinc-100
                  whitespace-nowrap">
         <?= __($sponsor['tier_tag']) ?>
@@ -684,7 +682,7 @@ $tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '
     
     <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
        target="_blank" rel="noopener noreferrer"
-       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
+       class="text-zinc-400 hover:text-black transition-colors duration-200  p-0.5 flex-shrink-0"
        aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
         <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
@@ -1140,7 +1138,7 @@ include 'includes/category-slider/template.php';
                                placeholder="<?= __('newsletter_placeholder') ?>"
                                class="newsletter-input w-full bg-transparent border-b py-4
                                       text-white placeholder-white/50 outline-none
-                                      transition-colors duration-300 tracking-[0.2em] text-sm uppercase
+                                      transition-colors duration-300 tracking-[0.2em] text-sm !x`lowercase
                                       disabled:opacity-50"
                                required>
                         <span class="newsletter-underline absolute bottom-0 <?= $_rtl ? 'right-0' : 'left-0' ?>

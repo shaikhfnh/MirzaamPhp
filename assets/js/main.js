@@ -221,7 +221,7 @@ function initInsightsSlider() {
     };
 
     const checkOverflow = debounce(() => {
-        const overflow = track.scrollWidth > track.clientWidth && window.innerWidth >= 768;
+        const overflow = track.scrollWidth > track.clientWidth ;
         [prev, next].forEach(btn => {
             if (!btn) return;
             btn.classList.toggle('opacity-0', !overflow);

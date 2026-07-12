@@ -64,26 +64,72 @@
                     <h4 class="font-bold uppercase tracking-[0.2em] text-[10px] opacity-80 mb-4">
                         <?= __('footer_follow_us') ?>
                     </h4>
-                    <div class="flex justify-center gap-6">
-                        <a href="#" aria-label="Instagram Profile" class="opacity-60 hover:opacity-100 transition-opacity">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:info@mirzaam.com" aria-label="Send Email" class="opacity-60 hover:opacity-100 transition-opacity">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                        </a>
-                        <a href="tel:+96593333555" aria-label="Call Office" class="opacity-60 hover:opacity-100 transition-opacity">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                            </svg>
-                        </a>
-                    </div>
+                   <div class="flex justify-center gap-4">
+
+    <!-- Instagram — glass base, gradient-tinted border + icon
+         color retained as a subtle brand hint even in glass form -->
+    <a href="https://www.instagram.com/mirzaamexpo/" target="_blank" rel="noopener noreferrer"
+       aria-label="Instagram Profile"
+       class="social-icon-btn group relative w-11 h-11 rounded-full flex items-center justify-center
+              bg-white/10 backdrop-blur-xl border border-white/15
+              hover:bg-white/20 hover:border-white/30 hover:scale-110
+              hover:shadow-[0_8px_24px_-4px_rgba(220,39,67,0.4)]
+              transition-all duration-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#ig-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+                <linearGradient id="ig-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f09433"/>
+                    <stop offset="30%" stop-color="#e6683c"/>
+                    <stop offset="60%" stop-color="#dc2743"/>
+                    <stop offset="100%" stop-color="#bc1888"/>
+                </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+    </a>
+
+    <!-- WhatsApp — glass base, real green icon glyph -->
+    <a href="https://api.whatsapp.com/send/?phone=96565783517&text&type=phone_number&app_absent=0"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Chat on WhatsApp"
+       class="social-icon-btn group relative w-11 h-11 rounded-full flex items-center justify-center
+              bg-white/10 backdrop-blur-xl border border-white/15
+              hover:bg-white/20 hover:border-white/30 hover:scale-110
+              hover:shadow-[0_8px_24px_-4px_rgba(37,211,102,0.4)]
+              transition-all duration-300">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="#25D366">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.198.297-.768.966-.941 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.174-1.413-.074-.124-.272-.198-.57-.347zM12.042 0C5.495 0 .162 5.333.162 11.88c0 2.093.547 4.136 1.588 5.938L0 24l6.353-1.667a11.86 11.86 0 005.689 1.448h.005c6.547 0 11.88-5.333 11.88-11.88A11.913 11.913 0 0012.042 0zm0 21.77h-.004a9.88 9.88 0 01-5.032-1.378l-.36-.214-3.769.988 1.005-3.675-.234-.377a9.86 9.86 0 01-1.516-5.233c.002-5.443 4.43-9.87 9.876-9.87a9.82 9.82 0 016.98 2.894 9.82 9.82 0 012.89 6.98c-.003 5.445-4.43 9.875-9.876 9.875z"/>
+        </svg>
+    </a>
+
+    <!-- Email — glass base, blue icon -->
+    <a href="mailto:info@mirzaam.com" aria-label="Send Email"
+       class="social-icon-btn group relative w-11 h-11 rounded-full flex items-center justify-center
+              bg-white/10 backdrop-blur-xl border border-white/15
+              hover:bg-white/20 hover:border-white/30 hover:scale-110
+              hover:shadow-[0_8px_24px_-4px_rgba(59,130,246,0.4)]
+              transition-all duration-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+        </svg>
+    </a>
+
+    <!-- Phone — glass base, teal icon -->
+    <a href="tel:+96593333555" aria-label="Call Office"
+       class="social-icon-btn group relative w-11 h-11 rounded-full flex items-center justify-center
+              bg-white/10 backdrop-blur-xl border border-white/15
+              hover:bg-white/20 hover:border-white/30 hover:scale-110
+              hover:shadow-[0_8px_24px_-4px_rgba(20,184,166,0.4)]
+              transition-all duration-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+    </a>
+
+</div>
                 </div>
             </div>
         </div>

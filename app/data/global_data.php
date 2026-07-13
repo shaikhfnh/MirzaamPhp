@@ -48,7 +48,7 @@ $site_blueprint = [
     
 ];
 
-$site_blueprint['booth_registration_url'] = '';
+$site_blueprint['booth_registration_url'] = '/mirzaam/book-your-booth';
 
 $site_blueprint['why_visit'] = [
 
@@ -441,7 +441,7 @@ $site_blueprint['mirzaamiyat'] = [
 
     'hero_image' => 'https://mirzaam.com/wp-content/uploads/2026/03/dsc06492-copy.jpg',
     
-    'booth_registration_url' => '', 
+    'booth_registration_url' => '/mirzaam/mirzaamiyaat/book-your-booth', 
     // ── CATEGORIES — unchanged, keep your existing array as-is ──
     'categories' => [
         [ 'key' => 'accessories', 'image' => 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=900&q=80' ],

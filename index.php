@@ -124,6 +124,9 @@ unset($_api_path, $_api_m);
             // Footer Extra routes
             'media'        => 'views/media.php',
             'privacy'      => 'views/privacy.php',
+
+            'book-your-booth'                 => 'views/book-booth.php',
+            'mirzaamiyat/book-your-booth'     => 'views/mirzaamiyat-book-booth.php',
         ];
 
         // 1. Try static route table

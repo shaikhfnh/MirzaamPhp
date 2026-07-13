@@ -129,7 +129,7 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
  
       <!-- ENABLED — same white/black look you already have -->
       <a href="<?= htmlspecialchars($main_booth_url) ?>"
-       target="_blank" rel="noopener noreferrer"
+      rel="noopener noreferrer"
        class="h-10 inline-flex items-center justify-center
               bg-white/10 hover:bg-white/20
               text-white/90 text-sm font-medium
@@ -263,7 +263,7 @@ $main_booth_url = $site_blueprint['booth_registration_url'] ?? '';
 
                 <?php if (!empty($mz_booth_url)): ?>
                     <a href="<?= htmlspecialchars($mz_booth_url) ?>"
-                       target="_blank" rel="noopener noreferrer"
+                        rel="noopener noreferrer"
                        class="w-full h-11 flex items-center justify-center
                               bg-[#C9A267] hover:bg-[#d9b67c]
                               text-[#1E2F4D] font-semibold text-sm

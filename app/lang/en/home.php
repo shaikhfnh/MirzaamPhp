@@ -134,31 +134,22 @@ return [
 'reviews_title_top' => 'Hear what our past',
 'reviews_title_main'=> 'Attendees & Partners say',
  
-// Reviewer 1 — Latifa
-'review_quote_latifa' => '"Mirzaam is where Kuwait\'s design community comes alive. The level of detail in the curation rivals any expo I\'ve attended in Milan or London."',
-'review_name_latifa'  => 'Latifa Al-Sabah',
-'review_role_latifa'  => 'Founder, Atelier Diwan Kuwait',
- 
-// Reviewer 2 — Yousef
-'review_quote_yousef' => '"The exhibitors here aren\'t just selling products — they\'re showcasing a vision for how Kuwaiti homes should live in 2026 and beyond."',
-'review_name_yousef'  => 'Yousef Al-Mutairi',
-'review_role_yousef'  => 'Principal Architect, KAB Studio',
- 
-// Reviewer 3 — Reem
-'review_quote_reem' => '"Every year Mirzaam refines its standard. The conversations I had on the floor in 2025 turned directly into three new projects for my studio."',
-'review_name_reem'  => 'Reem Al-Khalifa',
-'review_role_reem'  => 'Design Director, Al-Khalifa Interiors',
- 
-// Reviewer 4 — Khaled
-'review_quote_khaled' => '"For a Kuwaiti manufacturer, Mirzaam is the platform. We met more genuine clients in five days than the previous three months of outreach combined."',
-'review_name_khaled'  => 'Khaled Al-Rashid',
-'review_role_khaled'  => 'CEO, Rashid Modular Furniture',
- 
-// Reviewer 5 — Mariam
-'review_quote_mariam' => '"It\'s rare to find an expo that respects both the craft and the audience. Mirzaam\'s programming makes design feel approachable without losing depth."',
-'review_name_mariam'  => 'Mariam Al-Sabbah',
-'review_role_mariam'  => 'Lead Curator, Bayt Lothan Design Lab',
 
+'review_quote_ali'   => '"The exhibition is distinguished and very useful, rich with specialized information, consulting expertise, materials, and new ideas. I wish success to all participants and benefit to all visitors."',
+'review_name_ali'    => 'Dr. Ali Saleh Al-Najjad',
+'review_role_ali'    => 'Mirzaam Visitor',
+
+'review_quote_nada'  => '"It felt like entering an artistic zone — a world filled with creativity, art, and beautiful pieces."',
+'review_name_nada'   => 'Nada',
+'review_role_nada'   => 'Mirzaam Visitor',
+
+'review_quote_dalal' => '"The best Expo by the best interior design, inside-out. Thank you, Farah."',
+'review_name_dalal'  => 'Dalal Zaid Alwazzan',
+'review_role_dalal'  => 'Mirzaam Visitor',
+
+'review_quote_amna'  => '"It was a great experience to visit Mirzaam Expo 2019 to get more information on furniture trends."',
+'review_name_amna'   => 'Amna Naeem',
+'review_role_amna'   => 'Mirzaam Visitor',
 
 //Newsletter Section
     'newsletter_title'         => 'Stay Updated.',

@@ -555,21 +555,10 @@ $_bp  = isset($base_path) ? $base_path : '';
     </div>
 </section>
 <?php
-$_rtl = ($lang === 'ar');
-
-// Safety — ensure data file is loaded
-if (!isset($sponsors_data_2025)) {
-    $data_path = __DIR__ . '/../data/participantsdata-2025.php';
-    if (file_exists($data_path)) require $data_path;
-}
-
-$platinum_items = $sponsors_data_2025['platinum']['items'] ?? [];
-$tier_1_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_1');
-$tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2');
-?>
-
-<?php
-$_rtl = ($lang === 'ar');
+/**
+ * REPLACE the entire old <section id="sponsors-portfolio">...</section>
+ * block (and its duplicated data-loading code above it) with this.
+ */
 
 if (!isset($sponsors_data_2025)) {
     $data_path = __DIR__ . '/../data/participantsdata-2025.php';
@@ -577,155 +566,25 @@ if (!isset($sponsors_data_2025)) {
 }
 
 $platinum_items = $sponsors_data_2025['platinum']['items'] ?? [];
-$tier_1_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_1');
-$tier_2_row = array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2');
+
+$tier_1_row = array_map(function ($item) {
+    $item['tier_tag'] = __($item['tier_tag']);
+    return $item;
+}, array_values(array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_1')));
+
+$tier_2_row = array_map(function ($item) {
+    $item['tier_tag'] = __($item['tier_tag']);
+    return $item;
+}, array_values(array_filter($platinum_items, fn($item) => ($item['sub_tier'] ?? '') === 'tier_2')));
+
+$sponsorsTheme              = 'dark'; // glass cards, white text
+$sponsorsSectionHeading     = __('sponsors_heading');
+$sponsorsSectionSubheading  = __('sponsors_subheading');
+$sponsorsViewAllUrl         = get_url($lang === 'ar' ? 'ar/participants/2025' : 'participants/2025');
+$sponsorsViewAllLabel       = __('view_all_participants') ?: 'View All Participants';
+
+include 'includes/sponsors-portfolio/template.php';
 ?>
-
-<section id="sponsors-portfolio"
-         class="relative w-full py-16 bg-gradient-to-b from-black via-zinc-950 to-black text-white overflow-hidden"
-         dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
-
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                w-[75rem] h-[35rem] bg-[var(--secondary)]
-                rounded-full blur-[180px] opacity-[0.06] pointer-events-none"></div>
-
-    <!-- Header -->
-    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10
-                flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-        <div class="wv-reveal" data-reveal>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium  text-white tracking-tight leading-tight uppercase">
-                <?= __('sponsors_heading') ?>
-            </h2>
-            <p class="mt-4 text-white/40 text-sm md:text-base font-light max-w-xl leading-relaxed uppercase">
-                <?= __('sponsors_subheading') ?>
-            </p>
-        </div>
-    </div>
-   
-    
-
-    <div class="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto relative z-10 flex flex-col gap-6 md:gap-8">
-
-        <!-- Tier 1 -->
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
-            <?php foreach ($tier_1_row as $i => $sponsor): ?>
-            <div class="group relative rounded-2xl
-                        w-[calc(50%-2px)] sm:w-[calc(33.333%-2px)] md:w-[calc(25%-2px)]
-                        max-w-[260px] bg-white/10 backdrop-blur-xl
-                        flex flex-col
-                        shadow-lg hover:shadow-xl
-                        transition-all duration-400
-                        border border-zinc-200/50 
-                        overflow-hidden
-                        wv-reveal"
-                 data-reveal data-delay="<?= $i * 70 ?>">
-
-                <!-- Top bar — tier badge + link -->
- <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
-    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                 text-zinc-400  px-2 py-0.5
-                 rounded-full border border-zinc-100
-                 whitespace-nowrap">
-        <?= __($sponsor['tier_tag']) ?>
-    </span>
-    
-    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-       target="_blank" rel="noopener noreferrer"
-       class="text-zinc-400 hover:text-black transition-colors duration-200  flex-shrink-0"
-       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
-        </svg>
-    </a>
-</div>
-
-                <!-- Logo — fills remaining square space, no max-height -->
-                <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                   target="_blank" rel="noopener noreferrer"
-                   class="flex-1 flex items-center justify-center m-4 pb-2">
-                    <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
-                         alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
-                         class="w-full h-full object-contain
-                                transition-transform duration-300  group-hover:scale-105 rounded-lg"
-                         loading="lazy"
-                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                    <span class="hidden items-center justify-center
-                                 text-zinc-400 text-sm font-medium uppercase tracking-wider">
-                        <?= htmlspecialchars($sponsor['brand_name']) ?>
-                    </span>
-                </a>
-            </div>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- Tier 2 -->
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
-            <?php foreach ($tier_2_row as $i => $sponsor): ?>
-            <div class="group relative rounded-2xl 
-                            w-[calc(50%-4px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)]
-                        max-w-[220px]
-                        flex flex-col bg-white/10 backdrop-blur-xl
-                        shadow-lg hover:shadow-xl
-                        transition-all duration-400
-                        border border-zinc-200/50 
-                        overflow-hidden
-                        wv-reveal"
-                 data-reveal data-delay="<?= (count($tier_1_row) + $i) * 70 ?>">
-
-         <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
-    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                 text-zinc-400  px-2 py-0.5
-                 rounded-full border border-zinc-100
-                 whitespace-nowrap">
-        <?= __($sponsor['tier_tag']) ?>
-    </span>
-    
-    <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-       target="_blank" rel="noopener noreferrer"
-       class="text-zinc-400 hover:text-black transition-colors duration-200  p-0.5 flex-shrink-0"
-       aria-label="<?= htmlspecialchars($sponsor['brand_name']) ?>">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
-        </svg>
-    </a>
-</div>
-
-                <a href="<?= htmlspecialchars($sponsor['website_url']) ?>"
-                   target="_blank" rel="noopener noreferrer"
-                   class="flex-1 flex items-center justify-center p-4">
-                    <img src="<?= htmlspecialchars($sponsor['logo_url']) ?>"
-                         alt="<?= htmlspecialchars($sponsor['brand_name']) ?> Logo"
-                         class="w-full h-full object-contain
-                                transition-transform duration-300 group-hover:scale-105"
-                         loading="lazy"
-                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                    <span class="hidden items-center justify-center
-                                 text-zinc-400 text-sm font-medium uppercase tracking-wider">
-                        <?= htmlspecialchars($sponsor['brand_name']) ?>
-                    </span>
-                </a>
-            </div>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- View All -->
-        <div class="w-full flex justify-center mt-10 wv-reveal" data-reveal data-delay="<?= count($platinum_items) * 70 ?>">
-            <a href="<?= isset($base_path) ? $base_path : '' ?><?=  $lang === 'ar' ? '/ar/participants/2025' : '/participants/2025' ?> "
-               class="inline-flex items-center justify-center gap-3
-                      px-10 py-4 border border-white text-white
-                      font-medium tracking-wide rounded-full
-                      text-xs uppercase bg-transparent
-                      hover:bg-white hover:text-black
-                      transition-all duration-300 active:scale-95 shadow-md">
-                <?= __('view_all_participants') ?? 'View All Participants' ?>
-                <svg class="w-3.5 h-3.5 <?= $_rtl ? 'rotate-180' : '' ?>"
-                     fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                </svg>
-            </a>
-        </div>
-    </div>
-</section>
 
 
 
@@ -780,13 +639,49 @@ include 'includes/category-slider/template.php';
 ?>
 
 
-<?php $_rtl = ($lang === 'ar'); ?>
+<?php
+$_rtl = ($lang === 'ar');
+
+// ── Dynamic split — scales with however many reviews exist ──
+// Rule: last 2 reviews are always static (desktop only), every
+// remaining review goes into the rotating featured slider.
+//   3 total  → 1 featured, 2 static   (was broken before — a
+//              3-review array left the static column empty,
+//              since the old code always sliced [3,2])
+//   5 total  → 3 featured, 2 static
+//   8 total  → 6 featured, 2 static
+//   ≤2 total → everything featured, static column hidden
+$_total_reviews = count($home_reviews_blueprint);
+if ($_total_reviews <= 2) {
+    $featured_reviews = $home_reviews_blueprint;
+    $static_reviews   = [];
+} else {
+    $static_reviews   = array_slice($home_reviews_blueprint, -2);
+    $featured_reviews = array_slice($home_reviews_blueprint, 0, $_total_reviews - 2);
+}
+
+// ── Fallback avatar helper ───────────────────────────────────
+// If a review has no image (or it fails to load), show initials
+// in a gold-tinted circle instead — same fallback pattern
+// already used for sponsor logos elsewhere on the site, so it
+// stays visually consistent rather than introducing a generic
+// stock photo asset.
+function review_initials($name) {
+    $name = trim($name);
+    if ($name === '') return '?';
+    $parts = preg_split('/\s+/', $name);
+    $initials = strtoupper(substr($parts[0], 0, 1));
+    if (count($parts) > 1) {
+        $initials .= strtoupper(substr(end($parts), 0, 1));
+    }
+    return $initials;
+}
+?>
 
 <section id="reviews"
          class="relative w-full py-20 lg:py-28 bg-black text-white overflow-hidden border-y border-white/5"
          dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
 
-    <!-- Subtle yellow glow — bottom right -->
     <div class="absolute bottom-0 <?= $_rtl ? 'left-0' : 'right-0' ?>
                 w-[50rem] h-[30rem] bg-[var(--secondary)]
                 rounded-full blur-[180px] opacity-[0.04] pointer-events-none"></div>
@@ -795,8 +690,6 @@ include 'includes/category-slider/template.php';
 
         <!-- ══ HEADER ════════════════════════════════════════ -->
         <div class="mb-14 lg:mb-20 max-w-3xl">
-
-            <!-- A: Yellow bar + eyebrow -->
             <div class="flex items-center gap-4 mb-6 wv-reveal" data-reveal>
                 <span class="w-8 h-[2px] bg-[var(--secondary)]"></span>
                 <span class="font-mono text-[11px] tracking-[0.3em] uppercase
@@ -805,7 +698,6 @@ include 'includes/category-slider/template.php';
                 </span>
             </div>
 
-            <!-- Title with line-reveal -->
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium uppercase
                        leading-tight tracking-tight">
                 <span class="line-reveal-wrap wv-reveal uppercase" data-reveal data-delay="0">
@@ -821,75 +713,65 @@ include 'includes/category-slider/template.php';
             </h2>
         </div>
 
-        <!-- ══ C: ASYMMETRIC LAYOUT ══════════════════════════
-             Left:  Featured carousel (rotates every 7s)
-             Right: 2 static cards stacked
+        <!-- ══════════════════════════════════════════════════
+             DESKTOP (lg+) — asymmetric layout, hidden on mobile
         ══════════════════════════════════════════════════════ -->
-        <?php
-        // Split — first 3 rotate in featured, last 2 stay static on the right
-        $featured_reviews = array_slice($home_reviews_blueprint, 0, 3);
-        $static_reviews   = array_slice($home_reviews_blueprint, 3, 2);
-        ?>
+        <div class="hidden lg:grid grid-cols-12 gap-6 lg:gap-8">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-
-            <!-- ═════════ FEATURED CAROUSEL — LEFT ═════════ -->
-            <div class="lg:col-span-7 wv-reveal" data-reveal data-delay="200">
-                <div id="reviews-featured-slider"
-                     class="reviews-featured-slider relative
+            <!-- Featured carousel -->
+            <div class="<?= empty($static_reviews) ? 'col-span-12' : 'col-span-7' ?> wv-reveal" data-reveal data-delay="200">
+                <div class="reviews-featured-slider relative
                             bg-gradient-to-br from-white/[0.04] to-white/[0.01]
                             border border-white/10 rounded-2xl
                             p-8 md:p-12 lg:p-14
                             min-h-[28rem] lg:min-h-[32rem]
-                            overflow-hidden">
+                            overflow-hidden"
+                     data-slider-id="desktop">
 
-                    <!-- B: Massive quote mark — top corner -->
                     <span aria-hidden="true"
-                          class="absolute top-4 <?= $_rtl ? 'right-6' : 'left-6' ?>
-                                  text-[10rem] lg:text-[14rem]
-                                 leading-none text-[var(--secondary)]/15
-                                 select-none pointer-events-none">
-                        “
-                    </span>
+                          class="absolute top-10 <?= $_rtl ? 'right-6' : 'left-6' ?>
+                                text-[4rem] lg:text-[10rem]
+                                leading-none text-[var(--secondary)]/15
+                                select-none pointer-events-none">"</span>
 
-                    <!-- Slide stack -->
-                    <?php foreach ($featured_reviews as $i => $review): ?>
-                        <article class="reviews-slide
-                                        <?= $i === 0 ? 'is-active' : '' ?>
+                    <?php foreach ($featured_reviews as $i => $review):
+                        $_name = __('review_name_' . $review['key']);
+                    ?>
+                        <article class="reviews-slide <?= $i === 0 ? 'is-active' : '' ?>
                                         absolute inset-0 p-8 md:p-12 lg:p-14
                                         flex flex-col justify-between
                                         transition-opacity duration-700">
 
-                            <!-- Numbered indicator -->
                             <span class="font-mono text-[10px] tracking-[0.3em] uppercase
                                          text-white/30 mb-8 self-start">
                                 <?= sprintf('%02d', $i + 1) ?> / <?= sprintf('%02d', count($featured_reviews)) ?>
                             </span>
 
-                            <!-- Quote — takes most of the card -->
                             <p class="text-lg md:text-2xl lg:text-3xl font-light
                                       leading-relaxed text-white/90
-                                       max-w-2xl my-auto
-                                      relative z-10">
+                                      max-w-2xl my-auto relative z-10">
                                 <?= __('review_quote_' . $review['key']) ?>
                             </p>
 
-                            <!-- Author block -->
                             <div class="flex items-center gap-4 mt-8 pt-8 border-t border-white/10">
                                 <div class="w-12 h-12 rounded-full overflow-hidden
                                             border border-white/20 flex-shrink-0
-                                            grayscale hover:grayscale-0 transition-all duration-500">
+                                            grayscale hover:grayscale-0 transition-all duration-500
+                                            bg-[var(--secondary)]/15 flex items-center justify-center">
+                                    <?php if (!empty($review['image'])): ?>
                                     <img src="<?= $review['image'] ?>"
-                                         alt="<?= htmlspecialchars(__('review_name_' . $review['key'])) ?>"
+                                         alt="<?= htmlspecialchars($_name) ?>"
                                          class="w-full h-full object-cover"
-                                         loading="lazy" />
+                                         loading="lazy"
+                                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                    <?php endif; ?>
+                                    <span class="<?= !empty($review['image']) ? 'hidden' : 'flex' ?> items-center justify-center w-full h-full text-[var(--secondary)] text-sm font-bold">
+                                        <?= review_initials($_name) ?>
+                                    </span>
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-white text-base leading-tight">
-                                        <?= __('review_name_' . $review['key']) ?>
-                                    </h4>
-                                    <p class="text-[11px] uppercase tracking-[0.2em]
-                                              text-white/40 font-mono mt-1.5">
+                                    <h4 class="font-medium text-white text-base leading-tight"><?= $_name ?></h4>
+                                    <p class="text-[11px] uppercase tracking-[0.2em] text-white/40 font-mono mt-1.5">
                                         <?= __('review_role_' . $review['key']) ?>
                                     </p>
                                 </div>
@@ -897,9 +779,7 @@ include 'includes/category-slider/template.php';
                         </article>
                     <?php endforeach; ?>
 
-                    <!-- Dot indicators -->
-                    <div class="absolute bottom-6 <?= $_rtl ? 'left-8' : 'right-8' ?>
-                                z-20 flex items-center gap-2">
+                    <div class="absolute bottom-6 <?= $_rtl ? 'left-8' : 'right-8' ?> z-20 flex items-center gap-2">
                         <?php foreach ($featured_reviews as $i => $r): ?>
                             <button type="button"
                                     class="reviews-dot <?= $i === 0 ? 'is-active' : '' ?>
@@ -911,9 +791,12 @@ include 'includes/category-slider/template.php';
                 </div>
             </div>
 
-            <!-- ═════════ STATIC CARDS — RIGHT ═════════ -->
-            <div class="lg:col-span-5 flex flex-col gap-6">
-                <?php foreach ($static_reviews as $i => $review): ?>
+            <!-- Static cards — only rendered when there are any -->
+            <?php if (!empty($static_reviews)): ?>
+            <div class="col-span-5 flex flex-col gap-6">
+                <?php foreach ($static_reviews as $i => $review):
+                    $_name = __('review_name_' . $review['key']);
+                ?>
                     <article class="group relative flex-1
                                     bg-white/[0.02] border border-white/[0.06]
                                     hover:bg-white/[0.04] hover:border-white/[0.12]
@@ -922,52 +805,46 @@ include 'includes/category-slider/template.php';
                                     wv-reveal"
                              data-reveal data-delay="<?= 300 + $i * 100 ?>">
 
-                        <!-- Small corner quote mark -->
                         <span aria-hidden="true"
                               class="absolute top-2 <?= $_rtl ? 'right-5' : 'left-5' ?>
-                                      text-5xl leading-none
-                                     text-[var(--secondary)]/20
+                                      text-5xl leading-none text-[var(--secondary)]/20
                                      group-hover:text-[var(--secondary)]/40
                                      transition-colors duration-500
-                                     select-none pointer-events-none">
-                            “
-                        </span>
+                                     select-none pointer-events-none">"</span>
 
-                        <!-- Yellow corner accent — appears on hover -->
                         <span class="absolute top-0 <?= $_rtl ? 'left-0' : 'right-0' ?>
                                      w-8 h-8 border-t border-<?= $_rtl ? 'l' : 'r' ?>
                                      border-[var(--secondary)]
                                      opacity-0 group-hover:opacity-100
-                                     transition-opacity duration-400
-                                     pointer-events-none
+                                     transition-opacity duration-400 pointer-events-none
                                      <?= $_rtl ? 'rounded-tl-2xl' : 'rounded-tr-2xl' ?>"></span>
 
                         <div class="relative z-10 pt-6">
-                            <!-- Quote -->
                             <p class="text-sm md:text-base font-light leading-relaxed
                                       text-white/70 group-hover:text-white/90
-                                      transition-colors duration-500
-                                       mb-6">
+                                      transition-colors duration-500 mb-6">
                                 <?= __('review_quote_' . $review['key']) ?>
                             </p>
 
-                            <!-- Author -->
                             <div class="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
                                 <div class="w-10 h-10 rounded-full overflow-hidden
                                             border border-white/10 flex-shrink-0
-                                            grayscale group-hover:grayscale-0
-                                            transition-all duration-500">
+                                            grayscale group-hover:grayscale-0 transition-all duration-500
+                                            bg-[var(--secondary)]/15 flex items-center justify-center">
+                                    <?php if (!empty($review['image'])): ?>
                                     <img src="<?= $review['image'] ?>"
-                                         alt="<?= htmlspecialchars(__('review_name_' . $review['key'])) ?>"
+                                         alt="<?= htmlspecialchars($_name) ?>"
                                          class="w-full h-full object-cover"
-                                         loading="lazy" />
+                                         loading="lazy"
+                                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                    <?php endif; ?>
+                                    <span class="<?= !empty($review['image']) ? 'hidden' : 'flex' ?> items-center justify-center w-full h-full text-[var(--secondary)] text-xs font-bold">
+                                        <?= review_initials($_name) ?>
+                                    </span>
                                 </div>
                                 <div>
-                                    <h4 class="text-white text-sm font-medium leading-tight">
-                                        <?= __('review_name_' . $review['key']) ?>
-                                    </h4>
-                                    <p class="text-[10px] uppercase tracking-[0.18em]
-                                              text-white/40 font-mono mt-1">
+                                    <h4 class="text-white text-sm font-medium leading-tight"><?= $_name ?></h4>
+                                    <p class="text-[10px] uppercase tracking-[0.18em] text-white/40 font-mono mt-1">
                                         <?= __('review_role_' . $review['key']) ?>
                                     </p>
                                 </div>
@@ -976,56 +853,127 @@ include 'includes/category-slider/template.php';
                     </article>
                 <?php endforeach; ?>
             </div>
-
+            <?php endif; ?>
         </div>
+
+        <!-- ══════════════════════════════════════════════════
+             MOBILE/TABLET (below lg) — everything in ONE
+             unified slider, all reviews included, no static
+             split at all
+        ══════════════════════════════════════════════════════ -->
+        <div class="lg:hidden wv-reveal" data-reveal>
+            <div class="reviews-featured-slider relative
+                        bg-gradient-to-br from-white/[0.04] to-white/[0.01]
+                        border border-white/10 rounded-2xl
+                        p-6 sm:p-8
+                        min-h-[24rem] sm:min-h-[26rem]
+                        overflow-hidden"
+                 data-slider-id="mobile">
+
+                <span aria-hidden="true"
+                      class="absolute top-6 <?= $_rtl ? 'right-4' : 'left-4' ?>
+                            text-[3rem] leading-none text-[var(--secondary)]/15
+                            select-none pointer-events-none">"</span>
+
+                <?php foreach ($home_reviews_blueprint as $i => $review):
+                    $_name = __('review_name_' . $review['key']);
+                ?>
+                    <article class="reviews-slide <?= $i === 0 ? 'is-active' : '' ?>
+                                    absolute inset-0 p-6 sm:p-8
+                                    flex flex-col justify-between
+                                    transition-opacity duration-700">
+
+                        <span class="font-mono text-[10px] tracking-[0.3em] uppercase
+                                     text-white/30 mb-6 self-start">
+                            <?= sprintf('%02d', $i + 1) ?> / <?= sprintf('%02d', count($home_reviews_blueprint)) ?>
+                        </span>
+
+                        <p class="text-base sm:text-lg font-light leading-relaxed
+                                  text-white/90 max-w-2xl my-auto relative z-10">
+                            <?= __('review_quote_' . $review['key']) ?>
+                        </p>
+
+                        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-white/10">
+                            <div class="w-10 h-10 rounded-full overflow-hidden
+                                        border border-white/20 flex-shrink-0
+                                        bg-[var(--secondary)]/15 flex items-center justify-center">
+                                <?php if (!empty($review['image'])): ?>
+                                <img src="<?= $review['image'] ?>"
+                                     alt="<?= htmlspecialchars($_name) ?>"
+                                     class="w-full h-full object-cover"
+                                     loading="lazy"
+                                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                <?php endif; ?>
+                                <span class="<?= !empty($review['image']) ? 'hidden' : 'flex' ?> items-center justify-center w-full h-full text-[var(--secondary)] text-xs font-bold">
+                                    <?= review_initials($_name) ?>
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-white text-sm leading-tight"><?= $_name ?></h4>
+                                <p class="text-[10px] uppercase tracking-[0.18em] text-white/40 font-mono mt-1">
+                                    <?= __('review_role_' . $review['key']) ?>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+
+                <div class="absolute bottom-4 <?= $_rtl ? 'left-6' : 'right-6' ?> z-20 flex items-center gap-2">
+                    <?php foreach ($home_reviews_blueprint as $i => $r): ?>
+                        <button type="button"
+                                class="reviews-dot <?= $i === 0 ? 'is-active' : '' ?>
+                                       h-[2px] rounded-full transition-all duration-400 cursor-pointer"
+                                data-slide-index="<?= $i ?>"
+                                aria-label="Show review <?= $i + 1 ?>"></button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
-<!-- ══ INLINE CAROUSEL SCRIPT ══════════════════════════════
-     7-second auto-rotation through featured slides.
-     Dots clickable, restart timer on manual change.
-══════════════════════════════════════════════════════════ -->
+<!-- ══ CAROUSEL SCRIPT — now handles BOTH sliders independently ══ -->
 <script>
 (function() {
-    const root = document.getElementById('reviews-featured-slider');
-    if (!root) return;
-    const slides = root.querySelectorAll('.reviews-slide');
-    const dots   = root.querySelectorAll('.reviews-dot');
-    if (!slides.length) return;
-
-    let idx = 0;
-    let timer;
     const SPEED = 7000;
 
-    const go = (i) => {
-        slides[idx]?.classList.remove('is-active');
-        dots[idx]?.classList.remove('is-active');
-        idx = i;
-        slides[idx]?.classList.add('is-active');
-        dots[idx]?.classList.add('is-active');
-    };
+    // Initializes one slider instance — called once per
+    // .reviews-featured-slider found on the page (desktop +
+    // mobile versions both get their own independent timer)
+    function initSlider(root) {
+        const slides = root.querySelectorAll('.reviews-slide');
+        const dots   = root.querySelectorAll('.reviews-dot');
+        if (!slides.length) return;
 
-    const next = () => go((idx + 1) % slides.length);
+        let idx = 0;
+        let timer;
 
-    const start = () => { timer = setInterval(next, SPEED); };
-    const stop  = () => { clearInterval(timer); };
+        const go = (i) => {
+            slides[idx]?.classList.remove('is-active');
+            dots[idx]?.classList.remove('is-active');
+            idx = i;
+            slides[idx]?.classList.add('is-active');
+            dots[idx]?.classList.add('is-active');
+        };
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            stop();
-            go(i);
-            start();
+        const next  = () => go((idx + 1) % slides.length);
+        const start = () => { timer = setInterval(next, SPEED); };
+        const stop  = () => { clearInterval(timer); };
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => { stop(); go(i); start(); });
         });
-    });
 
-    // Pause when hovering the whole featured panel
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('mouseleave', start);
+        root.addEventListener('mouseenter', stop);
+        root.addEventListener('mouseleave', start);
 
-    start();
+        start();
+    }
+
+    document.querySelectorAll('.reviews-featured-slider').forEach(initSlider);
 })();
 </script>
-
 <section class="w-full bg-black py-20 border-t border-white/10">
     <div class="max-w-[1600px] mx-auto px-6 md:px-12">
         

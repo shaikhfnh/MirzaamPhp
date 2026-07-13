@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FormSubmit Isolated Test</title>
+</head>
+<body style="font-family: sans-serif; max-width: 500px; margin: 40px auto;">
+
+<h2>FormSubmit Isolated Test</h2>
+<p>This bypasses Alpine.js / fouzForm entirely — a raw, plain HTML form
+POSTing directly to the exact same hash. If THIS works and arrives in
+your inbox, the problem is something in the site's JS/fetch code, not
+FormSubmit itself. If THIS also fails, the problem is FormSubmit/hash
+activation, not your code.</p>
+
+<form action="https://formsubmit.co/7af28a5f006460b337b52f5a57616f8f" method="POST">
+    <input type="hidden" name="_subject" value="ISOLATED TEST — Book Booth Debug">
+    <input type="hidden" name="_captcha" value="false">
+
+    <label>Test field:<br>
+        <input type="text" name="test_field" value="debug test 123" style="width:100%; padding:8px; margin:8px 0;">
+    </label><br><br>
+
+    <button type="submit" style="padding:10px 20px; background:black; color:white; border:none; cursor:pointer;">
+        Submit Raw Test
+    </button>
+</form>
+
+</body>
+</html>

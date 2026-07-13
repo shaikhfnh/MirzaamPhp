@@ -226,24 +226,8 @@ $mirzaam_years_blueprint = [
 
 
 $home_reviews_blueprint = [
-    [
-        'key'   => 'latifa',
-        'image' => 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'
-    ],
-    [
-        'key'   => 'yousef',
-        'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
-    ],
-    [
-        'key'   => 'reem',
-        'image' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80'
-    ],
-    [
-        'key'   => 'khaled',
-        'image' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80'
-    ],
-    [
-        'key'   => 'mariam',
-        'image' => 'https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?auto=format&fit=crop&w=400&q=80'
-    ],
+['key' => 'ali',   'image' => ''], // Dr. Ali Saleh Al-Najjad
+['key' => 'nada',  'image' => ''], // Nada
+['key' => 'dalal', 'image' => ''], // Dalal Zaid Alwazzan
+['key' => 'amna',  'image' => ''], // Amna Naeem Pakistani
 ];

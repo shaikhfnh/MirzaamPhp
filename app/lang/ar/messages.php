@@ -677,6 +677,24 @@ return [
     'exhibitors_subtitle'     => 'اكتشف كل علامة تجارية ومصمم وشريك مشارك هذا العام.',
 
 
+    //Booking form data
+    'bb_form_company'        => 'اسم الشركة',
+    'bb_form_contact_name'   => 'اسم جهة الاتصال',
+    'bb_form_phone'          => 'رقم الهاتف',
+    'bb_form_email'          => 'البريد الإلكتروني',
+    'bb_form_location'       => 'موقع الشركة',
+    'bb_form_instagram'      => 'حساب إنستقرام',
+    'bb_form_category'       => 'الفئة',
+    'bb_form_category_ph'    => 'اختر فئة',
+    'bb_form_message'        => 'رسالتك (اختياري)',
+    'bb_form_submit'         => 'إرسال',
+    'bb_form_sending'        => 'جاري الإرسال...',
+    'bb_form_required_note'  => 'الحقول المطلوبة',
+    'bb_form_success_title'  => 'شكرًا لك!',
+    'bb_form_success_desc'   => 'سيتواصل معك فريقنا قريبًا لتأكيد تفاصيل جناحك.',
+    'bb_form_try_again'      => 'حاول مرة أخرى',   
+
+
 ];
 
 ?>

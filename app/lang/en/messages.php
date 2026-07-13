@@ -695,5 +695,23 @@ return [
     'exhibitors_title'        => 'Exhibitors',
     'exhibitors_subtitle'     => 'Discover every brand, designer, and partner participating this year.',
 
+
+    //Booking form data
+    'bb_form_company'        => 'Company Name',
+    'bb_form_contact_name'   => 'Contact Name',
+    'bb_form_phone'          => 'Phone',
+    'bb_form_email'          => 'Contact Email',
+    'bb_form_location'       => 'Company Location',
+    'bb_form_instagram'      => 'Instagram',
+    'bb_form_category'       => 'Category',
+    'bb_form_category_ph'    => 'Select a category',
+    'bb_form_message'        => 'Your Message (optional)',
+    'bb_form_submit'         => 'Submit',
+    'bb_form_sending'        => 'Sending...',
+    'bb_form_required_note'  => 'Required fields',
+    'bb_form_success_title'  => 'Thank you!',
+    'bb_form_success_desc'   => 'Our team will reach out to confirm your booth details shortly.',
+    'bb_form_try_again'      => 'Try again',
+
     ];
 ?>

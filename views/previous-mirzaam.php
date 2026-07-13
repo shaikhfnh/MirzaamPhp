@@ -199,130 +199,50 @@ function getTierColor($tier, $tierColors) {
         </div>
     </section>
 
+    
+
 <!-- ── SPONSORS — grouped by tier stage, home-page card style ── -->
-    <?php if (!empty($sponsorsByTier)): ?>
-    <section class="w-full px-4 sm:px-8 lg:px-16 xl:px-24 py-10 md:py-14 border-t border-zinc-100 bg-zinc-50/50">
-        <div class="max-w-[1600px] mx-auto">
+<?php
+/**
+ * REPLACE the sponsors section (and the standalone "View All
+ * Participants" CTA section right after it) in
+ * previous-mirzaam.php with this.
+ *
+ * FIXED: uses each sponsor's real 'sub_tier' field directly
+ * (your data already has this — 'tier_1' or 'tier_2' per
+ * sponsor) instead of the earlier guess-by-tier-name logic,
+ * which misclassified sponsors whose sub_tier didn't line up
+ * with their tier label (e.g. Boubyan Bank is 'tier_1' despite
+ * being "Banking Sponsor" not "Platinum").
+ */
 
-            <div class="flex items-center gap-4 mb-10 wv-reveal" data-reveal>
-                <span class="text-[11px] tracking-[0.3em] uppercase text-yellow-600 font-semibold font-mono whitespace-nowrap">
-                    <?= __('prev_sponsors_label') ?: 'Sponsors & Partners' ?>
-                </span>
-                <span class="flex-1 h-px bg-zinc-200"></span>
-            </div>
+$tier_1_row = [];
+$tier_2_row = [];
 
-            <?php foreach ($sponsorsByTier as $tier => $tierSponsors): ?>
-                <div class="mb-8 last:mb-0 wv-reveal" data-reveal>
+foreach ($sponsors as $sp) {
+    $row = [
+        'brand_name'  => $sp['name'],
+        'tier_tag'    => $sp['tier'],
+        'website_url' => $sp['website_url'],
+        'logo_url'    => $sp['logo_url'],
+    ];
+    ($sp['sub_tier'] ?? 'tier_2') === 'tier_1'
+        ? $tier_1_row[] = $row
+        : $tier_2_row[] = $row;
+}
 
-                    <!-- Tier label row -->
-                    <div class="flex items-center gap-3 mb-5">
-                        <span class="text-[10px] font-bold font-mono tracking-wider uppercase px-3 py-1 rounded-full border
-                                     <?= getTierColor($tier, $tierColors) ?>">
-                            <?= htmlspecialchars($tier) ?>
-                        </span>
-                        <span class="flex-1 h-px bg-zinc-100"></span>
-                        <span class="text-[10px] text-zinc-400 font-mono">
-                            <?= count($tierSponsors) ?>
-                        </span>
-                    </div>
+$sponsorsTheme              = 'light'; // white cards, dark text
+$sponsorsSectionHeading     = __('prev_sponsors_label') ?: 'Sponsors & Partners';
+$sponsorsSectionSubheading  = '';
+$sponsorsViewAllUrl         = !empty($edition['participants_url'])
+    ? get_url(ltrim($edition['participants_url'], '/'))
+    : '';
+$sponsorsViewAllLabel       = __('prev_cta_participants') ?: 'View All Participants';
 
-                    <!-- Sponsor cards — home page style: square card,
-                         top bar with tier badge + separate external-
-                         link icon, logo fills the rest of the square -->
-                    <div class="flex flex-wrap gap-3 sm:gap-4 md:gap-5">
-                        <?php foreach ($tierSponsors as $si => $sp):
-                            $hasUrl    = !empty($sp['website_url']);
-                            $logoTag   = $hasUrl ? 'a' : 'div';
-                            $logoAttrs = $hasUrl
-                                ? 'href="' . htmlspecialchars($sp['website_url']) . '" target="_blank" rel="noopener noreferrer"'
-                                : '';
-                        ?>
-                            <div class="group relative rounded-2xl bg-white
-                                        aspect-square
-                                        w-[calc(50%-6px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-16px)] lg:w-[calc(16.666%-14px)]
-                                        max-w-[220px]
-                                        flex flex-col
-                                        shadow-lg hover:shadow-xl
-                                        transition-all duration-400
-                                        border border-zinc-200/50 hover:-translate-y-1
-                                        overflow-hidden
-                                        wv-reveal"
-                                 data-reveal data-delay="<?= $si * 70 ?>">
-
-                                <!-- Top bar — tier badge + external link icon -->
-                                <div class="flex items-center justify-between gap-2 px-3 pt-3 sm:px-4 sm:pt-4 flex-shrink-0">
-                                    <span class="text-[9px] sm:text-[10px] font-bold tracking-wider uppercase
-                                                 text-zinc-400 bg-zinc-50 px-2 py-0.5
-                                                 rounded-full border border-zinc-100
-                                                 whitespace-nowrap truncate max-w-[70%]">
-                                        <?= htmlspecialchars($tier) ?>
-                                    </span>
-
-                                    <?php if ($hasUrl): ?>
-                                    <a href="<?= htmlspecialchars($sp['website_url']) ?>"
-                                       target="_blank" rel="noopener noreferrer"
-                                       class="text-zinc-400 hover:text-black transition-colors duration-200 p-0.5 flex-shrink-0"
-                                       aria-label="<?= htmlspecialchars($sp['name']) ?>">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
-                                        </svg>
-                                    </a>
-                                    <?php endif; ?>
-                                </div>
-
-                                <!-- Logo — fills remaining square space.
-                                     Renders as <a> when a website URL
-                                     exists, plain <div> when it doesn't
-                                     (no dead/empty link). -->
-                                <<?= $logoTag ?> <?= $logoAttrs ?> class="flex-1 flex items-center justify-center p-4">
-                                    <?php if (!empty($sp['logo_url'])): ?>
-                                        <img src="<?= htmlspecialchars($sp['logo_url']) ?>"
-                                             alt="<?= htmlspecialchars($sp['name']) ?> Logo"
-                                             class="w-full h-full object-contain
-                                                    transition-transform duration-300 group-hover:scale-105"
-                                             loading="lazy"
-                                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                                        <span class="hidden items-center justify-center
-                                                     text-zinc-400 text-sm font-medium uppercase tracking-wider text-center px-2">
-                                            <?= htmlspecialchars($sp['name']) ?>
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="flex items-center justify-center
-                                                     text-zinc-300 text-2xl font-bold uppercase tracking-wider">
-                                            <?= htmlspecialchars(substr($sp['name'], 0, 2)) ?>
-                                        </span>
-                                    <?php endif; ?>
-                                </<?= $logoTag ?>>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-
-        </div>
-    </section>
-    <?php endif; ?>
-
-    <!-- ── VIEW ALL PARTICIPANTS — hidden for 2020 ──────── -->
-<?php if (!empty($edition['participants_url'])): ?>
-    <section class="w-full px-4 sm:px-8 lg:px-16 xl:px-24 py-12 md:py-16 border-t border-zinc-100">
-        <div class="max-w-[1600px] mx-auto text-center wv-reveal" data-reveal>
-            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 mb-3">
-                <?= __('prev_cta_title') ?: 'Explore This Edition' ?>
-            </h2>
-            <p class="text-zinc-400 font-light text-sm mb-8 max-w-md mx-auto">
-                <?= __('prev_cta_desc') ?: 'Browse the complete exhibitor list from this edition of Mirzaam.' ?>
-            </p>
-            <a href="<?= get_url(ltrim($edition['participants_url'], '/')) ?>"
-               class="group inline-flex items-center gap-2.5 bg-zinc-900 hover:bg-yellow-500 text-white hover:text-zinc-900 font-semibold text-sm px-7 py-3.5 rounded-full transition-all duration-300">
-                <?= __('prev_cta_participants') ?: 'View All Participants' ?>
-                <svg class="w-4 h-4 <?= $isRtl ? 'group-hover:-translate-x-0.5 rotate-180' : 'group-hover:translate-x-0.5' ?> transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                </svg>
-            </a>
-        </div>
-    </section>
-    <?php endif; ?>
+if (!empty($tier_1_row) || !empty($tier_2_row)) {
+    include 'includes/sponsors-portfolio/template.php';
+}
+?>
 
 </div>
 

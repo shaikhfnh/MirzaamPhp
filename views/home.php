@@ -679,7 +679,7 @@ function review_initials($name) {
 ?>
 
 <section id="reviews"
-         class="relative w-full py-20 lg:py-28 bg-black text-white overflow-hidden border-y border-white/5"
+         class="relative w-full py-12  bg-black text-white overflow-hidden border-y border-white/5"
          dir="<?= $_rtl ? 'rtl' : 'ltr' ?>">
 
     <div class="absolute bottom-0 <?= $_rtl ? 'left-0' : 'right-0' ?>
@@ -974,7 +974,7 @@ function review_initials($name) {
     document.querySelectorAll('.reviews-featured-slider').forEach(initSlider);
 })();
 </script>
-<section class="w-full bg-black py-20 border-t border-white/10">
+<!-- <section class="w-full bg-black py-20 border-t border-white/10">
     <div class="max-w-[1600px] mx-auto px-6 md:px-12">
         
      <div class="flex flex-wrap items-center justify-between gap-6 mb-12">
@@ -1018,7 +1018,7 @@ function review_initials($name) {
             <?php endforeach; ?>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Final Refined Newsletter Section -->
 <?php $_rtl = ($lang === 'ar'); ?>

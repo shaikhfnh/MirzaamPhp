@@ -693,6 +693,10 @@ return [
     'bb_form_success_title'  => 'شكرًا لك!',
     'bb_form_success_desc'   => 'سيتواصل معك فريقنا قريبًا لتأكيد تفاصيل جناحك.',
     'bb_form_try_again'      => 'حاول مرة أخرى',   
+    'cat_independent_educator' => 'معلم مستقل',
+    'cat_offers'                => 'عروض',
+    'cat_trainer'                => 'مدرب',
+    'bb_form_category_selected' => 'مختارة',
 
 
 ];

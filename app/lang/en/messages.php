@@ -712,6 +712,16 @@ return [
     'bb_form_success_title'  => 'Thank you!',
     'bb_form_success_desc'   => 'Our team will reach out to confirm your booth details shortly.',
     'bb_form_try_again'      => 'Try again',
+    'cat_independent_educator' => 'Independent Educator',
+    'cat_offers'                => 'Offers',
+    'cat_trainer'                => 'Trainer',
+    'bb_form_category_selected' => 'selected',
+
+    //Gallery Page
+    'gallery_full_title'      => 'Full Gallery',
+    'gallery_back_to_edition' => 'Back to Edition',
+    'gallery_photos_label'    => 'photos',
+
 
     ];
 ?>

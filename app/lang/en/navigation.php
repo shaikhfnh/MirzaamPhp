@@ -30,7 +30,7 @@ return [
     'ov_about'        => 'About Us',
     'ov_contact'      => 'Contact Us',
     
-    'book_booth'      => 'Book Your Booth 2026',
+    'book_booth'      => 'INTERESTED IN 2026?',
     'booth_coming_soon' => 'Registration opening soon',
     'booth_soon_tag'    => 'Soon',
 

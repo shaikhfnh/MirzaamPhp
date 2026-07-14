@@ -29,7 +29,7 @@ return [
     'ov_about'        => 'من نحن',
     'ov_contact'      => 'اتصل بنا',
     
-    'book_booth'      => 'احجز جناحك 2026',
+    'book_booth'      => 'مهتم 2026؟',
     'booth_coming_soon' => 'التسجيل يفتح قريباً',
     'booth_soon_tag'    => 'قريباً',
 
@@ -41,4 +41,9 @@ return [
     'menu_prev_2023' => 'مرزام ٢٠٢٣',
     'menu_prev_2022' => 'مرزام ٢٠٢٢',
     'menu_prev_2020' => 'مرزام ٢٠٢٠',
+
+    //Gallery Page
+    'gallery_full_title'      => 'المعرض الكامل',
+    'gallery_back_to_edition' => 'العودة إلى النسخة',
+    'gallery_photos_label'    => 'صورة',
 ];

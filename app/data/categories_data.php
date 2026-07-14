@@ -10,236 +10,244 @@
 // link to when clicked (e.g. /participants/2026?category=TILES).
 // Change this ONE value to update every page at once.
 //
-// $categories_blueprint: the full list of 53 categories with
-// their i18n key, exact category name (must match the Google
-// Sheet's category field for filtering to work), and an
-// Unsplash image URL.
+// $categories_blueprint: full list of 57 categories with i18n
+// key, exact category name (must match the Google Sheet's
+// category field for filtering to work), and image path.
 //
-// Images: all from Unsplash (free license, no attribution
-// required). To swap an image, just change the URL — the photo
-// ID is the part after /photo- in the URL.
+// Images: real AI-generated photography (Magnific), sand/stone
+// matte style, stored locally at
+// /mirzaam/assets/images/categories/mirzaam/ — original Magnific
+// filenames kept as-is (not renamed).
 // ============================================================
 
-// ── GLOBAL YEAR SETTING ─────────────────────────────────────
-// Change this to switch ALL category links across the site.
-// e.g. set to '2025' during the 2025 expo season.
 $mirzaam_active_year = '2025';
 
-// ── CATEGORY BLUEPRINT ──────────────────────────────────────
-// 'key'      → used for i18n: __('cat_architectural_consultant')
-// 'category' → EXACT name as it appears in the Google Sheet
-//              (used in the ?category= URL param for filtering)
-// 'img'      → Unsplash CDN URL, landscape crop, 1200px wide
 $categories_blueprint = [
     ['key' => 'architectural_consultant',
      'category' => 'ARCHITECTURAL CONSULTANT',
-     'img' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_architectural-blueprint-d_43wg5eL9Aa.webp'],
 
     ['key' => 'bathroom_accessories',
      'category' => 'BATHROOM ACCESSORIES',
-     'img' => 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_modern-bathroom-accessori_LUKqhMMswO.webp'],
 
     ['key' => 'bathroom_fitouts',
      'category' => 'BATHROOM FITOUTS',
-     'img' => 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_complete-luxury-bathroom-_9R7SKbDNYZ.webp'],
 
     ['key' => 'beddings',
      'category' => 'BEDDINGS',
-     'img' => 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_folded-luxury-bedding-and_hEBenpzvqL.webp'],
 
     ['key' => 'carpentry_wardrobe_fitout',
      'category' => 'CARPENTRY & WARDROBE FITOUT',
-     'img' => 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_custom-wardrobe-carpentry_rlqQIrGxtc.webp'],
 
     ['key' => 'carpets',
      'category' => 'CARPETS',
-     'img' => 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_rolled-luxury-carpets-dis_YVZi7onWeC.webp'],
 
     ['key' => 'cleaning_services',
      'category' => 'CLEANING SERVICES',
-     'img' => 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_professional-cleaning-equ_Eqm8VJvuuO.webp'],
 
     ['key' => 'contracting_company',
      'category' => 'CONTRACTING COMPANY',
-     'img' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_construction-blueprint-an_74sxFobJAL.webp'],
 
     ['key' => 'counter_tops',
      'category' => 'COUNTER TOPS',
-     'img' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_marble-countertop-samples_jS5HhtFLD0.webp'],
 
     ['key' => 'curtains_drapes',
      'category' => 'CURTAINS & DRAPES',
-     'img' => 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_elegant-drapery-fabric-sh_PiUl5sO42C.webp'],
 
     ['key' => 'custom_furniture',
      'category' => 'CUSTOM FURNITURE',
-     'img' => 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_bespoke-custom-furniture-_brEahFD5Y2.webp'],
 
     ['key' => 'doors_windows_indoor',
      'category' => 'DOORS & WINDOWS | INDOOR',
-     'img' => 'https://images.unsplash.com/photo-1537301636683-5ac98e0466a2?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_interior-door-and-window-_74sxr6zJAL.webp'],
 
     ['key' => 'electrical_sockets',
      'category' => 'ELECTRICAL SOCKETS',
-     'img' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_modern-electrical-socket-_ONgLjY4ynm.webp'],
+
+    ['key' => 'elevator_fitout',
+     'category' => 'ELEVATOR FITOUT',
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-elevator-interior-_rlqQuGoxtc.webp'],
 
     ['key' => 'exterior_doors_windows',
      'category' => 'EXTERIOR DOORS & WINDOWS',
-     'img' => 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_exterior-door-and-window-_LUKqHeIswO.webp'],
 
     ['key' => 'food_beverage',
      'category' => 'FOOD & BEVERAGE',
-     'img' => 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_elegant-catering-table-se_KjQCfohkqp.webp'],
 
     ['key' => 'home_accessories',
      'category' => 'HOME ACCESSORIES',
-     'img' => 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_curated-home-decor-access_xgbFQqtjfW.webp'],
 
     ['key' => 'home_appliances',
      'category' => 'HOME APPLIANCES',
-     'img' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_modern-kitchen-appliance-_vuoddCxa47.webp'],
 
     ['key' => 'home_automation_systems',
      'category' => 'HOME AUTOMATION SYSTEMS',
-     'img' => 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_smart-home-control-panel-_YVZiio6WeC.webp'],
 
     ['key' => 'home_electronics',
      'category' => 'HOME ELECTRONICS',
-     'img' => 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_home-entertainment-electr_3GPJJokREY.webp'],
 
     ['key' => 'home_fragrances',
      'category' => 'HOME FRAGRANCES',
-     'img' => 'https://images.unsplash.com/photo-1636714528228-f469eefb3eef?q=80&w=723&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-candle-and-fragran_gJrKkAfSXO.webp'],
 
     ['key' => 'home_gifting',
      'category' => 'HOME GIFTING',
-     'img' => 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_curated-gift-box-display-_gJrKkV5SXO.webp'],
 
     ['key' => 'home_insurance',
      'category' => 'HOME INSURANCE',
-     'img' => 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_consultation-desk-with-ho_rlqQFDfxtc.webp'],
 
     ['key' => 'home_office_furniture',
      'category' => 'HOME OFFICE FURNITURE',
-     'img' => 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_modern-home-office-desk-s_43wgSKP9Aa.webp'],
 
     ['key' => 'home_security',
      'category' => 'HOME SECURITY',
-     'img' => 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_security-camera-and-home-_9R7SUwdNYZ.webp'],
+
+    ['key' => 'independent_educator',
+     'category' => 'INDEPENDENT EDUCATOR',
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_interior-design-consultat_hEBeXfnvqL.webp'],
 
     ['key' => 'indoor_furniture',
      'category' => 'INDOOR FURNITURE',
-     'img' => 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_living-room-indoor-furnit_VdnAwxEMMU.webp'],
 
     ['key' => 'indoor_plants',
      'category' => 'INDOOR PLANTS',
-     'img' => 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_curated-indoor-plant-disp_xgbFqNdjfW.webp'],
 
     ['key' => 'industrial_floors',
      'category' => 'INDUSTRIAL FLOORS',
-     'img' => 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_industrial-flooring-sampl_62OwJI9iJO.webp'],
 
     ['key' => 'interior_design_consultant',
      'category' => 'INTERIOR DESIGN CONSULTANT',
-     'img' => 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_interior-design-consultan_YVZiRxdWeC.webp'],
 
     ['key' => 'interior_design_education',
      'category' => 'INTERIOR DESIGN EDUCATIONAL BODIES',
-     'img' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_design-school-classroom-w_ONgLlboynm.webp'],
 
     ['key' => 'interior_fitout',
      'category' => 'INTERIOR FITOUT',
-     'img' => 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_complete-interior-fitout-_XtVcMmWBfo.webp'],
 
     ['key' => 'kitchen_equipment',
      'category' => 'KITCHEN EQUIPMENT',
-     'img' => 'https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_professional-kitchen-equi_fFIBtL0CDY.webp'],
 
     ['key' => 'kitchen_fitout',
      'category' => 'KITCHEN FITOUT',
-     'img' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-kitchen-fitout-sho_62OwyIPiJO.webp'],
 
     ['key' => 'landscape_design',
      'category' => 'LANDSCAPE DESIGN',
-     'img' => 'https://plus.unsplash.com/premium_photo-1687960116909-096420a63d5a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_landscape-design-model-di_fFIBt2ECDY.webp'],
 
     ['key' => 'landscaping',
      'category' => 'LANDSCAPING',
-     'img' => 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_outdoor-landscaping-garde_kLFEH8M16B.webp'],
 
     ['key' => 'light_fittings',
      'category' => 'LIGHT FITTINGS',
-     'img' => 'https://plus.unsplash.com/premium_photo-1670914333012-f4093b108aa1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_designer-pendant-light-fi_PiUluMa42C.webp'],
 
     ['key' => 'mattress',
      'category' => 'MATTRESS',
-     'img' => 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-mattress-showroom-_MXYGWnRDCm.webp'],
+
+    ['key' => 'offers',
+     'category' => 'OFFERS',
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_promotional-offer-display_vuodI1Sa47.webp'],
 
     ['key' => 'online_apps_ecommerce',
      'category' => 'ONLINE APPS & E-COMMERCE',
-     'img' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_tablet-displaying-home-sh_gJrKjc0SXO.webp'],
 
     ['key' => 'outdoor_furniture',
      'category' => 'OUTDOOR FURNITURE',
-     'img' => 'https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_outdoor-patio-furniture-s_l715xX9gv9.webp'],
 
     ['key' => 'outdoor_plants',
      'category' => 'OUTDOOR PLANTS',
-     'img' => 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_outdoor-garden-plant-disp_62OwPLDiJO.webp'],
 
     ['key' => 'paint',
      'category' => 'PAINT',
-     'img' => 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_paint-color-swatch-displa_LUKqrfVswO.webp'],
 
     ['key' => 'parquet',
      'category' => 'PARQUET',
-     'img' => 'https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_parquet-wood-flooring-sam_wPLrgj57EI.webp'],
 
     ['key' => 'pillows',
      'category' => 'PILLOWS',
-     'img' => 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_decorative-pillow-display_MXYGTeYDCm.webp'],
 
     ['key' => 'plant_accessories',
      'category' => 'PLANT ACCESSORIES',
-     'img' => 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_plant-pot-and-gardening-a_1sHuKyzr4r.webp'],
 
     ['key' => 'property_development',
      'category' => 'PROPERTY DEVELOPMENT',
-     'img' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_architectural-model-of-pr_MXYGT5fDCm.webp'],
 
     ['key' => 'security_system',
      'category' => 'SECURITY SYSTEM',
-     'img' => 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_home-security-control-pan_brEaHcj5Y2.webp'],
 
     ['key' => 'shading_systems',
      'category' => 'SHADING SYSTEMS',
-     'img' => 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_window-shading-system-dis_gJrKsuESXO.webp'],
 
     ['key' => 'shutter_systems',
      'category' => 'SHUTTER SYSTEMS',
-     'img' => 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_roller-shutter-system-dis_iAy7NPN3uK.webp'],
 
     ['key' => 'stones',
      'category' => 'STONES',
-     'img' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_natural-stone-slab-sample_rlqQ1w9xtc.webp'],
 
     ['key' => 'swimming_pool',
      'category' => 'SWIMMING POOL DESIGN & INSTALLATION',
-     'img' => 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-swimming-pool-desi_l715sAkgv9.webp'],
 
     ['key' => 'textiles',
      'category' => 'TEXTILES',
-     'img' => 'https://images.unsplash.com/photo-1669125207581-789b24db33b8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_fabric-and-textile-roll-d_rlqFj0pxtc.webp'],
 
     ['key' => 'tiles',
      'category' => 'TILES',
-     'img' => 'https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_luxury-tile-samples-displ_KjQCVHPkqp.webp'],
+
+    ['key' => 'trainer',
+     'category' => 'TRAINER',
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_professional-training-ses_1sHQx8br4r.webp'],
 
     ['key' => 'upholstery',
      'category' => 'UPHOLSTERY',
-     'img' => 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_upholstery-fabric-swatche_rlqFLsCxtc.webp'],
 
     ['key' => 'wallpaper',
      'category' => 'WALLPAPER',
-     'img' => 'https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?auto=format&fit=crop&w=1200&q=80'],
+     'img' => '/mirzaam/assets/images/categories/mirzaam/magnific_wallpaper-pattern-sample-_brEfkwX5Y2.webp'],
 ];

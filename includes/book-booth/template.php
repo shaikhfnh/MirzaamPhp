@@ -1,36 +1,38 @@
 <?php
 /**
  * ═══════════════════════════════════════════════════════════
- * BOOK YOUR BOOTH — shared form template (FIXED)
+ * BOOK YOUR BOOTH — shared form template (FULL, FINAL)
  * SAVE AS: includes/book-booth/template.php — full replacement
  * ═══════════════════════════════════════════════════════════
- * FIX 1 — form disappearing bug: config is now built as a PHP
- * array and passed to fouzForm() via json_encode() wrapped in
- * htmlspecialchars(..., ENT_QUOTES), instead of manually
- * interpolating addslashes()'d strings into single-quoted JS
- * inside the x-data attribute. addslashes() escapes for JS
- * string rules only — it does NOT escape for HTML attribute
- * parsing. Any translated text containing a quote character
- * (very common, especially in Arabic) would prematurely close
- * the x-data="..." attribute, breaking Alpine's init entirely
- * — which is exactly why the form vanished regardless of
- * whether you submitted with or without data; the component
- * never initialized correctly in the first place.
+ * FIX — category dropdown not reacting: the checkbox state
+ * (catDropdownOpen, selectedCategories) now lives in its OWN
+ * properly-declared nested x-data on the field-group itself,
+ * instead of being bolted onto the parent via bare assignment
+ * in x-init. Bare assignment to undeclared property names
+ * inside x-init doesn't reliably attach to Alpine's reactive
+ * data — no error is thrown, but the click handler and the
+ * x-show end up disconnected from each other. A real x-data
+ * declaration guarantees Alpine tracks it correctly.
  *
- * FIX 2 — no max-width cap on the card, just the page's
- * standard padding.
+ * FIX — dropdown scroll not working: this site runs Lenis
+ * (global smooth-scroll), which intercepts wheel events before
+ * they reach small internal scroll areas like this dropdown —
+ * the exact same issue already solved once before for the App
+ * Connect phone mockup. That fix added a `.scroll-container`
+ * class that a wheel-listener in main.js's initAppMockup()
+ * already watches for site-wide (stops propagation, scrolls
+ * the element directly). Added that same class here — zero new
+ * JS needed, reuses the existing mechanism.
  *
- * FIX 3 — submit button aligns to the end of the reading
- * direction on md+ (right in English, left in Arabic), full
- * width on mobile.
+ * All previous fixes retained: safe JSON config passing (no
+ * more form-disappearing bug), no max-width cap on the card,
+ * submit button aligned to reading-direction end on desktop,
+ * numeric-only phone input.
  */
 
 $isRtl = ($lang === 'ar');
 $_cfg  = $boothFormConfig;
 
-// Build the fouzForm config as a plain PHP array, then encode
-// it safely — this is the proven-safe pattern, immune to any
-// quote characters in the translated text content.
 $_formJsConfig = [
     'actionUrl'        => $_form_config['action_url'],
     'subject'          => $_cfg['subject'],
@@ -73,8 +75,6 @@ $_formJsConfig = [
             </p>
         </div>
 
-        <!-- Form card — no max-width cap, fills the page's
-             standard padded width -->
         <div class="bg-white rounded-2xl border border-zinc-100 shadow-[0_4px_32px_-8px_rgba(0,0,0,0.07)] p-6 sm:p-8 md:p-12 wv-reveal" data-reveal data-delay="80">
 
             <div x-data="fouzForm(<?= htmlspecialchars(json_encode($_formJsConfig), ENT_QUOTES) ?>)">
@@ -110,7 +110,7 @@ $_formJsConfig = [
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="field-group">
                                 <label class="ct-label" for="bb-phone"><?= __('bb_form_phone') ?: 'Phone' ?> <span class="text-yellow-600">*</span></label>
-                               <input type="tel" id="bb-phone" x-model="values.phone"
+                                <input type="tel" id="bb-phone" x-model="values.phone"
                                     @input="values.phone = values.phone.replace(/[^0-9+\s-]/g, ''); errors.phone = ''"
                                     :class="errors.phone ? 'is-invalid' : ''" class="ct-input">
                                 <p class="ct-error" x-show="errors.phone" x-text="errors.phone"></p>
@@ -138,23 +138,69 @@ $_formJsConfig = [
                             </div>
                         </div>
 
-                        <div class="field-group">
-                            <label class="ct-label" for="bb-category"><?= __('bb_form_category') ?: 'Category' ?> <span class="text-yellow-600">*</span></label>
-                            <div class="relative">
-                                <select id="bb-category" x-model="values.category" @change="errors.category = ''"
+                        <!-- CATEGORY — multi-select dropdown, own nested
+                             x-data scope so state is properly reactive -->
+                        <div class="field-group"
+                             x-data="{ catDropdownOpen: false, selectedCategories: [] }"
+                             x-init="$watch('selectedCategories', val => { values.category = val.join(', '); if (val.length) errors.category = ''; })">
+
+                            <label class="ct-label"><?= __('bb_form_category') ?: 'Category' ?> <span class="text-yellow-600">*</span></label>
+
+                            <div class="relative" @click.outside="catDropdownOpen = false">
+                                <button type="button"
+                                        @click="catDropdownOpen = !catDropdownOpen"
                                         :class="errors.category ? 'is-invalid' : ''"
-                                        class="ct-input appearance-none cursor-pointer">
-                                    <option value="" disabled selected><?= __('bb_form_category_ph') ?: 'Select a category' ?></option>
-                                    <?php foreach ($_cfg['categories'] as $catKey => $catLabel): ?>
-                                        <option value="<?= htmlspecialchars($catLabel) ?>"><?= htmlspecialchars($catLabel) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 <?= $isRtl ? 'left-4' : 'right-4' ?> flex items-center text-zinc-400">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        class="ct-input flex items-center justify-between cursor-pointer text-left rtl:text-right">
+                                    <span class="truncate" :class="selectedCategories.length ? 'text-zinc-900' : 'text-zinc-400'"
+                                          x-text="selectedCategories.length
+                                                    ? selectedCategories.length + ' <?= __('bb_form_category_selected') ?: 'selected' ?>'
+                                                    : '<?= __('bb_form_category_ph') ?: 'Select categories' ?>'">
+                                    </span>
+                                    <svg class="w-4 h-4 text-zinc-400 flex-shrink-0 transition-transform duration-200"
+                                         :class="catDropdownOpen ? 'rotate-180' : ''"
+                                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                                     </svg>
+                                </button>
+
+                                <!-- Dropdown panel — scroll-container class
+                                     reuses the site-wide Lenis wheel-stop
+                                     mechanism already wired up in main.js -->
+                                <div x-show="catDropdownOpen" x-cloak
+                                     x-transition:enter="transition duration-150 ease-out"
+                                     x-transition:enter-start="opacity-0 -translate-y-1"
+                                     x-transition:enter-end="opacity-100 translate-y-0"
+                                     class="scroll-container absolute z-30 mt-2 w-full max-h-72 overflow-y-auto
+                                            bg-white border border-zinc-200 rounded-xl shadow-lg p-2"
+                                     style="-webkit-overflow-scrolling: touch;">
+                                    <?php foreach ($_cfg['categories'] as $catKey => $catLabel): ?>
+                                    <label class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-zinc-50 cursor-pointer transition-colors duration-150">
+                                        <input type="checkbox"
+                                               x-model="selectedCategories"
+                                               value="<?= htmlspecialchars($catLabel) ?>"
+                                               class="w-4 h-4 rounded border-zinc-300 text-yellow-500 focus:ring-yellow-500/30 focus:ring-2 cursor-pointer flex-shrink-0">
+                                        <span class="text-sm text-zinc-700"><?= htmlspecialchars($catLabel) ?></span>
+                                    </label>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
+
+                            <!-- Selected chips -->
+                            <div x-show="selectedCategories.length > 0" class="flex flex-wrap gap-2 mt-3">
+                                <template x-for="cat in selectedCategories" :key="cat">
+                                    <span class="inline-flex items-center gap-1.5 bg-yellow-50 text-yellow-700 border border-yellow-200 text-xs font-medium px-3 py-1.5 rounded-full">
+                                        <span x-text="cat"></span>
+                                        <button type="button"
+                                                @click="selectedCategories = selectedCategories.filter(c => c !== cat)"
+                                                class="hover:text-yellow-900 transition-colors duration-150">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </template>
+                            </div>
+
                             <p class="ct-error" x-show="errors.category" x-text="errors.category"></p>
                         </div>
 
@@ -165,9 +211,7 @@ $_formJsConfig = [
 
                     </div>
 
-                    <!-- Submit — full width on mobile, aligned to the
-                         reading-direction end on md+ (right in EN,
-                         left in AR) -->
+                    <!-- Submit -->
                     <div class="pt-2 mt-6 flex flex-col <?= $isRtl ? 'md:items-start' : 'md:items-end' ?>">
                         <button type="submit" :disabled="state === 'submitting'"
                             class="w-full md:w-auto md:min-w-[280px] inline-flex items-center justify-center gap-2.5 bg-zinc-950 hover:bg-yellow-500 active:scale-[0.98] text-white hover:text-zinc-900 font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group">

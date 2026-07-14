@@ -56,22 +56,56 @@ function getTierColor($tier, $tierColors) {
     preg_match('#previous/(\d{4})#', $_nav_path, $_nav_match);
     $_active_year = $_nav_match[1] ?? (isset($year) ? (string)$year : '');
     ?>
-    <div class="sticky top-[90px] z-40 bg-black backdrop-blur-md border-t border-zinc-100 mt-20">
-        <div class=" mx-auto px-4 sm:px-8 lg:px-40 ">
-            <div class="flex items-center gap-2 overflow-x-auto py-1"
-                 style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
-                <?php foreach ($previous_mirzaam_years as $y):
-                    $isActive = (trim((string)$y) === trim((string)$_active_year));
-                ?>
-                    <a href="<?= get_url('previous/' . $y) ?>"
-                       class="flex-shrink-0 px-4  rounded-full text-sm transition-all duration-200
-                              <?= $isActive
-                                  ? 'text-zinc-900 bg-white '
-                                  : 'text-zinc-400 hover:text-zinc-700 hover:bg-zinc-50' ?>">
-                        <?= $y ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
+<!-- ═══════════════════════════════════════════════════════
+         YEAR SWITCHER — split by device
+         Desktop (lg+): fixed vertical pill stack, right edge,
+           vertically centered — a "chapter navigator" feel,
+           doesn't take horizontal space from content.
+         Mobile: fixed bottom floating capsule bar instead of
+           squeezing the same vertical pattern into a narrow
+           edge (hard to tap precisely with a thumb, text would
+           need to shrink or rotate). Bottom placement is more
+           natural on mobile and thumb-reachable.
+    ═══════════════════════════════════════════════════════ -->
+
+    <!-- DESKTOP — vertical, right edge, centered -->
+    <div class="hidden lg:flex fixed right-1 top-1/2 -translate-y-1/4 z-40 flex-col gap-2
+                bg-black/90 backdrop-blur-md rounded-full py-4 px-2
+                shadow-[0_8px_32px_rgba(0,0,0,0.35)] border border-white/10">
+        <?php foreach ($previous_mirzaam_years as $y):
+            $isActive = (trim((string)$y) === trim((string)$_active_year));
+        ?>
+            <a href="<?= get_url('previous/' . $y) ?>"
+               class="group relative flex items-center justify-center w-10 h-10 rounded-full text-xs font-semibold transition-all duration-300
+                      <?= $isActive
+                          ? 'bg-white text-zinc-900 scale-110 shadow-lg'
+                          : 'text-white/50 hover:text-white hover:bg-white/10' ?>">
+                <?= $y ?>
+                <?php if ($isActive): ?>
+                <span class="absolute -left-2.5 top-1/2 -translate-y-1/2 w-1 h-4 bg-yellow-500 rounded-full"></span>
+                <?php endif; ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- MOBILE/TABLET — bottom floating capsule -->
+    <div class="lg:hidden fixed inset-x-0 bottom-5 z-[999] flex justify-center px-1"
+         style="padding-bottom: env(safe-area-inset-bottom);">
+        <div class="flex items-center gap-1 bg-black/90 backdrop-blur-md rounded-full p-1.5
+                    shadow-[0_8px_32px_rgba(0,0,0,0.35)] border border-white/10
+                    overflow-x-auto max-w-full"
+             style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
+            <?php foreach ($previous_mirzaam_years as $y):
+                $isActive = (trim((string)$y) === trim((string)$_active_year));
+            ?>
+                <a href="<?= get_url('previous/' . $y) ?>"
+                   class="flex-shrink-0 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300
+                          <?= $isActive
+                              ? 'bg-white text-zinc-900'
+                              : 'text-white/50 hover:text-white' ?>">
+                    <?= $y ?>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 

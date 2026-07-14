@@ -8,6 +8,7 @@ require_once 'app/data/home_data.php';
 require_once 'app/data/global_data.php';
 require_once 'app/data/menu.php';
 require_once 'app/data/previous-mirzaam-data.php';
+require_once 'app/data/full-gallery-data.php';
 require_once 'app/data/categories_data.php';
 
 // ── API EARLY EXIT ──────────────────────────────────────────
@@ -148,6 +149,10 @@ unset($_api_path, $_api_m);
             $year      = $matches[1];
             $view_file = 'views/previous-mirzaam.php';
         }
+        elseif (preg_match('#^gallery/(\d{4})$#', $path, $matches)) {
+    $year      = $matches[1];
+    $view_file = 'views/full-gallery.php';
+}
         // 5. /previous by itself (defaults to latest year)
         elseif ($path === 'previous') {
             $year      = '2025';

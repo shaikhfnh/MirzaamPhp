@@ -173,21 +173,21 @@ $metrics = [
 
 $moments_data = [
     [
-        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-1.png',
+        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-1.webp',
         'title'      => 'moment_1_title',
         'sub'        => 'moment_1_sub',
         'year_key'   => 'moment_1_year',
         'justify_class' => 'justify-center items-center'
     ],
     [
-        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-2.png',
+        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-2.webp',
         'title'      => 'moment_2_title',
         'sub'        => 'moment_2_sub',
         'year_key'   => '',
         'justify_class' => 'justify-end items-center pb-20 md:pb-28'
     ],
     [
-        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-3.png',
+        'img_src'    => '/mirzaam/assets/images/Home/Previous-2025-3.webp',
         'title'      => 'moment_3_title',
         'sub'        => 'moment_3_sub',
         'year_key'   => '',
